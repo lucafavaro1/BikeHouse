@@ -8,7 +8,7 @@ const loginUser = async (req, res) => {
     res.status(400).send();
     return;
   }
-  UserLoginModel.find(req.body, (err, result) => {
+  UserModel.find(req.body, (err, result) => {
     if (err) {
       res.status(404).json(err);
     } else if (result.length === 0) {

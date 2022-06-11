@@ -1,0 +1,36 @@
+.header {
+  padding: 20px;
+  text-align: center;
+  background: #269faf;
+  color: white;
+}
+
+.login-button {
+  position: absolute;
+  margin-right: 200px;
+  margin-top: -60px;
+  left: 0;
+  right: 0;
+  text-align: right;
+  z-index: 1;
+}
+
+.register-button {
+  position: absolute;
+  margin-right: 60px;
+  margin-top: -60px;
+  left: 0;
+  right: 0;
+  text-align: right;
+  z-index: 1;
+}
+
+.logo {
+  position: absolute;
+  margin-left: 20px;
+  margin-top: -60px;
+  left: 0;
+  right: 0;
+  text-align: left;
+  z-index: 1;
+}

@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-
-import "./LoginRegister.css";
+import "../css/LoginRegister.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -24,12 +23,6 @@ function Login() {
         password,
       });
       setUser(response.data[0].firstName);
-      if (user) {
-        console.log("USer is not null");
-        console.log(`Logged in user: ${user}`);
-      } else {
-        console.log("user sis not set");
-      }
       navigate("/");
     } catch (error) {
       emailRef.current.value = "";
@@ -38,6 +31,10 @@ function Login() {
       console.log(error);
     }
   };
+
+  function ErrorMessage({ message }) {
+    return <div className="alert alert-danger">{message}</div>;
+  }
 
   return (
     <div>
@@ -114,10 +111,6 @@ function Login() {
       </div>
     </div>
   );
-}
-
-function ErrorMessage({ message }) {
-  return <div className="alert alert-danger">{message}</div>;
 }
 
 export default Login;

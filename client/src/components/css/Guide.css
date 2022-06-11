@@ -1,0 +1,13 @@
+ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: disc;
+  margin-top: 2em;
+  /* em = font size */
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 1 em;
+  margin-left: 0;
+  margin-right: 200px;
+  padding-left: 200px;
+}
