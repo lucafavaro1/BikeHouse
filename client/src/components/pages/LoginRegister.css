@@ -1,0 +1,143 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+#login-bg.container-fluid {
+  padding: 0;
+  height: 80%;
+  /* position: absolute; */
+}
+
+#login {
+  padding-top: 2.5%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.login {
+  width: 100%;
+  height: 500px;
+  background-color: #fff;
+  padding: 15px;
+  padding-top: 30px;
+}
+
+.login h1 {
+  font-weight: bold;
+  font-size: 3.5em;
+  letter-spacing: 3px;
+}
+
+.login form {
+  max-width: 420px;
+  margin: 30px auto;
+}
+
+.login .btn {
+  border-radius: 5%;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 20px;
+  padding: 14px;
+  margin: 2%;
+  background-color: #306074;
+}
+
+.form-group input {
+  font-size: 20px;
+  font-weight: lighter;
+  border: none;
+  background-color: #f0f0f0;
+  color: #465347 !important;
+  padding: 16px 30px;
+  border-radius: 40px;
+  transition: 0.2s;
+}
+
+/* Form check styles*/
+
+.form-check {
+  padding: 0;
+  text-align: left;
+}
+
+.form-check label {
+  vertical-align: top;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 15px;
+  color: #606060;
+  font-size: 14px;
+}
+
+.link {
+  float: right;
+  font-weight: bold;
+}
+
+.link a {
+  color: #306074;
+  opacity: 0.6;
+}
+
+.link a:hover {
+  opacity: 1;
+}
+
+/* Switch styles */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  display: none;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f0f0f0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #306074;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #00b73d;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(30px);
+  -ms-transform: translateX(30px);
+  transform: translateX(30px);
+}
