@@ -8,6 +8,21 @@ ul {
   text-align: left;
   margin-bottom: 1 em;
   margin-left: 0;
-  margin-right: 200px;
-  padding-left: 200px;
+}
+
+.guide {
+  margin-top: 25px;
+  display: flex;
+}
+
+.guideNavbar {
+  margin-left: 25px;
+  flex: 2;
+}
+
+.page {
+  flex: 8;
+  text-align: left;
+  margin-right: 20px;
+  padding-left: 50px;
 }

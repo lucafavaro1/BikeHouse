@@ -3,6 +3,7 @@
   text-align: center;
   background: #269faf;
   color: white;
+  display: flex;
 }
 
 .login-button {
@@ -28,9 +29,20 @@
 .logo {
   position: absolute;
   margin-left: 20px;
-  margin-top: -60px;
+  margin-top: 0px;
   left: 0;
   right: 0;
   text-align: left;
-  z-index: 1;
+  flex: 2;
+}
+
+.text {
+  flex: 6;
+  margin-left: 200px;
+  text-align: center;
+}
+
+.buttons {
+  flex: 2;
+  margin-top: 50px;
 }
