@@ -5,19 +5,20 @@ const UserModel = require("../models/Users");
 const loginUser = async (req, res) => {
   if (Object.keys(req.body).length === 0) {
     // no JSON body
-    res.status(400).send();
-    return;
+    return res
+      .status(400)
+      .json({ error: "Bad Request", message: "The request body is empty" });
   }
-  UserModel.find(req.body, (err, result) => {
-    if (err) {
-      res.status(404).json(err);
-    } else if (result.length === 0) {
+
+  try {
+    let user = await UserModel.find(req.body).exec();
+    if (user.length === 0) {
       // no errors but empty user array
       res.status(404).send();
-    } else {
-      res.status(200).json(result);
-    }
-  });
+    } else return res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json(err);
+  }
 };
 
 const createUser = async (req, res) => {
@@ -28,21 +29,23 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  UserModel.findByIdAndUpdate(
-    req.body.id,
-    {
+  if (Object.keys(req.body).length === 0) {
+    // no JSON body
+    return res
+      .status(400)
+      .json({ error: "Bad Request", message: "The request body is empty" });
+  }
+
+  try {
+    let user = UserModel.findByIdAndUpdate(req.body.id, {
       name: req.body.name,
       age: req.body.age,
       username: req.body.username,
-    },
-    (err, result) => {
-      if (err) {
-        res.json(err); // send back the error
-      } else {
-        res.json(result); // send back the result to frontend
-      }
-    }
-  );
+    }).exec();
+    return res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json(err);
+  }
 };
 
 module.exports = {

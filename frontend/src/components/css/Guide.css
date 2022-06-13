@@ -18,11 +18,13 @@ ul {
 .guideNavbar {
   margin-left: 25px;
   flex: 2;
+  /* position: fixed; */
 }
 
 .page {
   flex: 8;
   text-align: left;
+  /* position: relative; */
   margin-right: 20px;
   padding-left: 50px;
 }
