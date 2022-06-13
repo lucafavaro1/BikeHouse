@@ -22,10 +22,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  isVerified: {
-    type: Boolean,
-    required: false,
-  },
+  isVerified: Boolean,
 });
 
 // name of collection + schema that represents that model

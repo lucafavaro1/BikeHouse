@@ -23,7 +23,7 @@ mongoose
 api.use("/", require("./src/routes/userRoutes"));
 
 server.on("listening", () => {
-  console.log(`API is running in port ${config.port}`);
+  console.log(`Server running port ${config.port}`);
 });
 
 server.on("error", (err) => {
