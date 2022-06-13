@@ -24,7 +24,7 @@ function Guide() {
           data-bs-spy="scroll"
           data-bs-target="#guideNavbar"
           data-bs-offset="0"
-          className="scrollText"
+          className="scrollspy-example"
           tabindex="0"
         >
           <h2 id="list-item-1" style={{ marginTop: 10 + "px" }}>

@@ -1,6 +1,7 @@
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Carousel } from "react-bootstrap";
+import "../css/Home.css";
 
 function Home() {
   const [show, setShow] = useState(true);
@@ -39,6 +40,44 @@ function Home() {
           </Button>
         </Modal.Footer>
       </Modal> */}
+
+      <Carousel>
+        <Carousel.Item interval={1000}>
+          <img
+            className="d-block w-100"
+            src="https://images.pexels.com/photos/1149601/pexels-photo-1149601.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3>First slide label</h3>
+            <p>Here write the caption of the photo</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://images.pexels.com/photos/37836/silhouette-fitness-bless-you-bike-37836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="Second slide"
+          />
+
+          <Carousel.Caption>
+            <h3>Second slide label</h3>
+            <p>Here write the caption of the photo</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://images.pexels.com/photos/71104/utah-mountain-biking-bike-biking-71104.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="Third slide"
+          />
+
+          <Carousel.Caption>
+            <h3>Third slide label</h3>
+            <p>Here write the caption of the photo</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 }

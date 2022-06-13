@@ -1,0 +1,27 @@
+.carousel {
+  position: relative;
+  width: 1000px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.carousel-inner {
+  position: relative;
+  max-width: 1000px;
+  max-height: 500px;
+  object-fit: scale-down;
+}
+
+.carousel-caption {
+  position: absolute;
+  visibility: hidden;
+  right: 15%;
+  bottom: 20px;
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
+}
