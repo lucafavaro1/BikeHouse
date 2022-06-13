@@ -9,7 +9,7 @@ function Navbar() {
       <a href="/login">Sell your bike</a>
       {/* <a href="#">About us</a> maybe we can put this section in the homepage*/}
       <a href="/guide">Guide</a>
-      <a href="#">Contact</a>
+      <a href="/contact">Contact us</a>
     </div>
   );
 }

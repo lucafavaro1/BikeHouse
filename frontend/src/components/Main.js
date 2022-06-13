@@ -7,6 +7,7 @@ import UpdateSecond from "./pages/UpdateSecond";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Guide from "./pages/Guide";
+import Contact from "./pages/Contact";
 
 function Main() {
   return (
@@ -18,6 +19,8 @@ function Main() {
       <Route exact path="/login" element={<Login />}></Route>
       <Route exact path="/register" element={<Register />}></Route>
       <Route exact path="/guide" element={<Guide />}></Route>
+      <Route exact path="/contact" element={<Contact />}></Route>
+
     </Routes>
   );
 }
