@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
+import Carousel from 'react-bootstrap/Carousel'
+import logo from "./logo.png";
 import "bootstrap/dist/css/bootstrap.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import logo from "./logo.png";
 import "../css/Contact.css";
-import Carousel from 'react-bootstrap/Carousel'
 
 function Contact() {
   const [firstName, setFirstName] = useState("");
@@ -17,32 +18,29 @@ function Contact() {
   };
   const navigate = useNavigate();
 
-  const logMessage = (event) => {
-    console.log(event)
-    // return (<div>Logged</div>)
-    //   event.preventDefault();
-    //   Axios.post("http://localhost:3001/createUser", {
-    //     firstName,
-    //     lastName,
-    //     birthDate,
-    //     email,
-    //     password,
-    //   })
-    //     .then((response) => {
-    //       console.log(response.data.firstName);
-  
-    //       setUser(response.data.firstName);
-    //       console.log(`Register in user: ${user}`);
-    //       navigate("/");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
+  const storeMessage = (event) => {
+    event.preventDefault();
+    Axios.post("http://localhost:3001/createFeedback", {
+      firstName,
+      lastName,
+      email,
+      message,
+    })
+      .then((response) => {
+        console.log(response.data.message);
+
+        setFirstName(response.data.firstName);
+        console.log(`Register in feedback: ${firstName}`);
+        // navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     };
 
   return (
   <div className="container justify-content-center">
-    <div className="contact">
+    <div id="contact" className="contact">
       <div className="topText">
         <h5>
           <b>Got a Question?</b>
@@ -59,8 +57,9 @@ function Contact() {
         <div className="col-lg-6">
           <img src={logo} alt="BikeHouse logo" height={350} width={350} style ={{"margin-top":"60px"}} />
         </div>
+
         <div className="col-lg-6">
-          <form onSubmit={logMessage}>
+          <form onSubmit={storeMessage}>
             <div className="form-group row col-lg-16">
               <div className="col-lg-6">
                 <input
@@ -79,7 +78,7 @@ function Contact() {
                 className="form-control"
                 placeholder="Last Name"
                 onChange={(e) => {
-                    setFirstName(e.target.value);
+                    setLastName(e.target.value);
                 }}
                   />
               </div>
@@ -100,7 +99,6 @@ function Contact() {
             <div className="form-group">
               <textarea
                 required
-
                 className="form-control"
                 placeholder="Message"
                 onChange={(e) => {
@@ -109,19 +107,18 @@ function Contact() {
               />
             </div>
 
-            <button
-              className="btn btn-lg btn-block btn-success"
-              type="submit"
-            >
+            <button className="btn btn-lg btn-block btn-success" type="submit">
               Send Message
             </button>
+
           </form>
         </div>
       </div>
 
       <div className="bottomText">
         <div className="row justify-content-center">
-          <div className=" contactCard col-lg-4">
+          
+          <div className="contactCard col-lg-4">
             <h5>Contact Information</h5>
             <div className="row">
               <div className="col-lg-2">
@@ -138,7 +135,8 @@ function Contact() {
               </div>
             </div>
           </div>
-          <div className="card-group socialMedia col-lg-3">
+
+          <div className="socialMedia col-lg-3">
             <div className="row justify-content-center" >
               <div className="icon col-lg-4">
                 <a href="https://www.youtube.com/" target="_blank"><i className=" bi bi-youtube"></i></a>
@@ -151,6 +149,7 @@ function Contact() {
               </div>
             </div>
           </div>
+
           <div id="helpCard" className="col-lg-5" >
             <h5>How can we help?</h5>
             <Carousel 
@@ -193,8 +192,6 @@ function Contact() {
                   <p className="card-text">Would you like to work with us?</p><br/>
                 </div>
               </div> */}
-            
-
           </div>
         </div>
       </div>
