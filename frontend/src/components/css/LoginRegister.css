@@ -1,70 +1,74 @@
-body {
+.loginRegister {
   font-family: "Montserrat", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-}
+  }
 
-#login-bg.container-fluid {
+.loginRegister#login-bg.container-fluid {
   padding: 0;
   height: 80%;
-  /* position: absolute; */
+  position: absolute;
 }
 
-#login {
+.loginRegister#login {
   padding-top: 2.5%;
   text-align: center;
   text-transform: uppercase;
 }
 
-.login {
+.loginRegister .login {
   width: 100%;
-  height: 500px;
   background-color: #fff;
   padding: 15px;
   padding-top: 30px;
 }
 
-.login h1 {
+.loginRegister .login h1 {
   font-weight: bold;
   font-size: 3em;
   letter-spacing: 3px;
 }
 
-.login form {
+.loginRegister .login form {
   max-width: 420px;
   margin: 30px auto;
 }
 
-.login .btn {
-  border-radius: 5%;
+.loginRegister .login .btn {
   text-transform: uppercase;
+  border-color: transparent;
   font-weight: bold;
   letter-spacing: 2px;
   font-size: 20px;
   padding: 14px;
-  margin: 2%;
   background-color: #306074;
 }
 
-.form-group input {
+.loginRegister .form-group {
+  padding-bottom: 0.5em;
+}
+
+.loginRegister .form-group input {
   font-size: 20px;
   font-weight: lighter;
   border: none;
   background-color: #f0f0f0;
   color: #465347 !important;
-  padding: 16px 30px;
+  padding: 1.25em 1.5em;
   border-radius: 40px;
   transition: 0.2s;
 }
 
 /* Form check styles*/
 
-.form-check {
+.loginRegister .form-check {
   padding: 0;
+  padding-bottom: 5%;
+  padding-top: 2%;
   text-align: left;
 }
 
-.form-check label {
+.loginRegister .form-check label {
   vertical-align: top;
   padding-top: 5px;
   padding-left: 5px;
@@ -73,23 +77,23 @@ body {
   font-size: 14px;
 }
 
-.link {
+.loginRegister .link {
   float: right;
   font-weight: bold;
 }
 
-.link a {
+.loginRegister .link a {
   color: #306074;
   opacity: 0.6;
 }
 
-.link a:hover {
+.loginRegister .link a:hover {
   opacity: 1;
 }
 
 /* Switch styles */
 
-.switch {
+.loginRegister .switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -97,12 +101,12 @@ body {
 }
 
 /* Hide default HTML checkbox */
-.switch input {
+.loginRegister .switch input {
   display: none;
 }
 
 /* The slider */
-.slider {
+.loginRegister .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -115,7 +119,7 @@ body {
   border-radius: 30px;
 }
 
-.slider:before {
+.loginRegister .slider:before {
   position: absolute;
   content: "";
   height: 22px;
@@ -128,15 +132,15 @@ body {
   border-radius: 50%;
 }
 
-input:checked + .slider {
+.loginRegister input:checked + .slider {
   background-color: #306074;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #00b73d;
+.loginRegister input:focus + .slider {
+  box-shadow: 0 0 1px #ffffff;
 }
 
-input:checked + .slider:before {
+.loginRegister input:checked + .slider:before {
   -webkit-transform: translateX(30px);
   -ms-transform: translateX(30px);
   transform: translateX(30px);

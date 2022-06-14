@@ -4,7 +4,5 @@ Basic website/repo structure 5hr each
 Website styling 1h 
 Guide implementation 2h
 
-
-# Kevin
-Contact UI 4h
-Contact backend 1h
+# Tarlan
+FIX: Footer is overlapping the page content 1h
