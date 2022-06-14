@@ -15,7 +15,7 @@ function App() {
         <Main />
       </div>
       {/* <Sideaìbar /> */}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

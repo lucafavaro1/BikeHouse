@@ -36,8 +36,7 @@ function Register() {
   };
 
   return (
-    <div>
-      <div className="container" id="login">
+      <div className="loginRegister" id="login">
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="login">
@@ -55,7 +54,6 @@ function Register() {
                     }}
                   />
                 </div>
-                <br />
 
                 <div className="form-group">
                   <input
@@ -67,7 +65,6 @@ function Register() {
                     }}
                   />
                 </div>
-                <br />
 
                 <div className="form-group">
                   <input
@@ -80,7 +77,6 @@ function Register() {
                     }}
                   />
                 </div>
-                <br />
 
                 <div className="form-group">
                   <input
@@ -93,7 +89,6 @@ function Register() {
                     }}
                   />
                 </div>
-                <br />
 
                 <div className="form-group">
                   <input
@@ -106,9 +101,7 @@ function Register() {
                     }}
                   />
                 </div>
-
-                <br />
-
+                
                 <button
                   className="btn btn-lg btn-block btn-success"
                   type="submit"
@@ -127,7 +120,6 @@ function Register() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

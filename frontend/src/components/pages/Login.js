@@ -37,13 +37,11 @@ function Login() {
   }
 
   return (
-    <div>
-      <div id="login">
-        <div className="row justify-content-center">
-          <div>
+      <div className="loginRegister" id="login">
+        <div className="justify-content-center">
             <div className="login">
               <h1>Welcome to BikeHouse!</h1>
-              <h2>Login</h2>
+              <h2>Sign in</h2>
 
               <form onSubmit={loginUser}>
                 <div className="form-group">
@@ -57,7 +55,6 @@ function Login() {
                     }}
                   />
                 </div>
-                <br />
 
                 <div className="form-group">
                   <input
@@ -70,7 +67,6 @@ function Login() {
                     }}
                   />
                 </div>
-                <br />
 
                 <div className="form-check">
                   <label className="switch">
@@ -83,11 +79,9 @@ function Login() {
                     <a href="/">Forgot Password?</a>
                   </label>
                 </div>
-
-                <br />
-
+                
                 <input
-                  className="btn btn-lg btn-block btn-success"
+                  className="btn btn-lg btn-block btn-secondary"
                   type="submit"
                   value="Submit"
                 ></input>
@@ -107,9 +101,7 @@ function Login() {
               </div>
             </div>
           </div>
-        </div>
       </div>
-    </div>
   );
 }
 
