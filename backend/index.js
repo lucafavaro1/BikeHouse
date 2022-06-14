@@ -21,6 +21,7 @@ mongoose
   });
 
 api.use("/", require("./src/routes/userRoutes"));
+api.use("/", require("./src/routes/feedbackRoutes"));
 
 server.on("listening", () => {
   console.log(`Server running port ${config.port}`);
