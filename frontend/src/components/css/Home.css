@@ -1,4 +1,4 @@
-.carousel {
+.home .carousel {
   position: relative;
   width: 1000px;
   height: 500px;
@@ -6,14 +6,14 @@
   margin-right: auto;
 }
 
-.carousel-inner {
+.home .carousel-inner {
   position: relative;
   max-width: 1000px;
   max-height: 500px;
   object-fit: scale-down;
 }
 
-.carousel-caption {
+.home .carousel-caption {
   position: absolute;
   visibility: hidden;
   right: 15%;

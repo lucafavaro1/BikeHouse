@@ -165,33 +165,22 @@ function Contact() {
               onSelect={handleSelect}
             >
               <Carousel.Item>
-                <a className="" href="#">Talk to a Specialist</a><br/>
-                <p className="">Connect with one of our specialists<br/> to find your dream bike.</p><br/>
+                <a className="" href="#">Talk to a Specialist<br/>
+                  <p className="plain">Connect with one of our specialists<br/> to find your dream bike.</p><br/>
+                </a>
               </Carousel.Item>
               <Carousel.Item>
-                <a className="" href="/guide">Fix your Bike</a><br/>
-                <p className="">Read the DIY Guide to fix your bike<br/>or to know of essential maintenance tips. </p><br/>
+                <a className="" href="/guide">Fix your Bike<br/>
+                  <p className="">Read the DIY Guide to fix your bike<br/>or to know of essential maintenance tips. </p><br/>
+                </a>
               </Carousel.Item >
               <Carousel.Item>
-                <a className="" href="mailto:careers@bikehouse.com">Careers</a><br/>
+                <a className="" href="mailto:careers@bikehouse.com">Careers<br/>
                 <p className="">Would you like to work with us?<br/> Shoot us a mail!</p><br/>
+                </a>
               </Carousel.Item>
             </Carousel>
-              
-              {/* <div className="row" align="left">
-                <div className="card col-lg-4" >
-                  <a className="card-title" href="#"><h6>Talk to a Specialist</h6></a><br/>
-                  <p className="card-text">Connect with one of our specialists to find your dream bike</p><br/>
-                </div>
-                <div className="card col-lg-4">
-                  <a className="card-title" href="/guide">Fix your Bike</a><br/>
-                  <p className="card-text">Read the DIY Guide to fix your bike</p><br/>
-                </div>
-                <div className="card col-lg-3">
-                  <a className="card-title" href="mailto:careers@bikehouse.com">Careers</a><br/>
-                  <p className="card-text">Would you like to work with us?</p><br/>
-                </div>
-              </div> */}
+
           </div>
         </div>
       </div>

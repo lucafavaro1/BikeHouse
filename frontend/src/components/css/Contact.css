@@ -55,7 +55,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   text-align: left;
-  /* max-width: 450px;   */
   margin: auto;
 }
 
@@ -63,17 +62,10 @@
   margin-top: 5%;
 }
 
-#helpCard h5{
+.helpCard h5{
   text-align: left;
+  padding-left: 5%;
 }
-
-/* .card {
-  margin-left: 10px;
-}
-
-.card h6 {
-  font-size: 15px;
-} */
 
 /* icons style */
 
@@ -83,17 +75,17 @@
   opacity: 0.8;
 }
 
-.contact .bi-arrow-left,
+/* .contact .bi-arrow-left,
 .contact .bi-arrow-right {
   padding-top: -50px;
-}
+} */
 
 /* carousel style */
 
 .contact .carousel {
   position: relative;
-  max-width: 445px;
-  max-height: 120px;
+  width: 445px;
+  height: 120px;
   object-fit: scale-down;
   background-color: #f0f0f0;
   color: #306074;
@@ -139,10 +131,11 @@
   padding: auto;
   margin: auto;
   background-color: #306074;
+  opacity: 0.8;
 }
 
 .contact .btn:hover {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 /* link style */
@@ -158,8 +151,13 @@
 }
 
 .contact a:hover {
-  color: #306074;
+  color: #274b5a;
   opacity: 1;
+  text-decoration: none;
+}
+
+.plain{
+  text-decoration: none;
 }
 
 /* Form check styles*/
