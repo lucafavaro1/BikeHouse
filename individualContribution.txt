@@ -3,3 +3,6 @@ Basic website/repo structure 5hr each
 # Luca
 Website styling 1h 
 Guide implementation 2h
+
+# Tarlan
+FIX: Footer is overlapping the page content 1h
