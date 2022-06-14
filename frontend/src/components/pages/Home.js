@@ -41,7 +41,12 @@ function Home() {
         </Modal.Footer>
       </Modal> */}
 
-      <Carousel>
+      <Carousel
+        indicators={false}
+        prevLabel={null}
+        nextLabel={null}
+        pause="hover"
+      >
         <Carousel.Item interval={1000}>
           <img
             className="d-block w-100"
