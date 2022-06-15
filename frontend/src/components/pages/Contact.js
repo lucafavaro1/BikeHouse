@@ -124,12 +124,12 @@ function Contact() {
           </div>
         </div>
 
-        <div className="bottomText">
+        <div id="bottomText" className="bottomText">
           <div className="row justify-content-center">
-            <div className="contactCard col-lg-4">
+            <div id="contactCard" className="contactCard col-sm-6 col-lg-4">
               <h5>Contact Information</h5>
               <div className="row">
-                <div className="col-lg-2">
+                <div className="col-sm-2 col-lg-2">
                   <i className="bi bi-geo-alt"></i>
                   <br />
                   <br />
@@ -139,7 +139,7 @@ function Contact() {
                   <i className="bi bi-envelope"></i>
                   <br />
                 </div>
-                <div className="col-lg-10">
+                <div className="col-sm-10 col-lg-10">
                   <p>
                     Boltzmannstraße 3,
                     <br />
@@ -158,19 +158,19 @@ function Contact() {
               </div>
             </div>
 
-            <div className="socialMedia col-lg-3">
+            <div id="socialMedia" className="socialMedia col-sm-6 col-lg-3">
               <div className="row justify-content-center">
-                <div className="icon col-lg-4">
+                <div className="icon col-sm-3 col-lg-4">
                   <a href="https://www.youtube.com/" target="_blank">
                     <i className=" bi bi-youtube"></i>
                   </a>
                 </div>
-                <div className="icon col-lg-4">
+                <div className="icon col-sm-3 col-lg-4">
                   <a href="https://www.facebook.com/" target="_blank">
                     <i className="bi bi-facebook"></i>
                   </a>
                 </div>
-                <div className="icon col-lg-4">
+                <div className="icon col-sm-3 col-lg-4">
                   <a href="https://www.linkedin.com/" target="_blank">
                     <i className="bi bi-linkedin"></i>
                   </a>
@@ -178,7 +178,7 @@ function Contact() {
               </div>
             </div>
 
-            <div id="helpCard" className="col-lg-5">
+            <div id="helpCard" className="helpCard row col-sm-12 col-lg-5">
               <h5>How can we help?</h5>
               <Carousel
                 fade
@@ -196,56 +196,41 @@ function Contact() {
                 activeIndex={index}
                 onSelect={handleSelect}
               >
-                <Carousel.Item className="carouselBg">
+                <Carousel.Item>
                   <a className="" href="#">
                     Talk to a Specialist
+                    <br />
+                    <p className="plain">
+                      Connect with one of our specialists
+                      <br /> to find your dream bike.
+                    </p>
+                    <br />
                   </a>
-                  <br />
-                  <p className="">
-                    Connect with one of our specialists
-                    <br /> to find your dream bike.
-                  </p>
-                  <br />
                 </Carousel.Item>
-                <Carousel.Item className="carouselBg">
+                <Carousel.Item>
                   <a className="" href="/guide">
                     Fix your Bike
-                  </a>
-                  <br />
-                  <p className="">
-                    Read the DIY Guide to fix your bike
                     <br />
-                    or to know of essential maintenance tips.{" "}
-                  </p>
-                  <br />
+                    <p className="">
+                      Read the DIY Guide to fix your bike
+                      <br />
+                      or to know of essential maintenance tips.{" "}
+                    </p>
+                    <br />
+                  </a>
                 </Carousel.Item>
-                <Carousel.Item className="carouselBg">
+                <Carousel.Item>
                   <a className="" href="mailto:careers@bikehouse.com">
                     Careers
+                    <br />
+                    <p className="">
+                      Would you like to work with us?
+                      <br /> Shoot us a mail!
+                    </p>
+                    <br />
                   </a>
-                  <br />
-                  <p className="">
-                    Would you like to work with us?
-                    <br /> Shoot us a mail!
-                  </p>
-                  <br />
                 </Carousel.Item>
               </Carousel>
-
-              {/* <div className="row" align="left">
-                <div className="card col-lg-4" >
-                  <a className="card-title" href="#"><h6>Talk to a Specialist</h6></a><br/>
-                  <p className="card-text">Connect with one of our specialists to find your dream bike</p><br/>
-                </div>
-                <div className="card col-lg-4">
-                  <a className="card-title" href="/guide">Fix your Bike</a><br/>
-                  <p className="card-text">Read the DIY Guide to fix your bike</p><br/>
-                </div>
-                <div className="card col-lg-3">
-                  <a className="card-title" href="mailto:careers@bikehouse.com">Careers</a><br/>
-                  <p className="card-text">Would you like to work with us?</p><br/>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
