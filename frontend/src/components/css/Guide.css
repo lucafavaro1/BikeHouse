@@ -6,7 +6,7 @@ ul {
   /* em = font size */
   gap: 10px;
   text-align: left;
-  margin-bottom: 1 em;
+  margin-bottom: 1em;
   margin-left: 0;
 }
 
@@ -15,7 +15,7 @@ body {
 }
 
 .guide {
-  margin-top: 25px;
+  margin-top: 3vh;
   display: flex;
 }
 
@@ -29,4 +29,6 @@ body {
   text-align: left;
   margin-right: 20px;
   padding-left: 50px;
+  overflow-y: scroll;
+  height: 70vh;
 }

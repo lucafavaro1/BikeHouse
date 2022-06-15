@@ -1,9 +1,10 @@
 .header {
-  padding: 20px;
+  padding: 2vh;
   text-align: center;
   background: #269faf;
   color: white;
   display: flex;
+  height: 17vh;
 }
 
 .login-button {

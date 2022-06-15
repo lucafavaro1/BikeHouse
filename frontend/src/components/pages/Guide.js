@@ -1,11 +1,12 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Guide.css";
 
 function Guide() {
   return (
     <div className="guide">
-      <div id="guideNavbar" className="guideNavbar">
+      <div class="guideNavbar">
         <a class="list-group-item list-group-item-action" href="#list-item-1">
           <b>The ABC’s</b>
         </a>
@@ -22,9 +23,8 @@ function Guide() {
       <div className="page">
         <div
           data-bs-spy="scroll"
-          data-bs-target="#guideNavbar"
-          data-bs-offset="0"
-          className="scrollspy-example"
+          data-bs-bs-target=".guideNavbar"
+          data-offset="0"
           tabindex="0"
         >
           <h2 id="list-item-1" style={{ marginTop: 10 + "px" }}>
