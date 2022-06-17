@@ -3,8 +3,13 @@ import logo from "./logo.png";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "../css/Header.css";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../features/userSlice";
+import Logout from "./logout";
 
 function Header() {
+  const user = useSelector(selectUser);
+
   return (
     <div className="header">
       <div className="logo">
@@ -16,23 +21,29 @@ function Header() {
       </div>
       <div className="buttons">
         <div className="row justify-content-end">
-          <div className="col-auto">
-            <Link to="/login">
-              <Button variant="warning" size="lg">
-                {" "}
-                Sign in{" "}
-              </Button>
-            </Link>
-          </div>
+          {user ? (
+            <Logout />
+          ) : (
+            <>
+              <div className="col-auto">
+                <Link to="/login">
+                  <Button variant="warning" size="lg">
+                    {" "}
+                    Sign in{" "}
+                  </Button>
+                </Link>
+              </div>
 
-          <div className="col-auto">
-            <Link to="/register">
-              <Button variant="warning" size="lg">
-                {" "}
-                Sign up{" "}
-              </Button>
-            </Link>
-          </div>
+              <div className="col-auto">
+                <Link to="/register">
+                  <Button variant="warning" size="lg">
+                    {" "}
+                    Sign up{" "}
+                  </Button>
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

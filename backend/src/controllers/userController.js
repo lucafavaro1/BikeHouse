@@ -3,6 +3,7 @@ const UserModel = require("../models/Users");
 // @desc Get user by email and password
 // @route POST /users/login
 const loginUser = async (req, res) => {
+  console.log("request for loginUser");
   if (Object.keys(req.body).length === 0) {
     // no JSON body
     return res
@@ -15,7 +16,7 @@ const loginUser = async (req, res) => {
     if (user.length === 0) {
       // no errors but empty user array
       res.status(404).send();
-    } else return res.status(200).json(user);
+    } else return res.status(200).json(user[0]);
   } catch (err) {
     res.status(404).json(err);
   }
