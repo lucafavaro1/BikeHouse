@@ -55,7 +55,7 @@ function Contact() {
         </div>
 
         <div id="contactForm" className="row justify-content-center">
-          <div className="col-lg-6">
+          <div className="d-none d-md-block col-md-6">
             <img
               src={logo}
               alt="BikeHouse logo"
@@ -65,10 +65,10 @@ function Contact() {
             />
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-md-6">
             <form onSubmit={storeMessage}>
-              <div className="form-group row col-lg-16">
-                <div className="col-lg-6">
+              <div className="form-group row col-md-16">
+                <div className="col-md-6">
                   <input
                     required
                     className="form-control"
@@ -79,7 +79,7 @@ function Contact() {
                   />
                 </div>
 
-                <div className="col-lg-6">
+                <div className="col-md-6">
                   <input
                     required
                     className="form-control"
@@ -115,7 +115,7 @@ function Contact() {
               </div>
 
               <button
-                className="btn btn-lg btn-block btn-success"
+                className="btn btn-md btn-block btn-success"
                 type="submit"
               >
                 Send Message
@@ -126,10 +126,10 @@ function Contact() {
 
         <div id="bottomText" className="bottomText">
           <div className="row justify-content-center">
-            <div id="contactCard" className="contactCard col-sm-6 col-lg-4">
+            <div id="contactCard" className="contactCard col-12 col-md-4">
               <h5>Contact Information</h5>
               <div className="row">
-                <div className="col-sm-2 col-lg-2">
+                <div className="d-none d-md-block col-2">
                   <i className="bi bi-geo-alt"></i>
                   <br />
                   <br />
@@ -139,7 +139,7 @@ function Contact() {
                   <i className="bi bi-envelope"></i>
                   <br />
                 </div>
-                <div className="col-sm-10 col-lg-10">
+                <div className="col-10 ">
                   <p>
                     Boltzmannstraße 3,
                     <br />
@@ -158,19 +158,19 @@ function Contact() {
               </div>
             </div>
 
-            <div id="socialMedia" className="socialMedia col-sm-6 col-lg-3">
+            <div id="socialMedia" className="socialMedia col-12 col-md-3">
               <div className="row justify-content-center">
-                <div className="icon col-sm-3 col-lg-4">
+                <div className="icon col-4">
                   <a href="https://www.youtube.com/" target="_blank">
                     <i className=" bi bi-youtube"></i>
                   </a>
                 </div>
-                <div className="icon col-sm-3 col-lg-4">
+                <div className="icon col-4">
                   <a href="https://www.facebook.com/" target="_blank">
                     <i className="bi bi-facebook"></i>
                   </a>
                 </div>
-                <div className="icon col-sm-3 col-lg-4">
+                <div className="icon col-4">
                   <a href="https://www.linkedin.com/" target="_blank">
                     <i className="bi bi-linkedin"></i>
                   </a>
@@ -178,7 +178,7 @@ function Contact() {
               </div>
             </div>
 
-            <div id="helpCard" className="helpCard row col-sm-12 col-lg-5">
+            <div id="helpCard" className="helpCard row col-12 col-md-5">
               <h5>How can we help?</h5>
               <Carousel
                 fade
@@ -200,9 +200,11 @@ function Contact() {
                   <a className="" href="#">
                     Talk to a Specialist
                     <br />
-                    <p className="plain">
-                      Connect with one of our specialists
-                      <br /> to find your dream bike.
+                    <p className="">
+                      Connect with one of our specialists <br/> 
+                    </p>
+                    <p className="d-none d-md-block">
+                      to find your dream bike.
                     </p>
                     <br />
                   </a>
@@ -214,6 +216,8 @@ function Contact() {
                     <p className="">
                       Read the DIY Guide to fix your bike
                       <br />
+                    </p>
+                    <p className="d-none d-md-block">
                       or to know of essential maintenance tips.{" "}
                     </p>
                     <br />

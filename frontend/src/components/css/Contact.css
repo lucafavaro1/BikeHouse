@@ -45,7 +45,8 @@
 }
 
 .bottomText {
-  margin-top: 50px;
+  margin: 30px;
+  margin-bottom: 40px;
   text-align: left;
 }
 
@@ -60,6 +61,7 @@
 
 .socialMedia {
   margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 .helpCard h5{
