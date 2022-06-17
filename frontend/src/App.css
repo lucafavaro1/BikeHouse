@@ -20,3 +20,21 @@
   position: relative;
   min-height: 100vh;
 }
+
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 3em;
+  line-height: 1.2;
+  background: var(--bikehouse-blue);
+  color: white;
+  cursor: pointer;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 5px 10px #ccc;
+}
+
+.back-to-top:hover {
+  background: rgb(45, 42, 248);
+}

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 import Carousel from "react-bootstrap/Carousel";
 import logo from "./logo.png";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/Contact.css";
+import emailjs from "@emailjs/browser";
+import emailkey from "../../features/emailkey";
+import { Modal, Button } from "react-bootstrap";
 
 function Contact() {
   const [firstName, setFirstName] = useState("");
@@ -13,30 +15,33 @@ function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [index, setIndex] = useState(0);
+  const [show, setShow] = useState(true);
+  const [confirmSent, setConfirmedSent] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    setConfirmedSent(false);
+  };
+  const handleShow = () => setShow(true);
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
   const navigate = useNavigate();
 
-  const storeMessage = (event) => {
-    event.preventDefault();
-    Axios.post("http://localhost:3001/createFeedback", {
-      firstName,
-      lastName,
-      email,
-      message,
-    })
-      .then((response) => {
-        console.log(response.data.message);
+  function sendEmail(e) {
+    e.preventDefault();
+    console.log(e.target);
 
-        setFirstName(response.data.firstName);
-        console.log(`Register in feedback: ${firstName}`);
-        // navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    emailjs.init(emailkey.USER_ID);
+    emailjs.sendForm(emailkey.SERVICE_ID, emailkey.TEMPLATE_ID, e.target).then(
+      (result) => {
+        setConfirmedSent(true);
+      },
+      (error) => {
+        alert("An error occurred, Please try again", error.text);
+      }
+    );
+  }
 
   return (
     <div className="container justify-content-center">
@@ -54,6 +59,24 @@ function Contact() {
           </p>
         </div>
 
+        {confirmSent === true ? (
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header>
+              <Modal.Title> Message Sent !</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Thanks for contacting Bike House, we will get back to you shortly!
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose} href="/">
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        ) : (
+          <p></p>
+        )}
+
         <div id="contactForm" className="row justify-content-center">
           <div className="d-none d-md-block col-md-6">
             <img
@@ -66,11 +89,12 @@ function Contact() {
           </div>
 
           <div className="col-md-6">
-            <form onSubmit={storeMessage}>
+            <form onSubmit={sendEmail}>
               <div className="form-group row col-md-16">
                 <div className="col-md-6">
                   <input
                     required
+                    name="firstname"
                     className="form-control"
                     placeholder="First Name"
                     onChange={(e) => {
@@ -82,6 +106,7 @@ function Contact() {
                 <div className="col-md-6">
                   <input
                     required
+                    name="lastname"
                     className="form-control"
                     placeholder="Last Name"
                     onChange={(e) => {
@@ -95,6 +120,7 @@ function Contact() {
                 <input
                   required
                   type="email"
+                  name="email"
                   className="form-control"
                   placeholder="Email"
                   onChange={(e) => {
@@ -106,7 +132,8 @@ function Contact() {
               <div className="form-group">
                 <textarea
                   required
-                  className="form-control"
+                  name="message"
+                  className="form-control message"
                   placeholder="Message"
                   onChange={(e) => {
                     setMessage(e.target.value);
@@ -201,7 +228,7 @@ function Contact() {
                     Talk to a Specialist
                     <br />
                     <p className="">
-                      Connect with one of our specialists <br/> 
+                      Connect with one of our specialists <br />
                     </p>
                     <p className="d-none d-md-block">
                       to find your dream bike.
