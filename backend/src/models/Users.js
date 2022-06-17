@@ -33,6 +33,6 @@ const UserSchema = new mongoose.Schema({
 });
 
 // name of collection + schema that represents that model
-const UserModel = mongoose.model("users_tarlans", UserSchema);
+const UserModel = mongoose.model("user", UserSchema);
 
 module.exports = UserModel;

@@ -13,7 +13,7 @@ const Logout = () => {
   return (
     <>
       <div className="col-auto">
-        <span className="m-4">Hello, {user.name} </span>
+        <span className="m-4 text-light">Hello, {user.name} </span>
 
         <Button className="" variant="warning" size="sm" onClick={handleLogout}>
           {" "}

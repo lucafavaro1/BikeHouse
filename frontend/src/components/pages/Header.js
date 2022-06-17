@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "./logo.png";
+import "../../fonts/Bangela.ttf";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "../css/Header.css";
@@ -18,33 +19,6 @@ function Header() {
       <div className="text">
         <h1>BikeHouse</h1>
         <p>Your verified marketplace for bikes</p>
-      </div>
-      <div className="buttons">
-        <div className="row justify-content-end">
-          {user ? (
-            <Logout />
-          ) : (
-            <>
-              <div className="col-auto">
-                <Link to="/login">
-                  <Button variant="warning" size="lg">
-                    {" "}
-                    Sign in{" "}
-                  </Button>
-                </Link>
-              </div>
-
-              <div className="col-auto">
-                <Link to="/register">
-                  <Button variant="warning" size="lg">
-                    {" "}
-                    Sign up{" "}
-                  </Button>
-                </Link>
-              </div>
-            </>
-          )}
-        </div>
       </div>
     </div>
   );
