@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userSlice, { logout, selectUser } from "../../features/userSlice";
+import { logout, selectUser } from "../../features/userSlice";
 import { Button } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ const Logout = () => {
   return (
     <>
       <div className="col-auto">
-        <span className="m-4">Hallo, {user.name} </span>
+        <span className="m-4">Hello, {user.name} </span>
 
         <Button className="" variant="warning" size="sm" onClick={handleLogout}>
           {" "}

@@ -3,9 +3,9 @@ import logo from "./logo.png";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "../css/Header.css";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUser } from "../../features/userSlice";
-import Logout from "./logout";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
+import Logout from "./Logout";
 
 function Header() {
   const user = useSelector(selectUser);

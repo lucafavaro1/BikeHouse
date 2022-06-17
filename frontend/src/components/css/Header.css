@@ -28,8 +28,8 @@
 }
 
 .logo {
-  position: absolute;
-  margin-left: 20px;
+  position: relative;
+  margin-left: 0px;
   margin-top: 0px;
   left: 0;
   right: 0;
@@ -39,7 +39,6 @@
 
 .text {
   flex: 6;
-  margin-left: 200px;
   text-align: center;
 }
 

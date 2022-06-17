@@ -25,14 +25,14 @@ const UserSchema = new mongoose.Schema({
   },
   billingAddress: {
     type: Schema.Types.ObjectId,
-    ref: 'address',
+    ref: "address",
     required: false,
-    default: "62a8d2db92f7dccf6e401015"
+    default: "62a8d2db92f7dccf6e401015",
   },
   isVerified: Boolean,
 });
 
 // name of collection + schema that represents that model
-const UserModel = mongoose.model("users_tarlan", UserSchema);
+const UserModel = mongoose.model("users_tarlans", UserSchema);
 
 module.exports = UserModel;
