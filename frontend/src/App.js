@@ -1,5 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+// import "./fonts/Bangela.ttf";
 import Main from "./components/Main";
 import Header from "./components/pages/Header";
 import Navbar from "./components/pages/Navbar";

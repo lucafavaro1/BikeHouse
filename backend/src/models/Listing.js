@@ -19,7 +19,7 @@ const ListingSchema = new mongoose.Schema(
     },
     sellerId: {
       type: Schema.Types.ObjectId,
-      ref: "users_tarlan",
+      ref: "user",
       required: true,
     },
     finalPrice: {

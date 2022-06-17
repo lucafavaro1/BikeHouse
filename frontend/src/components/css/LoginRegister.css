@@ -2,7 +2,7 @@
   font-family: "Montserrat", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  }
+}
 
 .loginRegister#login-bg.container-fluid {
   padding: 0;
@@ -41,7 +41,7 @@
   letter-spacing: 2px;
   font-size: 20px;
   padding: 14px;
-  background-color: #306074;
+  background-color: var(--bikehouse-blue);
 }
 
 .loginRegister .form-group {
@@ -83,7 +83,7 @@
 }
 
 .loginRegister .link a {
-  color: #306074;
+  color: var(--bikehouse-blue);
   opacity: 0.6;
 }
 
@@ -133,7 +133,7 @@
 }
 
 .loginRegister input:checked + .slider {
-  background-color: #306074;
+  background-color: var(--bikehouse-blue);
 }
 
 .loginRegister input:focus + .slider {

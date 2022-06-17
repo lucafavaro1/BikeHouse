@@ -1,10 +1,22 @@
+/* @import url("fonts/Bangela.ttf"); */
+
+@font-face {
+  font-family: "custom_bangela";
+  src: url("./fonts/Bangela.ttf") format("truetype");
+  /* font-weight: normal;
+  font-style: normal; */
+}
+
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --bikehouse-blue: #2e6076;
 }
 
 .App {
   text-align: center;
   position: relative;
   min-height: 100vh;
-  padding-bottom: 2.5%;
 }
