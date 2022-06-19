@@ -20,5 +20,9 @@
   flex: 10;
   margin-left: -100px;
   text-align: center;
-  font-family: "custom_bangela";
+  font-family: Merienda One;
+}
+
+h1 {
+  font-size: 100px;
 }

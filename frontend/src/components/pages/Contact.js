@@ -22,10 +22,13 @@ function Contact() {
     setShow(false);
     setConfirmedSent(false);
   };
+
   const handleShow = () => setShow(true);
+
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
+
   const navigate = useNavigate();
 
   function sendEmail(e) {
@@ -176,8 +179,8 @@ function Contact() {
                     <br />
                     <a href="tel: +49 1234 567890">+49 1234 567890</a>
                     <br />
-                    <a href="mailto:support@bikehouse.com">
-                      support@bikehouse.com
+                    <a href="bikehouse.feedback@gmail.com">
+                      bikehouse.feedback@gmail.com
                     </a>
                     <br />
                   </p>

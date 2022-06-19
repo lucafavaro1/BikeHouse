@@ -4,6 +4,7 @@ Basic website/repo structure 5hr each
 Website styling 1h 
 Guide implementation 2h
 Contact form with real email sending 2h
+Sell a bike page, form + upload image + backend 5h
 
 # Tarlan
 FIX: Footer is overlapping the page content 1h
@@ -17,4 +18,4 @@ Contacts Page 3h
 Backend feedback 0.5h
 
 # All together
-Fix footer, create scroll to top arrow, fix navbar (sticky + design with login / register button) 3hr 
+Fix footer, create scroll to top arrow, fix navbar (sticky + design with login / register button) 3h

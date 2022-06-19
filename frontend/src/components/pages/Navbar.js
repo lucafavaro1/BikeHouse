@@ -26,7 +26,11 @@ function Navibar() {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="col-8 justify-content-start">
           <Nav.Link href="/">Buy a Bike</Nav.Link>
-          <Nav.Link href="/login">Sell Your Bike</Nav.Link>
+          {user ? (
+            <Nav.Link href="/sellbike">Sell Your Bike</Nav.Link>
+          ) : (
+            <Nav.Link href="/login">Sell Your Bike</Nav.Link>
+          )}
           <Nav.Link href="/guide">Guide</Nav.Link>
           <Nav.Link href="/contact">Contact Us</Nav.Link>
         </Nav>

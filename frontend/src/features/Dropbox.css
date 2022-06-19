@@ -1,0 +1,22 @@
+.dropbox {
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.btn_drop {
+  padding: 10px;
+  background-color: var(--bikehouse-blue);
+  color: white;
+  border-radius: 10px;
+  width: 200px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn_drop:hover {
+  background-color: rgb(217, 221, 0);
+  color: black;
+}

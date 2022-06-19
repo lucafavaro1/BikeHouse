@@ -1,0 +1,75 @@
+.sellBike {
+  margin-left: 250px;
+  margin-right: 250px;
+}
+
+.initialText {
+  margin-top: 30px;
+  text-align: left;
+  font-weight: normal;
+}
+
+.custom {
+  width: 80px;
+  margin-left: 16px;
+}
+
+.warning p {
+  font-weight: bold;
+}
+
+.steps {
+  width: 100%;
+  display: flex;
+  text-align: center;
+}
+
+.navbar_state {
+  margin-top: 30px;
+}
+
+.navbar_state a.nav-link {
+  color: var(--bikehouse-blue);
+  border-color: var(--bikehouse-blue) var(--bikehouse-blue)
+    var(--bikehouse-blue);
+}
+
+.navbar_state .nav-item {
+  margin-right: 50px;
+}
+
+.navbar_state a.nav-link.active {
+  color: #ffffff;
+  background-color: var(--bikehouse-blue);
+}
+
+.next {
+  background-color: var(--bikehouse-blue);
+  width: 80px;
+}
+
+.next:hover {
+  background-color: rgb(217, 221, 0);
+  color: black;
+}
+
+.form-check {
+  margin-left: 50px;
+  margin-bottom: 10px;
+}
+
+.modal_verification {
+  position: absolute;
+  margin-left: 68%;
+  margin-top: 48%;
+  max-width: 175px;
+  max-height: 100px;
+}
+
+.photo_guide {
+  position: absolute;
+  margin-left: 68%;
+  margin-top: 12%;
+  max-width: 175px;
+  max-height: 100px;
+}

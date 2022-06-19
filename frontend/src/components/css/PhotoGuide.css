@@ -1,0 +1,37 @@
+ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: disc;
+  margin-top: 2em;
+  /* em = font size */
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 1em;
+  margin-left: 0;
+}
+
+body {
+  position: relative;
+}
+
+.guide {
+  margin-top: 3vh;
+  display: flex;
+}
+
+.guideNavbar {
+  margin-left: 25px;
+  flex: 2;
+}
+
+.page {
+  flex: 8;
+  text-align: left;
+  margin-right: 20px;
+  padding-left: 50px;
+}
+
+img {
+  max-width: 500px;
+  max-height: 500px;
+}

@@ -1,11 +1,5 @@
-/* @import url("fonts/Bangela.ttf"); */
-
-@font-face {
-  font-family: "custom_bangela";
-  src: url("./fonts/Bangela.ttf") format("truetype");
-  /* font-weight: normal;
-  font-style: normal; */
-}
+@import url("https://fonts.googleapis.com/css2?family=Merienda+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap");
 
 * {
   box-sizing: border-box;
@@ -36,5 +30,6 @@
 }
 
 .back-to-top:hover {
-  background: rgb(45, 42, 248);
+  background: rgb(217, 221, 0);
+  color: black;
 }
