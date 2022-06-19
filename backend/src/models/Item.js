@@ -51,11 +51,11 @@ const BikeSchema = new mongoose.Schema({
   },
   condition: {
     type: Number,
-    required: true,
+    required: false,
   },
   frameVerified: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   description: {
     type: String,
@@ -75,6 +75,14 @@ const BikeSchema = new mongoose.Schema({
   },
   brakeType: {
     type: String,
+    required: true,
+  },
+  frameToBeVerified: {
+    type: Boolean,
+    required: true,
+  },
+  conditionToBeVerified: {
+    type: Boolean,
     required: true,
   },
 
