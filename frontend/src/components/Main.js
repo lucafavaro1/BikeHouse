@@ -6,12 +6,14 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Guide from "./pages/Guide";
 import Contact from "./pages/Contact";
+import Listings from "./pages/Listings";
 
 function Main() {
   return (
     <Routes>
       {/* The Switch decides which component to show based on the current URL.*/}
       <Route exact path="/" element={<Home />}></Route>
+      <Route exact path="/buy" element={<Listings />}></Route>
       <Route exact path="/login" element={<Login />}></Route>
       <Route exact path="/register" element={<Register />}></Route>
       <Route exact path="/guide" element={<Guide />}></Route>

@@ -1,0 +1,58 @@
+.listings .filtersPanel{
+	background-color: rgb(191, 213, 223);
+	padding: 1.2em 0.5em 1.3em 1.3em;
+ }
+
+.listings .filtersTitle {
+	padding-bottom: 3%;
+	margin: 0;
+	font-weight: bold;
+	font-size: 1.2em;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+.listings .textField {
+	max-width: 100%;
+}
+
+.listings .accordion-body {
+	background-color: rgb(158, 178, 187);
+	padding: 3%;
+}
+
+.listings .accordion-header {
+	margin: 0;
+}
+
+.listings .accordion-button {
+	padding: 3%;
+	width: 100%;
+	background-color: whitesmoke;
+	border: 0;
+	border-radius: 2.5% 2.5% 1.5% 1.5% / 15% 15% 10% 10%;
+	font-size: 1rem;
+	text-align: left;
+}
+  
+.listings .accordion-button:focus {
+	box-shadow: none;
+}
+
+.listings .form-select {
+    width: 70%;
+}
+
+.listings .conditionInput {
+	display: block;
+}
+
+.listings .applyBtnCol {
+	padding: 0;
+	padding-right: 0.8%;
+}
+
+.listings .applyBtn {
+	width: 100%;
+}
+
