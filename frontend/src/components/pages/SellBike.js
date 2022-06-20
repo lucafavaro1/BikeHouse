@@ -58,7 +58,13 @@ function SellBike() {
       reader.onload = function (e) {
         setPhotos((prevState) => [
           ...prevState,
-          { id: index, src: e.target.result, name: file.name, size: file.size },
+          {
+            id: index,
+            src: e.target.result,
+            name: file.name,
+            size: file.size,
+            toShow: false,
+          },
         ]);
       };
       reader.readAsDataURL(file);
@@ -71,6 +77,23 @@ function SellBike() {
       {list.name} - {list.size} bytes
     </li>
   ));
+
+  let photoList = photos.map((item) => {
+    return (
+      <Form.Check>
+        <Form.Check.Input
+          type="checkbox"
+          onClick={() => {
+            const newPhotos = [...photos];
+            newPhotos[newPhotos.indexOf(item)].toShow =
+              !newPhotos[newPhotos.indexOf(item)].toShow;
+            setPhotos(newPhotos);
+          }}
+        />
+        <Form.Check.Label>{item.name}</Form.Check.Label>
+      </Form.Check>
+    );
+  });
 
   function renderSwitch(param) {
     switch (param) {
@@ -355,6 +378,11 @@ function SellBike() {
               <ShowImage images={photos} />
             </div>
             <div className="initialText">
+              <h4>Which images do you wanna show on your listing?</h4>
+              <hr></hr>
+              <p>Please select from the following list</p>
+              {photoList}
+              <p></p>
               <h3>Verification</h3>
               <hr></hr>
               <Row>
