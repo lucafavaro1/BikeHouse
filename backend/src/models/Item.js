@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const UserModel = require("./Users");
 
 const parentClassOptions = {
   discriminatorKey: "kind",
@@ -61,10 +62,7 @@ const BikeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  photos: {
-    type: [String],
-    required: true,
-  },
+  photos: [{ id: String, src: Buffer, name: String, size: Number }],
   frontGears: {
     type: Number,
     required: true,

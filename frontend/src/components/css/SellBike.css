@@ -53,17 +53,25 @@
   color: black;
 }
 
+.boost_now {
+  background-color: var(--bikehouse-blue);
+}
+
+.boost_now:hover {
+  background-color: rgb(217, 221, 0);
+  color: black;
+}
+
 .form-check {
   margin-left: 50px;
   margin-bottom: 10px;
 }
 
 .modal_verification {
-  position: absolute;
-  margin-left: 68%;
-  margin-top: 48%;
-  max-width: 175px;
+  text-align: center;
+  max-width: 200px;
   max-height: 100px;
+  margin-top: 0px;
 }
 
 .photo_guide {

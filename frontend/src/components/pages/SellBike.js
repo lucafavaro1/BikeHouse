@@ -1,5 +1,5 @@
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
-import { Route } from "react-router";
+import Axios from "axios";
 import React, { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import "../css/SellBike.css";
@@ -23,21 +23,54 @@ function SellBike() {
   const [description, setDescription] = useState("");
   const [conditionVerification, setConditionVerification] = useState(false);
   const [frameVerification, setFrameVerification] = useState(false);
-  const [images, setImages] = useState([]);
+  const [photos, setPhotos] = useState([]);
+
+  const submitListing = async () => {
+    Axios.post("http://localhost:3001/createItem", {
+      brand,
+      model,
+      type,
+      location,
+      price,
+      frameSize,
+      frameMaterial,
+      color,
+      gender,
+      frontGears,
+      rearGears,
+      brakeType,
+      description,
+      conditionToBeVerified: conditionVerification,
+      frameToBeVerified: frameVerification,
+      photos,
+    })
+      .then((response) => {
+        console.log(`Listing successfully added`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.map((file, index) => {
       const reader = new FileReader();
       reader.onload = function (e) {
-        setImages((prevState) => [
+        setPhotos((prevState) => [
           ...prevState,
-          { id: index, src: e.target.result },
+          { id: index, src: e.target.result, name: file.name, size: file.size },
         ]);
       };
       reader.readAsDataURL(file);
       return file;
     });
   }, []);
+
+  const lists = photos.map((list) => (
+    <li key={list.id}>
+      {list.name} - {list.size} bytes
+    </li>
+  ));
 
   function renderSwitch(param) {
     switch (param) {
@@ -98,10 +131,15 @@ function SellBike() {
                     }}
                   >
                     <option>Select Type</option>
-                    <option value="Child">Child</option>
-                    <option value="Man">Man</option>
-                    <option value="Woman">Woman</option>
-                    <option value="Unisex">Unisex</option>
+                    <option value="City">City Bike</option>
+                    <option value="Road">Road Bike</option>
+                    <option value="MTB">Mountain Bike</option>
+                    <option value="Downhill">Downhill</option>
+                    <option value="Gravel">Gravel</option>
+                    <option value="Folding">Folding</option>
+                    <option value="E-Bike">E-Bike</option>
+                    <option value="Classic">Classic</option>
+                    <option value="Others">Others</option>
                   </Form.Select>
                 </Form.Group>
                 <Form.Group className="col mt-3 mb-3">
@@ -274,13 +312,6 @@ function SellBike() {
       case 2:
         return (
           <div className="upload_pictures">
-            <Modal.Dialog className="modal_verification">
-              <Modal.Title>&#9888;</Modal.Title>
-              <Modal.Body>
-                <p>Verification affects the listing order.</p>
-              </Modal.Body>
-            </Modal.Dialog>
-
             <Modal.Dialog className="photo_guide">
               <Modal.Title>&#9733;</Modal.Title>
               <Modal.Body>
@@ -317,35 +348,52 @@ function SellBike() {
             </div>
             <div className="dragndrop">
               <DropBox onDrop={onDrop} />
-              <ShowImage images={images} />
+              <aside>
+                <h4>Uploaded pictures:</h4>
+                <p>{lists}</p>
+              </aside>
+              <ShowImage images={photos} />
             </div>
             <div className="initialText">
               <h3>Verification</h3>
               <hr></hr>
-              <Form.Check>
-                <Form.Check.Input
-                  type="checkbox"
-                  id="condition_verification"
-                  onClick={() =>
-                    setConditionVerification(!conditionVerification)
-                  }
-                />
-                <Form.Check.Label>
-                  {" "}
-                  I want an expert to verify the <b>condition</b> of my bike
-                </Form.Check.Label>
-              </Form.Check>
-              <Form.Check>
-                <Form.Check.Input
-                  type="checkbox"
-                  id="frame_verification"
-                  onClick={() => setFrameVerification(!frameVerification)}
-                />
-                <Form.Check.Label>
-                  {" "}
-                  I want an expert to verify the <b>frame number</b> of my bike
-                </Form.Check.Label>
-              </Form.Check>
+              <Row>
+                <div className="col-9">
+                  <Form.Check>
+                    <Form.Check.Input
+                      type="checkbox"
+                      id="condition_verification"
+                      onClick={() =>
+                        setConditionVerification(!conditionVerification)
+                      }
+                    />
+                    <Form.Check.Label>
+                      {" "}
+                      I want an expert to verify the <b>condition</b> of my bike
+                    </Form.Check.Label>
+                  </Form.Check>
+                  <Form.Check>
+                    <Form.Check.Input
+                      type="checkbox"
+                      id="frame_verification"
+                      onClick={() => setFrameVerification(!frameVerification)}
+                    />
+                    <Form.Check.Label>
+                      {" "}
+                      I want an expert to verify the <b>frame number</b> of my
+                      bike
+                    </Form.Check.Label>
+                  </Form.Check>
+                </div>
+                <div className="col-3">
+                  <Modal.Dialog className="modal_verification">
+                    <Modal.Title>&#9888;</Modal.Title>
+                    <Modal.Body>
+                      <p>Verification affects the listing order.</p>
+                    </Modal.Body>
+                  </Modal.Dialog>
+                </div>
+              </Row>
               <p></p>
             </div>
             <hr></hr>
@@ -401,14 +449,15 @@ function SellBike() {
                 </Card.Text>
                 <Button
                   variant="primary"
+                  className="boost_now"
                   onClick={() => alert("Implement payment")}
                 >
                   Boost Now
                 </Button>
               </Card.Body>
               <Card.Footer className="text-muted">
-                In case you change your mind, you can also boost your Ad later
-                from your listing{" "}
+                If you change your mind, you can also boost your Ad later from
+                your listing{" "}
               </Card.Footer>
             </Card>
             <Row>
@@ -434,7 +483,10 @@ function SellBike() {
               <Button
                 className="col mt-3 mb-3 next"
                 href="/"
-                onClick={() => alert("To implement my listing page in profile")}
+                onClick={() => {
+                  alert("To implement my listing page in profile");
+                  submitListing();
+                }}
               >
                 Submit
               </Button>

@@ -1,4 +1,5 @@
 const UserModel = require("../models/Users");
+const ItemModel = require("../models/Item");
 
 // @desc Get user by email and password
 // @route POST /users/login
@@ -49,8 +50,20 @@ const updateUser = async (req, res) => {
   }
 };
 
+const createItem = async (req, res) => {
+  const item = req.body;
+  const newItem = new ItemModel.BikeModel(
+    item,
+    (frameVerified = false),
+    (condition = 0)
+  );
+  await newItem.save(); // async request to crease a new user
+  res.json(newItem);
+};
+
 module.exports = {
   loginUser,
   createUser,
   updateUser,
+  createItem,
 };

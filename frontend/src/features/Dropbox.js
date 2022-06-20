@@ -53,12 +53,6 @@ function DropBox({ onDrop }) {
     noKeyboard: true,
   });
 
-  const lists = acceptedFiles.map((list) => (
-    <li key={list.path}>
-      {list.path} - {list.size} bytes
-    </li>
-  ));
-
   return (
     <>
       {" "}
@@ -74,10 +68,6 @@ function DropBox({ onDrop }) {
           </Button>
         </Container>
       </section>
-      <aside>
-        <h4>Uploaded pictures:</h4>
-        <p>{lists}</p>
-      </aside>
     </>
   );
 }
