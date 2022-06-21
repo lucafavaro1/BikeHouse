@@ -197,7 +197,7 @@ function Contact() {
                 onSelect={handleSelect}
               >
                 <Carousel.Item>
-                  <a className="" href="#">
+                  <a className="" href="/specialist">
                     Talk to a Specialist
                     <br />
                     <p className="">
