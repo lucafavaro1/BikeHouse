@@ -47,7 +47,7 @@ function Login() {
   }
 
   return (
-    <div className="loginRegister" id="login">
+    <div className="loginRegister content" id="login">
       <div className="justify-content-center">
         <div className="login">
           <h1>Welcome to BikeHouse!</h1>

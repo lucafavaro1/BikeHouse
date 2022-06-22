@@ -9,7 +9,7 @@ function Home() {
   let chosen = 0;
 
   return (
-    <div className="Home">
+    <div className="Home content">
       {/* <Modal
         size="lg"
         show={show}

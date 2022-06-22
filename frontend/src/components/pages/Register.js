@@ -36,7 +36,7 @@ function Register() {
   };
 
   return (
-      <div className="loginRegister" id="login">
+      <div className="loginRegister content" id="login">
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="login">
