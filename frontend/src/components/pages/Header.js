@@ -15,6 +15,7 @@ function Header() {
       <div className="text">
         <h1>BikeHouse</h1>
       </div>
+      <div className="onright"></div>
     </div>
   );
 }

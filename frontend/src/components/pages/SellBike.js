@@ -1,4 +1,4 @@
-import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
+import { Button, Row, Nav, Card, Modal, CloseButton } from "react-bootstrap";
 import Axios from "axios";
 import React, { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
@@ -72,10 +72,28 @@ function SellBike() {
     });
   }, []);
 
+  const removePhoto = (item) => {
+    var newPhotos = [...photos];
+    var index = newPhotos.indexOf(item);
+    if (index !== -1) {
+      newPhotos.splice(index, 1);
+      setPhotos(newPhotos);
+    }
+  };
+
   const lists = photos.map((list) => (
-    <li key={list.id}>
-      {list.name} - {list.size} bytes
-    </li>
+    <div>
+      <li key={list.id}>
+        {list.name} - {list.size} bytes{" "}
+        <Button
+          className="close_button"
+          variant="outline-danger"
+          onClick={() => removePhoto(list)}
+        >
+          X
+        </Button>{" "}
+      </li>
+    </div>
   ));
 
   let photoList = photos.map((item) => {
@@ -84,7 +102,7 @@ function SellBike() {
         <Form.Check.Input
           type="checkbox"
           onClick={() => {
-            const newPhotos = [...photos];
+            var newPhotos = [...photos];
             newPhotos[newPhotos.indexOf(item)].toShow =
               !newPhotos[newPhotos.indexOf(item)].toShow;
             setPhotos(newPhotos);
@@ -388,6 +406,7 @@ function SellBike() {
               <Row>
                 <div className="col-9">
                   <Form.Check>
+                    <p></p>
                     <Form.Check.Input
                       type="checkbox"
                       id="condition_verification"
@@ -530,13 +549,19 @@ function SellBike() {
     <div className="sellBike">
       <Nav justify variant="tabs" activeKey={step} className="navbar_state">
         <Nav.Item>
-          <Nav.Link eventKey="1">1. Bike Details</Nav.Link>
+          <Nav.Link eventKey="1" onClick={() => setStep(1)}>
+            1. Bike Details
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="2">2. Upload Pictures</Nav.Link>
+          <Nav.Link eventKey="2" onClick={() => setStep(2)}>
+            2. Upload Pictures
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="3">3. Done!</Nav.Link>
+          <Nav.Link eventKey="3" onClick={() => setStep(3)}>
+            3. Done!
+          </Nav.Link>
         </Nav.Item>
       </Nav>
 
