@@ -64,16 +64,11 @@ function Specialist () {
   const handleSchedule = (event) => {
     setCal(createICS(event, user));
     handleNext();
-    console.log(cal.toString('base64'))
   }
 
   const [isDisabled, setDisabled] = useState(true);
 
   const handleChange = (event) => {
-    
-    // require('dotenv').config();
-    // console.log('Your environment variable SENDGRID_API_KEY has the value: ', process.env.REACTSENDGRID_API_KEY);
-    
     setIssue(event.target.value);
     setDisabled(false);
   };
@@ -101,7 +96,6 @@ function Specialist () {
   };
   
   const sendEmail = (user, cal) => {
-      // event.preventDefault();
       Axios.post("http://localhost:3001/createAppointment", {
         sender,
         user,
@@ -110,29 +104,11 @@ function Specialist () {
         })
         .then((response) => {
           console.log(response.data.message);
-          // console.log(`Register in appointment: ${response.data.}`);
-          // navigate("/");
+
         })
         .catch((error) => {
           console.log('Error', error);
         });
-    // const sgMail = require('@sendgrid/mail')
-    // sgMail.setApiKey('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')
-    // const msg = {
-    //   to: 'kevingeother@gmail.com', // Change to your recipient
-    //   from: 'bikehouse.feedback@gmail.com', // Change to your verified sender
-    //   subject: 'Sending with SendGrid is Fun',
-    //   text: 'and easy to do anywhere, even with Node.js',
-    //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    // }
-    // sgMail
-    //   .send(msg)
-    //   .then(() => {
-    //     console.log('Email sent')
-    //   })
-    //   .catch((error) => {
-    //     console.error(error)
-    //   })
   };
 
   return (
@@ -204,7 +180,6 @@ function Specialist () {
                     <DayTimePicker 
                       timeSlotSizeMinutes={60} 
                       timeSlotValidator={timeSlotValidator}
-                      // onConfirm={() => {handleNext(); createICS();}}
                       onConfirm={handleSchedule}
                     />
                   </Card>

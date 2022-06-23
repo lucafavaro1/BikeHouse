@@ -28,8 +28,17 @@ const createAppointment = async (req, res) => {
       name: 'invite.ics',
       content: Buffer.from(value).toString('base64'),
       disposition: 'attachment',
-      // contentId: uuid(),
       type: 'text/calendar; method=REQUEST',
+    };
+    const personalization = 
+    {
+      dynamic_template_data:
+      {
+        Users:
+            {
+            name: req.body.user.name
+            }
+      }
     };
     const appointment = {
       from : req.body.sender,
@@ -38,8 +47,10 @@ const createAppointment = async (req, res) => {
         name:req.body.user.name
       },
       subject: req.body.subject,
-      text: 'Hello user',
+      text: 'Hello {req.body.user.name}',
       attachments: [attachment],
+      template_id: "d-6c1f4e6bd3bf44108b096c6fc0974523",
+      // personalizations: [personalization]
     }
     // const newAppointment = appointment;
     console.log("see body here", appointment);

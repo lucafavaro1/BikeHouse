@@ -33,24 +33,7 @@ const appointmentModel = (fromEmail, fromName, toEmail, toName, subject,text, at
   //           }:
   //           null
 }
-// const appointmentSchema = new mongoose.Schema({
-//   firstName: {
-//     type: String,
-//     required: true,
-//   },
-//   lastName: {
-//     type: String,
-//     required: true,
-//   },
-//   email: {
-//     type: String,
-//     required: true,
-//   },
-//   message: {
-//     type: String,
-//     required: true,
-//   },
-// });
+
 
 // name of collection + schema that represents that model
 // const FeedbackModel = mongoose.model("feedback", FeedbackSchema);
