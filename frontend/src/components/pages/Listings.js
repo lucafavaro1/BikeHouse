@@ -1,13 +1,7 @@
 import "../css/Listings.css";
 import { Accordion, Button, Form, FormCheck } from 'react-bootstrap';
-import Multiselect from 'multiselect-react-dropdown';
 
 function Listings() {
-  var colors = [
-    { name: 'Red', id: 1 },
-    { name: 'Green', id: 2 },
-    { name: 'Blue', id: 3 },
-    { name: 'Yellow', id: 4 }]
 
   return (
     <div className="listings">
@@ -15,7 +9,7 @@ function Listings() {
 
         <div className="col-sm-2 filtersPanel">
           <p className="filtersTitle">Filters</p>
-          <Accordion alwaysOpen="true" defaultActiveKey="0">
+          <Accordion defaultActiveKey="0" alwaysOpen>
 
             <Accordion.Item eventKey="0">
               <Accordion.Header>Price</Accordion.Header>
@@ -84,11 +78,32 @@ function Listings() {
             <Accordion.Item eventKey="2">
               <Accordion.Header>Color</Accordion.Header>
               <Accordion.Body>
-                <Multiselect
-                  options={colors} // Options to display in the dropdown
-                  placeholder="..."
-                  displayValue="name" // Property name to display in the dropdown options
-                />
+                <Form className="text-left">
+                  <Form.Check
+                    label="Red"
+                    name="color-red"
+                    type="checkbox"
+                    id="color-red"
+                  />
+                  <Form.Check
+                    label="Green"
+                    name="color-green"
+                    type="checkbox"
+                    id="color-green"
+                  />
+                  <Form.Check
+                    label="Blue"
+                    name="color-blue"
+                    type="checkbox"
+                    id="color-blue"
+                  />
+                  <Form.Check
+                    label="Yellow"
+                    name="color-yellow"
+                    type="checkbox"
+                    id="color-yellow"
+                  />
+                </Form>
               </Accordion.Body>
             </Accordion.Item>
 
@@ -108,45 +123,35 @@ function Listings() {
               <Accordion.Body>
                 <Form className="text-left">
                   <Form.Check
-                    inline
                     label="Brand New"
                     name="condition5"
                     type="checkbox"
                     id={"condition-brandNew"}
                   />
-                  <br></br>
                   <Form.Check
-                    inline
                     label="Good"
                     name="condition4"
                     type="checkbox"
                     id={"condition-good"}
                   />
-                  <br></br>
                   <Form.Check
-                    inline
                     label="Used"
                     name="condition3"
                     type="checkbox"
                     id={"condition-used"}
                   />
-                  <br></br>
                   <Form.Check
-                    inline
                     label="Poor"
                     name="condition2"
                     type="checkbox"
                     id={"condition-poor"}
                   />
-                  <br></br>
                   <Form.Check
-                    inline
                     label="Spare Parts"
                     name="condition1"
                     type="checkbox"
                     id={"condition-spare"}
                   />
-                  <br></br>
                 </Form>
               </Accordion.Body>
             </Accordion.Item>
@@ -154,28 +159,51 @@ function Listings() {
             <Accordion.Item eventKey="5">
               <Accordion.Header>Location</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet.
+                <label for="location">Location</label>
+                <input
+                  className="textField"
+                  type="text"
+                  defaultValue="Munich"
+                  id="location"
+                  name="location"></input>
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="6">
               <Accordion.Header>Front Gears</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet.
+                <input
+                  className="textField"
+                  type="number"
+                  min="0"
+                  max="10"
+                  id="frontGears"
+                  name="frontGears"
+                ></input>
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="7">
               <Accordion.Header>Rear Gears</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet.
+                <input
+                  className="textField"
+                  type="number"
+                  min="0"
+                  max="10"
+                  id="frontGears"
+                  name="frontGears"
+                ></input>
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="8">
               <Accordion.Header>Brake Type</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet.
+                <Form.Select>
+                  <option>Disk Brake</option>
+                  <option>Rim Brake</option>
+                </Form.Select>
               </Accordion.Body>
             </Accordion.Item>
 
@@ -183,14 +211,23 @@ function Listings() {
             <Accordion.Item eventKey="9">
               <Accordion.Header>Frame Material</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet.
+                <Form.Select>
+                  <option>Aliminum</option>
+                  <option>Carbon Fiber</option>
+                  <option>Steel</option>
+                  <option>Titanium</option>
+                </Form.Select>
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="10">
               <Accordion.Header>Verification Level</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet.
+              <Form.Select>
+                  <option>Frame Number &amp; Condition</option>
+                  <option>Frame Number </option>
+                  <option>Condition</option>
+                </Form.Select>
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
