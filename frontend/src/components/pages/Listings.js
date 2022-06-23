@@ -1,7 +1,49 @@
+import React, { useState, useEffect } from "react";
+import { Accordion, Button, Card, Form, Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRocket } from '@fortawesome/free-solid-svg-icons'
+import ListingDescription from "./ListingDescription";
+import Axios from "axios";
 import "../css/Listings.css";
-import { Accordion, Button, Form, FormCheck } from 'react-bootstrap';
 
 function Listings() {
+  const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+    async function getListings() {
+      try {
+        const response = await Axios.get("http://localhost:3001/listing");
+        console.log(response.data)
+        setListings(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getListings()
+  }, []);
+
+  const listingClicked = async (event) => {
+    console.log("Listing clicked")
+  }
+
+  const renderCard = (listing, index) => {
+    return (
+      <Card key={index} onClick={listingClicked}>
+        <Card.Img variant="top" src={"https://www.bike-magazin.de/__image/a/4825968/alias/xl/a/b/c/1/ar/4-3/bike-test-racebikes-2022-down-country-bike-bmc-fourstroke-01-lt-one.jpg"} />
+        {/* <Card.Img variant="top" src={"data:image;base64," + listing.bike.photos[0].src.data} /> */}
+
+        {listing.isBoosted ? <div className="boostIcon"><FontAwesomeIcon icon={faRocket} size="2x" /></div> : <span></span>}
+
+        <Card.Body>
+          <Card.Text>
+            <ListingDescription listing={listing}>
+            </ListingDescription>
+          </Card.Text>
+        </Card.Body>
+      </Card >
+    )
+  }
 
   return (
     <div className="listings">
@@ -223,7 +265,7 @@ function Listings() {
             <Accordion.Item eventKey="10">
               <Accordion.Header>Verification Level</Accordion.Header>
               <Accordion.Body>
-              <Form.Select>
+                <Form.Select>
                   <option>Frame Number &amp; Condition</option>
                   <option>Frame Number </option>
                   <option>Condition</option>
@@ -240,8 +282,10 @@ function Listings() {
 
         </div>
 
-        <div className="col">
-
+        <div className="col listingsPanel">
+          <Row xs={3} md={4}>
+            {listings.map(renderCard)}
+          </Row>
         </div>
       </div>
     </div >
