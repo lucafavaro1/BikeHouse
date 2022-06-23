@@ -16,18 +16,24 @@ const setICSTime = (slotTime) => {
   ];
 };
 
-const createICS = (dateTime) => {
+const createICS = (dateTime, user) => {
   const ics = require('ics')
   // console.log(dateTime)
   const { error, value } = ics.createEvent(
     {
-      title: `Talk to BikeHouse Specialist`,
-      start: setICSTime(dateTime),
       productId: 'BikeHouse',
+      method: "REQUEST",
+      start: setICSTime(dateTime),
       duration: {hours: 1},
       description: 
-          `Ask your doubts to a BikeHouse specialist`,
+      `Ask your doubts to a BikeHouse specialist`,
       // url: 'http://www.bikehouse.com/',
+      title: `Talk to BikeHouse Specialist`,
+      organizer: { name: 'Specialist', email: 'bikehouse.feedback@gmail.com' },
+      attendees: [
+        { name: user.name, email: user.email, rsvp: true, partstat: 'NEED-ACTIONS', role: 'REQ-PARTICIPANT' },
+        // { name: 'Brittany Seaton', email: 'brittany@example2.org', rsvp: true, partstat: 'NEED-ACTIONS', role: 'OPT-PARTICIPANT' }
+      ],
     }
   )
   if (error) {

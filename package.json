@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "autoprefixer": "10.4.5",
     "bootstrap": "^4.6.0",
+    "dotenv": "^16.0.1",
     "react-bootstrap": "^2.4.0"
   }
 }
