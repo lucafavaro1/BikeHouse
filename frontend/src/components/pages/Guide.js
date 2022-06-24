@@ -11,7 +11,7 @@ function Guide() {
           <b>The ABC’s</b>
         </a>
         <a class="list-group-item list-group-item-action" href="#cleaning">
-          <b>Cleaning and lubrificating your bike</b>
+          <b>Cleaning and lubricating your bike</b>
         </a>
         <a class="list-group-item list-group-item-action" href="#flat_tire">
           <b>Fix a flat tire</b>
@@ -66,7 +66,7 @@ function Guide() {
             id="cleaning"
             style={{ marginTop: 30 + "px", marginBottom: 15 + "px" }}
           >
-            <b>Cleaning and lubrificating your bike</b>
+            <b>Cleaning and lubricating your bike</b>
           </h2>
           <h2 style={{ marginBottom: 15 + "px" }}>
             <img

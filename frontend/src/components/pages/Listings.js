@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Accordion, Button, Card, Form, Row } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRocket } from '@fortawesome/free-solid-svg-icons'
+import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import ListingDescription from "./ListingDescription";
 import Axios from "axios";
 import "../css/Listings.css";
@@ -13,46 +13,54 @@ function Listings() {
     async function getListings() {
       try {
         const response = await Axios.get("http://localhost:3001/listing");
-        console.log(response.data)
+        console.log(response.data);
         setListings(response.data);
       } catch (error) {
         console.log(error);
       }
     }
 
-    getListings()
+    getListings();
   }, []);
 
   const listingClicked = async (event) => {
-    console.log("Listing clicked")
-  }
+    console.log("Listing clicked");
+  };
 
   const renderCard = (listing, index) => {
     return (
       <Card key={index} onClick={listingClicked}>
-        <Card.Img variant="top" src={"https://www.bike-magazin.de/__image/a/4825968/alias/xl/a/b/c/1/ar/4-3/bike-test-racebikes-2022-down-country-bike-bmc-fourstroke-01-lt-one.jpg"} />
+        <Card.Img
+          variant="top"
+          src={
+            "https://www.bike-magazin.de/__image/a/4825968/alias/xl/a/b/c/1/ar/4-3/bike-test-racebikes-2022-down-country-bike-bmc-fourstroke-01-lt-one.jpg"
+          }
+        />
         {/* <Card.Img variant="top" src={"data:image;base64," + listing.bike.photos[0].src.data} /> */}
 
-        {listing.isBoosted ? <div className="boostIcon"><FontAwesomeIcon icon={faRocket} size="2x" /></div> : <span></span>}
+        {listing.isBoosted ? (
+          <div className="boostIcon">
+            <FontAwesomeIcon icon={faRocket} size="2x" />
+          </div>
+        ) : (
+          <span></span>
+        )}
 
         <Card.Body>
           <Card.Text>
-            <ListingDescription listing={listing}>
-            </ListingDescription>
+            <ListingDescription listing={listing}></ListingDescription>
           </Card.Text>
         </Card.Body>
-      </Card >
-    )
-  }
+      </Card>
+    );
+  };
 
   return (
-    <div className="listings">
+    <div className="listings content">
       <div className="row">
-
         <div className="col-sm-2 filtersPanel">
           <p className="filtersTitle">Filters</p>
           <Accordion defaultActiveKey="0" alwaysOpen>
-
             <Accordion.Item eventKey="0">
               <Accordion.Header>Price</Accordion.Header>
               <Accordion.Body>
@@ -67,7 +75,8 @@ function Listings() {
                       defaultValue="0"
                       id="minPrice"
                       name="minPrice"
-                      placeholder="min"></input>
+                      placeholder="min"
+                    ></input>
                   </div>
                   <div className="form-group col-sm-5">
                     <label for="maxPrice">Max (&euro;)</label>
@@ -79,7 +88,8 @@ function Listings() {
                       defaultValue="1000"
                       id="maxPrice"
                       name="maxPrice"
-                      placeholder="max"></input>
+                      placeholder="max"
+                    ></input>
                   </div>
                 </div>
               </Accordion.Body>
@@ -99,7 +109,8 @@ function Listings() {
                       defaultValue="40"
                       id="minFrame"
                       name="minFrame"
-                      placeholder="min"></input>
+                      placeholder="min"
+                    ></input>
                   </div>
                   <div className="form-group col-sm-6">
                     <label for="maxFrame">Max (cm)</label>
@@ -111,7 +122,8 @@ function Listings() {
                       defaultValue="70"
                       id="maxFrame"
                       name="maxFrame"
-                      placeholder="max"></input>
+                      placeholder="max"
+                    ></input>
                   </div>
                 </div>
               </Accordion.Body>
@@ -145,7 +157,6 @@ function Listings() {
                     type="checkbox"
                     id="color-yellow"
                   />
-
                 </Form>
               </Accordion.Body>
             </Accordion.Item>
@@ -209,7 +220,8 @@ function Listings() {
                   type="text"
                   defaultValue="Munich"
                   id="location"
-                  name="location"></input>
+                  name="location"
+                ></input>
               </Accordion.Body>
             </Accordion.Item>
 
@@ -251,7 +263,6 @@ function Listings() {
               </Accordion.Body>
             </Accordion.Item>
 
-
             <Accordion.Item eventKey="9">
               <Accordion.Header>Frame Material</Accordion.Header>
               <Accordion.Body>
@@ -276,11 +287,8 @@ function Listings() {
           </Accordion>
 
           <div className="fixed-bottom col-sm-2 applyBtnCol">
-            <Button className="applyBtn">
-              Apply
-            </Button>
+            <Button className="applyBtn">Apply</Button>
           </div>
-
         </div>
 
         <div className="col listingsPanel">
@@ -289,7 +297,7 @@ function Listings() {
           </Row>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 

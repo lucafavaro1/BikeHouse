@@ -3,25 +3,22 @@
   font-weight: bold;
 }
 
-.specialist button{
+.specialist button {
   background-color: var(--bikehouse-blue);
   opacity: 0.8;
 }
 
-.specialist button:hover{
+.specialist button:hover {
   background-color: var(--bikehouse-blue);
   opacity: 1;
 }
-
-
 
 /* .specialist svg {
   color: var(--bikehouse-blue);
 } */
 
-#calendar button{
+#calendar button {
   background-color: #f0f0f0;
-
 }
 /* .MuiStepLabel-iconContainer {
   color: var(--bikehouse-blue);

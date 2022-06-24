@@ -24,13 +24,13 @@ export const NavLink = styled(Link)`
   cursor: pointer;
   opacity: 0.8;
   &.active {
-    color: #256ce1;
+    color: rgb(217, 221, 0);
     text-decoration: bold;
   }
   &:hover {
     opacity: 1;
     text-decoration: none;
-    color: #e1ad01;
+    color: rgb(217, 221, 0);
   }
 `;
 
@@ -91,5 +91,6 @@ export const NavBtnLink = styled(Link)`
     transition: all 0.2s ease-in-out;
     background: #fff;
     color: #010606;
+    background-color: rgb(217, 221, 0);
   }
 `;

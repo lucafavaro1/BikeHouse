@@ -5,7 +5,7 @@ import "../css/PhotoGuide.css";
 
 function PhotoGuide() {
   return (
-    <div className="guide">
+    <div className="photoguide">
       <div class="guideNavbar">
         <a class="list-group-item list-group-item-action" href="#wheels">
           <b>Wheels pictures</b>

@@ -1,4 +1,4 @@
-ul {
+.photoguide ul {
   display: flex;
   flex-direction: column;
   list-style-type: disc;
@@ -10,28 +10,28 @@ ul {
   margin-left: 0;
 }
 
-body {
+.photoguide body {
   position: relative;
 }
 
-.guide {
+.photoguide {
   margin-top: 3vh;
   display: flex;
 }
 
-.guideNavbar {
+.photoguide .guideNavbar {
   margin-left: 25px;
   flex: 2;
 }
 
-.page {
+.photoguide .page {
   flex: 8;
   text-align: left;
   margin-right: 20px;
   padding-left: 50px;
 }
 
-img {
+.photoguide img {
   max-width: 500px;
   max-height: 500px;
 }

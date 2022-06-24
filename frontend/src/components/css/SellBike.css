@@ -3,78 +3,78 @@
   margin-right: 250px;
 }
 
-.initialText {
+.sellBike .initialText {
   margin-top: 30px;
   text-align: left;
   font-weight: normal;
 }
 
-.custom {
+.sellBike .custom {
   width: 50px;
   margin-left: 16px;
 }
 
-.warning p {
+.sellBike .warning p {
   font-weight: bold;
 }
 
-.steps {
+.sellBike .steps {
   width: 100%;
   display: flex;
   text-align: center;
 }
 
-.navbar_state {
+.sellBike .navbar_state {
   margin-top: 30px;
 }
 
-.navbar_state a.nav-link {
+.sellBike .navbar_state a.nav-link {
   color: var(--bikehouse-blue);
   border-color: var(--bikehouse-blue) var(--bikehouse-blue)
     var(--bikehouse-blue);
 }
 
-.navbar_state .nav-item {
+.sellBike .navbar_state .nav-item {
   margin-right: 50px;
 }
 
-.navbar_state a.nav-link.active {
+.sellBike .navbar_state a.nav-link.active {
   color: #ffffff;
   background-color: var(--bikehouse-blue);
 }
 
-.next {
+.sellBike .next {
   background-color: var(--bikehouse-blue);
   width: 50px;
 }
 
-.next:hover {
+.sellBike .next:hover {
   background-color: rgb(217, 221, 0);
   color: black;
 }
 
-.boost_now {
+.sellBike .boost_now {
   background-color: var(--bikehouse-blue);
 }
 
-.boost_now:hover {
+.sellBike .boost_now:hover {
   background-color: rgb(217, 221, 0);
   color: black;
 }
 
-.form-check {
+.sellBike .form-check {
   margin-left: 50px;
   margin-bottom: 10px;
 }
 
-.modal_verification {
+.sellBike .modal_verification {
   text-align: center;
   max-width: 200px;
   max-height: 100px;
   margin-top: 0px;
 }
 
-.photo_guide {
+.sellBike .photo_guide {
   position: absolute;
   margin-left: 68%;
   margin-top: 12%;
@@ -82,19 +82,19 @@
   max-height: 100px;
 }
 
-.card {
+.sellBike .card {
   margin-left: 150px;
   margin-right: 150px;
 }
 
-.rocket {
+.sellBike .rocket {
   position: absolute;
   margin-left: 80%;
   max-width: 100px;
   max-height: 100px;
 }
 
-.close_button {
+.sellBike .close_button {
   line-height: 1;
   border-radius: 1rem;
   padding: 0.1rem 0.3rem;

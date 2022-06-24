@@ -7,7 +7,7 @@
   height: 17vh;
 }
 
-.logo {
+.header .logo {
   flex: 2;
   margin-left: 0px;
   margin-top: 0px;
@@ -16,16 +16,16 @@
   text-align: left;
 }
 
-.text {
+.header .text {
   flex: 8;
   text-align: center;
   font-family: Merienda One;
 }
 
-.onright {
+.header .onright {
   flex: 2;
 }
 
-h1 {
+.header h1 {
   font-size: 90px;
 }

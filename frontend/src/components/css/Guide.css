@@ -1,4 +1,4 @@
-ul {
+.guide ul {
   display: flex;
   flex-direction: column;
   list-style-type: disc;
@@ -10,7 +10,7 @@ ul {
   margin-left: 0;
 }
 
-body {
+.guide body {
   position: relative;
 }
 
@@ -19,12 +19,12 @@ body {
   display: flex;
 }
 
-.guideNavbar {
+.guide .guideNavbar {
   margin-left: 25px;
   flex: 2;
 }
 
-.page {
+.guide .page {
   flex: 8;
   text-align: left;
   margin-right: 20px;

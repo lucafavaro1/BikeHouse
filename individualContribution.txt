@@ -9,13 +9,16 @@ Sell a bike page, form + upload image + backend 8h
 # Tarlan
 FIX: Footer is overlapping the page content 1h
 Models 1.5h
+Listings page and filters 5h
 
 # Xavier
 User storage, login 3h
+JWT token and login/register 
 
 # Kevin
 Contacts Page 3h
 Backend feedback 0.5h
+Book and appointment / specialist 5h 
 
 # All together
 Fix footer, create scroll to top arrow, fix navbar (sticky + design with login / register button) 3h
