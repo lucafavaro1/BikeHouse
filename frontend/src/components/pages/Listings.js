@@ -13,7 +13,6 @@ function Listings() {
     async function getListings() {
       try {
         const response = await Axios.get("http://localhost:3001/listing");
-        console.log(response.data);
         setListings(response.data);
       } catch (error) {
         console.log(error);
@@ -28,15 +27,20 @@ function Listings() {
   };
 
   const renderCard = (listing, index) => {
+    var b64encoded = String.fromCharCode.apply(
+      null,
+      listing.bike.photos[0].src.data
+    );
+
     return (
       <Card key={index} onClick={listingClicked}>
-        <Card.Img
+        {/* <Card.Img
           variant="top"
           src={
             "https://www.bike-magazin.de/__image/a/4825968/alias/xl/a/b/c/1/ar/4-3/bike-test-racebikes-2022-down-country-bike-bmc-fourstroke-01-lt-one.jpg"
           }
-        />
-        {/* <Card.Img variant="top" src={"data:image;base64," + listing.bike.photos[0].src.data} /> */}
+        /> */}
+        <Card.Img variant="top" src={b64encoded} />
 
         {listing.isBoosted ? (
           <div className="boostIcon">
@@ -60,6 +64,9 @@ function Listings() {
       <div className="row">
         <div className="col-sm-2 filtersPanel">
           <p className="filtersTitle">Filters</p>
+          <div className="applyBtnCol">
+            <Button className="applyBtn">Apply Filters</Button>
+          </div>
           <Accordion defaultActiveKey="0" alwaysOpen>
             <Accordion.Item eventKey="0">
               <Accordion.Header>Price</Accordion.Header>
@@ -285,10 +292,6 @@ function Listings() {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-
-          <div className="fixed-bottom col-sm-2 applyBtnCol">
-            <Button className="applyBtn">Apply</Button>
-          </div>
         </div>
 
         <div className="col listingsPanel">

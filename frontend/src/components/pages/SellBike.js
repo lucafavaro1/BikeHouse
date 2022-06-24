@@ -88,19 +88,19 @@ function SellBike() {
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.map((file, index) => {
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.readAsDataURL(file);
+      reader.onloadend = function (e) {
         setPhotos((prevState) => [
           ...prevState,
           {
             id: index,
-            src: e.target.result,
+            src: reader.result,
             name: file.name,
             size: file.size,
             toShow: false,
           },
         ]);
       };
-      reader.readAsDataURL(file);
       return file;
     });
   }, []);
@@ -567,7 +567,7 @@ function SellBike() {
               </Button>
               <Button
                 className="col mt-3 mb-3 next"
-                href="/"
+                // href="/"
                 onClick={() => {
                   alert("To implement my listing page in profile");
                   submitItem();
