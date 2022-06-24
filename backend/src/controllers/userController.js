@@ -21,14 +21,14 @@ const loginUser = async (req, res) => {
       if (cmp) {
         const accessToken = await jwt.sign(
           { id: user._id, firstName: user.firstName, email: user.email },
-          process.env.ACCESS_TOKEN_SECRET,
+          "sciencebitch",
           {
             expiresIn: "15m",
           }
         );
         const refreshToken = await jwt.sign(
           { id: user._id, firstName: user.firstName, email: user.email },
-          process.env.REFRESH_TOKEN_SECRET,
+          "imtheonewhoknocks",
           {
             expiresIn: "15m",
           }
@@ -100,46 +100,41 @@ const refreshTokenGen = async (req, res) => {
       .status(403)
       .json("ERROR IN GETTING THE REFRESH TOKEN" + error.message);
   }
-  jwt.verify(
-    refreshToken,
-    process.env.REFRESH_TOKEN_SECRET,
-    async (err, user) => {
-      err && console.log(err);
-      try {
-        await RefreshTokenModel.deleteOne(refreshtokenFromDB);
-        const newAccessToken = await jwt.sign(
-          { id: user._id, firstName: user.firstName, email: user.email },
-          process.env.ACCESS_TOKEN_SECRET,
-          {
-            expiresIn: 500,
-          }
+  jwt.verify(refreshToken, "imtheonewhoknocks", async (err, user) => {
+    err && console.log(err);
+    try {
+      await RefreshTokenModel.deleteOne(refreshtokenFromDB);
+      const newAccessToken = await jwt.sign(
+        { id: user._id, firstName: user.firstName, email: user.email },
+        "sciencebitch",
+        {
+          expiresIn: 500,
+        }
+      );
+      const newRefreshToken = await jwt.sign(
+        { id: user._id, firstName: user.firstName, email: user.email },
+        "imtheonewhoknocks",
+        {
+          expiresIn: 500,
+        }
+      );
+      const newRefreshTokenModel = new RefreshTokenModel({
+        refreshToken: newRefreshToken,
+      });
+      await newRefreshTokenModel.save();
+      res.status(200).json({
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(403)
+        .json(
+          "ERROR IN ADDING/DELETING THE REFRESH TOKEN IN THE DB" + error.message
         );
-        const newRefreshToken = await jwt.sign(
-          { id: user._id, firstName: user.firstName, email: user.email },
-          process.env.REFRESH_TOKEN_SECRET,
-          {
-            expiresIn: 500,
-          }
-        );
-        const newRefreshTokenModel = new RefreshTokenModel({
-          refreshToken: newRefreshToken,
-        });
-        await newRefreshTokenModel.save();
-        res.status(200).json({
-          accessToken: newAccessToken,
-          refreshToken: newRefreshToken,
-        });
-      } catch (error) {
-        console.log(error);
-        return res
-          .status(403)
-          .json(
-            "ERROR IN ADDING/DELETING THE REFRESH TOKEN IN THE DB" +
-              error.message
-          );
-      }
     }
-  );
+  });
 
   // if everything ok , send a new access token, refresh token
 };
@@ -169,7 +164,7 @@ const verify = (req, res, next) => {
   console.log(authHeader);
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, "sciencebitch", (err, user) => {
       if (err) {
         return res.status(403).json("TOKEN IS NOT VALID!");
       }
