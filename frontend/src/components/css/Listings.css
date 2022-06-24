@@ -1,0 +1,89 @@
+.listings .row {
+	margin: 0
+}
+
+.listings .filtersPanel{
+	background-color: rgb(229, 229, 229);
+	margin-left: 3rem;
+	margin-top: 3rem;
+	padding: 0;
+ }
+
+.listings .filtersTitle {
+	padding: 5% 0 5% 0;
+	margin: 0;
+	font-weight: bold;
+	font-size: 1.1rem;
+	letter-spacing: 0.05rem;
+	text-transform: uppercase;
+}
+
+.listings .textField {
+	max-width: 100%;
+}
+
+.listings .accordion-body {
+	padding: 3%;
+	margin: 0 0.25rem 0 0.25rem;
+	background-color: white;
+	font-weight: 300;
+}
+
+.listings .accordion-header {
+	margin: -0.2rem 0.25rem 0 0.25rem;
+}
+
+.listings .accordion-button {
+	padding: 3%;
+	width: 100%;
+	height: 2.5em;
+	background-color: white;
+	border: 0;
+	font-size: 1rem;
+	font-weight: 500;
+	text-align: left;
+}
+  
+.listings .accordion-button:focus {
+	box-shadow: none;
+}
+
+.listings .form-select {
+    width: 70%;
+}
+
+.listings .applyBtnCol {
+	padding: 0;
+	margin-left: 3rem;
+}
+
+.listings .applyBtn {
+	width: 100%;
+	border-radius: 0;
+}
+
+
+.listings .listingsPanel {
+	padding: 2.5% 3% 2.5% 3%
+}
+
+.listings .card {
+	margin: 1.5%;
+	min-width: 30%;
+	cursor: pointer;
+}
+
+.listings .card-body {
+	padding: 3%;
+}
+
+.listings .boostIcon {
+	position: absolute;
+	right: 2%;
+	top: 2%;
+	
+	color: #eb4438;
+	background-color: rgba(255, 255, 255, 0.7);
+	padding: 1.5%;
+	border-radius: 10%;
+  }

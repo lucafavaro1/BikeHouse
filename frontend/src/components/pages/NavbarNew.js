@@ -21,7 +21,7 @@ const NavbarNew = () => {
           <NavLink to="/" activeStyle>
             BikeHouse
           </NavLink>
-          <NavLink to="/login" activeStyle>
+          <NavLink to="/buy" activeStyle>
             Buy a Bike
           </NavLink>
           <NavLink to="/login" activeStyle>

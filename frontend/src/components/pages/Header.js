@@ -1,6 +1,5 @@
 import React from "react";
 import logo from "./logo.png";
-import "../../fonts/Bangela.ttf";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "../css/Header.css";
