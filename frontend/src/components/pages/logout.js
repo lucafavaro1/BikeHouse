@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../features/userSlice";
 import { Button } from "react-bootstrap";
+import { NavBtn, NavBtnLink } from "./NavbarElements";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -11,16 +12,13 @@ const Logout = () => {
     dispatch(logout());
   };
   return (
-    <>
-      <div className="col-auto">
-        <span className="m-4 text-light">Hello, {user.name} </span>
-
-        <Button className="" variant="warning" size="sm" onClick={handleLogout}>
-          {" "}
-          Logout{" "}
-        </Button>
-      </div>
-    </>
+    <NavBtn>
+      <span className="text-light">Hello, {user.name} !</span>
+      <NavBtnLink onClick={handleLogout} to="/login">
+        Sign Out
+      </NavBtnLink>
+      {/* <NavBtnLink to="/register">Sign Up</NavBtnLink> */}
+    </NavBtn>
   );
 };
 
