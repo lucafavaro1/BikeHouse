@@ -1,4 +1,5 @@
 "use strict";
+require("dotenv").config();
 
 // Configuration variables
 const port = process.env.PORT || "3001";

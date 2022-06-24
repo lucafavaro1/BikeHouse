@@ -21,10 +21,10 @@ const Navbar = () => {
           <NavLink to="/" activeStyle>
             BikeHouse
           </NavLink>
-          <NavLink to="/login" activeStyle>
+          <NavLink to="/buy" activeStyle>
             Buy a Bike
           </NavLink>
-          <NavLink to="/login" activeStyle>
+          <NavLink to="/sellbike" activeStyle>
             Sell Your Bike
           </NavLink>
           <NavLink to="/guide" activeStyle>
