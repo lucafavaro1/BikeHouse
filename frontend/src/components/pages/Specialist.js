@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Login from "./Login";
 import { Container} from "@mui/system";
+import { TextField } from "@mui/material";
 
 const steps = [
   {
@@ -87,7 +88,7 @@ function Specialist () {
     setActiveStep(0);
   };
   
-  const handleEmail = () => {
+  const handleFinish = () => {
     // console.log(user)
     // console.log(cal.toString())
     // console.log(typeof cal)
@@ -112,7 +113,7 @@ function Specialist () {
   };
 
   return (
-    <Container className ='content'
+    <Container className ='content specialist'
       sx = {{
         mt: 5
       }}
@@ -143,10 +144,10 @@ function Specialist () {
                   <Typography>{steps[0].description}</Typography>
                   <Box sx={{mt: 2, mb: 2}}>
                     <FormControl fullWidth required={true}>
-                      <InputLabel id="demo-simple-select-label">Issue</InputLabel>
+                      <InputLabel>Issue</InputLabel>
                       <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        labelId="issue-select-label"
+                        id="issue-select"
                         value={issue}
                         label="Issue"
                         onChange={handleChange}
@@ -155,6 +156,14 @@ function Specialist () {
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                       </Select>
+                    </FormControl>
+                    <FormControl fullWidth required={false}>
+                      {/* <InputLabel>Additional Comments</InputLabel> */}
+                      <TextField 
+                        sx={{mt: 2}}
+                        id="filled-basic" 
+                        label="Additional Comments" 
+                        variant="outlined" />
                     </FormControl>
                   </Box>
                   <Box >
@@ -175,9 +184,10 @@ function Specialist () {
                   {steps[1].label}
                 </StepLabel>
                 <StepContent>
-                  <Typography id="tester">{steps[1].description}</Typography>
+                  <Typography>{steps[1].description}</Typography>
                   <Card sx={{m:1, p:1}}>
                     <DayTimePicker 
+                      id = "calendar"
                       timeSlotSizeMinutes={60} 
                       timeSlotValidator={timeSlotValidator}
                       onConfirm={handleSchedule}
@@ -211,7 +221,7 @@ function Specialist () {
                     <div>
                       <Button
                         variant="contained"
-                        onClick={handleEmail}
+                        onClick={handleFinish}
                         // sx={{ mt: 1, mr: 1 }}
                       >
                         Finish

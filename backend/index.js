@@ -1,7 +1,6 @@
 const express = require("express");
 const http = require("http");
 const mongoose = require("mongoose");
-const sgMail = require('@sendgrid/mail')
 const cors = require("cors"); // connect API to frontend
 const config = require("./src/config");
 // const middlewares = require('./middlewares')
