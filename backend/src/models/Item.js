@@ -1,20 +1,23 @@
 const mongoose = require("mongoose");
 
 const parentClassOptions = {
-  discriminatorKey: 'kind'
+  discriminatorKey: "kind",
 };
 
 // fields that the parent schema should contain
-const ItemSchema = new mongoose.Schema({
-  brand: {
-    type: String,
-    required: true
+const ItemSchema = new mongoose.Schema(
+  {
+    brand: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
   },
-  price: {
-    type: Number,
-    required: true
-  }
-}, parentClassOptions);
+  parentClassOptions
+);
 
 // fields that the bike schema should contain
 const BikeSchema = new mongoose.Schema({
@@ -88,22 +91,21 @@ const BikeSchema = new mongoose.Schema({
   // }
 });
 
-
 // fields that the accessory schema should contain
 const AccessorySchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 // name of collection + schema that represents that model + options defining the parent class
-const ItemModel = mongoose.model("item", ItemSchema)
-const BikeModel = ItemModel.discriminator("bike", BikeSchema)
-const AccessoryModel = ItemModel.discriminator("accessory", AccessorySchema)
+const ItemModel = mongoose.model("item", ItemSchema);
+const BikeModel = ItemModel.discriminator("bike", BikeSchema);
+const AccessoryModel = ItemModel.discriminator("accessory", AccessorySchema);
 
 module.exports = {
   ItemModel,
   BikeModel,
-  AccessoryModel
-}
+  AccessoryModel,
+};

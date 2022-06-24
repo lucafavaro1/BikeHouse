@@ -35,8 +35,8 @@ function Login() {
       );
       navigate("/");
     } catch (error) {
-      // emailRef.current.value = "";
-      // passwordRef.current.value = "";
+      emailRef.current.value = "";
+      passwordRef.current.value = "";
       setErrorMessage("Please make sure your email and password are correct");
       console.log(error);
     }
