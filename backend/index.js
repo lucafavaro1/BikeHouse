@@ -22,6 +22,7 @@ mongoose
 
 api.use("/", require("./src/routes/userRoutes"));
 api.use("/", require("./src/routes/feedbackRoutes"));
+api.use("/", require("./src/routes/appointmentRoutes"));
 api.use("/", require("./src/routes/bikeRoutes"));
 api.use("/", require("./src/routes/listingRoutes"));
 

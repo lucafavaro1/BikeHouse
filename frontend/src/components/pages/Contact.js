@@ -47,7 +47,7 @@ function Contact() {
   }
 
   return (
-    <div className="container justify-content-center">
+    <div className="content container justify-content-center">
       <div id="contact" className="contact">
         <div className="topText">
           <h5>
@@ -191,17 +191,17 @@ function Contact() {
             <div id="socialMedia" className="socialMedia col-12 col-md-3">
               <div className="row justify-content-center">
                 <div className="icon col-4">
-                  <a href="https://www.youtube.com/" target="_blank">
+                  <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">
                     <i className=" bi bi-youtube"></i>
                   </a>
                 </div>
                 <div className="icon col-4">
-                  <a href="https://www.facebook.com/" target="_blank">
+                  <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
                     <i className="bi bi-facebook"></i>
                   </a>
                 </div>
                 <div className="icon col-4">
-                  <a href="https://www.linkedin.com/" target="_blank">
+                  <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
                     <i className="bi bi-linkedin"></i>
                   </a>
                 </div>
@@ -227,7 +227,7 @@ function Contact() {
                 onSelect={handleSelect}
               >
                 <Carousel.Item>
-                  <a className="" href="#">
+                  <a className="" href="/specialist">
                     Talk to a Specialist
                     <br />
                     <p className="">

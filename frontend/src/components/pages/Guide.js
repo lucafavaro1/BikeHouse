@@ -5,7 +5,7 @@ import "../css/Guide.css";
 
 function Guide() {
   return (
-    <div className="guide">
+    <div className="guide content">
       <div class="guideNavbar">
         <a class="list-group-item list-group-item-action" href="#ABC">
           <b>The ABC’s</b>

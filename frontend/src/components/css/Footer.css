@@ -1,8 +1,9 @@
 .footer {
   position: absolute;
+  /* margin-top: 1vh; */
   width: 100%;
   padding: 0.7em;
   text-align: center;
   background: #ddd;
-  height: 3em;
+  height: 5vh;
 }

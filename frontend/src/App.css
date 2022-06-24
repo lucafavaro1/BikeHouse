@@ -10,11 +10,14 @@
 }
 
 .App {
-  text-align: center;
+  /* text-align: center; */
   position: relative;
-  min-height: 100vh;
+  /* min-height: 100vh -; */
 }
 
+.content {
+  min-height: 70vh;
+}
 .back-to-top {
   position: fixed;
   bottom: 20px;
