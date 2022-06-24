@@ -4,6 +4,8 @@
 
 .listings .filtersPanel{
 	background-color: rgb(229, 229, 229);
+	margin-left: 3rem;
+	margin-top: 3rem;
 	padding: 0;
  }
 
@@ -52,6 +54,7 @@
 
 .listings .applyBtnCol {
 	padding: 0;
+	margin-left: 3rem;
 }
 
 .listings .applyBtn {

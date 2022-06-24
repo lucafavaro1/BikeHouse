@@ -145,6 +145,7 @@ function Listings() {
                     type="checkbox"
                     id="color-yellow"
                   />
+
                 </Form>
               </Accordion.Body>
             </Accordion.Item>
@@ -153,9 +154,10 @@ function Listings() {
               <Accordion.Header>Gender</Accordion.Header>
               <Accordion.Body>
                 <Form.Select>
-                  <option>Any</option>
-                  <option>Female</option>
-                  <option>Male</option>
+                  <option>Man</option>
+                  <option>Woman</option>
+                  <option>Child</option>
+                  <option>Unisex</option>
                 </Form.Select>
               </Accordion.Body>
             </Accordion.Item>
@@ -217,10 +219,10 @@ function Listings() {
                 <input
                   className="textField"
                   type="number"
-                  min="0"
-                  max="10"
-                  id="frontGears"
-                  name="frontGears"
+                  min="1"
+                  max="3"
+                  id="rearGears"
+                  name="rearGears"
                 ></input>
               </Accordion.Body>
             </Accordion.Item>
@@ -231,8 +233,8 @@ function Listings() {
                 <input
                   className="textField"
                   type="number"
-                  min="0"
-                  max="10"
+                  min="1"
+                  max="12"
                   id="frontGears"
                   name="frontGears"
                 ></input>
@@ -257,7 +259,6 @@ function Listings() {
                   <option>Aliminum</option>
                   <option>Carbon Fiber</option>
                   <option>Steel</option>
-                  <option>Titanium</option>
                 </Form.Select>
               </Accordion.Body>
             </Accordion.Item>
