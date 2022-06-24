@@ -19,7 +19,7 @@ function Navibar() {
       sticky="top"
       className="row col-12"
     >
-      <Navbar.Brand className="" href="/">
+      <Navbar.Brand className="col-1" href="/">
         BikeHouse
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -30,7 +30,7 @@ function Navibar() {
           <Nav.Link href="/guide">Guide</Nav.Link>
           <Nav.Link href="/contact">Contact Us</Nav.Link>
         </Nav>
-        <Nav className="col-4 justify-content-end">
+        <Nav className="col-3 justify-content-end">
           <div className="">
             {user ? (
               <Logout />

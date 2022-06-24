@@ -1,7 +1,8 @@
 /* Style the top navigation bar */
 #Navbar {
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 8vh;
+  width: 100%;
 }
 
 /* Style the navigation bar links */
@@ -19,6 +20,7 @@
 
 #Navbar a:hover {
   opacity: 1;
+  text-decoration: solid;
 }
 
 #Navbar .btn {
