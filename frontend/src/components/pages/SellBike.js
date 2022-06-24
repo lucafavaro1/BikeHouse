@@ -1,12 +1,16 @@
-import { Button, Row, Nav, Card, Modal, CloseButton } from "react-bootstrap";
+import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
 import Axios from "axios";
 import React, { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import "../css/SellBike.css";
 import DropBox from "../../features/Dropbox";
 import ShowImage from "../../features/ShowImage";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
 function SellBike() {
+  const user = useSelector(selectUser);
+
   const [step, setStep] = useState(1);
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -24,8 +28,9 @@ function SellBike() {
   const [conditionVerification, setConditionVerification] = useState(false);
   const [frameVerification, setFrameVerification] = useState(false);
   const [photos, setPhotos] = useState([]);
+  const [isBoosted, setIsBoosted] = useState(false);
 
-  const submitListing = async () => {
+  const submitItem = async () => {
     Axios.post("http://localhost:3001/createItem", {
       brand,
       model,
@@ -43,6 +48,26 @@ function SellBike() {
       conditionToBeVerified: conditionVerification,
       frameToBeVerified: frameVerification,
       photos,
+      frameVerified: false,
+      condition: 0,
+    })
+      .then((response) => {
+        console.log(`Item successfully added`);
+        createListing(response.data._id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const createListing = async (itemId) => {
+    Axios.post("http://localhost:3001/createListing", {
+      isBoosted, // to be modified
+      isActive: true, // is it really needed?
+      bikeId: itemId,
+      sellerId: "629ccc0eb74f935b5e62fb1b", // userId is missing!
+      finalPrice: calculateFinalPrice(price),
+      shouldBeVerified: conditionVerification && frameVerification,
     })
       .then((response) => {
         console.log(`Listing successfully added`);
@@ -51,6 +76,14 @@ function SellBike() {
         console.log(error);
       });
   };
+
+  function calculateFinalPrice(price) {
+    var finalPrice = +price;
+    if (conditionVerification) finalPrice = finalPrice + 0.05 * price; // decide how much to get as fee
+    if (frameVerification) finalPrice = finalPrice + 0.05 * price; // decide how much to get as fee
+    if (isBoosted) finalPrice = finalPrice + 10; // decide the boosting price
+    return finalPrice;
+  }
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.map((file, index) => {
@@ -260,6 +293,7 @@ function SellBike() {
                   <Form.Control
                     type="number"
                     min="1"
+                    max="3"
                     placeholder="Enter number of front gears"
                     onChange={(e) => {
                       setFrontGears(e.target.value);
@@ -272,6 +306,7 @@ function SellBike() {
                   <Form.Control
                     type="number"
                     min="1"
+                    max="12"
                     placeholder="Enter number or rear gears"
                     onChange={(e) => {
                       setRearGears(e.target.value);
@@ -497,7 +532,10 @@ function SellBike() {
                 <Button
                   variant="primary"
                   className="boost_now"
-                  onClick={() => alert("Implement payment")}
+                  onClick={() => {
+                    alert("Implement payment");
+                    setIsBoosted(true);
+                  }}
                 >
                   Boost Now
                 </Button>
@@ -532,7 +570,7 @@ function SellBike() {
                 href="/"
                 onClick={() => {
                   alert("To implement my listing page in profile");
-                  submitListing();
+                  submitItem();
                 }}
               >
                 Submit
@@ -549,19 +587,13 @@ function SellBike() {
     <div className="sellBike">
       <Nav justify variant="tabs" activeKey={step} className="navbar_state">
         <Nav.Item>
-          <Nav.Link eventKey="1" onClick={() => setStep(1)}>
-            1. Bike Details
-          </Nav.Link>
+          <Nav.Link eventKey="1">1. Bike Details</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="2" onClick={() => setStep(2)}>
-            2. Upload Pictures
-          </Nav.Link>
+          <Nav.Link eventKey="2">2. Upload Pictures</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="3" onClick={() => setStep(3)}>
-            3. Done!
-          </Nav.Link>
+          <Nav.Link eventKey="3">3. Done!</Nav.Link>
         </Nav.Item>
       </Nav>
 

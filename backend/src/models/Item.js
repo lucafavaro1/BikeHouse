@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const UserModel = require("./Users");
 
 const parentClassOptions = {
   discriminatorKey: "kind",
