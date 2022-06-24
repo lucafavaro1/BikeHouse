@@ -1,12 +1,11 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-// import "./fonts/Bangela.ttf";
 import Main from "./components/Main";
 import Header from "./components/pages/Header";
-import Navbar from "./components/pages/Navbar";
 import Sidebar from "./components/pages/Sidebar";
 import Footer from "./components/pages/Footer";
 import { useState, useEffect } from "react";
+import Navbar from "./components/pages/Navbar";
 
 function App() {
   const [showButton, setShowButton] = useState(false);

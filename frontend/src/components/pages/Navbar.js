@@ -1,74 +1,53 @@
 import React from "react";
-import "../css/Navbar.css";
-import { Nav, Navbar, Button } from "react-bootstrap";
-import Logout from "./Logout";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
+import Logout from "./Logout";
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+  NavBtn,
+  NavBtnLink,
+} from "./NavbarElements";
 
-function Navibar() {
+const Navbar = () => {
   const user = useSelector(selectUser);
-
   return (
-    <Navbar
-      id="Navbar"
-      collapseOnSelect
-      expand="md"
-      bg="dark"
-      variant="dark"
-      sticky="top"
-      className="row col-12"
-    >
-      <Navbar.Brand className="" href="/">
-        BikeHouse
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="col-8 justify-content-start">
-          <Nav.Link href="/">Buy a Bike</Nav.Link>
-          {user ? (
-            <Nav.Link href="/sellbike">Sell Your Bike</Nav.Link>
-          ) : (
-            <Nav.Link href="/login">Sell Your Bike</Nav.Link>
-          )}
-          <Nav.Link href="/guide">Guide</Nav.Link>
-          <Nav.Link href="/contact">Contact Us</Nav.Link>
-        </Nav>
-        <Nav className="col-4 justify-content-end">
-          <div className="">
-            {user ? (
-              <Logout />
-            ) : (
-              <>
-                <Nav.Link href="/login">
-                  <Button variant="warning" size="sm">
-                    {" "}
-                    Sign in{" "}
-                  </Button>
-                </Nav.Link>
-                {/* </Link> */}
+    <>
+      <Nav collapseOnSelect expand="sm" className="sticky-top">
+        <Bars />
+        <NavMenu collapseOnSelect>
+          <NavLink to="/" activeStyle>
+            BikeHouse
+          </NavLink>
+          <NavLink to="/login" activeStyle>
+            Buy a Bike
+          </NavLink>
+          <NavLink to="/login" activeStyle>
+            Sell Your Bike
+          </NavLink>
+          <NavLink to="/guide" activeStyle>
+            Guide
+          </NavLink>
+          <NavLink to="/contact" activeStyle>
+            Contact Us
+          </NavLink>
 
-                <Nav.Link href="/register">
-                  <Button variant="warning" size="sm">
-                    {" "}
-                    Sign up{" "}
-                  </Button>
-                </Nav.Link>
-              </>
-            )}
-          </div>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-    // <div className="navbar">
-    //   <a href="/">Home</a> {/*here change # to the link */}
-    //   <a href="/">Buy a bike</a>
-    //   <a href="/login">Sell your bike</a>
-    //   {/* <a href="#">About us</a> maybe we can put this section in the homepage*/}
-    //   <a href="/guide">Guide</a>
-    //   <a href="/contact">Contact us</a>
-    // </div>
+          {/* Second Nav */}
+          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
+        </NavMenu>
+        {user ? (
+          <Logout />
+        ) : (
+          <NavBtn>
+            <NavBtnLink to="/login">Sign In</NavBtnLink>
+            <NavBtnLink to="/register">Sign Up</NavBtnLink>
+          </NavBtn>
+        )}
+      </Nav>
+    </>
   );
-}
+};
 
-export default Navibar;
+export default Navbar;
