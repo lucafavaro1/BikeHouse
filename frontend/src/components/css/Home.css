@@ -1,7 +1,5 @@
 .home .carousel {
   position: relative;
-  width: 1000px;
-  height: 500px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -11,6 +9,10 @@
   max-width: 1000px;
   max-height: 500px;
   object-fit: scale-down;
+}
+
+.row {
+  width: 100%;
 }
 
 .home .carousel-caption {

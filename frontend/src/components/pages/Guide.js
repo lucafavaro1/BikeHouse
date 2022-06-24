@@ -7,16 +7,16 @@ function Guide() {
   return (
     <div className="guide content">
       <div class="guideNavbar">
-        <a class="list-group-item list-group-item-action" href="#list-item-1">
+        <a class="list-group-item list-group-item-action" href="#ABC">
           <b>The ABC’s</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#list-item-2">
+        <a class="list-group-item list-group-item-action" href="#cleaning">
           <b>Cleaning and lubrificating your bike</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#list-item-3">
+        <a class="list-group-item list-group-item-action" href="#flat_tire">
           <b>Fix a flat tire</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#list-item-4">
+        <a class="list-group-item list-group-item-action" href="#seat_position">
           <b>Adjust the seat height and angle</b>
         </a>
       </div>
@@ -27,7 +27,7 @@ function Guide() {
           data-offset="0"
           tabindex="0"
         >
-          <h2 id="list-item-1" style={{ marginTop: 10 + "px" }}>
+          <h2 id="ABC" style={{ marginTop: 10 + "px" }}>
             <b>The ABC’s</b>
           </h2>
           <p>
@@ -63,7 +63,7 @@ function Guide() {
             </li>
           </ul>
           <h2
-            id="list-item-2"
+            id="cleaning"
             style={{ marginTop: 30 + "px", marginBottom: 15 + "px" }}
           >
             <b>Cleaning and lubrificating your bike</b>
@@ -98,7 +98,7 @@ function Guide() {
             the same order will give the lubricants time to soak in.
           </p>
           <h2
-            id="list-item-3"
+            id="flat_tire"
             style={{ marginTop: 30 + "px", marginBottom: 15 + "px" }}
           >
             <b>Fix a flat tire</b>
@@ -147,7 +147,7 @@ function Guide() {
           <p>
             12)Slide the wheel back onto the bike and replace the lever or nuts.
           </p>
-          <h2 id="list-item-4" style={{ marginTop: 30 + "px" }}>
+          <h2 id="seat_position" style={{ marginTop: 30 + "px" }}>
             <b>Ajdust the seat height and angle</b>
           </h2>
           <iframe

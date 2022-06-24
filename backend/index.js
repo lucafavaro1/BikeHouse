@@ -7,7 +7,7 @@ const config = require("./src/config");
 
 const api = express();
 
-api.use(express.json());
+api.use(express.json({ limit: "50mb" }));
 api.use(cors());
 api.set("port", config.port);
 const server = http.createServer(api);
@@ -23,6 +23,8 @@ mongoose
 api.use("/", require("./src/routes/userRoutes"));
 api.use("/", require("./src/routes/feedbackRoutes"));
 api.use("/", require("./src/routes/appointmentRoutes"));
+api.use("/", require("./src/routes/bikeRoutes"));
+api.use("/", require("./src/routes/listingRoutes"));
 
 server.on("listening", () => {
   console.log(`Server running port ${config.port}`);

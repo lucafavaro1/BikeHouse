@@ -3,7 +3,19 @@ Basic website/repo structure 5hr each
 # Luca
 Website styling 1h 
 Guide implementation 2h
+Contact form with real email sending 2h
+Sell a bike page, form + upload image + backend 8h
 
 # Tarlan
 FIX: Footer is overlapping the page content 1h
 Models 1.5h
+
+# Xavier
+User storage, login 3h
+
+# Kevin
+Contacts Page 3h
+Backend feedback 0.5h
+
+# All together
+Fix footer, create scroll to top arrow, fix navbar (sticky + design with login / register button) 3h
