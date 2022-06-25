@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,10 @@ import "../css/Listings.css";
 
 function Listings() {
   const [listings, setListings] = useState([]);
+  const parameters = useRef({})
+
+  const colors = ["Red", "Green", "Black", "Yellow"]
+  const conditions = ["Brand New", "Good", "Used", "Poor", "Spare Parts"]
 
   useEffect(() => {
     async function getListings() {
@@ -22,10 +26,124 @@ function Listings() {
     getListings();
   }, []);
 
+  /** Called when a listing is clicked */
   const listingClicked = async (event) => {
     console.log("Listing clicked");
   };
 
+  /** Called when the apply button is clicked */
+  const applyFilterClicked = async (event) => {
+    try {
+      const response = await Axios.get("http://localhost:3001/listing", { params: parameters.current });
+      setListings(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /** Called when any of the accordion items is changed*/
+  function handleFilterChange(eventObject) {
+    // console.log(eventObject.target)
+    // console.log(eventObject.target.value)
+
+    let newValue = eventObject.target.value
+    let targetId = eventObject.target.id
+
+    if (targetId == "minPrice") {
+      parameters.current.minPrice = parameters.current.minPrice || {};
+      parameters.current.minPrice = newValue;
+    }
+    else if (targetId == "maxPrice") {
+      parameters.current.maxPrice = parameters.current.maxPrice || {};
+      parameters.current.maxPrice = newValue;
+    }
+    else if (targetId == "minFrameSize") {
+      parameters.current.minFrameSize = parameters.current.minFrameSize || {};
+      parameters.current.minFrameSize = newValue;
+    }
+    else if (targetId == "maxFrameSize") {
+      parameters.current.maxFrameSize = parameters.current.maxFrameSize || {};
+      parameters.current.maxFrameSize = newValue;
+    }
+    else if (targetId.includes("color")) {
+      parameters.current.colors = parameters.current.colors || [];
+
+      if (parameters.current.colors.includes(eventObject.target.name)) { // remove if exists
+        parameters.current.colors = parameters.current.colors.filter(item => item !== eventObject.target.name)
+      }
+      else { // add if doesn't exist
+        parameters.current.colors = [...parameters.current.colors, eventObject.target.name];
+      }
+    }
+    else if (targetId == "gender") {
+      parameters.current.gender = parameters.current.gender || {};
+
+      if (newValue !== '') {
+        parameters.current.gender = newValue;
+      }
+      else {
+        delete parameters.current.gender
+      }
+    }
+    else if (targetId.includes("condition")) {
+      parameters.current.conditions = parameters.current.conditions || [];
+
+      let conditionIndex = 5 - +eventObject.target.name
+
+      if (parameters.current.conditions.includes(conditionIndex)) { // remove if exists
+        parameters.current.conditions = parameters.current.conditions.filter(item => item !== conditionIndex)
+      }
+      else { // add if doesn't exist
+        parameters.current.conditions = [...parameters.current.conditions, conditionIndex];
+      }
+    }
+    else if (targetId == "location") {
+      parameters.current.location = parameters.current.location || {};
+      parameters.current.location = newValue;
+    }
+    else if (targetId == "rearGears") {
+      parameters.current.rearGears = parameters.current.rearGears || {};
+      parameters.current.rearGears = newValue;
+    }
+    else if (targetId == "frontGears") {
+      parameters.current.frontGears = parameters.current.frontGears || {};
+      parameters.current.frontGears = newValue;
+    }
+    else if (targetId == "brakeType") {
+      parameters.current.brakeType = parameters.current.brakeType || {};
+
+      if (newValue !== '') {
+        parameters.current.brakeType = newValue;
+      }
+      else {
+        delete parameters.current.brakeType
+      }
+    }
+    else if (targetId == "frameMaterial") {
+      parameters.current.frameMaterial = parameters.current.frameMaterial || {};
+
+      if (newValue !== '') {
+        parameters.current.frameMaterial = newValue;
+      }
+      else {
+        delete parameters.current.frameMaterial
+      }
+    }
+    else if (targetId == "verification") {
+      parameters.current.verification = parameters.current.verification || {};
+
+      if (newValue !== '') {
+        parameters.current.verification = newValue;
+      }
+      else {
+        delete parameters.current.verification
+      }
+    }
+
+    console.log(parameters.current)
+  }
+
+  /** Renders a new Card component for each listing */
   const renderCard = (listing, index) => {
     var b64encoded = String.fromCharCode.apply(
       null,
@@ -34,12 +152,6 @@ function Listings() {
 
     return (
       <Card key={index} onClick={listingClicked}>
-        {/* <Card.Img
-          variant="top"
-          src={
-            "https://www.bike-magazin.de/__image/a/4825968/alias/xl/a/b/c/1/ar/4-3/bike-test-racebikes-2022-down-country-bike-bmc-fourstroke-01-lt-one.jpg"
-          }
-        /> */}
         <Card.Img variant="top" src={b64encoded} />
 
         {listing.isBoosted ? (
@@ -59,13 +171,39 @@ function Listings() {
     );
   };
 
+  /** Renders a new Form.Check component for each bike color */
+  const renderColorCheckbox = (color, index) => {
+    return (
+      <Form.Check
+        label={color}
+        name={color}
+        type="checkbox"
+        id={"color-" + color}
+        onChange={handleFilterChange}
+      />
+    );
+  };
+
+  /** Renders a new Form.Check component for each bike condition */
+  const renderConditionCheckbox = (condition, index) => {
+    return (
+      <Form.Check
+        label={condition}
+        name={index}
+        type="checkbox"
+        id={"condition-" + index}
+        onChange={handleFilterChange}
+      />
+    );
+  };
+
   return (
     <div className="listings content">
       <div className="row">
         <div className="col-sm-2 filtersPanel">
           <p className="filtersTitle">Filters</p>
           <div className="applyBtnCol">
-            <Button className="applyBtn">Apply Filters</Button>
+            <Button className="applyBtn" onClick={applyFilterClicked}>Apply Filters</Button>
           </div>
           <Accordion defaultActiveKey="0" alwaysOpen>
             <Accordion.Item eventKey="0">
@@ -79,10 +217,11 @@ function Listings() {
                       type="number"
                       min="0"
                       step="10"
-                      defaultValue="0"
                       id="minPrice"
                       name="minPrice"
                       placeholder="min"
+                      onWheel={(e) => e.target.blur()} // prevents default input scroll behavior
+                      onChange={handleFilterChange}
                     ></input>
                   </div>
                   <div className="form-group col-sm-5">
@@ -92,10 +231,11 @@ function Listings() {
                       type="number"
                       min="0"
                       step="10"
-                      defaultValue="1000"
                       id="maxPrice"
                       name="maxPrice"
                       placeholder="max"
+                      onWheel={(e) => e.target.blur()}
+                      onChange={handleFilterChange}
                     ></input>
                   </div>
                 </div>
@@ -107,29 +247,31 @@ function Listings() {
               <Accordion.Body>
                 <div className="row justify-content-center">
                   <div className="form-group col-sm-6">
-                    <label for="minFrame">Min (cm)</label>
+                    <label for="minFrameSize">Min (cm)</label>
                     <input
                       className="textField"
                       type="number"
                       min="40"
                       max="70"
-                      defaultValue="40"
-                      id="minFrame"
-                      name="minFrame"
+                      id="minFrameSize"
+                      name="minFrameSize"
                       placeholder="min"
+                      onWheel={(e) => e.target.blur()}
+                      onChange={handleFilterChange}
                     ></input>
                   </div>
                   <div className="form-group col-sm-6">
-                    <label for="maxFrame">Max (cm)</label>
+                    <label for="maxFrameSize">Max (cm)</label>
                     <input
                       className="textField"
                       type="number"
                       min="0"
                       max="70"
-                      defaultValue="70"
-                      id="maxFrame"
-                      name="maxFrame"
+                      id="maxFrameSize"
+                      name="maxFrameSize"
                       placeholder="max"
+                      onWheel={(e) => e.target.blur()}
+                      onChange={handleFilterChange}
                     ></input>
                   </div>
                 </div>
@@ -140,30 +282,7 @@ function Listings() {
               <Accordion.Header>Color</Accordion.Header>
               <Accordion.Body>
                 <Form className="text-left">
-                  <Form.Check
-                    label="Red"
-                    name="color-red"
-                    type="checkbox"
-                    id="color-red"
-                  />
-                  <Form.Check
-                    label="Green"
-                    name="color-green"
-                    type="checkbox"
-                    id="color-green"
-                  />
-                  <Form.Check
-                    label="Blue"
-                    name="color-blue"
-                    type="checkbox"
-                    id="color-blue"
-                  />
-                  <Form.Check
-                    label="Yellow"
-                    name="color-yellow"
-                    type="checkbox"
-                    id="color-yellow"
-                  />
+                  {colors.map(renderColorCheckbox)}
                 </Form>
               </Accordion.Body>
             </Accordion.Item>
@@ -171,7 +290,8 @@ function Listings() {
             <Accordion.Item eventKey="3">
               <Accordion.Header>Gender</Accordion.Header>
               <Accordion.Body>
-                <Form.Select>
+                <Form.Select id="gender" onChange={handleFilterChange}>
+                  <option selected> </option>
                   <option>Man</option>
                   <option>Woman</option>
                   <option>Child</option>
@@ -184,36 +304,7 @@ function Listings() {
               <Accordion.Header>Condition</Accordion.Header>
               <Accordion.Body>
                 <Form className="text-left">
-                  <Form.Check
-                    label="Brand New"
-                    name="condition5"
-                    type="checkbox"
-                    id={"condition-brandNew"}
-                  />
-                  <Form.Check
-                    label="Good"
-                    name="condition4"
-                    type="checkbox"
-                    id={"condition-good"}
-                  />
-                  <Form.Check
-                    label="Used"
-                    name="condition3"
-                    type="checkbox"
-                    id={"condition-used"}
-                  />
-                  <Form.Check
-                    label="Poor"
-                    name="condition2"
-                    type="checkbox"
-                    id={"condition-poor"}
-                  />
-                  <Form.Check
-                    label="Spare Parts"
-                    name="condition1"
-                    type="checkbox"
-                    id={"condition-spare"}
-                  />
+                  {conditions.map(renderConditionCheckbox)}
                 </Form>
               </Accordion.Body>
             </Accordion.Item>
@@ -221,19 +312,18 @@ function Listings() {
             <Accordion.Item eventKey="5">
               <Accordion.Header>Location</Accordion.Header>
               <Accordion.Body>
-                <label for="location">Location</label>
                 <input
                   className="textField"
                   type="text"
-                  defaultValue="Munich"
                   id="location"
                   name="location"
+                  onChange={handleFilterChange}
                 ></input>
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="6">
-              <Accordion.Header>Front Gears</Accordion.Header>
+              <Accordion.Header>Rear Gears</Accordion.Header>
               <Accordion.Body>
                 <input
                   className="textField"
@@ -242,12 +332,14 @@ function Listings() {
                   max="3"
                   id="rearGears"
                   name="rearGears"
+                  onWheel={(e) => e.target.blur()}
+                  onChange={handleFilterChange}
                 ></input>
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="7">
-              <Accordion.Header>Rear Gears</Accordion.Header>
+              <Accordion.Header>Front Gears</Accordion.Header>
               <Accordion.Body>
                 <input
                   className="textField"
@@ -256,6 +348,8 @@ function Listings() {
                   max="12"
                   id="frontGears"
                   name="frontGears"
+                  onWheel={(e) => e.target.blur()}
+                  onChange={handleFilterChange}
                 ></input>
               </Accordion.Body>
             </Accordion.Item>
@@ -263,9 +357,10 @@ function Listings() {
             <Accordion.Item eventKey="8">
               <Accordion.Header>Brake Type</Accordion.Header>
               <Accordion.Body>
-                <Form.Select>
-                  <option>Disk Brake</option>
-                  <option>Rim Brake</option>
+                <Form.Select id="brakeType" onChange={handleFilterChange}>
+                  <option selected> </option>
+                  <option>Disk</option>
+                  <option>Rim</option>
                 </Form.Select>
               </Accordion.Body>
             </Accordion.Item>
@@ -273,8 +368,9 @@ function Listings() {
             <Accordion.Item eventKey="9">
               <Accordion.Header>Frame Material</Accordion.Header>
               <Accordion.Body>
-                <Form.Select>
-                  <option>Aluminum</option>
+                <Form.Select id="frameMaterial" onChange={handleFilterChange}>
+                  <option selected> </option>
+                  <option>Aluminium</option>
                   <option>Carbon</option>
                   <option>Steel</option>
                 </Form.Select>
@@ -284,11 +380,12 @@ function Listings() {
             <Accordion.Item eventKey="10">
               <Accordion.Header>Verification Level</Accordion.Header>
               <Accordion.Body>
-                <Form.Select>
-                  <option>Frame Number &amp; Condition</option>
-                  <option>Frame Number </option>
-                  <option>Condition</option>
-                  <option>None</option>
+                <Form.Select id="verification" onChange={handleFilterChange}>
+                  <option selected> </option>
+                  <option value="conditionAndFrame">Frame Number &amp; Condition</option>
+                  <option value="frame">Frame Number </option>
+                  <option value="condition">Condition</option>
+                  <option value="none">None</option>
                 </Form.Select>
               </Accordion.Body>
             </Accordion.Item>

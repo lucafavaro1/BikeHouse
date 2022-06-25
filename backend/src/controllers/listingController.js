@@ -24,8 +24,6 @@ const getListings = async (req, res) => {
 
 
 
-
-
 	listings = listings.sort((a, b) => Number(b.isBoosted) - Number(a.isBoosted))
 
 	return res.status(200).json(listings)
