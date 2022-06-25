@@ -30,7 +30,7 @@ const BikeSchema = new mongoose.Schema({
     required: true,
   },
   frameSize: {
-    type: String,
+    type: Number,
     required: true,
   },
   frameMaterial: {

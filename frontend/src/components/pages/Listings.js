@@ -274,8 +274,8 @@ function Listings() {
               <Accordion.Header>Frame Material</Accordion.Header>
               <Accordion.Body>
                 <Form.Select>
-                  <option>Aliminum</option>
-                  <option>Carbon Fiber</option>
+                  <option>Aluminum</option>
+                  <option>Carbon</option>
                   <option>Steel</option>
                 </Form.Select>
               </Accordion.Body>
@@ -288,6 +288,7 @@ function Listings() {
                   <option>Frame Number &amp; Condition</option>
                   <option>Frame Number </option>
                   <option>Condition</option>
+                  <option>None</option>
                 </Form.Select>
               </Accordion.Body>
             </Accordion.Item>
