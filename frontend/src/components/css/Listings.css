@@ -5,10 +5,11 @@
 .listings .filtersPanel {
   background-color: rgb(229, 229, 229);
   margin-left: 3rem;
-  margin-top: 3rem;
+  margin-top: 3.2rem;
   margin-bottom: 3rem;
   padding: 0;
   padding-bottom: 0.25%;
+  border-radius: 1.5% / 0.5%
 }
 
 .listings .filtersTitle {
