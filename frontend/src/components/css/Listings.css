@@ -2,6 +2,25 @@
   margin: 0;
 }
 
+.listings .categoriesTitleCol {
+  padding: 0;
+  margin: 2rem 0 3rem 3rem;
+  font-size: 1.5rem;
+  text-align: end;
+}
+
+.listings .categoriesFirstCol {
+  margin-left: 2.7rem;
+}
+
+.listings .categoriesCol {
+  margin-top: 2.1rem;
+}
+
+.listings .accessoriesCol {
+  margin: 2rem 3.5rem 0 0;
+}
+
 .listings .filtersPanel {
   background-color: rgb(229, 229, 229);
   margin-left: 3rem;
@@ -64,6 +83,7 @@
   width: 100%;
   background-color: var(--bikehouse-blue);
   border-radius: 4px;
+  border-color: transparent;
 }
 
 .listings .listingsPanel {

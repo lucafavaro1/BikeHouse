@@ -110,7 +110,11 @@ function generateBikeFilters(rawQuery) {
 		else {
 			delete filter.condition // faulty parameter; no need to apply any filter
 		}
+	}
 
+	if (rawQuery.type) {
+		filter.type = filter.type || {};
+		filter.type = rawQuery.type;
 	}
 
 	return filter

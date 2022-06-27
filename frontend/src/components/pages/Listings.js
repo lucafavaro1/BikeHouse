@@ -9,6 +9,8 @@ import "../css/Listings.css";
 function Listings() {
   const [listings, setListings] = useState([]);
   const parameters = useRef({})
+  const [activeCategoryBtn, setActiveCategoryBtn] = useState('');
+  const selectedCategoryColor = "gainsboro"
 
   const colors = ["Red", "Green", "Black", "Yellow"]
   const conditions = ["Brand New", "Good", "Used", "Poor", "Spare Parts"]
@@ -48,6 +50,7 @@ function Listings() {
 
     let newValue = eventObject.target.value
     let targetId = eventObject.target.id
+    let targetName = eventObject.target.name
 
     if (targetId == "minPrice") {
       parameters.current.minPrice = parameters.current.minPrice || {};
@@ -68,11 +71,11 @@ function Listings() {
     else if (targetId.includes("color")) {
       parameters.current.colors = parameters.current.colors || [];
 
-      if (parameters.current.colors.includes(eventObject.target.name)) { // remove if exists
-        parameters.current.colors = parameters.current.colors.filter(item => item !== eventObject.target.name)
+      if (parameters.current.colors.includes(targetName)) { // remove if exists
+        parameters.current.colors = parameters.current.colors.filter(item => item !== targetName)
       }
       else { // add if doesn't exist
-        parameters.current.colors = [...parameters.current.colors, eventObject.target.name];
+        parameters.current.colors = [...parameters.current.colors, targetName];
       }
     }
     else if (targetId == "gender") {
@@ -88,7 +91,7 @@ function Listings() {
     else if (targetId.includes("condition")) {
       parameters.current.conditions = parameters.current.conditions || [];
 
-      let conditionIndex = 5 - +eventObject.target.name
+      let conditionIndex = 5 - +targetName
 
       if (parameters.current.conditions.includes(conditionIndex)) { // remove if exists
         parameters.current.conditions = parameters.current.conditions.filter(item => item !== conditionIndex)
@@ -139,8 +142,19 @@ function Listings() {
         delete parameters.current.verification
       }
     }
+    else if (targetName == "categoryBtn") {
+      parameters.current.type = parameters.current.type || {};
+      parameters.current.type = targetId;
+    }
 
     console.log(parameters.current)
+  }
+
+  /** Called when a category button is clicked. Highlights the button, updates & applies the filter*/
+  function handleCategoryChange(eventObject) {
+    setActiveCategoryBtn(eventObject.target.id)
+    handleFilterChange(eventObject)
+    applyFilterClicked()
   }
 
   /** Renders a new Card component for each listing */
@@ -199,6 +213,44 @@ function Listings() {
 
   return (
     <div className="listings content">
+      <div className="row">
+
+        <div className="col-sm-2 categoriesTitleCol">
+          <p>Categories:</p>
+        </div>
+
+        <div className="col categoriesCol categoriesFirstCol">
+          <button type="button" className="btn btn-block btn-light border" id="City" name="categoryBtn"
+            style={(activeCategoryBtn == "City") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>City</button>
+          <button type="button" className="btn btn-block btn-light border" id="Road" name="categoryBtn"
+            style={(activeCategoryBtn == "Road") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>Road</button>
+          <button type="button" className="btn btn-block btn-light border" id="Mountain" name="categoryBtn"
+            style={(activeCategoryBtn == "Mountain") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>Mountain</button>
+        </div>
+
+        <div className="col categoriesCol">
+          <button type="button" className="btn btn-block btn-light border" id="Downhill" name="categoryBtn"
+            style={(activeCategoryBtn == "Downhill") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>Downhill</button>
+          <button type="button" className="btn btn-block btn-light border" id="Gravel" name="categoryBtn"
+            style={(activeCategoryBtn == "Gravel") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>Gravel</button>
+          <button type="button" className="btn btn-block btn-light border" id="Folding" name="categoryBtn"
+            style={(activeCategoryBtn == "Folding") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>Folding</button>
+        </div>
+
+        <div className="col categoriesCol border-right">
+          <button type="button" className="btn btn-block btn-light border" id="E-Bike" name="categoryBtn"
+            style={(activeCategoryBtn == "E-Bike") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>E-Bike</button>
+          <button type="button" className="btn btn-block btn-light border" id="Classic" name="categoryBtn"
+            style={(activeCategoryBtn == "Classic") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>Classic</button>
+          <button type="button" className="btn btn-block btn-light border" id="Others" name="categoryBtn"
+            style={(activeCategoryBtn == "Others") ? { backgroundColor: `${selectedCategoryColor}` } : {}} onClick={handleCategoryChange}>Others</button>
+        </div>
+
+        <div className="col accessoriesCol align-self-center">
+          <button type="button" className="btn btn-block btn-light border" onClick={() => alert('Not implemented')}>Accessories</button>
+        </div>
+
+      </div>
       <div className="row">
         <div className="col-sm-2 filtersPanel">
           <p className="filtersTitle">Filters</p>
