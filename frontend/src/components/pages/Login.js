@@ -31,6 +31,7 @@ function Login() {
           email: email,
           password: password,
           loggedIn: true,
+          id: response.data.id,
         })
       );
       navigate("/");

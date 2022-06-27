@@ -1,7 +1,5 @@
 import React from "react";
-import logo from "./logo.png";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import logo from "../pictures/logo.png";
 import "../css/Header.css";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";

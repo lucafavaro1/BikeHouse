@@ -34,12 +34,6 @@ function Listings() {
 
     return (
       <Card key={index} onClick={listingClicked}>
-        {/* <Card.Img
-          variant="top"
-          src={
-            "https://www.bike-magazin.de/__image/a/4825968/alias/xl/a/b/c/1/ar/4-3/bike-test-racebikes-2022-down-country-bike-bmc-fourstroke-01-lt-one.jpg"
-          }
-        /> */}
         <Card.Img variant="top" src={b64encoded} />
 
         {listing.isBoosted ? (
