@@ -3,8 +3,9 @@ import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import ListingDescription from "./ListingDescription";
-import Axios from "axios";
+
 import "../css/Listings.css";
+import axios from "axios";
 
 function Listings() {
   const [listings, setListings] = useState([]);
@@ -12,7 +13,7 @@ function Listings() {
   useEffect(() => {
     async function getListings() {
       try {
-        const response = await Axios.get("http://localhost:3001/listing");
+        const response = await axios.get("http://localhost:3001/listing");
         setListings(response.data);
       } catch (error) {
         console.log(error);

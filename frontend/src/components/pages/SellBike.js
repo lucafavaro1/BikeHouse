@@ -1,5 +1,5 @@
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
-import Axios from "axios";
+import axios from "axios";
 import React, { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import "../css/SellBike.css";
@@ -31,26 +31,30 @@ function SellBike() {
   const [isBoosted, setIsBoosted] = useState(false);
 
   const submitItem = async () => {
-    Axios.post("http://localhost:3001/createItem", {
-      brand,
-      model,
-      type,
-      location,
-      price,
-      frameSize,
-      frameMaterial,
-      color,
-      gender,
-      frontGears,
-      rearGears,
-      brakeType,
-      description,
-      conditionToBeVerified: conditionVerification,
-      frameToBeVerified: frameVerification,
-      photos,
-      frameVerified: false,
-      condition: 0,
-    })
+    axios
+      .post("http://localhost:3001/createItem", {
+        headers: {
+          authorization: "Bearer " + user.accessToken,
+        },
+        brand,
+        model,
+        type,
+        location,
+        price,
+        frameSize,
+        frameMaterial,
+        color,
+        gender,
+        frontGears,
+        rearGears,
+        brakeType,
+        description,
+        conditionToBeVerified: conditionVerification,
+        frameToBeVerified: frameVerification,
+        photos,
+        frameVerified: false,
+        condition: 0,
+      })
       .then((response) => {
         console.log(`Item successfully added`);
         createListing(response.data._id);
@@ -61,14 +65,18 @@ function SellBike() {
   };
 
   const createListing = async (itemId) => {
-    Axios.post("http://localhost:3001/createListing", {
-      isBoosted, // to be modified
-      isActive: true, // is it really needed?
-      bikeId: itemId,
-      sellerId: "629ccc0eb74f935b5e62fb1b", // userId is missing!
-      finalPrice: calculateFinalPrice(price),
-      shouldBeVerified: conditionVerification && frameVerification,
-    })
+    axios
+      .post("http://localhost:3001/createListing", {
+        headers: {
+          authorization: "Bearer " + user.accessToken,
+        },
+        isBoosted, // to be modified
+        isActive: true, // is it really needed?
+        bikeId: itemId,
+        sellerId: "629ccc0eb74f935b5e62fb1b", // userId is missing!
+        finalPrice: calculateFinalPrice(price),
+        shouldBeVerified: conditionVerification && frameVerification,
+      })
       .then((response) => {
         console.log(`Listing successfully added`);
       })

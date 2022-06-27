@@ -6,10 +6,13 @@ import Sidebar from "./components/pages/Sidebar";
 import Footer from "./components/pages/Footer";
 import { useState, useEffect } from "react";
 import Navbar from "./components/pages/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { login, selectUser } from "./features/userSlice";
 
 function App() {
   const [showButton, setShowButton] = useState(false);
-
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
