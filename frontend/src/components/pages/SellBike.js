@@ -11,7 +11,6 @@ import rocketImg from "../pictures/rocket.png";
 
 function SellBike() {
   const user = useSelector(selectUser);
-
   const [step, setStep] = useState(1);
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -42,6 +41,24 @@ function SellBike() {
       setStep(2);
     }
     setValidated(true);
+  };
+
+  const uploadImages = () => {
+    Axios.post(`http://localhost:3001/image-upload`, {
+      photos,
+    })
+      .then((res) => {
+        console.log(res);
+        var copyPhoto = [...photos];
+        for (let i = 0; i < copyPhoto.length; i++) {
+          copyPhoto[i].url = res.data[i].url;
+        }
+        setPhotos(copyPhoto);
+        submitItem();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const submitItem = async () => {
@@ -79,7 +96,7 @@ function SellBike() {
       isBoosted,
       isActive: true,
       bikeId: itemId,
-      sellerId: user._id, // userId is missing!
+      sellerId: user.id,
       finalPrice: calculateFinalPrice(price),
       shouldBeVerified: conditionVerification && frameVerification,
     })
@@ -594,9 +611,10 @@ function SellBike() {
               <Button
                 className="col mt-3 mb-3 next"
                 // href="/"
+                // Warning! If you redirect it will fail for some stupid reasons
                 onClick={() => {
                   alert("To implement my listing page in profile");
-                  submitItem();
+                  uploadImages();
                 }}
               >
                 Submit
