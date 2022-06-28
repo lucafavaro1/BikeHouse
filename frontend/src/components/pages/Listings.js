@@ -381,7 +381,7 @@ function Listings() {
                   className="textField"
                   type="number"
                   min="1"
-                  max="3"
+                  max="12"
                   id="rearGears"
                   name="rearGears"
                   onWheel={(e) => e.target.blur()}
@@ -397,7 +397,7 @@ function Listings() {
                   className="textField"
                   type="number"
                   min="1"
-                  max="12"
+                  max="3"
                   id="frontGears"
                   name="frontGears"
                   onWheel={(e) => e.target.blur()}

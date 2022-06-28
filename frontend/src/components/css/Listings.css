@@ -93,7 +93,13 @@
 .listings .card {
   margin: 1.5%;
   min-width: 30%;
+  height: 100%;
   cursor: pointer;
+}
+
+.listings .card-img-top {
+  height: 18rem;
+  object-fit: contain
 }
 
 .listings .card-body {
