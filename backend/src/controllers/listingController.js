@@ -4,6 +4,9 @@ const { BikeModel } = require("../models/Item");
 // @desc Get listings
 // @route GET /listing
 const getListings = async (req, res) => {
+	const perPage = 6;
+	var page = req.query.page || 0
+
 	console.log()
 	console.log("RAW QUERY:")
 	console.log(req.query)
@@ -16,15 +19,16 @@ const getListings = async (req, res) => {
 	console.log("GENERATED BIKE FILTER: ")
 	console.log(bikeFilters)
 
-	let listings = await ListingModel.find(listingFilters).exec(); // fetch listings
+
+	let listings = await ListingModel.find(listingFilters) // fetch listings
+		.limit(perPage)
+		.skip(perPage * page)
+		.sort({ isBoosted: -1 })
+		.exec();
 
 	listings = JSON.parse(JSON.stringify(listings)); // convert to JSON to support adding a new field (bike)
 
 	listings = await fetchBikesForListings(listings, bikeFilters)
-
-
-
-	listings = listings.sort((a, b) => Number(b.isBoosted) - Number(a.isBoosted))
 
 	return res.status(200).json(listings)
 };

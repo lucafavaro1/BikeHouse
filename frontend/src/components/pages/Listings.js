@@ -8,25 +8,54 @@ import "../css/Listings.css";
 
 function Listings() {
   const [listings, setListings] = useState([]);
+  const [nextListings, setNextListings] = useState([]);
   const parameters = useRef({})
+  const lastPageNum = useRef(Infinity)
   const [activeCategoryBtn, setActiveCategoryBtn] = useState('');
+  const [currentPageNum, setCurrentPageNum] = useState(0);
   const selectedCategoryColor = "gainsboro"
 
-  const colors = ["Red", "Green", "Black", "Yellow"]
+  const colors = ["White", "Black", "Gray", "Yellow", "Blue", "Green", "Purple", "Brown", "Red", "Orange"]
   const conditions = ["Brand New", "Good", "Used", "Poor", "Spare Parts"]
 
+
   useEffect(() => {
-    async function getListings() {
+    getListings();
+  }, []);
+
+  async function getListings(page = 0, shouldPreFetchNextPage = true, shouldUsePreFetchedNextPage = true) {
+    parameters.current.page = page
+
+    if (nextListings.length != 0 && shouldUsePreFetchedNextPage) { // if there are already pre-fetched listings
+      setListings(nextListings)
+    }
+    else {
       try {
-        const response = await Axios.get("http://localhost:3001/listing");
+        const response = await Axios.get("http://localhost:3001/listing", { params: parameters.current });
         setListings(response.data);
       } catch (error) {
         console.log(error);
       }
     }
 
-    getListings();
-  }, []);
+    if (shouldPreFetchNextPage) {
+      parameters.current.page = page + 1 // increment page number to pre-fetch the next page
+
+      try {
+        const response = await Axios.get("http://localhost:3001/listing", { params: parameters.current });
+        setNextListings(response.data);
+
+        if (response.data.length == 0) { // check if last page is reached
+          lastPageNum.current = page
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+
+      parameters.current.page = page
+    }
+  }
 
   /** Called when a listing is clicked */
   const listingClicked = async (event) => {
@@ -35,12 +64,23 @@ function Listings() {
 
   /** Called when the apply button is clicked */
   const applyFilterClicked = async (event) => {
-    try {
-      const response = await Axios.get("http://localhost:3001/listing", { params: parameters.current });
-      setListings(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+    setCurrentPageNum(0)
+    lastPageNum.current = Infinity
+    getListings(0, true, false)
+  }
+
+  const nextPageClicked = async (event) => {
+    if (currentPageNum == lastPageNum.current) { return }
+
+    getListings(currentPageNum + 1)
+    setCurrentPageNum(currentPageNum + 1)
+  }
+
+  const prevPageClicked = async (event) => {
+    if (currentPageNum == 0) { return }
+
+    getListings(currentPageNum - 1, false)
+    setCurrentPageNum(currentPageNum - 1)
   }
 
   /** Called when any of the accordion items is changed*/
@@ -159,14 +199,14 @@ function Listings() {
 
   /** Renders a new Card component for each listing */
   const renderCard = (listing, index) => {
-    var b64encoded = String.fromCharCode.apply(
-      null,
-      listing.bike.photos[0].src.data
-    );
+    // var b64encoded = String.fromCharCode.apply(
+    //   null,
+    //   listing.bike.photos[0].src.data
+    // );
 
     return (
       <Card key={index} onClick={listingClicked}>
-        <Card.Img variant="top" src={b64encoded} />
+        <Card.Img variant="top" src={listing.bike.photos[0].url} />
 
         {listing.isBoosted ? (
           <div className="boostIcon">
@@ -447,6 +487,12 @@ function Listings() {
         <div className="col listingsPanel">
           <Row xs={3} md={4}>
             {listings.map(renderCard)}
+          </Row>
+
+          <Row className="justify-content-end">
+            <button type="button" class="btn pageBtn" onClick={prevPageClicked} disabled={currentPageNum == 0}>&larr;</button>
+            <p className="pageNumText align-self-center"> Page {currentPageNum + 1} </p>
+            <button type="button" class="btn pageBtn nextPageBtn" onClick={nextPageClicked} disabled={currentPageNum == lastPageNum.current}>&rarr;</button>
           </Row>
         </div>
       </div>

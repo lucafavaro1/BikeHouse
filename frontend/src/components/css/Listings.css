@@ -116,3 +116,20 @@
   padding: 1.5%;
   border-radius: 10%;
 }
+
+.listings .pageBtn {
+  border: solid 1px;
+}
+
+.listings .pageBtn:disabled {
+  color: rgb(180, 180, 180);
+}
+
+.listings .nextPageBtn {
+  
+  margin-right: 1.7rem;
+}
+
+.listings .pageNumText {
+  margin: 0 1rem 0 1rem;
+}
