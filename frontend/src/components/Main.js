@@ -33,7 +33,11 @@ function Main() {
       <Route exact path="/guide" element={<Guide />}></Route>
       <Route exact path="/photo_guide" element={<PhotoGuide />}></Route>
       <Route exact path="/contact" element={<Contact />}></Route>
-      <Route exact path="/specialist" element={<Specialist />}></Route>
+      <Route
+        exact
+        path="/specialist"
+        element={loggedIn ? <Specialist /> : <Navigate to="/login" />}
+      ></Route>
       <Route
         exact
         path="/sellbike"

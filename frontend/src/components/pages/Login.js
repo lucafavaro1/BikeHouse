@@ -34,7 +34,7 @@ function Login() {
           id: response.data.id,
         })
       );
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       emailRef.current.value = "";
       passwordRef.current.value = "";

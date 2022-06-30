@@ -8,6 +8,7 @@ Sell a bike page, form + upload image + backend 8h
 Fix sell a bike form + login 1h
 Homepage design 4h
 Payment with Stripe 1h
+Sell a bike, pictures uploaded to hosting service 1.5h
 
 # Tarlan
 FIX: Footer is overlapping the page content 1h

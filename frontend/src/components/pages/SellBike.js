@@ -52,6 +52,7 @@ function SellBike() {
         var copyPhoto = [...photos];
         for (let i = 0; i < copyPhoto.length; i++) {
           copyPhoto[i].url = res.data[i].url;
+          copyPhoto[i].src = null;
         }
         setPhotos(copyPhoto);
         submitItem();
