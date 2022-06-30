@@ -5,6 +5,7 @@ import Header from "./components/pages/Header";
 import Sidebar from "./components/pages/Sidebar";
 import Footer from "./components/pages/Footer";
 import { useState, useEffect } from "react";
+import Appbar from "./components/pages/Appbar";
 import Navbar from "./components/pages/Navbar";
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
     <div className="App">
       <div className="content-wrap">
         <Header />
-        <Navbar />
+        <Appbar />
         <Main />
       </div>
       {/* <Sideaìbar /> */}

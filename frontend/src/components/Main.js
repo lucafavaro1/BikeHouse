@@ -9,6 +9,7 @@ import Specialist from "./pages/Specialist";
 import SellBike from "./pages/SellBike";
 import PhotoGuide from "./pages/PhotoGuide";
 import Listings from "./pages/Listings";
+import Dashboard from "./pages/Dashboard";
 
 function Main() {
   return (
@@ -23,6 +24,8 @@ function Main() {
       <Route exact path="/contact" element={<Contact />}></Route>
       <Route exact path='/specialist' element={<Specialist />}></Route>
       <Route exact path="/sellbike" element={<SellBike />}></Route>
+      <Route exact path="/dashboard" element={<Dashboard />}></Route>
+
     </Routes>
   );
 }

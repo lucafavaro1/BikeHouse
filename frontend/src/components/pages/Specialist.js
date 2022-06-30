@@ -30,10 +30,10 @@ import { TextField } from "@mui/material";
 
 const steps = [
   {
-    label: `Select your Issue`,
+    label: `Describe your Issue`,
     description: 
         `What consultation can we help you with? 
-        Choose from one below:`,
+        Describe in a few lines`,
   },
   {
     label: `Pick a Date and Time Slot`,
@@ -95,7 +95,27 @@ function Specialist () {
     sendEmail(user, cal);
     handleNext();
   };
-  
+
+  const themeCalendar = {
+    primary: '#306070',
+    secondary: '#306070',
+    background: 'white', // This should match the container background
+    buttons: {
+      disabled: {
+        color: '#333',
+        background: '#f0f0f0'
+      },
+      confirm: {
+        color: 'white',
+        background: 'white',
+        hover: {
+          color: '',
+          background: 'white'
+        }
+      }
+    },
+  };
+
   const sendEmail = (user, cal) => {
       Axios.post("http://localhost:3001/createAppointment", {
         sender,
@@ -143,7 +163,7 @@ function Specialist () {
                 <StepContent>
                   <Typography>{steps[0].description}</Typography>
                   <Box sx={{mt: 2, mb: 2}}>
-                    <FormControl fullWidth required={true}>
+                    {/* <FormControl fullWidth required={true}>
                       <InputLabel>Issue</InputLabel>
                       <Select
                         labelId="issue-select-label"
@@ -156,14 +176,16 @@ function Specialist () {
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                       </Select>
-                    </FormControl>
-                    <FormControl fullWidth required={false}>
+                    </FormControl> */}
+                    <FormControl fullWidth required>
                       {/* <InputLabel>Additional Comments</InputLabel> */}
                       <TextField 
-                        sx={{mt: 2}}
+                        // sx={{mt: 2}}
                         id="filled-basic" 
                         label="Additional Comments" 
-                        variant="outlined" />
+                        value={issue}
+                        variant="outlined"
+                        onChange={handleChange} />
                     </FormControl>
                   </Box>
                   <Box >
@@ -185,17 +207,19 @@ function Specialist () {
                 </StepLabel>
                 <StepContent>
                   <Typography>{steps[1].description}</Typography>
-                  <Card sx={{m:1, p:1}}>
+                  <Card sx={{m:1, p:1}} id="calendar" height='200px'>
                     <DayTimePicker 
-                      id = "calendar"
+                      // id = "calendar"
                       timeSlotSizeMinutes={60} 
                       timeSlotValidator={timeSlotValidator}
                       onConfirm={handleSchedule}
+                      theme = {themeCalendar}
                     />
                   </Card>
-                  <Box sx={{mt:2}}>
+                  <Box sx={{mt: 2}}>
                     <div>
                       <Button
+                        sx={{ml:1}}
                         variant="contained"
                         disabled
                         onClick={handleNext}
@@ -203,6 +227,7 @@ function Specialist () {
                         Next
                       </Button>
                       <Button
+                        sx={{ml:1}}
                         onClick={handleBack}
                       >
                         Back
@@ -216,19 +241,19 @@ function Specialist () {
                   {steps[2].label}
                 </StepLabel>
                 <StepContent>
-                  <Typography id="tester">{steps[2].description}</Typography>
+                  <Typography>{steps[2].description}</Typography>
                   <Box sx={{ mt: 1, mb: 1 }}>
                     <div>
                       <Button
+                        sx = {{mr: 1}}
                         variant="contained"
                         onClick={handleFinish}
-                        // sx={{ mt: 1, mr: 1 }}
                       >
                         Finish
                       </Button>
                       <Button
+                        sx = {{mr: 1}}
                         onClick={handleBack}
-                        // sx={{ mt: 1, mr: 1 }}
                       >
                         Back
                       </Button>
@@ -239,14 +264,14 @@ function Specialist () {
             </Stepper> 
             {activeStep === steps.length && (
             <>
-              <Typography sx={{mt:2}}>
+              <Typography sx={{ml:4}}>
                 Your appointment has been successfully scheduled. <br />
                 Check your email for a confirmation message and a calendar invite.
               </Typography>
               <Button 
                 variant='outlined'
                 onClick={handleReset} 
-                sx={{ mt: 1, mr: 1 }}>
+                sx={{ mt: 1, ml: 4 }}>
                 Book another appointment
               </Button>
             </>

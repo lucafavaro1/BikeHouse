@@ -1,4 +1,4 @@
-.container {
+.imageContainer {
   display: flex;
   flex-wrap: wrap;
   width: 80%;
@@ -6,7 +6,7 @@
   padding: 20px;
 }
 
-.container img {
+.imageContainer img {
   max-height: 150px;
   max-width: 150px;
   margin-right: 50px;

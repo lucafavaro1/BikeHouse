@@ -5,21 +5,29 @@
 
 .specialist button {
   background-color: var(--bikehouse-blue);
+  color: #f0f0f0;
   opacity: 0.8;
 }
 
 .specialist button:hover {
   background-color: var(--bikehouse-blue);
+  color: #f0f0f0;
   opacity: 1;
 }
 
-/* .specialist svg {
+.specialist circle {
   color: var(--bikehouse-blue);
-} */
-
-#calendar button {
-  background-color: #f0f0f0;
 }
-/* .MuiStepLabel-iconContainer {
+
+.specialist span path {
   color: var(--bikehouse-blue);
-} */
+}
+
+.specialist .sc-bxivhb.kavPGJ {
+  color: #f0f0f0;
+  border-radius: 5px;
+  text-decoration: none;
+  width: 100px;
+}
+
+

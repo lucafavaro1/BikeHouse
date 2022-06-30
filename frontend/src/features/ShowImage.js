@@ -5,6 +5,6 @@ const ShowImage = ({ images }) => {
   const show = (image) => {
     return <Image image={image} />;
   };
-  return <div className="container">{images.map(show)}</div>;
+  return <div className="imageContainer">{images.map(show)}</div>;
 };
 export default ShowImage;
