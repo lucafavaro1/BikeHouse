@@ -6,8 +6,8 @@ import Form from "react-bootstrap/Form";
 import "../css/SellBike.css";
 import DropBox from "../../features/Dropbox";
 import ShowImage from "../../features/ShowImage";
-import { useSelector } from "react-redux";
-import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, AUTH_TOKENS, logout } from "../../features/userSlice";
 import rocketImg from "../pictures/rocket.png";
 
 function SellBike() {
@@ -30,6 +30,7 @@ function SellBike() {
   const [frameVerification, setFrameVerification] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [isBoosted, setIsBoosted] = useState(false);
+  const dispatch = useDispatch();
 
   const [validated, setValidated] = useState(false);
 
@@ -45,9 +46,10 @@ function SellBike() {
   };
 
   const uploadImages = () => {
-    axios.post(`http://localhost:3001/image-upload`, {
-      photos,
-    })
+    axios
+      .post(`http://localhost:3001/image-upload`, {
+        photos,
+      })
       .then((res) => {
         console.log(res);
         var copyPhoto = [...photos];
@@ -67,32 +69,35 @@ function SellBike() {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
       authTokens = JSON.parse(authTokens);
+    } else {
+      await dispatch(logout());
+      alert("AUTH TOKEN EXPIRED! LOG IN AGAIN!");
+      window.location.reload();
     }
 
-    AxiosJWT
-      .post("http://localhost:3001/createItem", {
-        headers: {
-          authorization: "Bearer " + authTokens.accessToken,
-        },
-        brand,
-        model,
-        type,
-        location,
-        price,
-        frameSize,
-        frameMaterial,
-        color,
-        gender,
-        frontGears,
-        rearGears,
-        brakeType,
-        description,
-        conditionToBeVerified: conditionVerification,
-        frameToBeVerified: frameVerification,
-        photos,
-        frameVerified: false,
-        condition: 0,
-      })
+    AxiosJWT.post("http://localhost:3001/createItem", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+      brand,
+      model,
+      type,
+      location,
+      price,
+      frameSize,
+      frameMaterial,
+      color,
+      gender,
+      frontGears,
+      rearGears,
+      brakeType,
+      description,
+      conditionToBeVerified: conditionVerification,
+      frameToBeVerified: frameVerification,
+      photos,
+      frameVerified: false,
+      condition: 0,
+    })
       .then((response) => {
         console.log(`Item successfully added`);
         createListing(response.data._id);
@@ -106,6 +111,9 @@ function SellBike() {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
       authTokens = JSON.parse(authTokens);
+    } else {
+      await dispatch(logout());
+      window.location.reload();
     }
 
     AxiosJWT.post("http://localhost:3001/createListing", {
