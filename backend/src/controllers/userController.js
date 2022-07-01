@@ -2,6 +2,7 @@ const UserModel = require("../models/Users");
 const RefreshTokenModel = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const emailkey = require("../emailKeyForgotPassword");
 
 // @desc Get user by email and password
 // @route POST /users/login
@@ -80,6 +81,13 @@ const createUser = async (req, res) => {
   }
 };
 
+const forgotPassword = async (req, res) => {
+  const email = req.body;
+  const user = await UserModel.findOne(email);
+  // get back to frontend that the user was found
+  res.json(data);
+};
+
 const refreshTokenGen = async (req, res) => {
   //take the refresh token
   const refreshToken = req.body.token;
@@ -137,26 +145,6 @@ const refreshTokenGen = async (req, res) => {
   // if everything ok , send a new access token, refresh token
 };
 
-const updateUser = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
-    // no JSON body
-    return res
-      .status(400)
-      .json({ error: "Bad Request", message: "The request body is empty" });
-  }
-
-  try {
-    let user = UserModel.findByIdAndUpdate(req.body.id, {
-      name: req.body.name,
-      age: req.body.age,
-      username: req.body.username,
-    }).exec();
-    return res.status(200).json(user);
-  } catch (err) {
-    res.status(404).json(err);
-  }
-};
-
 const verify = (req, res, next) => {
   const authHeader = req.headers.authorization;
   console.log(authHeader);
@@ -191,7 +179,7 @@ const logoutUser = async (req, res) => {
 module.exports = {
   loginUser,
   createUser,
-  updateUser,
+  forgotPassword,
   deleteUserTest,
   refreshTokenGen,
   verify,

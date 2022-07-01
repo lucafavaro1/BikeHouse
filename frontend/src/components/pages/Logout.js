@@ -10,7 +10,9 @@ const Logout = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    window.location.reload(false);
   };
+
   return (
     <NavBtn>
       <span className="text-light">Hello, {user.name} !</span>

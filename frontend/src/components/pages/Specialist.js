@@ -21,7 +21,6 @@ import { timeSlotValidator, createICS } from "../../features/slotPicker";
 import emailjs from "@emailjs/browser";
 import emailkey from "../../features/emailkey";
 import { selectUser } from "../../features/userSlice";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Login from "./Login";
 import { Container } from "@mui/system";
@@ -52,7 +51,6 @@ function Specialist() {
     name: "BikeHouse Specialist",
   };
   const subject = "BikeHouse Invitation";
-  const navigate = useNavigate();
   const [issue, setIssue] = useState("");
 
   const [cal, setCal] = useState("");
@@ -114,126 +112,133 @@ function Specialist() {
       }}
       justifyContent="center"
     >
-      <Typography variant="h3" align="center">
-        Book an Appointment
-      </Typography>
-      <Typography variant="h6" align="center" justifyContent="center">
-        Schedule an appointment with a BikeHouse expert to solve your doubts.{" "}
-        <br />
-        We will help you find your dream bike!
-      </Typography>
-      <Container
-        maxWidth="sm"
-        sx={{
-          mt: 5,
-        }}
-        justifyContent="center"
-      >
-        <Stepper activeStep={activeStep} orientation="vertical">
-          <Step key={steps[0].label}>
-            <StepLabel>{steps[0].label}</StepLabel>
-            <StepContent>
-              <Typography>{steps[0].description}</Typography>
-              <Box sx={{ mt: 2, mb: 2 }}>
-                <FormControl fullWidth required={true}>
-                  <InputLabel>Issue</InputLabel>
-                  <Select
-                    labelId="issue-select-label"
-                    id="issue-select"
-                    value={issue}
-                    label="Issue"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth required={false}>
-                  {/* <InputLabel>Additional Comments</InputLabel> */}
-                  <TextField
-                    sx={{ mt: 2 }}
-                    id="filled-basic"
-                    label="Additional Comments"
-                    variant="outlined"
-                  />
-                </FormControl>
-              </Box>
-              <Box>
-                <div>
-                  <Button
-                    variant="contained"
-                    disabled={isDisabled}
-                    onClick={handleNext}
-                  >
-                    Next
-                  </Button>
-                </div>
-              </Box>
-            </StepContent>
-          </Step>
-          <Step key={steps[1].label}>
-            <StepLabel>{steps[1].label}</StepLabel>
-            <StepContent>
-              <Typography>{steps[1].description}</Typography>
-              <Card sx={{ m: 1, p: 1 }}>
-                <DayTimePicker
-                  id="calendar"
-                  timeSlotSizeMinutes={60}
-                  timeSlotValidator={timeSlotValidator}
-                  onConfirm={handleSchedule}
-                />
-              </Card>
-              <Box sx={{ mt: 2 }}>
-                <div>
-                  <Button variant="contained" disabled onClick={handleNext}>
-                    Next
-                  </Button>
-                  <Button onClick={handleBack}>Back</Button>
-                </div>
-              </Box>
-            </StepContent>
-          </Step>
-          <Step key={steps[2].label}>
-            <StepLabel>{steps[2].label}</StepLabel>
-            <StepContent>
-              <Typography id="tester">{steps[2].description}</Typography>
-              <Box sx={{ mt: 1, mb: 1 }}>
-                <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleFinish}
-                    // sx={{ mt: 1, mr: 1 }}
-                  >
-                    Finish
-                  </Button>
-                  <Button
-                    onClick={handleBack}
-                    // sx={{ mt: 1, mr: 1 }}
-                  >
-                    Back
-                  </Button>
-                </div>
-              </Box>
-            </StepContent>
-          </Step>
-        </Stepper>
-        {activeStep === steps.length && (
-          <>
-            <Typography sx={{ mt: 2 }}>
-              Your appointment has been successfully scheduled. <br />
-              Check your email for a confirmation message and a calendar invite.
-            </Typography>
-            <Button
-              variant="outlined"
-              onClick={handleReset}
-              sx={{ mt: 1, mr: 1 }}
-            >
-              Book another appointment
-            </Button>
-          </>
-        )}
-      </Container>
+      {user ? (
+        <>
+          <Typography variant="h3" align="center">
+            Book an Appointment
+          </Typography>
+          <Typography variant="h6" align="center" justifyContent="center">
+            Schedule an appointment with a BikeHouse expert to solve your
+            doubts. <br />
+            We will help you find your dream bike!
+          </Typography>
+          <Container
+            maxWidth="sm"
+            sx={{
+              mt: 5,
+            }}
+            justifyContent="center"
+          >
+            <Stepper activeStep={activeStep} orientation="vertical">
+              <Step key={steps[0].label}>
+                <StepLabel>{steps[0].label}</StepLabel>
+                <StepContent>
+                  <Typography>{steps[0].description}</Typography>
+                  <Box sx={{ mt: 2, mb: 2 }}>
+                    <FormControl fullWidth required={true}>
+                      <InputLabel>Issue</InputLabel>
+                      <Select
+                        labelId="issue-select-label"
+                        id="issue-select"
+                        value={issue}
+                        label="Issue"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <FormControl fullWidth required={false}>
+                      {/* <InputLabel>Additional Comments</InputLabel> */}
+                      <TextField
+                        sx={{ mt: 2 }}
+                        id="filled-basic"
+                        label="Additional Comments"
+                        variant="outlined"
+                      />
+                    </FormControl>
+                  </Box>
+                  <Box>
+                    <div>
+                      <Button
+                        variant="contained"
+                        disabled={isDisabled}
+                        onClick={handleNext}
+                      >
+                        Next
+                      </Button>
+                    </div>
+                  </Box>
+                </StepContent>
+              </Step>
+              <Step key={steps[1].label}>
+                <StepLabel>{steps[1].label}</StepLabel>
+                <StepContent>
+                  <Typography>{steps[1].description}</Typography>
+                  <Card sx={{ m: 1, p: 1 }}>
+                    <DayTimePicker
+                      id="calendar"
+                      timeSlotSizeMinutes={60}
+                      timeSlotValidator={timeSlotValidator}
+                      onConfirm={handleSchedule}
+                    />
+                  </Card>
+                  <Box sx={{ mt: 2 }}>
+                    <div>
+                      <Button variant="contained" disabled onClick={handleNext}>
+                        Next
+                      </Button>
+                      <Button onClick={handleBack}>Back</Button>
+                    </div>
+                  </Box>
+                </StepContent>
+              </Step>
+              <Step key={steps[2].label}>
+                <StepLabel>{steps[2].label}</StepLabel>
+                <StepContent>
+                  <Typography id="tester">{steps[2].description}</Typography>
+                  <Box sx={{ mt: 1, mb: 1 }}>
+                    <div>
+                      <Button
+                        variant="contained"
+                        onClick={handleFinish}
+                        // sx={{ mt: 1, mr: 1 }}
+                      >
+                        Finish
+                      </Button>
+                      <Button
+                        onClick={handleBack}
+                        // sx={{ mt: 1, mr: 1 }}
+                      >
+                        Back
+                      </Button>
+                    </div>
+                  </Box>
+                </StepContent>
+              </Step>
+            </Stepper>
+            {activeStep === steps.length && (
+              <>
+                <Typography sx={{ mt: 2 }}>
+                  Your appointment has been successfully scheduled. <br />
+                  Check your email for a confirmation message and a calendar
+                  invite.
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={handleReset}
+                  sx={{ mt: 1, mr: 1 }}
+                >
+                  Book another appointment
+                </Button>
+              </>
+            )}
+          </Container>
+        </>
+      ) : (
+        <Login />
+      )}
     </Container>
   );
 }

@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "./../features/userSlice";
 import Payment from "./pages/Payment";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function Main() {
   const user = useSelector(selectUser);
@@ -30,6 +31,7 @@ function Main() {
       <Route exact path="/buy" element={<Listings />}></Route>
       <Route exact path="/login" element={<Login />}></Route>
       <Route exact path="/register" element={<Register />}></Route>
+      <Route exact path="/forgotpassword" element={<ForgotPassword />}></Route>
       <Route exact path="/guide" element={<Guide />}></Route>
       <Route exact path="/photo_guide" element={<PhotoGuide />}></Route>
       <Route exact path="/contact" element={<Contact />}></Route>

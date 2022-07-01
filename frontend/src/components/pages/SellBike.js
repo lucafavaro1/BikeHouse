@@ -324,7 +324,7 @@ function SellBike() {
                     <option value="">Select Frame Material</option>
                     <option value="Aluminium">Aluminium</option>
                     <option value="Carbon">Carbon</option>
-                    <option value="Syeel">Steel</option>
+                    <option value="Steel">Steel</option>
                   </Form.Control>
                 </Form.Group>
 

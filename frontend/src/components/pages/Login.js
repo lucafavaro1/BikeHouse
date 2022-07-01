@@ -81,13 +81,13 @@ function Login() {
 
             <div className="form-check">
               <label className="switch">
-                <input type="checkbox" />
-                <span className="slider round"></span>
+                <input type="checkbox" checked={true} />
+                <span className="slider round "></span>
               </label>
               <label className="form-check-label">Remember me</label>
 
               <label className="link">
-                <a href="/">Forgot Password?</a>
+                <a href="/forgotpassword">Forgot Password?</a>
               </label>
             </div>
 
