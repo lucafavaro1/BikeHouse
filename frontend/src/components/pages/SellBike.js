@@ -9,6 +9,7 @@ import ShowImage from "../../features/ShowImage";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, AUTH_TOKENS, logout } from "../../features/userSlice";
 import rocketImg from "../pictures/rocket.png";
+import { Navigate } from "react-router-dom";
 
 function SellBike() {
   const user = useSelector(selectUser);
@@ -70,9 +71,7 @@ function SellBike() {
     if (authTokens != null) {
       authTokens = JSON.parse(authTokens);
     } else {
-      await dispatch(logout());
-      alert("AUTH TOKEN EXPIRED! LOG IN AGAIN!");
-      window.location.reload();
+      console.log("Auth TOkens is null");
     }
 
     AxiosJWT.post("http://localhost:3001/createItem", {
@@ -111,9 +110,6 @@ function SellBike() {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
       authTokens = JSON.parse(authTokens);
-    } else {
-      await dispatch(logout());
-      window.location.reload();
     }
 
     AxiosJWT.post("http://localhost:3001/createListing", {
@@ -652,6 +648,10 @@ function SellBike() {
       default:
         return <p> Something went wrong, please refresh the page</p>;
     }
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
   }
 
   return (
