@@ -1,163 +1,130 @@
-import React, { useState } from "react";
-import "../css/Profile.css"
-import { selectUser } from "../../features/userSlice";
-import { useSelector } from "react-redux";
-import Login from "./Login";
-import { Container} from "@mui/system";
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import Box from '@mui/material/Box';
+import Stack  from '@mui/material/Stack';
+import '../css/Dashboard.css'
+import { Button, Divider, Toolbar } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { logout} from "../../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
-const drawerWidth = 240;
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
 
 function Dashboard() {
 
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const [profile, setProfile] = useState('');
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+  };
 
   return (
-    <Container className ='content specialist'
-      sx = {{
-        mt: 5
-      }}
-      justifyContent='center'
+    <Box
+      className="dashboard"
+      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', minHeight: '70vh'}}
     >
-      {user ? (  
-       <Box sx={{ display: 'flex' }}>
-       {/* <CssBaseline /> */}
-       {/* <AppBar
-         position="fixed"
-         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-       >
-         <Toolbar>
-           <Typography variant="h6" noWrap component="div">
-             Permanent drawer
-           </Typography>
-         </Toolbar>
-       </AppBar> */}
-       <Drawer
-         sx={{
-           width: drawerWidth,
-          //  flexShrink: 10,
-           '& .MuiDrawer-paper': {
-            //  mb: '800px',
-              mt: '200px',
-              height: '600px',
-              width: drawerWidth,
-              boxSizing: 'border-box',
-           },
-         }}
-         variant="permanent"
-         anchor="left"
-         position ="relative"
-       >
-         <Toolbar>
-            <Typography
-              variant="h6"
-              noWrap
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                // fontFamily: 'monospace',
-                fontWeight: 700,
-                color: 'inherit',
-              }}
-            >
-              My Dashboard
-            </Typography>
-         </Toolbar>
-         <Divider />
-         <List>
-           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-             <ListItem key={text} disablePadding>
-               <ListItemButton>
-                 <ListItemIcon>
-                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                 </ListItemIcon>
-                 <ListItemText primary={text} />
-               </ListItemButton>
-             </ListItem>
-           ))}
-         </List>
-         <Divider />
-         <List>
-           {['All mail', 'Trash', 'Spam'].map((text, index) => (
-             <ListItem key={text} disablePadding>
-               <ListItemButton>
-                 <ListItemIcon>
-                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                 </ListItemIcon>
-                 <ListItemText primary={text} />
-               </ListItemButton>
-             </ListItem>
-           ))}
-         </List>
-       </Drawer>
-       <Box
-         component="main"
-         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-       >
-         <Toolbar />
-         <Typography paragraph>
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-           imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-           Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-           Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-           adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-           nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-           leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-           feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-           consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-           sapien faucibus et molestie ac.
-         </Typography>
-         <Typography paragraph>
-           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-           eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-           neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-           tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-           sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-           tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-           gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-           et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-           tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-           posuere sollicitudin aliquam ultrices sagittis orci a.
-         </Typography>
-         <Typography paragraph>
-           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-           eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-           neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-           tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-           sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-           tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-           gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-           et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-           tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-           posuere sollicitudin aliquam ultrices sagittis orci a.
-         </Typography>
-       </Box>
-     </Box>
-      ):(
-        <div>
-          <Login />
-        </div>
-      )}
-  </Container>
-  )
+      <Stack sx = {{borderRight: 1, borderColor: 'divider',}}>
+        <Typography
+          variant="h6"
+          sx={{
+            m: 2,
+            p:2,
+            display: { xs: 'none', md: 'inline' },
+            fontFamily: 'monospace',
+            fontWeight: 700,
+            color: '#2e6076',
+            textDecoration: 'none',
+            fontSize: 30,
+            borderBottom: 3,
+            borderColor: 'divider',
+          }}
+        >
+          My Dashboard
+        </Typography>
+      <Tabs
+        orientation="vertical"
+        value={value}
+        onChange={handleChange}
+        aria-label="Vertical tabs example"
+      >
+        <Tab label="Account" />
+        <Tab label="Payment Settings"/>
+        <Tab label="Notifications" />
+        <Tab label="Support" />
+
+      </Tabs>
+      <Toolbar sx = {{m:2, p:2, borderBottom: 3,  borderColor: 'divider',}}/>
+
+      <Button
+        variant='outlined'
+        onClick={handleLogout}
+        wid
+        endIcon={<LogoutIcon sx = {{display: 'flex'}}/>}
+        sx={{ m: 2, mx:'auto', p:2, width: 'fit-content', alignItems: 'flex-center', color: '#2e6076', display: 'flex', fontSize: 'small', borderColor: '#2e6076', ':hover': {color: '#2e6076'}  }}
+        >
+          Log Out
+      </Button>
+      </Stack>
+      <Divider />
+      <TabPanel value={value} index={0}>
+        Item One
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        Item Two
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        Item Three
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        Item Four
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        Item Five
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        Item Six
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+        Item Seven
+      </TabPanel>
+    </Box>
+  );
 }
 
 export default Dashboard;
