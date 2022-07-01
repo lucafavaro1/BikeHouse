@@ -6,16 +6,6 @@ const stripe = require("stripe")("sk_test_Y17KokhC3SRYCQTLYiU5ZCD2");
 const YOUR_DOMAIN = "http://localhost:3000/";
 
 const checkout = async (req, res) => {
-  // const product = await stripe.products.create({
-  //   name: "FakeItem",
-  //   default_price_data: {
-  //     unit_amount: 1000, // in cent, so 1000 = 10€
-  //     currency: "EUR",
-  //   },
-  //   expand: ["default_price"],
-  // });
-  // console.log(product);
-
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
