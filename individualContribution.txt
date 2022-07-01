@@ -14,6 +14,9 @@ Sell a bike, pictures uploaded to hosting service 1.5h
 FIX: Footer is overlapping the page content 1h
 Models 1.5h
 Listings page and filters 5h
+Implementation of filters 4h
+Bike categories on the listings page 1h
+Pagination for listings 3h
 
 # Xavier
 User storage, login 3h

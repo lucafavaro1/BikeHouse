@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 import "../css/LoginRegister.css";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
@@ -19,8 +19,9 @@ function Login() {
 
   const loginUser = async (event) => {
     event.preventDefault();
+
     try {
-      const response = await Axios.post("http://localhost:3001/loginUser/", {
+      const response = await axios.post("http://localhost:3001/loginUser/", {
         email,
         password,
       });
@@ -29,9 +30,10 @@ function Login() {
         login({
           name: response.data.firstName,
           email: email,
-          password: password,
           loggedIn: true,
-          id: response.data.id,
+          userId: response.data.id,
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
         })
       );
       navigate(-1);

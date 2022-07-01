@@ -2,13 +2,33 @@
   margin: 0;
 }
 
+.listings .categoriesTitleCol {
+  padding: 0;
+  margin: 2rem 0 3rem 3rem;
+  font-size: 1.5rem;
+  text-align: end;
+}
+
+.listings .categoriesFirstCol {
+  margin-left: 2.7rem;
+}
+
+.listings .categoriesCol {
+  margin-top: 2.1rem;
+}
+
+.listings .accessoriesCol {
+  margin: 2rem 3.5rem 0 0;
+}
+
 .listings .filtersPanel {
   background-color: rgb(229, 229, 229);
   margin-left: 3rem;
-  margin-top: 3rem;
+  margin-top: 3.2rem;
   margin-bottom: 3rem;
   padding: 0;
-  padding-bottom: 0.1%;
+  padding-bottom: 0.25%;
+  border-radius: 1.5% / 0.5%
 }
 
 .listings .filtersTitle {
@@ -63,6 +83,7 @@
   width: 100%;
   background-color: var(--bikehouse-blue);
   border-radius: 4px;
+  border-color: transparent;
 }
 
 .listings .listingsPanel {
@@ -72,7 +93,13 @@
 .listings .card {
   margin: 1.5%;
   min-width: 30%;
+  height: 100%;
   cursor: pointer;
+}
+
+.listings .card-img-top {
+  height: 18rem;
+  object-fit: contain
 }
 
 .listings .card-body {
@@ -88,4 +115,21 @@
   background-color: rgba(255, 255, 255, 0.7);
   padding: 1.5%;
   border-radius: 10%;
+}
+
+.listings .pageBtn {
+  border: solid 1px;
+}
+
+.listings .pageBtn:disabled {
+  color: rgb(180, 180, 180);
+}
+
+.listings .nextPageBtn {
+  
+  margin-right: 1.7rem;
+}
+
+.listings .pageNumText {
+  margin: 0 1rem 0 1rem;
 }

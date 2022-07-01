@@ -1,5 +1,5 @@
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
-import Axios from "axios";
+import axios from "axios";
 import React, { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import "../css/SellBike.css";
@@ -44,7 +44,7 @@ function SellBike() {
   };
 
   const uploadImages = () => {
-    Axios.post(`http://localhost:3001/image-upload`, {
+    axios.post(`http://localhost:3001/image-upload`, {
       photos,
     })
       .then((res) => {
@@ -63,26 +63,30 @@ function SellBike() {
   };
 
   const submitItem = async () => {
-    Axios.post("http://localhost:3001/createItem", {
-      brand,
-      model,
-      type,
-      location,
-      price,
-      frameSize,
-      frameMaterial,
-      color,
-      gender,
-      frontGears,
-      rearGears,
-      brakeType,
-      description,
-      conditionToBeVerified: conditionVerification,
-      frameToBeVerified: frameVerification,
-      photos,
-      frameVerified: false,
-      condition: 0,
-    })
+    axios
+      .post("http://localhost:3001/createItem", {
+        headers: {
+          authorization: "Bearer " + user.accessToken,
+        },
+        brand,
+        model,
+        type,
+        location,
+        price,
+        frameSize,
+        frameMaterial,
+        color,
+        gender,
+        frontGears,
+        rearGears,
+        brakeType,
+        description,
+        conditionToBeVerified: conditionVerification,
+        frameToBeVerified: frameVerification,
+        photos,
+        frameVerified: false,
+        condition: 0,
+      })
       .then((response) => {
         console.log(`Item successfully added`);
         createListing(response.data._id);
@@ -93,11 +97,11 @@ function SellBike() {
   };
 
   const createListing = async (itemId) => {
-    Axios.post("http://localhost:3001/createListing", {
+    axios.post("http://localhost:3001/createListing", {
       isBoosted,
       isActive: true,
       bikeId: itemId,
-      sellerId: user.id,
+      sellerId: user.userId,
       finalPrice: calculateFinalPrice(price),
       shouldBeVerified: conditionVerification && frameVerification,
     })

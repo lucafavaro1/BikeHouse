@@ -20,6 +20,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.5",
     "nodemon": "^2.0.16",
+    "sendgrid": "^5.2.3",
     "stripe": "^9.10.0"
   }
 }

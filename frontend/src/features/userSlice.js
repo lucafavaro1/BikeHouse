@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const LOCAL_STORAGE_USER_DATA_KEY = "BIKE_HOUSE_USER_DATA";
+export const LOCAL_STORAGE_USER_DATA_KEY = "BIKE_HOUSE_USER_DATA";
+export const AUTH_TOKENS = "AUTH_TOKENS";
 
 const getUserStatus = () => {
   const storedData = window.localStorage.getItem(LOCAL_STORAGE_USER_DATA_KEY);
@@ -18,15 +19,23 @@ export const userSlice = createSlice({
   initialState: getUserStatus(),
   reducers: {
     login: (state, action) => {
-      window.localStorage.setItem(
+      localStorage.setItem(
         LOCAL_STORAGE_USER_DATA_KEY,
         JSON.stringify(action.payload)
+      );
+      localStorage.setItem(
+        AUTH_TOKENS,
+        JSON.stringify({
+          accessToken: action.payload.accessToken,
+          refreshToken: action.payload.refreshToken,
+        })
       );
       state.loggedIn = action.payload !== undefined;
       state.user = action.payload;
     },
     logout: (state) => {
       window.localStorage.removeItem(LOCAL_STORAGE_USER_DATA_KEY);
+      window.localStorage.removeItem(AUTH_TOKENS);
       state.loggedIn = false;
       state.user = undefined;
     },
