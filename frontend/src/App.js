@@ -38,7 +38,7 @@ function App() {
         <Main />
       </div>
       {/* <Sideaìbar /> */}
-      {/* <Footer /> */}
+      <Footer />
       {showButton && (
         <button onClick={scrollToTop} className="back-to-top">
           &#8682;
