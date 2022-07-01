@@ -15,7 +15,9 @@ const Logout = () => {
     if (authTokens != null) {
       authTokens = JSON.parse(authTokens);
     } else {
-      return null;
+      await dispatch(logout());
+      window.location.reload();
+      console.log("log out only  done in the client side!");
     }
 
     try {

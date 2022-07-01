@@ -3,12 +3,14 @@ import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import ListingDescription from "./ListingDescription";
+import { useNavigate } from "react-router-dom";
 
 import "../css/Listings.css";
 import axios from "axios";
 
 function Listings() {
   const [listings, setListings] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getListings() {
@@ -23,7 +25,10 @@ function Listings() {
     getListings();
   }, []);
 
-  const listingClicked = async (event) => {
+  const listingClicked = async (listing) => {
+    console.log(listing);
+    navigate("/listing/" + listing._id);
+    // history.push("/listings/1");
     console.log("Listing clicked");
   };
 
@@ -34,7 +39,7 @@ function Listings() {
     );
 
     return (
-      <Card key={index} onClick={listingClicked}>
+      <Card key={index} onClick={() => listingClicked(listing)}>
         {/* <Card.Img
           variant="top"
           src={
