@@ -74,7 +74,10 @@ function ListingPage(props) {
     <>
       {listing ? (
         <>
-          <div id="ListingPage" className="row justify-content-center mt-5">
+          <div
+            id="ListingPage"
+            className="row justify-content-center mt-5 mb-5"
+          >
             <div className="d-none d-md-block col-md-1 p-0">
               <ImageGrid
                 images={images}

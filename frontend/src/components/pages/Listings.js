@@ -5,6 +5,7 @@ import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import ListingDescription from "./ListingDescription";
 import Axios from "axios";
 import "../css/Listings.css";
+import { useNavigate } from "react-router-dom";
 
 function Listings() {
   const [listings, setListings] = useState([]);
@@ -77,7 +78,7 @@ function Listings() {
   }
 
   /** Called when a listing is clicked */
-  const listingClicked = async (event) => {
+  const listingClicked = async (listing) => {
     navigate("/listing/" + listing._id);
   };
 
@@ -220,7 +221,7 @@ function Listings() {
     // );
 
     return (
-      <Card key={index} onClick={listingClicked}>
+      <Card key={index} onClick={() => listingClicked(listing)}>
         <Card.Img variant="top" src={listing.bike.photos[0].url} />
 
         {listing.isBoosted ? (
