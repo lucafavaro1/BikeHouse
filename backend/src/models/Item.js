@@ -62,7 +62,14 @@ const BikeSchema = new mongoose.Schema({
     required: true,
   },
   photos: [
-    { id: String, src: Buffer, name: String, size: Number, toShow: Boolean },
+    {
+      id: String,
+      src: Buffer,
+      url: String,
+      name: String,
+      size: Number,
+      toShow: Boolean,
+    },
   ],
   frontGears: {
     type: Number,

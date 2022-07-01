@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const UserModel = require("../models/Users");
 const RefreshTokenModel = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");

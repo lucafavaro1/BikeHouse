@@ -34,6 +34,7 @@
   max-width: 600px;
   margin-top: 60px;
   margin-left: 30px auto;
+  margin-bottom: 40px;
 }
 
 .contact .topText p {
@@ -67,6 +68,12 @@
 .contact .helpCard h5 {
   text-align: left;
   padding-left: 5%;
+}
+
+.contact img {
+  max-width: 300px;
+  max-height: 300px;
+  margin-top: 80px;
 }
 
 /* icons style */
