@@ -1,0 +1,14 @@
+.dashboard .MuiButtonBase-root {
+  align-self: flex-end !important; 
+  padding-right: 35px;
+}
+
+.dashboard .MuiButtonBase-root.MuiTab-root:hover {
+  color: var(--bikehouse-blue);
+}
+
+.dashboard .MuiButtonBase-root.MuiTab-root.Mui-selected{
+  font-size: 20px ;
+  color: var(--bikehouse-blue);
+}
+

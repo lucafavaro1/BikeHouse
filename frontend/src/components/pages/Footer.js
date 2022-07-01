@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import "../css/Footer.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "../css/Contact.css";
 
 function Footer() {
   const [index, setIndex] = useState(0);
-
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
@@ -102,7 +104,9 @@ function Footer() {
                   <p className="">
                     Connect with one of our specialists <br />
                   </p>
-                  <p className="d-none d-md-block">to find your dream bike.</p>
+                  <p className="d-none d-md-block">
+                    to find your dream bike.
+                  </p>
                   <br />
                 </a>
               </Carousel.Item>
