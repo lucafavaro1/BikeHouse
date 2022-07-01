@@ -23,14 +23,14 @@ const loginUser = async (req, res) => {
           { id: user._id, firstName: user.firstName, email: user.email },
           "sciencebitch",
           {
-            expiresIn: "30m",
+            expiresIn: "600m",
           }
         );
         const refreshToken = await jwt.sign(
           { id: user._id, firstName: user.firstName, email: user.email },
           "imtheonewhoknocks",
           {
-            expiresIn: "30m",
+            expiresIn: "600m",
           }
         );
 
@@ -122,14 +122,14 @@ const refreshTokenGen = async (req, res) => {
         { id: user._id, firstName: user.firstName, email: user.email },
         "sciencebitch",
         {
-          expiresIn: "30m",
+          expiresIn: "600m",
         }
       );
       const newRefreshToken = await jwt.sign(
         { id: user._id, firstName: user.firstName, email: user.email },
         "imtheonewhoknocks",
         {
-          expiresIn: "30m",
+          expiresIn: "600m",
         }
       );
       const newAccessTokenModel = new AccessTokenModel({
