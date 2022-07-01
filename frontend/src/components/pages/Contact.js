@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-import logo from "./logo.png";
 import logo from "../pictures/logo.png";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -13,10 +12,17 @@ import { Modal, Button } from "react-bootstrap";
 function Contact() {
   const [show, setShow] = useState(true);
   const [confirmSent, setConfirmedSent] = useState(false);
+  const [index, setIndex] = useState(0);
 
   const handleClose = () => {
     setShow(false);
     setConfirmedSent(false);
+  };
+
+  const handleShow = () => setShow(true);
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
   };
 
   function sendEmail(e) {
