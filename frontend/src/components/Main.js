@@ -9,6 +9,7 @@ import Specialist from "./pages/Specialist";
 import SellBike from "./pages/SellBike";
 import PhotoGuide from "./pages/PhotoGuide";
 import Listings from "./pages/Listings";
+import Dashboard from "./pages/Dashboard";
 import ListingPage from "./pages/ListingPage";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -36,6 +37,7 @@ function Main() {
       <Route exact path="/guide" element={<Guide />}></Route>
       <Route exact path="/photo_guide" element={<PhotoGuide />}></Route>
       <Route exact path="/contact" element={<Contact />}></Route>
+      <Route exact path="/dashboard" element={<Dashboard />}></Route>
       <Route
         exact
         path="/listing/:id"
