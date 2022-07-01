@@ -12,19 +12,46 @@ import Listings from "./pages/Listings";
 import Dashboard from "./pages/Dashboard";
 import ListingPage from "./pages/ListingPage";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "./../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  AUTH_TOKENS,
+  LOCAL_STORAGE_USER_DATA_KEY,
+  logout,
+  selectUser,
+} from "./../features/userSlice";
 import Payment from "./pages/Payment";
 import ForgotPassword from "./pages/ForgotPassword";
+import jwtDecode from "jwt-decode";
 
 function Main() {
-  const user = useSelector(selectUser);
-  const [loggedIn, SetLoggedIn] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user == undefined) SetLoggedIn(false);
-    else SetLoggedIn(true);
-  });
+    let currentDate = new Date();
+    let authToken = localStorage.getItem(AUTH_TOKENS)
+      ? JSON.parse(localStorage.getItem(AUTH_TOKENS))
+      : null;
+    if (authToken != null) {
+      const decodedToken = jwtDecode(authToken.accessToken);
+      const decodedTokenRefresh = jwtDecode(authToken.refreshToken);
+      if (
+        decodedToken.exp * 1000 < currentDate.getTime() &&
+        decodedTokenRefresh.exp * 1000 < currentDate.getTime() // access and refresh expired
+      ) {
+        console.log("REFRESH AND ACCESS EXPIRED");
+        localStorage.removeItem(AUTH_TOKENS);
+        localStorage.removeItem(LOCAL_STORAGE_USER_DATA_KEY);
+        dispatch(logout());
+        alert("SESSION EXPIRED ! Please login again");
+      } else {
+        console.log("AUTHTOKENS NOT EXPIRED");
+      }
+
+      console.log("Use effect called in Main.js");
+    } else {
+      dispatch(logout());
+    }
+  }, []);
 
   return (
     <Routes>
@@ -43,16 +70,8 @@ function Main() {
         path="/listing/:id"
         element={<ListingPage></ListingPage>}
       ></Route>
-      <Route
-        exact
-        path="/specialist"
-        element={loggedIn ? <Specialist /> : <Navigate to="/login" />}
-      ></Route>
-      <Route
-        exact
-        path="/sellbike"
-        element={loggedIn ? <SellBike /> : <Navigate to="/login" />}
-      >
+      <Route exact path="/specialist" element={<Specialist />}></Route>
+      <Route exact path="/sellbike" element={<SellBike></SellBike>}>
         {" "}
       </Route>
       <Route exact path="/checkout" element={<Payment />}></Route>

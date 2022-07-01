@@ -22,12 +22,12 @@ import { useSelector } from "react-redux";
 import { Container } from "@mui/system";
 import { TextField } from "@mui/material";
 import Login from "./Login";
+import { Navigate } from "react-router-dom";
 
 const steps = [
   {
     label: `Describe your Issue`,
-    description:
-      `What consultation can we help you with? 
+    description: `What consultation can we help you with? 
         Describe in a few lines`,
   },
   {
@@ -88,22 +88,22 @@ function Specialist() {
   };
 
   const themeCalendar = {
-    primary: '#306070',
-    secondary: '#306070',
-    background: 'white', // This should match the container background
+    primary: "#306070",
+    secondary: "#306070",
+    background: "white", // This should match the container background
     buttons: {
       disabled: {
-        color: '#333',
-        background: '#f0f0f0'
+        color: "#333",
+        background: "#f0f0f0",
       },
       confirm: {
-        color: 'white',
-        background: 'white',
+        color: "white",
+        background: "white",
         hover: {
-          color: '',
-          background: 'white'
-        }
-      }
+          color: "",
+          background: "white",
+        },
+      },
     },
   };
 
@@ -113,26 +113,29 @@ function Specialist() {
       user,
       subject,
       cal,
-    })
-      .then((response) => {
-        console.log(response.data.message);
+    }).then((response) => {
+      console.log(response.data.message);
 
-        const sendEmail = (user, cal) => {
-          Axios.post("http://localhost:3001/createAppointment", {
-            sender,
-            user,
-            subject,
-            cal,
+      const sendEmail = (user, cal) => {
+        Axios.post("http://localhost:3001/createAppointment", {
+          sender,
+          user,
+          subject,
+          cal,
+        })
+          .then((response) => {
+            console.log(response.data.message);
           })
-            .then((response) => {
-              console.log(response.data.message);
-            })
-            .catch((error) => {
-              console.log("Error", error);
-            });
-        }
-      })
+          .catch((error) => {
+            console.log("Error", error);
+          });
+      };
+    });
   };
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <Container
@@ -173,7 +176,8 @@ function Specialist() {
                         label="Additional Comments"
                         value={issue}
                         variant="outlined"
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                      />
                     </FormControl>
                   </Box>
                   <Box>
@@ -212,10 +216,7 @@ function Specialist() {
                       >
                         Next
                       </Button>
-                      <Button
-                        sx={{ ml: 1 }}
-                        onClick={handleBack}
-                      >
+                      <Button sx={{ ml: 1 }} onClick={handleBack}>
                         Back
                       </Button>
                     </div>
@@ -235,10 +236,7 @@ function Specialist() {
                       >
                         Finish
                       </Button>
-                      <Button
-                        sx={{ mr: 1 }}
-                        onClick={handleBack}
-                      >
+                      <Button sx={{ mr: 1 }} onClick={handleBack}>
                         Back
                       </Button>
                     </div>
@@ -250,12 +248,14 @@ function Specialist() {
               <>
                 <Typography sx={{ ml: 4 }}>
                   Your appointment has been successfully scheduled. <br />
-                  Check your email for a confirmation message and a calendar invite.
+                  Check your email for a confirmation message and a calendar
+                  invite.
                 </Typography>
                 <Button
-                  variant='outlined'
+                  variant="outlined"
                   onClick={handleReset}
-                  sx={{ mt: 1, ml: 4 }}>
+                  sx={{ mt: 1, ml: 4 }}
+                >
                   Book another appointment
                 </Button>
               </>

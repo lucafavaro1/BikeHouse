@@ -18,19 +18,19 @@ const Navbar = () => {
       <Nav collapseOnSelect expand="sm" className="sticky-top">
         <Bars />
         <NavMenu collapseOnSelect>
-          <NavLink to="/" activeStyle>
+          <NavLink to="/" exact activeStyle>
             BikeHouse
           </NavLink>
-          <NavLink to="/buy" activeStyle>
+          <NavLink to="/buy" exact activeStyle>
             Buy a Bike
           </NavLink>
-          <NavLink to="/sellbike" activeStyle>
+          <NavLink to="/sellbike" exact activeStyle>
             Sell Your Bike
           </NavLink>
-          <NavLink to="/guide" activeStyle>
+          <NavLink to="/guide" exact activeStyle>
             Guide
           </NavLink>
-          <NavLink to="/contact" activeStyle>
+          <NavLink to="/contact" exact activeStyle>
             Contact Us
           </NavLink>
 
