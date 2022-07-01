@@ -1,12 +1,13 @@
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
 import axios from "axios";
+import AxiosJWT from "../utils/AxiosJWT";
 import React, { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import "../css/SellBike.css";
 import DropBox from "../../features/Dropbox";
 import ShowImage from "../../features/ShowImage";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import rocketImg from "../pictures/rocket.png";
 
 function SellBike() {
@@ -63,10 +64,15 @@ function SellBike() {
   };
 
   const submitItem = async () => {
-    axios
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    }
+
+    AxiosJWT
       .post("http://localhost:3001/createItem", {
         headers: {
-          authorization: "Bearer " + user.accessToken,
+          authorization: "Bearer " + authTokens.accessToken,
         },
         brand,
         model,
@@ -97,7 +103,15 @@ function SellBike() {
   };
 
   const createListing = async (itemId) => {
-    axios.post("http://localhost:3001/createListing", {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    }
+
+    AxiosJWT.post("http://localhost:3001/createListing", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
       isBoosted,
       isActive: true,
       bikeId: itemId,
