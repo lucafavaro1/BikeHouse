@@ -5,11 +5,18 @@ Website styling 1h
 Guide implementation 2h
 Contact form with real email sending 2h
 Sell a bike page, form + upload image + backend 8h
+Fix sell a bike form + login 1h
+Homepage design 4h
+Payment with Stripe 1h
+Sell a bike, pictures uploaded to hosting service 1.5h
 
 # Tarlan
 FIX: Footer is overlapping the page content 1h
 Models 1.5h
 Listings page and filters 5h
+Implementation of filters 4h
+Bike categories on the listings page 1h
+Pagination for listings 3h
 
 # Xavier
 User storage, login 3h
@@ -22,3 +29,4 @@ Book and appointment / specialist 5h
 
 # All together
 Fix footer, create scroll to top arrow, fix navbar (sticky + design with login / register button) 3h
+Fix problems with JWT and login, fix encode/decode uploaded images 3h

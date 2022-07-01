@@ -1,14 +1,9 @@
-import "../css/Footer.css";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-import logo from "./logo.png";
+import "../css/Footer.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/Contact.css";
-import emailjs from "@emailjs/browser";
-import emailkey from "../../features/emailkey";
-import { Modal, Button } from "react-bootstrap";
 
 function Footer() {
   const [index, setIndex] = useState(0);
@@ -17,7 +12,7 @@ function Footer() {
   };
 
   return (
-    <footer className="footer">
+    <div className="footer">
       <div id="bottomText" className="bottomText">
         <div className="row justify-content-center">
           <div id="contactCard" className="contactCard col-12 col-md-4">
@@ -52,28 +47,40 @@ function Footer() {
             </div>
           </div>
 
-          <div id="socialMedia" className="socialMedia col-12 col-md-4">
+          <div id="socialMedia" className="socialMedia col-12 col-md-3">
             <div className="row justify-content-center">
               <div className="icon col-4">
-                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.youtube.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <i className=" bi bi-youtube"></i>
                 </a>
               </div>
               <div className="icon col-4">
-                <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.facebook.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <i className="bi bi-facebook"></i>
                 </a>
               </div>
               <div className="icon col-4">
-                <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.linkedin.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <i className="bi bi-linkedin"></i>
                 </a>
               </div>
             </div>
           </div>
 
-          <div id="helpCard" className="helpCard row col-md-4">
-            <h5>How can we help?</h5>
+          <div id="helpCard" className="helpCard row col-12 col-md-5">
+            <h5>How can we help you?</h5>
             <Carousel
               fade
               prevLabel={null}
@@ -132,7 +139,7 @@ function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </div>
   );
 }
 

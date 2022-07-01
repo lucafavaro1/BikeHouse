@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 import "../css/LoginRegister.css";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
@@ -19,8 +19,9 @@ function Login() {
 
   const loginUser = async (event) => {
     event.preventDefault();
+
     try {
-      const response = await Axios.post("http://localhost:3001/loginUser/", {
+      const response = await axios.post("http://localhost:3001/loginUser/", {
         email,
         password,
       });
@@ -29,11 +30,13 @@ function Login() {
         login({
           name: response.data.firstName,
           email: email,
-          password: password,
           loggedIn: true,
+          userId: response.data.id,
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
         })
       );
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       emailRef.current.value = "";
       passwordRef.current.value = "";
@@ -80,13 +83,13 @@ function Login() {
 
             <div className="form-check">
               <label className="switch">
-                <input type="checkbox" />
-                <span className="slider round"></span>
+                <input type="checkbox" checked={true} />
+                <span className="slider round "></span>
               </label>
               <label className="form-check-label">Remember me</label>
 
               <label className="link">
-                <a href="/">Forgot Password?</a>
+                <a href="/forgotpassword">Forgot Password?</a>
               </label>
             </div>
 

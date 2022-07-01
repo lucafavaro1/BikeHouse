@@ -1,9 +1,9 @@
-require("dotenv").config();
-
 const UserModel = require("../models/Users");
 const RefreshTokenModel = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const AccessTokenModel = require("../models/AccessToken");
+const emailkey = require("../emailKeyForgotPassword");
 
 // @desc Get user by email and password
 // @route POST /users/login
@@ -23,16 +23,21 @@ const loginUser = async (req, res) => {
           { id: user._id, firstName: user.firstName, email: user.email },
           "sciencebitch",
           {
-            expiresIn: "15m",
+            expiresIn: "5s",
           }
         );
         const refreshToken = await jwt.sign(
           { id: user._id, firstName: user.firstName, email: user.email },
           "imtheonewhoknocks",
           {
-            expiresIn: "15m",
+            expiresIn: "5s",
           }
         );
+
+        const newAccessTokenModel = new AccessTokenModel({
+          accessToken: accessToken,
+        });
+        await newAccessTokenModel.save();
 
         const newRefreshTokenModel = new RefreshTokenModel({
           refreshToken: refreshToken,
@@ -82,9 +87,17 @@ const createUser = async (req, res) => {
   }
 };
 
+const forgotPassword = async (req, res) => {
+  const email = req.body;
+  const user = await UserModel.findOne(email);
+  // get back to frontend that the user was found
+  res.json(data);
+};
+
 const refreshTokenGen = async (req, res) => {
   //take the refresh token
   const refreshToken = req.body.token;
+  console.log("refresh token is " + refreshToken);
   //send error
   if (!refreshToken) return res.status(401).json("YOU ARE NOT AUTHENTICATED!");
   let refreshtokenFromDB;
@@ -102,26 +115,33 @@ const refreshTokenGen = async (req, res) => {
   }
   jwt.verify(refreshToken, "imtheonewhoknocks", async (err, user) => {
     err && console.log(err);
+    console.log("refresh token called");
     try {
       await RefreshTokenModel.deleteOne(refreshtokenFromDB);
       const newAccessToken = await jwt.sign(
         { id: user._id, firstName: user.firstName, email: user.email },
         "sciencebitch",
         {
-          expiresIn: 500,
+          expiresIn: "15s",
         }
       );
       const newRefreshToken = await jwt.sign(
         { id: user._id, firstName: user.firstName, email: user.email },
         "imtheonewhoknocks",
         {
-          expiresIn: 500,
+          expiresIn: "15s",
         }
       );
+      const newAccessTokenModel = new AccessTokenModel({
+        accessToken: newAccessToken,
+      });
+      await newAccessTokenModel.save();
+
       const newRefreshTokenModel = new RefreshTokenModel({
         refreshToken: newRefreshToken,
       });
       await newRefreshTokenModel.save();
+
       res.status(200).json({
         accessToken: newAccessToken,
         refreshToken: newRefreshToken,
@@ -159,11 +179,22 @@ const updateUser = async (req, res) => {
   }
 };
 
-const verify = (req, res, next) => {
+const verify = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   console.log(authHeader);
   if (authHeader) {
     const token = authHeader.split(" ")[1];
+    try {
+      const authTokenFromDB = await AccessTokenModel.findOne({
+        accessToken: token,
+      });
+      if (!authTokenFromDB) {
+        return res.status(403).json("SESSION IS NOT VALID ANYMORE!");
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(401).json("ERROR IS " + error.message);
+    }
     jwt.verify(token, "sciencebitch", (err, user) => {
       if (err) {
         return res.status(403).json("TOKEN IS NOT VALID!");
@@ -181,10 +212,14 @@ const deleteUserTest = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
+  console.log("logout called");
   const refreshToken = req.body.token;
+  const accessTokenHeader = req.headers.authorization;
   try {
+    const accessToken = accessTokenHeader.split(" ")[1];
+    await AccessTokenModel.deleteOne({ accessToken: accessToken });
     await RefreshTokenModel.deleteOne({ refreshToken: refreshToken });
-    res.status(200).json("User logged out!!");
+    await res.status(200).json("User logged out!!");
   } catch (error) {
     console.log(error);
   }
@@ -193,7 +228,7 @@ const logoutUser = async (req, res) => {
 module.exports = {
   loginUser,
   createUser,
-  updateUser,
+  forgotPassword,
   deleteUserTest,
   refreshTokenGen,
   verify,

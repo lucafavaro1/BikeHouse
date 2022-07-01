@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   loginUser,
   createUser,
-  updateUser,
+  forgotPassword,
   refreshTokenGen,
   deleteUserTest,
   verify,
@@ -15,9 +15,9 @@ router.post("/createUser", createUser);
 
 router.post("/loginUser", loginUser);
 
-router.post("/logout", verify, logoutUser);
+router.post("/forgotPassword", forgotPassword);
 
-router.put("/updateUser", updateUser);
+router.post("/logout", verify, logoutUser);
 
 router.post("/api/refreshtoken", refreshTokenGen);
 

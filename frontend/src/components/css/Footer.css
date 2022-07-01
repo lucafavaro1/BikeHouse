@@ -3,25 +3,25 @@
   width: 100%;
   padding: 0.7em;
   text-align: center;
-  background: var(--bikehouse-blue);
+  background: #ddd;
   height: 28vh;
-  color: #f0f0f0;
 }
 
 .footer .bottomText {
-  margin-top: 20px;
-  margin-bottom: 80px;
-  margin-left: 80px;
-  margin-right: 80px;
-  margin-bottom: 20px;
+  margin: 20px;
+  margin-left: 30px;
   text-align: left;
+}
+
+.footer .contactCard h5 {
+  margin-bottom: 20px;
 }
 
 .footer .bottomText p {
   font-family: "Sailec", "Arial", "Montserrat", sans-serif;
   font-size: medium !important;
-  /* text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased; */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   text-align: left;
   margin: auto;
 }
@@ -36,6 +36,13 @@
   margin-right: 1%;
   padding-left: 100px;
   padding-right: 100px;
+.footer .socialMedia {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.footer .helpCard {
+  margin-left: 10px;
 }
 
 .footer .helpCard h5 {
@@ -68,4 +75,44 @@
   padding-top: 3%;
   padding-left: 20%;
   font-size: x-large;
+}
+
+/* button style */
+
+.footer .btn {
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 20px;
+  padding: auto;
+  margin: auto;
+  background-color: var(--bikehouse-blue);
+  opacity: 0.8;
+}
+
+.footer .btn:hover {
+  opacity: 1;
+}
+
+/* link style */
+
+.footer .link {
+  float: right;
+  font-weight: bold;
+}
+
+.footer a {
+  color: var(--bikehouse-blue);
+  opacity: 0.8;
+}
+
+.footer a:hover {
+  color: #274b5a;
+  opacity: 1;
+  text-decoration: none;
+}
+
+.plain {
+  text-decoration: none;
 }
