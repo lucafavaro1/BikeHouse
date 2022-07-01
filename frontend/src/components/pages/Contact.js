@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-import logo from "./logo.png";
+import logo from "../pictures/logo.png";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/Contact.css";
 import emailjs from "@emailjs/browser";
-import emailkey from "../../features/emailkey";
+import emailkey from "../../features/emailKeyContact";
 import { Modal, Button } from "react-bootstrap";
 
 function Contact() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
   const [confirmSent, setConfirmedSent] = useState(false);
+  const [index, setIndex] = useState(0);
 
   const handleClose = () => {
     setShow(false);
@@ -28,8 +24,6 @@ function Contact() {
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
-
-  const navigate = useNavigate();
 
   function sendEmail(e) {
     e.preventDefault();
@@ -82,13 +76,7 @@ function Contact() {
 
         <div id="contactForm" className="row justify-content-center">
           <div className="d-none d-md-block col-md-6">
-            <img
-              src={logo}
-              alt="BikeHouse logo"
-              height={350}
-              width={350}
-              style={{ "margin-top": "60px" }}
-            />
+            <img src={logo} alt="BikeHouse logo" />
           </div>
 
           <div className="col-md-6">
@@ -100,9 +88,6 @@ function Contact() {
                     name="firstname"
                     className="form-control"
                     placeholder="First Name"
-                    onChange={(e) => {
-                      setFirstName(e.target.value);
-                    }}
                   />
                 </div>
 
@@ -112,9 +97,6 @@ function Contact() {
                     name="lastname"
                     className="form-control"
                     placeholder="Last Name"
-                    onChange={(e) => {
-                      setLastName(e.target.value);
-                    }}
                   />
                 </div>
               </div>
@@ -126,9 +108,6 @@ function Contact() {
                   name="email"
                   className="form-control"
                   placeholder="Email"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
                 />
               </div>
 
@@ -138,9 +117,6 @@ function Contact() {
                   name="message"
                   className="form-control message"
                   placeholder="Message"
-                  onChange={(e) => {
-                    setMessage(e.target.value);
-                  }}
                 />
               </div>
 
@@ -191,17 +167,29 @@ function Contact() {
             <div id="socialMedia" className="socialMedia col-12 col-md-3">
               <div className="row justify-content-center">
                 <div className="icon col-4">
-                  <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+                  <a
+                    href="https://www.youtube.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <i className=" bi bi-youtube"></i>
                   </a>
                 </div>
                 <div className="icon col-4">
-                  <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
+                  <a
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <i className="bi bi-facebook"></i>
                   </a>
                 </div>
                 <div className="icon col-4">
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+                  <a
+                    href="https://www.linkedin.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <i className="bi bi-linkedin"></i>
                   </a>
                 </div>

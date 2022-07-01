@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Main from "./components/Main";
 import Header from "./components/pages/Header";
-import Sidebar from "./components/pages/Sidebar";
 import Footer from "./components/pages/Footer";
 import { useState, useEffect } from "react";
 import Navbar from "./components/pages/Navbar";
@@ -37,7 +36,6 @@ function App() {
         <Navbar />
         <Main />
       </div>
-      {/* <Sideaìbar /> */}
       <Footer />
       {showButton && (
         <button onClick={scrollToTop} className="back-to-top">

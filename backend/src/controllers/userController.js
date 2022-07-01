@@ -1,10 +1,9 @@
-require("dotenv").config();
-
 const UserModel = require("../models/Users");
 const RefreshTokenModel = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const AccessTokenModel = require("../models/AccessToken");
+const emailkey = require("../emailKeyForgotPassword");
 
 // @desc Get user by email and password
 // @route POST /users/login
@@ -86,6 +85,13 @@ const createUser = async (req, res) => {
       message: "Error in saving the user!!" + error.message,
     });
   }
+};
+
+const forgotPassword = async (req, res) => {
+  const email = req.body;
+  const user = await UserModel.findOne(email);
+  // get back to frontend that the user was found
+  res.json(data);
 };
 
 const refreshTokenGen = async (req, res) => {
@@ -222,7 +228,7 @@ const logoutUser = async (req, res) => {
 module.exports = {
   loginUser,
   createUser,
-  updateUser,
+  forgotPassword,
   deleteUserTest,
   refreshTokenGen,
   verify,
