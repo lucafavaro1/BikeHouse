@@ -80,6 +80,7 @@
 
 .sellBike .photo_guide {
   position: absolute;
+  text-align: center;
   margin-left: 68%;
   margin-top: 12%;
   max-width: 175px;
@@ -102,4 +103,18 @@
   line-height: 1;
   border-radius: 1rem;
   padding: 0.1rem 0.3rem;
+}
+
+.showImage .container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.sellBike .container img {
+  max-height: 150px;
+  max-width: 150px;
+  margin-right: 50px;
 }

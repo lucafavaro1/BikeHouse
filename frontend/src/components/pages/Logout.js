@@ -39,6 +39,7 @@ const Logout = () => {
       console.log(error);
     }
   };
+
   return (
     <NavBtn>
       <span className="text-light">Hello, {user.name} !</span>

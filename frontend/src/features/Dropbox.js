@@ -45,8 +45,8 @@ function DropBox({ onDrop }) {
     isDragReject,
   } = useDropzone({
     accept: {
-      "image/png": [],
       "image/jpeg": [],
+      "image/png": [],
     },
     onDrop,
     noClick: true,

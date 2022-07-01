@@ -8,6 +8,7 @@ const config = require("./src/config");
 const api = express();
 
 api.use(express.json({ limit: "50mb" }));
+api.use(express.static("public"));
 api.use(cors());
 api.set("port", config.port);
 const server = http.createServer(api);
@@ -25,6 +26,7 @@ api.use("/", require("./src/routes/feedbackRoutes"));
 api.use("/", require("./src/routes/appointmentRoutes"));
 api.use("/", require("./src/routes/bikeRoutes"));
 api.use("/", require("./src/routes/listingRoutes"));
+api.use("/", require("./src/routes/paymentRoutes"));
 
 server.on("listening", () => {
   console.log(`Server running port ${config.port}`);

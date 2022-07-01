@@ -1,26 +1,78 @@
-.home .carousel {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.home .carousel-inner {
-  position: relative;
-  max-width: 1000px;
-  max-height: 600px;
-  object-fit: scale-down;
-  text-align: center;
+.home {
+  width: 100%;
 }
 
 .home .row {
   width: 100%;
+  background-image: linear-gradient(var(--bikehouse-blue), white);
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.home li {
+  margin-bottom: 10px;
+}
+
+.home .carousel-inner {
+  max-width: 1600px;
+  max-height: 800px;
+  margin-top: -5px;
 }
 
 .home .carousel-caption {
+  padding: 10px;
+  width: 450px;
+  height: 200px;
+  background-color: var(--bikehouse-blue);
+  visibility: visible;
   position: absolute;
-  visibility: hidden;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  margin-left: 700px;
+  margin-bottom: 500px;
+  border: 2px solid white;
   color: #fff;
   text-align: center;
+}
+
+.home .carousel-caption .btn {
+  background: rgb(217, 221, 0);
+  color: black;
+}
+
+.home .firstPic {
+  margin-left: 700px;
+  margin-bottom: 640px;
+}
+
+.home .secondPic {
+  margin-left: 700px;
+  margin-bottom: 580px;
+  height: 175px;
+}
+
+.home .thirdPic {
+  margin-left: 700px;
+  margin-bottom: 700px;
+  height: 175px;
+}
+
+.home .cards {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.home .card {
+  border-radius: 1rem;
+  border: 3px solid;
+}
+
+.home .card-img-bottom {
+  max-width: 93.5px;
+  max-height: 93.5px;
+  margin-bottom: 10px;
+}
+
+.home .ourNames {
+  word-spacing: 50px;
+  margin-left: 25px;
+  margin-bottom: 10px;
 }
