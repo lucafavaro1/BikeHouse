@@ -66,9 +66,19 @@
 }
 
 .home .card-img-bottom {
-  max-width: 6.08vw;
-  max-height: 13vh;
   margin-bottom: 10px;
+}
+
+.home .pictures {
+  background-image: none;
+}
+
+.home .pictures .col {
+  padding: 8px;
+}
+
+.home .pictures .col p {
+  text-align: center;
 }
 
 .home .ourNames {

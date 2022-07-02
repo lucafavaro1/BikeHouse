@@ -160,6 +160,9 @@ const getListingById = async (req, res) => {
   let sellerDeets;
   try {
     listing = await ListingModel.findById(req.params.id).exec();
+    if (!listing) {
+      return res.status(404).json("Listing not found");
+    }
     bikeDeets = await BikeModel.findById(listing.bikeId).exec();
     sellerDeets = await UserModel.findById(listing.sellerId).exec();
     let listingToSend = {};

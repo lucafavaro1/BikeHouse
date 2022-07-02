@@ -80,13 +80,24 @@ function Home() {
               <b>Our Team:</b>
             </Card.Text>
           </Card.Body>
-          <Row>
-            <Card.Img variant="bottom" src={kevinImg} />
-            <Card.Img variant="bottom" src={xavierImg} />
-            <Card.Img variant="bottom" src={tarlanImg} />
-            <Card.Img variant="bottom" src={lucaImg} />
+          <Row className="pictures">
+            <div className="col">
+              <Card.Img variant="bottom" src={kevinImg} />
+              <p>Kevin</p>
+            </div>
+            <div className="col">
+              <Card.Img variant="bottom" src={xavierImg} />
+              <p>Xavier</p>
+            </div>
+            <div className="col">
+              <Card.Img variant="bottom" src={tarlanImg} />
+              <p>Tarlan</p>
+            </div>
+            <div className="col">
+              <Card.Img variant="bottom" src={lucaImg} />
+              <p>Luca</p>
+            </div>
           </Row>
-          <Card.Text className="ourNames">Kevin Xavier Tarlan Luca</Card.Text>
         </Card>
 
         <Card className="col m-5" border="danger" style={{ width: "18rem" }}>

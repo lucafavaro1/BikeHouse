@@ -20,7 +20,8 @@ Pagination for listings 3h
 
 # Xavier
 User storage, login 3h
-JWT token and login/register 
+auth and refresh JWT token and login/register 4h
+Separate page for each listing 4h
 
 # Kevin
 Contacts Page 3h
