@@ -1,32 +1,45 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
-const ProductDisplay = () => (
-  <section>
-    <div className="product">
-      <img
-        src="https://i.imgur.com/EHyR2nP.png"
-        alt="The cover of Stubborn Attachments"
-      />
-      <div className="description">
-        <h3>Stubborn Attachments</h3>
-        <h5>$20.00</h5>
-      </div>
-    </div>
-    <form action={Axios.post("/create-checkout-session")}>
-      <button type="submit">Checkout</button>
-    </form>
-  </section>
-);
-
-const Message = ({ message }) => (
-  <section>
-    <p>{message}</p>
-  </section>
-);
-
 function Payment() {
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
+
+  const Message = ({ message }) => (
+    <section>
+      <p>{message}</p>
+    </section>
+  );
+
+  const handleSubmit = async () => {
+    await Axios.post("http://localhost:3001/create-checkout-session")
+    // navigate(resp.url)
+  }
+
+  const ProductDisplay = () => (
+    <section>
+      <div className="product">
+        <img
+          src="https://i.imgur.com/EHyR2nP.png"
+          alt="The cover of Stubborn Attachments"
+        />
+        <div className="description">
+          <h3>Stubborn Attachments</h3>
+          <h5>$20.00</h5>
+        </div>
+      </div>
+
+      {/* <button onClick={handleSubmit}> SUBMIT </button> */}
+
+      <form action="http://localhost:3001/create-checkout-session" method="POST">
+        <button type="submit">
+          Checkout
+        </button>
+      </form>
+
+    </section>
+  );
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
