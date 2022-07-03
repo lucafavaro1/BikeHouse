@@ -11,6 +11,7 @@ function Listings() {
   const [nextListings, setNextListings] = useState([]);
   const parameters = useRef({});
   const lastPageNum = useRef(Infinity);
+  const activeSortingCriterion = useRef("default");
   const [activeCategoryBtn, setActiveCategoryBtn] = useState("");
   const [currentPageNum, setCurrentPageNum] = useState(0);
   const selectedCategoryColor = "gainsboro";
@@ -29,6 +30,7 @@ function Listings() {
     "Orange",
   ];
   const conditions = ["Brand New", "Good", "Used", "Poor", "Spare Parts"];
+  const categories = ["City", "Road", "Mountain", "Downhill", "Gravel", "Folding", "E-bike", "Classic", "Others"];
 
   useEffect(() => {
     getListings();
@@ -40,6 +42,7 @@ function Listings() {
     shouldUsePreFetchedNextPage = true
   ) {
     parameters.current.page = page;
+    parameters.current.sortingCriterion = activeSortingCriterion.current
 
     if (nextListings.length != 0 && shouldUsePreFetchedNextPage) {
       // if there are already pre-fetched listings
@@ -224,6 +227,13 @@ function Listings() {
     applyFilterClicked();
   }
 
+  /** Called when a sorting button is clicked*/
+  function handleSortingCriterionChange(eventObject) {
+    activeSortingCriterion.current = eventObject.target.id
+    handleFilterChange(eventObject);
+    applyFilterClicked();
+  }
+
   /** Renders a new Card component for each listing */
   const renderCard = (listing, index) => {
     return (
@@ -273,6 +283,26 @@ function Listings() {
     );
   };
 
+  /** Renders a new button for each bike category */
+  const renderCategoryButton = (category, index) => {
+    return (
+      <button
+        type="button"
+        className="btn btn-block btn-light border"
+        id={category}
+        name="categoryBtn"
+        style={
+          activeCategoryBtn == category
+            ? { backgroundColor: `${selectedCategoryColor}` }
+            : {}
+        }
+        onClick={handleCategoryChange}
+      >
+        {category}
+      </button>
+    );
+  };
+
   return (
     <div className="listings content">
       <div className="row">
@@ -281,138 +311,15 @@ function Listings() {
         </div>
 
         <div className="col categoriesCol categoriesFirstCol">
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="City"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "City"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            City
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Road"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Road"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Road
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Mountain"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Mountain"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Mountain
-          </button>
+          {categories.slice(0, 3).map(renderCategoryButton)}
         </div>
 
         <div className="col categoriesCol">
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Downhill"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Downhill"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Downhill
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Gravel"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Gravel"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Gravel
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Folding"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Folding"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Folding
-          </button>
+          {categories.slice(3, 6).map(renderCategoryButton)}
         </div>
 
         <div className="col categoriesCol border-right">
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="E-Bike"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "E-Bike"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            E-Bike
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Classic"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Classic"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Classic
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Others"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Others"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Others
-          </button>
+          {categories.slice(6, 9).map(renderCategoryButton)}
         </div>
 
         <div className="col accessoriesCol align-self-center">
@@ -623,6 +530,35 @@ function Listings() {
         </div>
 
         <div className="col listingsPanel">
+          <Row>
+            <div className="col-sm-1 align-self-center">
+              Sort by:
+            </div>
+            <div className="col-sm-3">
+              <button
+                type="button"
+                className="btn btn-block border"
+                id="priceLH"
+                name="priceSortBtn"
+                onClick={handleSortingCriterionChange}
+              >
+                Price (low to high)
+              </button>
+            </div>
+            <div className="col-sm-3">
+              <button
+                type="button"
+                className="btn btn-block border"
+                id="priceHL"
+                name="priceSortBtn"
+                onClick={handleSortingCriterionChange}
+              >
+                Price (high to low)
+              </button>
+            </div>
+
+          </Row>
+
           <Row xs={3} md={4}>
             {listings.map(renderCard)}
           </Row>
