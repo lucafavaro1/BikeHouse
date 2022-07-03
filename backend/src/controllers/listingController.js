@@ -30,8 +30,33 @@ const getListings = async (req, res) => {
 
   listings = await fetchBikesForListings(listings, bikeFilters);
 
+  listings = sortListings(listings)
+
   return res.status(200).json(listings);
 };
+
+function sortListings(listings) {
+
+  listings.sort(function (listing1, listing2) {
+    if (listing1.isBoosted && !listing2.isBoosted) return -1;
+    else if (!listing1.isBoosted && listing2.isBoosted) return 1;
+    
+    else { // both boosted
+      if (listing1.bike.condition > listing2.bike.condition) return -1;
+      else if (listing1.bike.condition < listing2.bike.condition) return 1
+      
+      else { // both boosted + same condition
+        console.log(new Date(listing1.createdAt) > new Date(listing2.createdAt))
+        if (new Date(listing1.createdAt) > new Date(listing2.createdAt)) return -1;
+        else if (new Date(listing1.createdAt) < new Date(listing2.createdAt)) return 1
+      }
+    }
+
+    return 0
+  });
+
+  return listings
+}
 
 function generateBikeFilters(rawQuery) {
   var filter = {};
