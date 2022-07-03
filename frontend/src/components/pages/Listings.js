@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import ListingDescription from "./ListingDescription";
 import Axios from "axios";
 import "../css/Listings.css";
 import { useNavigate } from "react-router-dom";
+import rocketIcon from '../pictures/rocket.png';
 
 function Listings() {
   const [listings, setListings] = useState([]);
@@ -225,8 +224,8 @@ function Listings() {
         <Card.Img variant="top" src={listing.bike.photos[0].url} />
 
         {listing.isBoosted ? (
-          <div className="boostIcon">
-            <FontAwesomeIcon icon={faRocket} size="2x" />
+          <div>
+            <img src={rocketIcon} className="boostIcon" />
           </div>
         ) : (
           <span></span>
