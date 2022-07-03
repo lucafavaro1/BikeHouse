@@ -46,7 +46,6 @@ function sortListings(listings) {
       else if (listing1.bike.condition < listing2.bike.condition) return 1
       
       else { // both boosted + same condition
-        console.log(new Date(listing1.createdAt) > new Date(listing2.createdAt))
         if (new Date(listing1.createdAt) > new Date(listing2.createdAt)) return -1;
         else if (new Date(listing1.createdAt) < new Date(listing2.createdAt)) return 1
       }

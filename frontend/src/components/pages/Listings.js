@@ -199,7 +199,13 @@ function Listings() {
       }
     } else if (targetName == "categoryBtn") {
       parameters.current.type = parameters.current.type || {};
-      parameters.current.type = targetId;
+
+      if (activeCategoryBtn != targetId) {
+        parameters.current.type = targetId;
+      }
+      else {
+        delete parameters.current.type
+      }
     }
 
     console.log(parameters.current);
@@ -207,18 +213,19 @@ function Listings() {
 
   /** Called when a category button is clicked. Highlights the button, updates & applies the filter*/
   function handleCategoryChange(eventObject) {
-    setActiveCategoryBtn(eventObject.target.id);
+    if (activeCategoryBtn != eventObject.target.id) {
+      setActiveCategoryBtn(eventObject.target.id);
+    }
+    else {
+      setActiveCategoryBtn('');
+    }
+
     handleFilterChange(eventObject);
     applyFilterClicked();
   }
 
   /** Renders a new Card component for each listing */
   const renderCard = (listing, index) => {
-    // var b64encoded = String.fromCharCode.apply(
-    //   null,
-    //   listing.bike.photos[0].src.data
-    // );
-
     return (
       <Card key={index} onClick={() => listingClicked(listing)}>
         <Card.Img variant="top" src={listing.bike.photos[0].url} />
