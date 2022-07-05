@@ -9,7 +9,8 @@ import '../css/Appbar.css'
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
-import Logout from "./newLogout";
+import Logout from "./Logout";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const pages = {
   buy: 'Buy a Bike',
@@ -140,7 +141,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {Object.entries(pages)
             .map(([link,label]) => (
-              <Button className='navbarButtons'
+              <Button
                 key={label}
                 href={link}
                 sx={{ my: 2, mx: 5, color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'} }}
@@ -155,6 +156,14 @@ const Navbar = () => {
           <Logout />
           ) : (
             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+              <Button
+                variant='outlined'
+                href='/cart'
+                sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}
+                >
+                   <ShoppingCartIcon sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}/>
+              </Button>
+              
               <Button
                 variant='outlined'
                 href='/login'
