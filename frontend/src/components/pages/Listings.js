@@ -326,7 +326,7 @@ function Listings() {
           <button
             type="button"
             className="btn btn-block btn-light border"
-            onClick={() => alert("Not implemented")}
+            onClick={() => navigate("/accessory")}
           >
             Accessories
           </button>

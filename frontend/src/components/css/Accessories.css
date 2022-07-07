@@ -1,0 +1,35 @@
+.accessories .row {
+  margin: 0;
+}
+
+.accessories .pageTitle {
+  padding: 2% 0 0 4.5%;
+}
+
+.accessories .accessoriesPanel {
+  padding: 0 3% 2.5% 3%;
+}
+
+.accessories .card {
+  margin: 1.5%;
+  min-width: 30%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.accessories .pageBtn {
+  border: solid 1px;
+}
+
+.accessories .pageBtn:disabled {
+  color: rgb(180, 180, 180);
+}
+
+.accessories .nextPageBtn {
+  
+  margin-right: 1.7rem;
+}
+
+.accessories .pageNumText {
+  margin: 0 1rem 0 1rem;
+}

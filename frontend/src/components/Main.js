@@ -22,6 +22,7 @@ import {
 import Payment from "./pages/Payment";
 import ForgotPassword from "./pages/ForgotPassword";
 import jwtDecode from "jwt-decode";
+import Accessories from "./pages/Accessories";
 
 function Main() {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function Main() {
       {/* The Switch decides which component to show based on the current URL.*/}
       <Route exact path="/" element={<Home />}></Route>
       <Route exact path="/buy" element={<Listings />}></Route>
+      <Route exact path="/accessory" element={<Accessories />}></Route>
       <Route exact path="/login" element={<Login />}></Route>
       <Route exact path="/register" element={<Register />}></Route>
       <Route exact path="/forgotpassword" element={<ForgotPassword />}></Route>
