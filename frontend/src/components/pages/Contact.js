@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Carousel from "react-bootstrap/Carousel";
 import logo from "../pictures/logo.png";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
+import { CircularProgress } from "@material-ui/core";
 import ListingDescription from "./ListingDescription";
 import Axios from "axios";
 import "../css/Listings.css";
@@ -14,6 +15,7 @@ function Listings() {
   const lastPageNum = useRef(Infinity);
   const [activeCategoryBtn, setActiveCategoryBtn] = useState("");
   const [currentPageNum, setCurrentPageNum] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const selectedCategoryColor = "gainsboro";
   const navigate = useNavigate();
 
@@ -51,15 +53,18 @@ function Listings() {
           params: parameters.current,
         });
         setListings(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
+      setIsLoading("false");
     }
 
     if (shouldPreFetchNextPage) {
       parameters.current.page = page + 1; // increment page number to pre-fetch the next page
 
       try {
+        setIsLoading(true);
         const response = await Axios.get("http://localhost:3001/listing", {
           params: parameters.current,
         });
@@ -72,6 +77,7 @@ function Listings() {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
 
       parameters.current.page = page;
     }
@@ -268,384 +274,405 @@ function Listings() {
   };
 
   return (
-    <div className="listings content">
-      <div className="row">
-        <div className="col-sm-2 categoriesTitleCol">
-          <p>Categories:</p>
+    <>
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: 150 + "px",
+            marginBottom: 150 + "px",
+          }}
+        >
+          <CircularProgress size={100} style={{ color: "#2e6076" }} />
         </div>
+      ) : (
+        <div className="listings content">
+          <div className="row">
+            <div className="col-sm-2 categoriesTitleCol">
+              <p>Categories:</p>
+            </div>
 
-        <div className="col categoriesCol categoriesFirstCol">
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="City"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "City"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            City
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Road"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Road"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Road
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Mountain"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Mountain"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Mountain
-          </button>
-        </div>
+            <div className="col categoriesCol categoriesFirstCol">
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="City"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "City"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                City
+              </button>
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="Road"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "Road"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                Road
+              </button>
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="Mountain"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "Mountain"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                Mountain
+              </button>
+            </div>
 
-        <div className="col categoriesCol">
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Downhill"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Downhill"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Downhill
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Gravel"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Gravel"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Gravel
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Folding"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Folding"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Folding
-          </button>
-        </div>
+            <div className="col categoriesCol">
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="Downhill"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "Downhill"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                Downhill
+              </button>
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="Gravel"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "Gravel"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                Gravel
+              </button>
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="Folding"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "Folding"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                Folding
+              </button>
+            </div>
 
-        <div className="col categoriesCol border-right">
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="E-Bike"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "E-Bike"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            E-Bike
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Classic"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Classic"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Classic
-          </button>
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            id="Others"
-            name="categoryBtn"
-            style={
-              activeCategoryBtn == "Others"
-                ? { backgroundColor: `${selectedCategoryColor}` }
-                : {}
-            }
-            onClick={handleCategoryChange}
-          >
-            Others
-          </button>
-        </div>
+            <div className="col categoriesCol border-right">
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="E-Bike"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "E-Bike"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                E-Bike
+              </button>
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="Classic"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "Classic"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                Classic
+              </button>
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                id="Others"
+                name="categoryBtn"
+                style={
+                  activeCategoryBtn == "Others"
+                    ? { backgroundColor: `${selectedCategoryColor}` }
+                    : {}
+                }
+                onClick={handleCategoryChange}
+              >
+                Others
+              </button>
+            </div>
 
-        <div className="col accessoriesCol align-self-center">
-          <button
-            type="button"
-            className="btn btn-block btn-light border"
-            onClick={() => alert("Not implemented")}
-          >
-            Accessories
-          </button>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-sm-2 filtersPanel">
-          <p className="filtersTitle">Filters</p>
-          <div className="applyBtnCol">
-            <Button className="applyBtn" onClick={applyFilterClicked}>
-              Apply Filters
-            </Button>
+            <div className="col accessoriesCol align-self-center">
+              <button
+                type="button"
+                className="btn btn-block btn-light border"
+                onClick={() => alert("Not implemented")}
+              >
+                Accessories
+              </button>
+            </div>
           </div>
-          <Accordion defaultActiveKey="0" alwaysOpen>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>Price</Accordion.Header>
-              <Accordion.Body>
-                <div className="row justify-content-center">
-                  <div className="form-group col-sm-5">
-                    <label for="minPrice">Min (&euro;)</label>
+          <div className="row">
+            <div className="col-sm-2 filtersPanel">
+              <p className="filtersTitle">Filters</p>
+              <div className="applyBtnCol">
+                <Button className="applyBtn" onClick={applyFilterClicked}>
+                  Apply Filters
+                </Button>
+              </div>
+              <Accordion defaultActiveKey="0" alwaysOpen>
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>Price</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="row justify-content-center">
+                      <div className="form-group col-sm-5">
+                        <label for="minPrice">Min (&euro;)</label>
+                        <input
+                          className="textField"
+                          type="number"
+                          min="0"
+                          step="10"
+                          id="minPrice"
+                          name="minPrice"
+                          placeholder="min"
+                          onWheel={(e) => e.target.blur()} // prevents default input scroll behavior
+                          onChange={handleFilterChange}
+                        ></input>
+                      </div>
+                      <div className="form-group col-sm-5">
+                        <label for="maxPrice">Max (&euro;)</label>
+                        <input
+                          className="textField"
+                          type="number"
+                          min="0"
+                          step="10"
+                          id="maxPrice"
+                          name="maxPrice"
+                          placeholder="max"
+                          onWheel={(e) => e.target.blur()}
+                          onChange={handleFilterChange}
+                        ></input>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="1">
+                  <Accordion.Header>Frame Size</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="row justify-content-center">
+                      <div className="form-group col-sm-6">
+                        <label for="minFrameSize">Min (cm)</label>
+                        <input
+                          className="textField"
+                          type="number"
+                          min="40"
+                          max="70"
+                          id="minFrameSize"
+                          name="minFrameSize"
+                          placeholder="min"
+                          onWheel={(e) => e.target.blur()}
+                          onChange={handleFilterChange}
+                        ></input>
+                      </div>
+                      <div className="form-group col-sm-6">
+                        <label for="maxFrameSize">Max (cm)</label>
+                        <input
+                          className="textField"
+                          type="number"
+                          min="0"
+                          max="70"
+                          id="maxFrameSize"
+                          name="maxFrameSize"
+                          placeholder="max"
+                          onWheel={(e) => e.target.blur()}
+                          onChange={handleFilterChange}
+                        ></input>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="2">
+                  <Accordion.Header>Color</Accordion.Header>
+                  <Accordion.Body>
+                    <Form className="text-left">
+                      {colors.map(renderColorCheckbox)}
+                    </Form>
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="3">
+                  <Accordion.Header>Gender</Accordion.Header>
+                  <Accordion.Body>
+                    <Form.Select id="gender" onChange={handleFilterChange}>
+                      <option selected> </option>
+                      <option>Man</option>
+                      <option>Woman</option>
+                      <option>Child</option>
+                      <option>Unisex</option>
+                    </Form.Select>
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="4">
+                  <Accordion.Header>Condition</Accordion.Header>
+                  <Accordion.Body>
+                    <Form className="text-left">
+                      {conditions.map(renderConditionCheckbox)}
+                    </Form>
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="5">
+                  <Accordion.Header>Location</Accordion.Header>
+                  <Accordion.Body>
                     <input
                       className="textField"
-                      type="number"
-                      min="0"
-                      step="10"
-                      id="minPrice"
-                      name="minPrice"
-                      placeholder="min"
-                      onWheel={(e) => e.target.blur()} // prevents default input scroll behavior
+                      type="text"
+                      id="location"
+                      name="location"
                       onChange={handleFilterChange}
                     ></input>
-                  </div>
-                  <div className="form-group col-sm-5">
-                    <label for="maxPrice">Max (&euro;)</label>
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="6">
+                  <Accordion.Header>Rear Gears</Accordion.Header>
+                  <Accordion.Body>
                     <input
                       className="textField"
                       type="number"
-                      min="0"
-                      step="10"
-                      id="maxPrice"
-                      name="maxPrice"
-                      placeholder="max"
+                      min="1"
+                      max="12"
+                      id="rearGears"
+                      name="rearGears"
                       onWheel={(e) => e.target.blur()}
                       onChange={handleFilterChange}
                     ></input>
-                  </div>
-                </div>
-              </Accordion.Body>
-            </Accordion.Item>
+                  </Accordion.Body>
+                </Accordion.Item>
 
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>Frame Size</Accordion.Header>
-              <Accordion.Body>
-                <div className="row justify-content-center">
-                  <div className="form-group col-sm-6">
-                    <label for="minFrameSize">Min (cm)</label>
+                <Accordion.Item eventKey="7">
+                  <Accordion.Header>Front Gears</Accordion.Header>
+                  <Accordion.Body>
                     <input
                       className="textField"
                       type="number"
-                      min="40"
-                      max="70"
-                      id="minFrameSize"
-                      name="minFrameSize"
-                      placeholder="min"
+                      min="1"
+                      max="3"
+                      id="frontGears"
+                      name="frontGears"
                       onWheel={(e) => e.target.blur()}
                       onChange={handleFilterChange}
                     ></input>
-                  </div>
-                  <div className="form-group col-sm-6">
-                    <label for="maxFrameSize">Max (cm)</label>
-                    <input
-                      className="textField"
-                      type="number"
-                      min="0"
-                      max="70"
-                      id="maxFrameSize"
-                      name="maxFrameSize"
-                      placeholder="max"
-                      onWheel={(e) => e.target.blur()}
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="8">
+                  <Accordion.Header>Brake Type</Accordion.Header>
+                  <Accordion.Body>
+                    <Form.Select id="brakeType" onChange={handleFilterChange}>
+                      <option selected> </option>
+                      <option>Disk</option>
+                      <option>Rim</option>
+                    </Form.Select>
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="9">
+                  <Accordion.Header>Frame Material</Accordion.Header>
+                  <Accordion.Body>
+                    <Form.Select
+                      id="frameMaterial"
                       onChange={handleFilterChange}
-                    ></input>
-                  </div>
-                </div>
-              </Accordion.Body>
-            </Accordion.Item>
+                    >
+                      <option selected> </option>
+                      <option>Aluminium</option>
+                      <option>Carbon</option>
+                      <option>Steel</option>
+                    </Form.Select>
+                  </Accordion.Body>
+                </Accordion.Item>
 
-            <Accordion.Item eventKey="2">
-              <Accordion.Header>Color</Accordion.Header>
-              <Accordion.Body>
-                <Form className="text-left">
-                  {colors.map(renderColorCheckbox)}
-                </Form>
-              </Accordion.Body>
-            </Accordion.Item>
+                <Accordion.Item eventKey="10">
+                  <Accordion.Header>Verification Level</Accordion.Header>
+                  <Accordion.Body>
+                    <Form.Select
+                      id="verification"
+                      onChange={handleFilterChange}
+                    >
+                      <option selected> </option>
+                      <option value="conditionAndFrame">
+                        Frame Number &amp; Condition
+                      </option>
+                      <option value="frame">Frame Number </option>
+                      <option value="condition">Condition</option>
+                      <option value="none">None</option>
+                    </Form.Select>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            </div>
 
-            <Accordion.Item eventKey="3">
-              <Accordion.Header>Gender</Accordion.Header>
-              <Accordion.Body>
-                <Form.Select id="gender" onChange={handleFilterChange}>
-                  <option selected> </option>
-                  <option>Man</option>
-                  <option>Woman</option>
-                  <option>Child</option>
-                  <option>Unisex</option>
-                </Form.Select>
-              </Accordion.Body>
-            </Accordion.Item>
+            <div className="col listingsPanel">
+              <Row xs={3} md={4}>
+                {listings.map(renderCard)}
+              </Row>
 
-            <Accordion.Item eventKey="4">
-              <Accordion.Header>Condition</Accordion.Header>
-              <Accordion.Body>
-                <Form className="text-left">
-                  {conditions.map(renderConditionCheckbox)}
-                </Form>
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="5">
-              <Accordion.Header>Location</Accordion.Header>
-              <Accordion.Body>
-                <input
-                  className="textField"
-                  type="text"
-                  id="location"
-                  name="location"
-                  onChange={handleFilterChange}
-                ></input>
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="6">
-              <Accordion.Header>Rear Gears</Accordion.Header>
-              <Accordion.Body>
-                <input
-                  className="textField"
-                  type="number"
-                  min="1"
-                  max="12"
-                  id="rearGears"
-                  name="rearGears"
-                  onWheel={(e) => e.target.blur()}
-                  onChange={handleFilterChange}
-                ></input>
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="7">
-              <Accordion.Header>Front Gears</Accordion.Header>
-              <Accordion.Body>
-                <input
-                  className="textField"
-                  type="number"
-                  min="1"
-                  max="3"
-                  id="frontGears"
-                  name="frontGears"
-                  onWheel={(e) => e.target.blur()}
-                  onChange={handleFilterChange}
-                ></input>
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="8">
-              <Accordion.Header>Brake Type</Accordion.Header>
-              <Accordion.Body>
-                <Form.Select id="brakeType" onChange={handleFilterChange}>
-                  <option selected> </option>
-                  <option>Disk</option>
-                  <option>Rim</option>
-                </Form.Select>
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="9">
-              <Accordion.Header>Frame Material</Accordion.Header>
-              <Accordion.Body>
-                <Form.Select id="frameMaterial" onChange={handleFilterChange}>
-                  <option selected> </option>
-                  <option>Aluminium</option>
-                  <option>Carbon</option>
-                  <option>Steel</option>
-                </Form.Select>
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="10">
-              <Accordion.Header>Verification Level</Accordion.Header>
-              <Accordion.Body>
-                <Form.Select id="verification" onChange={handleFilterChange}>
-                  <option selected> </option>
-                  <option value="conditionAndFrame">
-                    Frame Number &amp; Condition
-                  </option>
-                  <option value="frame">Frame Number </option>
-                  <option value="condition">Condition</option>
-                  <option value="none">None</option>
-                </Form.Select>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
+              <Row className="justify-content-end">
+                <button
+                  type="button"
+                  class="btn pageBtn"
+                  onClick={prevPageClicked}
+                  disabled={currentPageNum == 0}
+                >
+                  &larr;
+                </button>
+                <p className="pageNumText align-self-center">
+                  {" "}
+                  Page {currentPageNum + 1}{" "}
+                </p>
+                <button
+                  type="button"
+                  class="btn pageBtn nextPageBtn"
+                  onClick={nextPageClicked}
+                  disabled={currentPageNum == lastPageNum.current}
+                >
+                  &rarr;
+                </button>
+              </Row>
+            </div>
+          </div>
         </div>
-
-        <div className="col listingsPanel">
-          <Row xs={3} md={4}>
-            {listings.map(renderCard)}
-          </Row>
-
-          <Row className="justify-content-end">
-            <button
-              type="button"
-              class="btn pageBtn"
-              onClick={prevPageClicked}
-              disabled={currentPageNum == 0}
-            >
-              &larr;
-            </button>
-            <p className="pageNumText align-self-center">
-              {" "}
-              Page {currentPageNum + 1}{" "}
-            </p>
-            <button
-              type="button"
-              class="btn pageBtn nextPageBtn"
-              onClick={nextPageClicked}
-              disabled={currentPageNum == lastPageNum.current}
-            >
-              &rarr;
-            </button>
-          </Row>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

@@ -7,6 +7,8 @@ import "../css/SellBike.css";
 import DropBox from "../../features/Dropbox";
 import ShowImage from "../../features/ShowImage";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@material-ui/core";
 import { selectUser, AUTH_TOKENS, logout } from "../../features/userSlice";
 import rocketImg from "../pictures/rocket.png";
 import { Navigate } from "react-router-dom";
@@ -31,7 +33,10 @@ function SellBike() {
   const [frameVerification, setFrameVerification] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [isBoosted, setIsBoosted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [validated, setValidated] = useState(false);
 
@@ -73,8 +78,9 @@ function SellBike() {
     } else {
       console.log("Auth TOkens is null");
     }
+    setIsLoading(true);
 
-    AxiosJWT.post("http://localhost:3001/createItem", {
+    await AxiosJWT.post("http://localhost:3001/createItem", {
       headers: {
         authorization: "Bearer " + authTokens.accessToken,
       },
@@ -104,6 +110,7 @@ function SellBike() {
       .catch((error) => {
         console.log(error);
       });
+    setIsLoading(false);
   };
 
   const createListing = async (itemId) => {
@@ -111,6 +118,7 @@ function SellBike() {
     if (authTokens != null) {
       authTokens = JSON.parse(authTokens);
     }
+    setIsLoading(true);
 
     AxiosJWT.post("http://localhost:3001/createListing", {
       headers: {
@@ -125,18 +133,23 @@ function SellBike() {
     })
       .then((response) => {
         console.log(`Listing successfully added`);
+        navigate("/listing/" + response.data._id);
       })
       .catch((error) => {
         console.log(error);
       });
+    setIsLoading(false);
   };
 
   function calculateFinalPrice(price) {
     var finalPrice = +price;
     if (conditionVerification) finalPrice = finalPrice + 0.03 * price; // decide how much to get as fee
     if (frameVerification) finalPrice = finalPrice + 0.03 * price; // decide how much to get as fee
-    if (isBoosted) finalPrice = finalPrice + 10; // decide the boosting price
     return finalPrice;
+  }
+
+  function ErrorMessage({ message }) {
+    return <div className="alert alert-danger">{message}</div>;
   }
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -324,7 +337,7 @@ function SellBike() {
                   <Form.Label>Frame Size</Form.Label>
                   <Form.Control
                     required
-                    type="text"
+                    type="number"
                     placeholder="Enter Frame Size"
                     onChange={(e) => {
                       setFrameSize(e.target.value);
@@ -474,8 +487,8 @@ function SellBike() {
               <hr></hr>
               <p>
                 {" "}
-                Upload pictures and videos of your bike. Ads with more pictures
-                are usually the most viewed ones!
+                Upload pictures of your bike. Ads with more pictures are usually
+                the most viewed ones!
               </p>{" "}
               <p>
                 {" "}
@@ -494,10 +507,15 @@ function SellBike() {
             <div className="dragndrop">
               <DropBox onDrop={onDrop} />
               <aside>
-                <h4>Uploaded pictures:</h4>
+                <h5>Uploaded pictures:</h5>
                 <p>{lists}</p>
               </aside>
               <ShowImage images={photos} />
+              {errorMessage.length > 0 ? (
+                <ErrorMessage message={errorMessage} />
+              ) : (
+                <p></p>
+              )}
             </div>
             <div className="initialText">
               <h4>Which images do you wanna show on your listing?</h4>
@@ -559,16 +577,16 @@ function SellBike() {
               </Button>
               <p className="col mt-3 mb-3"></p>
               <p className="col mt-3 mb-3"></p>
-
-              {/* <Button
-                className="col mt-3 mb-3 mr-3 back"
-                variant="secondary"
-                onClick={() => setStep(step - 1)}
+              <Button
+                className="col mt-3 mb-3 next"
+                onClick={() => {
+                  if (photos.length == 0)
+                    setErrorMessage(
+                      "Please upload pictures of your bike before moving to the next step"
+                    );
+                  else setStep(3);
+                }}
               >
-                {" "}
-                Back{" "}
-              </Button> */}
-              <Button className="col mt-3 mb-3 next" onClick={() => setStep(3)}>
                 Next
               </Button>
             </Row>
@@ -623,20 +641,10 @@ function SellBike() {
               <p className="col mt-3 mb-3"></p>
               <p className="col mt-3 mb-3"></p>
 
-              {/* <Button
-                className="col mt-3 mb-3 mr-3 back"
-                variant="secondary"
-                onClick={() => setStep(step - 1)}
-              >
-                {" "}
-                Back{" "}
-              </Button> */}
               <Button
                 className="col mt-3 mb-3 next"
-                // href="/"
                 // Warning! If you redirect it will fail for some stupid reasons
                 onClick={() => {
-                  alert("To implement my listing page in profile");
                   uploadImages();
                 }}
               >
@@ -655,21 +663,36 @@ function SellBike() {
   }
 
   return (
-    <div className="sellBike">
-      <Nav justify variant="tabs" activeKey={step} className="navbar_state">
-        <Nav.Item>
-          <Nav.Link eventKey="1">1. Bike Details</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="2">2. Upload Pictures</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="3">3. Done!</Nav.Link>
-        </Nav.Item>
-      </Nav>
+    <>
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: 150 + "px",
+            marginBottom: 150 + "px",
+          }}
+        >
+          <CircularProgress size={100} style={{ color: "#2e6076" }} />
+        </div>
+      ) : (
+        <div className="sellBike">
+          <Nav justify variant="tabs" activeKey={step} className="navbar_state">
+            <Nav.Item>
+              <Nav.Link eventKey="1">1. Bike Details</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="2">2. Upload Pictures</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="3">3. Done!</Nav.Link>
+            </Nav.Item>
+          </Nav>
 
-      {renderSwitch(step)}
-    </div>
+          {renderSwitch(step)}
+        </div>
+      )}
+    </>
   );
 }
 

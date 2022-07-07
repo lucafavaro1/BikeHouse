@@ -38,7 +38,12 @@ function Footer() {
                   <br />
                   <a href="tel: +49 1234 567890">+49 1234 567890</a>
                   <br />
-                  <a href="bikehouse.feedback@gmail.com">
+                  <a
+                    href="" // just to make it blue
+                    onClick={() =>
+                      (window.location = "mailto:bikehouse.feedback@gmail.com")
+                    }
+                  >
                     bikehouse.feedback@gmail.com
                   </a>
                   <br />
@@ -104,9 +109,7 @@ function Footer() {
                   <p className="">
                     Connect with one of our specialists <br />
                   </p>
-                  <p className="d-none d-md-block">
-                    to find your dream bike.
-                  </p>
+                  <p className="d-none d-md-block">to find your dream bike.</p>
                   <br />
                 </a>
               </Carousel.Item>

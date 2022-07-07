@@ -1,0 +1,9 @@
+.notFoundPage {
+  width: 100%;
+}
+
+.notFoundPage .row {
+  width: 100%;
+  margin-right: 0px;
+  margin-left: 0px;
+}

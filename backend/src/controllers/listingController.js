@@ -151,6 +151,7 @@ async function fetchBikesForListings(listings, bikeFilters) {
 
   return listings;
 }
+
 // @desc Get a single listing by the id
 // @route GET /listing/id
 const getListingById = async (req, res) => {
@@ -169,7 +170,7 @@ const getListingById = async (req, res) => {
     listingToSend["location"] = bikeDeets.location;
     listingToSend["sellerName"] =
       sellerDeets.firstName + " " + sellerDeets.lastName;
-    listingToSend["frameVerfied"] = bikeDeets.frameVerified;
+    listingToSend["frameVerified"] = bikeDeets.frameVerified;
     listingToSend["bikeCondition"] = bikeDeets.condition;
     listingToSend["price"] = listing.finalPrice;
     listingToSend["images"] = bikeDeets.photos;
@@ -195,7 +196,48 @@ const getListingById = async (req, res) => {
   //   listings = listings.sort((a, b) => Number(b.isBoosted) - Number(a.isBoosted));
 };
 
+const getListingsBySeller = async (req, res) => {
+  const sellerDeets = await UserModel.findById(req.params.id).exec();
+
+  try {
+    let listings = await ListingModel.find({ sellerId: req.params.id });
+    if (listings.length == 0) {
+      return res.status(200).json("You have no listings");
+    }
+
+    listings = JSON.parse(JSON.stringify(listings));
+    listings = await fetchBikesForListingsV1(listings);
+
+    // let bikeDeets = await BikeModel.findById(listings[0].bikeId).exec();
+    // console.log("Listings:" + listings);
+    // console.log("Bike details: " + bikeDeets);
+    // console.log("Seller details: " + sellerDeets);
+
+    return res.status(200).json(listings);
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json("Listing not found");
+  }
+};
+
+async function fetchBikesForListingsV1(listings) {
+  await Promise.all(
+    listings.map(async (listing) => {
+      // assigning the bike model into a new 'bike' field
+      let bike = await BikeModel.findOne(
+        Object.assign({}, { _id: listing.bikeId })
+      ).exec();
+      listing.bike = bike;
+    })
+  );
+
+  listings = listings.filter((listing) => listing.bike); // remove all listings with no bike (because of unmatching filter)
+
+  return listings;
+}
+
 module.exports = {
   getListings,
   getListingById,
+  getListingsBySeller,
 };

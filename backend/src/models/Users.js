@@ -31,7 +31,29 @@ const UserSchema = new mongoose.Schema({
     required: false,
     default: "62a8d2db92f7dccf6e401015",
   },
-  isVerified: Boolean,
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  verificationPictures: [
+    {
+      id: String,
+      src: Buffer,
+      url: String,
+      name: String,
+    },
+  ],
+  rating: {
+    oneStar: { type: Number, default: 0 },
+    twoStars: { type: Number, default: 0 },
+    threeStars: { type: Number, default: 0 },
+    fourStars: { type: Number, default: 0 },
+    fiveStars: { type: Number, default: 0 },
+  },
+  averageRating: {
+    type: mongoose.Types.Decimal128,
+    default: 0.0,
+  },
 });
 
 // name of collection + schema that represents that model

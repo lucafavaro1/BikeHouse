@@ -1,14 +1,156 @@
 .dashboard .MuiButtonBase-root {
-  align-self: flex-end !important; 
-  padding-right: 35px;
+  align-self: flex-end !important;
+  padding-right: 20px;
+}
+
+.dashboard .row {
+  width: 100%;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.dashboard {
+  width: 100%;
 }
 
 .dashboard .MuiButtonBase-root.MuiTab-root:hover {
   color: var(--bikehouse-blue);
 }
 
-.dashboard .MuiButtonBase-root.MuiTab-root.Mui-selected{
-  font-size: 20px ;
+.dashboard .MuiButtonBase-root.MuiTab-root.Mui-selected {
+  font-size: 20px;
   color: var(--bikehouse-blue);
 }
 
+.dashboard .profile {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.dashboard .verify {
+  text-align: center;
+  border: 3px solid var(--bikehouse-blue);
+}
+
+.dashboard .profile img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.dashboard .secondRow {
+  margin-top: 15px;
+}
+
+.dashboard ul {
+  list-style-type: disc;
+  margin-top: 2em;
+  /* em = font size */
+  text-align: left;
+}
+
+.dashboard li {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.dashboard .listings {
+  margin-top: 20px;
+}
+
+.dashboard .card {
+  margin: 1.5%;
+  min-width: 30%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.dashboard .card-img-top {
+  height: 18rem;
+  object-fit: contain;
+}
+
+.dashboard .card-body {
+  padding: 3%;
+}
+
+.dashboard .boostIcon {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+
+  color: #eb4438;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 1.5%;
+  border-radius: 10%;
+}
+
+.dashboard .verification {
+  text-align: center;
+}
+
+.dashboard .dragndrop {
+  text-align: center;
+  margin-top: -30px;
+  margin-left: 130px;
+  margin-right: 130px;
+}
+
+.showImage .container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.dashboard .container img {
+  max-height: 150px;
+  max-width: 150px;
+  margin-right: 50px;
+}
+
+.dashboard .submit {
+  background-color: var(--bikehouse-blue);
+  color: white;
+  max-width: 200px;
+  margin-right: 150px;
+}
+
+.dashboard .submit:hover {
+  background-color: gold;
+  color: black;
+}
+
+.dashboard .custom {
+  max-width: 200px;
+  background-color: #6c757d;
+  color: white;
+  margin-left: 150px;
+}
+
+.dashboard .custom:hover {
+  background-color: #565e64;
+  color: #fff;
+}
+
+.dashboard .carousel.slide {
+  height: 200px;
+  width: 250px;
+}
+
+.dashboard .carousel-inner {
+  align-content: center !important;
+  height: 200px;
+  width: 100%;
+  padding: 10%;
+}
+
+.dashboard .carousel-control-prev-icon {
+  margin-right: 10px;
+  background-color: black;
+}
+
+.dashboard .carousel-control-next-icon {
+  margin-left: 10px;
+  background-color: black;
+}
