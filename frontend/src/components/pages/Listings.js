@@ -5,6 +5,7 @@ import Axios from "axios";
 import "../css/Listings.css";
 import { useNavigate } from "react-router-dom";
 import rocketIcon from '../pictures/rocket.png';
+import questionMarkIcon from '../pictures/questionMarkIcon.png';
 
 function Listings() {
   const [listings, setListings] = useState([]);
@@ -108,6 +109,10 @@ function Listings() {
     getListings(currentPageNum - 1, false);
     setCurrentPageNum(currentPageNum - 1);
   };
+
+  const needHelpClicked = async (event) => {
+    navigate("/specialist")
+  }
 
   /** Called when any of the accordion items is changed*/
   function handleFilterChange(eventObject) {
@@ -585,6 +590,12 @@ function Listings() {
               &rarr;
             </button>
           </Row>
+        </div>
+      </div>
+      <div className="needHelpContainer">
+        <div className="needHelp" onClick={needHelpClicked}>
+          <img src={questionMarkIcon}></img>
+          <p>Need help?</p>
         </div>
       </div>
     </div>

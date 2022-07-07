@@ -126,10 +126,38 @@
 }
 
 .listings .nextPageBtn {
-  
   margin-right: 1.7rem;
 }
 
 .listings .pageNumText {
   margin: 0 1rem 0 1rem;
+}
+
+.listings .needHelpContainer {
+  z-index: 999;
+  position: fixed;
+  width: 8rem;
+  right: 7%;
+  bottom: 2%;
+  cursor: pointer;
+
+}
+
+.listings .needHelp {
+  background-color: rgba(249, 249, 249, 0.623);
+  text-align: center;
+  font-size: 1.25rem;
+  padding: 7%;
+  border-radius: 5%;
+}
+
+.listings .needHelp p {
+  margin: 0;
+}
+
+.listings .needHelp img {
+  padding: 0;
+  margin: 0;
+  width: 90%;
+  height: 100%;
 }
