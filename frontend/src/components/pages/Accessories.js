@@ -4,7 +4,6 @@ import AccessoryDescription from "./AccessoryDescription";
 import Axios from "axios";
 import "../css/Accessories.css";
 import { useNavigate } from "react-router-dom";
-import mockBikeLockImg from '../pictures/bikeLock.jpeg';
 
 function Accessories() {
 	const [accessories, setAccessories] = useState([]);
@@ -82,7 +81,7 @@ function Accessories() {
 	const renderCard = (accessory, index) => {
 		return (
 			<Card key={index}>
-				<Card.Img variant="top" src={mockBikeLockImg} />
+				<Card.Img variant="top" src={accessory.photos[0].url} />
 
 				<Card.Body>
 					<Card.Text>
@@ -102,7 +101,7 @@ function Accessories() {
 
 			<div className="row">
 				<div className="col accessoriesPanel">
-					<Row xs={3} md={4}>
+					<Row xs={4} md={5}>
 						{accessories.map(renderCard)}
 					</Row>
 
