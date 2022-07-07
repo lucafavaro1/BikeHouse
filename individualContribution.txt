@@ -19,7 +19,7 @@ Bike categories on the listings page 1h
 Pagination for listings 3h
 Sorting listings 1.5h
 Accessories page 1.5h
-Bug fixes and minor UI changes 0.5h
+Bug fixes and minor UI changes 1h
 
 # Xavier
 User storage, login 3h
