@@ -3,7 +3,7 @@ const { AccessoryModel } = require("../models/Item");
 // @desc Get accessories
 // @route GET /accessory
 const getAccessories = async (req, res) => {
-  const perPage = 3;
+  const perPage = 6;
   var page = req.query.page || 0;
   var sortingCriterion = req.query.sortingCriterion
 

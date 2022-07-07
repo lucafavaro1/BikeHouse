@@ -17,6 +17,8 @@ Listings page and filters 5h
 Implementation of filters 4h
 Bike categories on the listings page 1h
 Pagination for listings 3h
+Sorting listings 1.5h
+Accessories page 1h
 
 # Xavier
 User storage, login 3h

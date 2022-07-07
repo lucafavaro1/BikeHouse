@@ -24,7 +24,7 @@ const getListings = async (req, res) => {
   let listings = await ListingModel.find(listingFilters) // fetch listings
     .limit(perPage)
     .skip(perPage * page)
-    .sort({ isBoosted: -1 })
+    .sort(Object.assign({ isBoosted: -1 }, getPriceSortingObject(sortingCriterion)))
     .exec();
 
   listings = JSON.parse(JSON.stringify(listings)); // convert to JSON to support adding a new field (bike)
@@ -66,6 +66,14 @@ function sortListings(listings, criterion) {
   });
 
   return listings
+}
+
+/** Returns an object to be sent to the backend for applying price-based sorting */
+function getPriceSortingObject(criterion) {
+  if (criterion == 'priceLH') return { finalPrice: 1 }
+  if (criterion == 'priceHL') return { finalPrice: -1 }
+
+  return {}
 }
 
 function generateBikeFilters(rawQuery) {
