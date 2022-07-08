@@ -3,7 +3,6 @@ const RefreshTokenModel = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const AccessTokenModel = require("../models/AccessToken");
-const emailkey = require("../emailKeyForgotPassword");
 
 // @desc Get user by email and password
 // @route POST /users/login
@@ -48,6 +47,11 @@ const loginUser = async (req, res) => {
         const responseToSend = {
           id: user._id,
           firstName: user.firstName,
+          lastName: user.lastName,
+          birthdate: user.birthDate,
+          isVerified: user.isVerified,
+          verificationPictures: user.verificationPictures,
+          averageRating: user.averageRating,
           email: user.email,
           accessToken: accessToken,
           refreshToken: refreshToken,
@@ -159,26 +163,6 @@ const refreshTokenGen = async (req, res) => {
   // if everything ok , send a new access token, refresh token
 };
 
-const updateUser = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
-    // no JSON body
-    return res
-      .status(400)
-      .json({ error: "Bad Request", message: "The request body is empty" });
-  }
-
-  try {
-    let user = UserModel.findByIdAndUpdate(req.body.id, {
-      name: req.body.name,
-      age: req.body.age,
-      username: req.body.username,
-    }).exec();
-    return res.status(200).json(user);
-  } catch (err) {
-    res.status(404).json(err);
-  }
-};
-
 const verify = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   console.log(authHeader);
@@ -207,6 +191,17 @@ const verify = async (req, res, next) => {
   }
 };
 
+const userVerification = async (req, res) => {
+  try {
+    let user = await UserModel.findByIdAndUpdate(req.body.user, {
+      verificationPictures: req.body.photos,
+    }).exec();
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+
 const deleteUserTest = async (req, res) => {
   res.status(200).send("REsponse done! user deleted !");
 };
@@ -225,6 +220,26 @@ const logoutUser = async (req, res) => {
   }
 };
 
+const updatePassword = async (req, res) => {
+  try {
+    const user = await UserModel.findOne({ email: req.body.email });
+    if (user) {
+      const cmp = await bcrypt.compare(req.body.password, user.password);
+      if (cmp) {
+        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+        const updatedUser = await UserModel.findByIdAndUpdate(user._id, {
+          password: hashedPassword,
+        }).exec();
+        res.status(200).json(updatedUser);
+      } else res.status(404).json(err);
+    }
+  } catch (err) {
+    res.status(404).json(err);
+  }
+
+  // here hash both psw, check whether the current is correct, update with the new one, return done
+};
+
 module.exports = {
   loginUser,
   createUser,
@@ -232,5 +247,7 @@ module.exports = {
   deleteUserTest,
   refreshTokenGen,
   verify,
+  updatePassword,
+  userVerification,
   logoutUser,
 };

@@ -53,7 +53,7 @@
 }
 
 .sellBike .next:hover {
-  background-color: rgb(217, 221, 0);
+  background-color: gold;
   color: black;
 }
 
@@ -62,7 +62,7 @@
 }
 
 .sellBike .boost_now:hover {
-  background-color: rgb(217, 221, 0);
+  background-color: gold;
   color: black;
 }
 

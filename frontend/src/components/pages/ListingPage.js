@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Media } from "reactstrap";
+import { CircularProgress } from "@material-ui/core";
 import ImageGrid from "../reusable/ImageGrid";
 import InfoPage from "../reusable/InfoPage";
 import MainImage from "../reusable/MainImage";
@@ -21,7 +22,7 @@ function ListingPage(props) {
         setProduct({
           location: listing.data.location,
           sellerName: listing.data.sellerName,
-          frameVerified: listing.data.frameVerfied,
+          frameVerified: listing.data.frameVerified,
           bikeCondition: listing.data.bikeCondition,
           price: listing.data.price,
           description: listing.data.description,
@@ -41,15 +42,13 @@ function ListingPage(props) {
         }
       } catch (error) {
         console.log(error);
-        setIsLoading(false);
       }
+      setIsLoading(false);
     }
-    setIsLoading(true);
     console.log(props);
     console.log("LISTING ID:" + id);
     getListing(id);
     console.log(listing);
-    setIsLoading(false);
 
     // console.log(listing);
   }, []);
@@ -71,59 +70,77 @@ function ListingPage(props) {
   };
 
   const [selectedImage, setSelectedImage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [listing, setListing] = useState();
   const [images, setImages] = useState(imagesTemp);
   const [product, setProduct] = useState(productTemp);
 
   return (
     <>
-      {listing ? (
-        <>
-          <div id="ListingPage" className="d-flex  justify-content-left m-5">
-            <div className="d-none d-md-block col-md-1"></div>
-            <div className="d-none d-md-block col-md-3">
-              <Typography variant="h6">
-                {product.brand + " " + product.model}
-              </Typography>
-            </div>
-          </div>
-          <div
-            id="ListingPage"
-            className="row justify-content-center mt-5 mb-5"
-          >
-            <div className="d-none d-md-block col-md-1 p-0">
-              <ImageGrid
-                images={images}
-                onSelect={(index) => setSelectedImage(index)}
-                selectedImage={selectedImage}
-              ></ImageGrid>
-            </div>
-            <div className="d-none d-md-block col-md-5 p-0">
-              <MainImage src={images[selectedImage]}></MainImage>
-            </div>
-
-            <div className="col-md-3 ">
-              <InfoPage {...product}></InfoPage>
-            </div>
-          </div>
-          <div
-            id="detailedDesc"
-            className="d-flex m-5 d-flex justify-content-center"
-          >
-            <Box component="span" sx={{ p: 2, border: 1 }}>
-              <p>{product.description} </p>
-            </Box>
-          </div>
-        </>
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: 150 + "px",
+            marginBottom: 150 + "px",
+          }}
+        >
+          <CircularProgress size={100} style={{ color: "#2e6076" }} />
+        </div>
       ) : (
         <>
-          <Typography
-            variant="subtitle1"
-            className="row justify-content-left ml-5"
-          >
-            Listing Not available
-          </Typography>
+          {listing ? (
+            <>
+              <div
+                id="ListingPage"
+                className="d-flex  justify-content-left m-5"
+              >
+                <div className="d-none d-md-block col-md-1"></div>
+                <div className="d-none d-md-block col-md-3">
+                  <Typography variant="h6">
+                    {product.brand + " " + product.model}
+                  </Typography>
+                </div>
+              </div>
+              <div
+                id="ListingPage"
+                className="row justify-content-center mt-5 mb-5"
+              >
+                <div className="d-none d-md-block col-md-1 p-0">
+                  <ImageGrid
+                    images={images}
+                    onSelect={(index) => setSelectedImage(index)}
+                    selectedImage={selectedImage}
+                  ></ImageGrid>
+                </div>
+                <div className="d-none d-md-block col-md-5 p-0">
+                  <MainImage src={images[selectedImage]}></MainImage>
+                </div>
+
+                <div className="col-md-3 ">
+                  <InfoPage {...product}></InfoPage>
+                </div>
+              </div>
+              <div
+                id="detailedDesc"
+                className="d-flex m-5 d-flex justify-content-center"
+              >
+                <Box component="span" sx={{ p: 2, border: 1 }}>
+                  <p>{product.description} </p>
+                </Box>
+              </div>
+            </>
+          ) : (
+            <>
+              <Typography
+                variant="subtitle1"
+                className="row justify-content-left ml-5"
+              >
+                Listing Not available
+              </Typography>
+            </>
+          )}
         </>
       )}
     </>

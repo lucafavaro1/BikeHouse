@@ -26,10 +26,6 @@ const ListingSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    shouldBeVerified: {
-      type: Boolean,
-      default: true,
-    },
   },
   {
     timestamps: true, // This replaces the timeStamp field we had in the class diagram

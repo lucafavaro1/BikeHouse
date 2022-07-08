@@ -8,6 +8,8 @@ const {
   refreshTokenGen,
   deleteUserTest,
   verify,
+  updatePassword,
+  userVerification,
   logoutUser,
 } = require("../controllers/userController");
 
@@ -18,6 +20,10 @@ router.post("/loginUser", loginUser);
 router.post("/forgotPassword", forgotPassword);
 
 router.post("/logout", verify, logoutUser);
+
+router.post("/userVerification", userVerification);
+
+router.post("/updatePassword", updatePassword);
 
 router.post("/api/refreshtoken", refreshTokenGen);
 
