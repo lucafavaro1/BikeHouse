@@ -216,6 +216,9 @@ const getListingById = async (req, res) => {
     listingToSend["bikeCondition"] = bikeDeets.condition;
     listingToSend["price"] = listing.finalPrice;
     listingToSend["images"] = bikeDeets.photos;
+    listingToSend["description"] = bikeDeets.description;
+    listingToSend["brand"] = bikeDeets.brand;
+    listingToSend["model"] = bikeDeets.model;
     return res.status(200).json(listingToSend);
   } catch (error) {
     console.log(error);
