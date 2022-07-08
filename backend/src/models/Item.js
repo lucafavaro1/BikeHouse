@@ -104,6 +104,13 @@ const AccessorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  photos: [
+    {
+      id: String,
+      url: String,
+      name: String
+    },
+  ]
 });
 
 // name of collection + schema that represents that model + options defining the parent class

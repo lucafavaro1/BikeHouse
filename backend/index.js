@@ -27,6 +27,7 @@ api.use("/", require("./src/routes/appointmentRoutes"));
 api.use("/", require("./src/routes/bikeRoutes"));
 api.use("/", require("./src/routes/listingRoutes"));
 api.use("/", require("./src/routes/paymentRoutes"));
+api.use("/", require("./src/routes/accessoryRoutes"));
 
 server.on("listening", () => {
   console.log(`Server running port ${config.port}`);
