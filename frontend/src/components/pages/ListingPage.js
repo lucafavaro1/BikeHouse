@@ -28,6 +28,7 @@ function ListingPage(props) {
           description: listing.data.description,
           brand: listing.data.brand,
           model: listing.data.model,
+          sellerVerified: listing.data.sellerVerified,
         });
         const photosFromResponse = listing.data.images;
         console.log(photosFromResponse.length);
@@ -67,6 +68,7 @@ function ListingPage(props) {
     description: "Lorem ipsum",
     brand: "brand of the bike",
     model: "model of the bike",
+    sellerVerified: true,
   };
 
   const [selectedImage, setSelectedImage] = useState(0);

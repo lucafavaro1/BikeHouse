@@ -6,6 +6,8 @@ import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
 import ConditionIndicator from "../pages/ConditionIndicator";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import GppBadIcon from "@mui/icons-material/GppBad";
 
 function InfoPage({
   location,
@@ -13,6 +15,7 @@ function InfoPage({
   frameVerified,
   bikeCondition,
   price,
+  sellerVerified,
 }) {
   return (
     <Grid
@@ -32,7 +35,11 @@ function InfoPage({
         justifyContent="center"
       >
         <Typography variant="subtitle1">
-          <SellIcon></SellIcon>
+          {sellerVerified ? (
+            <CheckCircleIcon sx={{ display: "inline-block", marginLeft: 2 }} />
+          ) : (
+            <GppBadIcon sx={{ display: "inline-block" }} />
+          )}
           {sellerName}
         </Typography>
         <Typography variant="subtitle1">
