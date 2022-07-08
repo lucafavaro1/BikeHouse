@@ -24,6 +24,9 @@ function ListingPage(props) {
           frameVerified: listing.data.frameVerfied,
           bikeCondition: listing.data.bikeCondition,
           price: listing.data.price,
+          description: listing.data.description,
+          brand: listing.data.brand,
+          model: listing.data.model,
         });
         const photosFromResponse = listing.data.images;
         console.log(photosFromResponse.length);
@@ -62,6 +65,9 @@ function ListingPage(props) {
     frameVerified: true,
     bikeCondition: 2,
     price: 33,
+    description: "Lorem ipsum",
+    brand: "brand of the bike",
+    model: "model of the bike",
   };
 
   const [selectedImage, setSelectedImage] = useState(0);
@@ -74,6 +80,14 @@ function ListingPage(props) {
     <>
       {listing ? (
         <>
+          <div id="ListingPage" className="d-flex  justify-content-left m-5">
+            <div className="d-none d-md-block col-md-1"></div>
+            <div className="d-none d-md-block col-md-3">
+              <Typography variant="h6">
+                {product.brand + " " + product.model}
+              </Typography>
+            </div>
+          </div>
           <div
             id="ListingPage"
             className="row justify-content-center mt-5 mb-5"
@@ -92,6 +106,14 @@ function ListingPage(props) {
             <div className="col-md-3 ">
               <InfoPage {...product}></InfoPage>
             </div>
+          </div>
+          <div
+            id="detailedDesc"
+            className="d-flex m-5 d-flex justify-content-center"
+          >
+            <Box component="span" sx={{ p: 2, border: 1 }}>
+              <p>{product.description} </p>
+            </Box>
           </div>
         </>
       ) : (

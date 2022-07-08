@@ -5,6 +5,7 @@ import SellIcon from "@mui/icons-material/Sell";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
+import ConditionIndicator from "../pages/ConditionIndicator";
 
 function InfoPage({
   location,
@@ -14,7 +15,11 @@ function InfoPage({
   price,
 }) {
   return (
-    <Grid container direction={"column"} style={{ height: "100%" }}>
+    <Grid
+      container
+      direction={"column"}
+      style={{ height: "100%", marginLeft: 1 }}
+    >
       <Typography variant="subtitle1">
         {" "}
         <LocationOnIcon></LocationOnIcon> {location}
@@ -34,10 +39,11 @@ function InfoPage({
           {frameVerified ? <DoneIcon /> : <DoNotDisturbAltIcon />} Frame
           Verified
         </Typography>
+        <Box component="span" sx={{}}>
+          {<ConditionIndicator numOfStars={bikeCondition} size={1} />}{" "}
+          <span> Bike condition</span>
+        </Box>
 
-        <Typography variant="subtitle1">
-          Bike condition : {bikeCondition}
-        </Typography>
         <Typography variant="subtitle1">
           <EuroIcon /> {price}
         </Typography>
