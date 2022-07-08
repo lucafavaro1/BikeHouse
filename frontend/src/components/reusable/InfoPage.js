@@ -36,7 +36,7 @@ function InfoPage({
       >
         <Typography variant="subtitle1">
           {sellerVerified ? (
-            <CheckCircleIcon sx={{ display: "inline-block", marginLeft: 2 }} />
+            <CheckCircleIcon sx={{ display: "inline-block" }} />
           ) : (
             <GppBadIcon sx={{ display: "inline-block" }} />
           )}

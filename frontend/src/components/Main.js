@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -12,13 +12,12 @@ import Listings from "./pages/Listings";
 import Dashboard from "./pages/Dashboard";
 import ListingPage from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   AUTH_TOKENS,
   LOCAL_STORAGE_USER_DATA_KEY,
   logout,
-  selectUser,
 } from "./../features/userSlice";
 import Payment from "./pages/Payment";
 import ForgotPassword from "./pages/ForgotPassword";
