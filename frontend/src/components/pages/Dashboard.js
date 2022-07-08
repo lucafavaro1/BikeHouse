@@ -506,6 +506,7 @@ function Dashboard() {
                         fontSize: 20,
                         borderBottom: 3,
                         borderColor: "divider",
+                        cursor: "pointer",
                       }}
                     >
                       <a onClick={() => setValue(1)}>My Listings</a>
@@ -524,6 +525,7 @@ function Dashboard() {
                         fontSize: 20,
                         borderBottom: 3,
                         borderColor: "divider",
+                        cursor: "pointer",
                       }}
                     >
                       <a onClick={() => setValue(2)}>Purchase History</a>
@@ -557,8 +559,8 @@ function Dashboard() {
                     <a
                       href="" // just to make it blue
                       onClick={() =>
-                        (window.location =
-                          "mailto:bikehouse.feedback@gmail.com")
+                      (window.location =
+                        "mailto:bikehouse.feedback@gmail.com")
                       }
                     >
                       bikehouse.feedback@gmail.com

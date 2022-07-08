@@ -56,6 +56,7 @@ function Listings() {
     shouldPreFetchNextPage = true,
     shouldUsePreFetchedNextPage = true
   ) {
+    parameters.current.verifiedOnly = true
     parameters.current.page = page;
     parameters.current.sortingCriterion = activeSortingCriterion.current;
 

@@ -80,6 +80,13 @@ function getPriceSortingObject(criterion) {
 function generateBikeFilters(rawQuery) {
   var filter = {};
 
+  if (rawQuery.verifiedOnly) {
+    filter.frameToBeVerified = filter.frameToBeVerified || {};
+    filter.conditionToBeVerified = filter.frameToBeVerified || {};
+    filter.frameToBeVerified = false;
+    filter.conditionToBeVerified = false;
+  }
+
   if (rawQuery.minFrameSize) {
     filter.frameSize = filter.frameSize || {};
     filter.frameSize.$gte = rawQuery.minFrameSize;
@@ -132,25 +139,25 @@ function generateBikeFilters(rawQuery) {
 
   if (rawQuery.verification) {
     if (rawQuery.verification == "conditionAndFrame") {
-      filter.conditionToBeVerified = filter.conditionToBeVerified || {};
-      filter.frameToBeVerified = filter.frameToBeVerified || {};
+      filter.condition = filter.condition || {};
+      filter.frameVerified = filter.frameVerified || {};
 
-      filter.conditionToBeVerified = true;
-      filter.frameToBeVerified = true;
+      filter.condition.$gt = 0;
+      filter.frameVerified = true;
     } else if (rawQuery.verification == "condition") {
-      filter.conditionToBeVerified = filter.conditionToBeVerified || {};
+      filter.condition = filter.condition || {};
 
-      filter.conditionToBeVerified = true;
+      filter.condition.$gt = 0;
     } else if (rawQuery.verification == "frame") {
-      filter.frameToBeVerified = filter.frameToBeVerified || {};
+      filter.frameVerified = filter.frameVerified || {};
 
-      filter.frameToBeVerified = true;
+      filter.frameVerified = true;
     } else if (rawQuery.verification == "none") {
-      filter.conditionToBeVerified = filter.conditionToBeVerified || {};
-      filter.frameToBeVerified = filter.frameToBeVerified || {};
+      filter.condition = filter.condition || {};
+      filter.frameVerified = filter.frameVerified || {};
 
-      filter.conditionToBeVerified = false;
-      filter.frameToBeVerified = false;
+      filter.condition = 0;
+      filter.frameVerified = false;
     } else {
       delete filter.condition; // faulty parameter; no need to apply any filter
     }
