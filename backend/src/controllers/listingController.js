@@ -7,6 +7,7 @@ const UserModel = require("../models/Users");
 const getListings = async (req, res) => {
   const perPage = 6;
   var page = req.query.page || 0;
+  var sortingCriterion = req.query.sortingCriterion
 
   console.log();
   console.log("RAW QUERY:");
@@ -23,15 +24,57 @@ const getListings = async (req, res) => {
   let listings = await ListingModel.find(listingFilters) // fetch listings
     .limit(perPage)
     .skip(perPage * page)
-    .sort({ isBoosted: -1 })
+    .sort(Object.assign({ isBoosted: -1 }, getPriceSortingObject(sortingCriterion)))
     .exec();
 
   listings = JSON.parse(JSON.stringify(listings)); // convert to JSON to support adding a new field (bike)
 
   listings = await fetchBikesForListings(listings, bikeFilters);
 
+  listings = sortListings(listings, sortingCriterion)
+
   return res.status(200).json(listings);
 };
+
+function sortListings(listings, criterion) {
+  listings.sort(function (listing1, listing2) {
+    if (listing1.isBoosted && !listing2.isBoosted) return -1;
+    else if (!listing1.isBoosted && listing2.isBoosted) return 1;
+
+    else { // both boosted
+      if (criterion == 'default') {
+        if (listing1.bike.condition > listing2.bike.condition) return -1;
+        else if (listing1.bike.condition < listing2.bike.condition) return 1
+
+        else { // both boosted + same condition
+          if (new Date(listing1.createdAt) > new Date(listing2.createdAt)) return -1;
+          else if (new Date(listing1.createdAt) < new Date(listing2.createdAt)) return 1
+        }
+      }
+      else if (criterion == "priceLH") {
+        if (listing1.finalPrice > listing2.finalPrice) return 1;
+        else if (listing1.finalPrice < listing2.finalPrice) return -1
+      }
+      else if (criterion == "priceHL") {
+        if (listing1.finalPrice > listing2.finalPrice) return -1;
+        else if (listing1.finalPrice < listing2.finalPrice) return 1
+
+      }
+    }
+
+    return 0
+  });
+
+  return listings
+}
+
+/** Returns an object to be sent to the backend for applying price-based sorting */
+function getPriceSortingObject(criterion) {
+  if (criterion == 'priceLH') return { finalPrice: 1 }
+  if (criterion == 'priceHL') return { finalPrice: -1 }
+
+  return {}
+}
 
 function generateBikeFilters(rawQuery) {
   var filter = {};
@@ -174,6 +217,9 @@ const getListingById = async (req, res) => {
     listingToSend["bikeCondition"] = bikeDeets.condition;
     listingToSend["price"] = listing.finalPrice;
     listingToSend["images"] = bikeDeets.photos;
+    listingToSend["description"] = bikeDeets.description;
+    listingToSend["brand"] = bikeDeets.brand;
+    listingToSend["model"] = bikeDeets.model;
     return res.status(200).json(listingToSend);
   } catch (error) {
     console.log(error);
