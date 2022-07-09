@@ -136,17 +136,16 @@
 .listings .needHelpContainer {
   z-index: 999;
   position: fixed;
-  width: 8rem;
+  width: 6rem;
   right: 7%;
   bottom: 2%;
   cursor: pointer;
-
 }
 
 .listings .needHelp {
   background-color: rgba(249, 249, 249, 0.623);
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1rem;
   padding: 7%;
   border-radius: 5%;
 }
@@ -158,6 +157,6 @@
 .listings .needHelp img {
   padding: 0;
   margin: 0;
-  width: 90%;
-  height: 100%;
+  width: 80%;
+  height: 90%;
 }

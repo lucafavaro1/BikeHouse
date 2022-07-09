@@ -54,7 +54,8 @@ function Listings() {
   async function getListings(
     page = 0,
     shouldPreFetchNextPage = true,
-    shouldUsePreFetchedNextPage = true
+    shouldUsePreFetchedNextPage = true,
+    loadingAnimation = true
   ) {
     parameters.current.verifiedOnly = true
     parameters.current.page = page;
@@ -73,14 +74,14 @@ function Listings() {
       } catch (error) {
         console.log(error);
       }
-      setIsLoading("false");
+      setIsLoading(false);
     }
 
     if (shouldPreFetchNextPage) {
       parameters.current.page = page + 1; // increment page number to pre-fetch the next page
 
       try {
-        setIsLoading(true);
+        setIsLoading(loadingAnimation);
         const response = await Axios.get("http://localhost:3001/listing", {
           params: parameters.current,
         });
@@ -108,7 +109,7 @@ function Listings() {
   const applyFilterClicked = async (event) => {
     setCurrentPageNum(0);
     lastPageNum.current = Infinity;
-    getListings(0, true, false);
+    getListings(0, true, false, false);
   };
 
   const nextPageClicked = async (event) => {
@@ -116,7 +117,7 @@ function Listings() {
       return;
     }
 
-    getListings(currentPageNum + 1);
+    getListings(currentPageNum + 1, true, true, false);
     setCurrentPageNum(currentPageNum + 1);
   };
 
@@ -125,7 +126,7 @@ function Listings() {
       return;
     }
 
-    getListings(currentPageNum - 1, false);
+    getListings(currentPageNum - 1, false, true, false);
     setCurrentPageNum(currentPageNum - 1);
   };
 
