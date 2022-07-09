@@ -80,7 +80,6 @@ function Accessories() {
     return (
       <Card key={index}>
         <Card.Img variant="top" src={accessory.photos[0].url} />
-
         <Card.Body>
           <Card.Text>
             <AccessoryDescription accessory={accessory}></AccessoryDescription>
