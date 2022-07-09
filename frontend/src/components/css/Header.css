@@ -21,6 +21,7 @@
   flex: 8;
   text-align: center;
   font-family: Merienda One;
+  user-select: none;
 }
 
 .header .onright {
