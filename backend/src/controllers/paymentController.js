@@ -5,7 +5,7 @@ const stripe = require("stripe")(
   "sk_test_51LGkBADlzVGR1dTFCHxnbCK4SokRlhFrfBpfi1CHA2fOmLtdV41V9xR7VcHzigGeYQgzqJQHMHpt7BtS4lDzA1tg00KN7697mY"
 );
 
-const YOUR_DOMAIN = "http://localhost:3000/";
+const YOUR_DOMAIN = "http://localhost:3000";
 
 const checkout = async (req, res) => {
   console.log("CHECKOUT REACHED");
@@ -25,8 +25,15 @@ const checkout = async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: `${YOUR_DOMAIN}` + parameters.successLink,
-    cancel_url: `${YOUR_DOMAIN}`,
+    success_url: `${YOUR_DOMAIN}/listings/` + parameters.listingId,
+    cancel_url:
+      `${YOUR_DOMAIN}/checkout/?canceled=true` +
+      "&" +
+      "bikeId=" +
+      parameters.bikeId +
+      "&" +
+      "listingId=" +
+      parameters.listingId,
   });
   res.json({ url: session.url });
 };

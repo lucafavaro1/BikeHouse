@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Payment() {
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const [another, setAnother] = useState(0);
 
   const Message = ({ message }) => (
     <section>
@@ -27,26 +29,42 @@ function Payment() {
         action="http://localhost:3001/create-checkout-session"
         method="POST"
       >
-        <button type="submit" onClick={setAnother(1)}>
-          Checkout
-        </button>
+        <button type="submit">Checkout</button>
       </form>
     </section>
   );
+
+  const deleteItemsDB = async (bikeId, listingId) => {
+    await axios
+      .post("http://localhost:3001/deleteItemsDB/", {
+        bikeId: bikeId,
+        listingId: listingId,
+      })
+      .then((response) => {
+        //setIsLoading(false);
+        console.log(response);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
-      console.log("Another is: " + another);
       setMessage("Order placed! You will receive an email confirmation.");
     }
 
+    // if the payment was interrupted then delete the item + listing
     if (query.get("canceled")) {
       setMessage(
-        "Order canceled -- continue to shop around and checkout when you're ready."
+        "Order canceled -- The corresponding listing and item are removed."
       );
+      if (query.get("bikeId") != "" && query.get("listingId") != "")
+        deleteItemsDB(query.get("bikeId"), query.get("listingId"));
     }
   }, []);
 

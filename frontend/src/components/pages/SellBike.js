@@ -51,19 +51,22 @@ function SellBike() {
     setValidated(true);
   };
 
-  const payBoost = async (link) => {
-    console.log(link);
+  const payBoost = async (listingId, bikeId) => {
+    console.log(listingId);
+    console.log(bikeId);
+    setIsLoading(true);
     await axios
       .post("http://localhost:3001/create-checkout-session/", {
         name: "Boosting for Ad 🚀",
         price: 5,
-        successLink: link,
+        listingId: listingId,
+        bikeId: bikeId,
         // image:
         //   "https://www.clipartmax.com/png/small/204-2041203_rocket-cartoon-animation-spacecraft-vector-of-rocket.png",
       })
       .then((response) => {
+        setIsLoading(false);
         window.location = response.data.url;
-        //navigate(-1);
       })
       .catch((error) => {
         console.log(error);
@@ -121,6 +124,7 @@ function SellBike() {
       photos,
       frameVerified: false,
       condition: 0,
+      isBoosted,
     })
       .then((response) => {
         console.log(`Item successfully added`);
@@ -152,7 +156,7 @@ function SellBike() {
     })
       .then((response) => {
         console.log(`Listing successfully added`);
-        payBoost("listing/" + response.data._id);
+        payBoost(response.data._id, itemId);
         //navigate("/listing/" + response.data._id);
       })
       .catch((error) => {

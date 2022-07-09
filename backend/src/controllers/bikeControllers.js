@@ -18,7 +18,7 @@ const imageUpload = async (req, res) => {
 };
 
 const createItem = async (req, res) => {
-  console.log("create item claled");
+  console.log("create item called");
   const item = req.body;
   const newItem = new ItemModel.BikeModel(item);
   await newItem.save(); // async request to crease a new user
@@ -26,15 +26,24 @@ const createItem = async (req, res) => {
 };
 
 const createListing = async (req, res) => {
-  console.log("create lisint claled");
+  console.log("create listing called");
   const listing = req.body;
   const newListing = new ListingModel(listing);
   await newListing.save(); // async request to crease a new user
   res.json(newListing);
 };
 
+const deleteItemsDB = async (req, res) => {
+  // if the payment was interrupted then delete the item + listing
+  console.log("deleteItemsDB called");
+  await ItemModel.BikeModel.findByIdAndDelete(req.body.bikeId);
+  await ListingModel.findByIdAndDelete(req.body.listingId);
+  res.json("ok");
+};
+
 module.exports = {
   createItem,
   createListing,
   imageUpload,
+  deleteItemsDB,
 };
