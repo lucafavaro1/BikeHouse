@@ -37,3 +37,4 @@ Book and appointment / specialist 5h
 Fix footer, create scroll to top arrow, fix navbar (sticky + design with login / register button) 3h
 Fix problems with JWT and login, fix encode/decode uploaded images 3h
 Payment with Stripe 2h
+Fix minor bugs, add minor features

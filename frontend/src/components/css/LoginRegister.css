@@ -34,7 +34,22 @@
   margin: 30px auto;
 }
 
+.loginRegister .register form {
+  max-width: 500px;
+  margin: 30px auto;
+}
+
 .loginRegister .login .btn {
+  text-transform: uppercase;
+  border-color: transparent;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 20px;
+  padding: 14px;
+  background-color: var(--bikehouse-blue);
+}
+
+.loginRegister .register .btn {
   text-transform: uppercase;
   border-color: transparent;
   font-weight: bold;
@@ -46,6 +61,11 @@
 
 .loginRegister .form-group {
   padding-bottom: 0.5em;
+}
+
+.loginRegister .lines {
+  margin-left: -150px;
+  margin-right: -150px;
 }
 
 .loginRegister .form-group input {

@@ -1,5 +1,5 @@
 const AppointmentModel = require("../models/Appointment");
-const sgMail = require('@sendgrid/mail')
+const sgMail = require("@sendgrid/mail");
 const config = require("../config");
 
 // @desc Post Appointment
@@ -15,53 +15,41 @@ const createAppointment = async (req, res) => {
   }
 
   try {
-    sgMail.setApiKey(config.SENDGRID_API_KEY)
+    sgMail.setApiKey(config.SENDGRID_API_KEY);
   } catch (err) {
-    console.log("setAPI Error")
+    console.log("setAPI Error");
     res.status(404).json(err);
   }
 
   try {
     const value = req.body.cal;
     const attachment = {
-      filename: 'invite.ics',
-      name: 'invite.ics',
-      content: Buffer.from(value).toString('base64'),
-      disposition: 'attachment',
-      type: 'text/calendar; method=REQUEST',
+      filename: "invite.ics",
+      name: "invite.ics",
+      content: Buffer.from(value).toString("base64"),
+      disposition: "attachment",
+      type: "text/calendar; method=REQUEST",
     };
-    const personalization = 
-    {
-      dynamic_template_data:
-      {
-        Users:
-            {
-            name: req.body.user.name
-            }
-      }
-    };
+
     const appointment = {
-      from : req.body.sender,
-      to : {
-        email:req.body.user.email, 
-        name:req.body.user.name
+      from: req.body.sender,
+      to: {
+        email: req.body.user.email,
+        name: req.body.user.name,
       },
       subject: req.body.subject,
-      text: 'Hello {req.body.user.name}',
+      text: "Hello {req.body.user.name}",
       attachments: [attachment],
       template_id: "d-6c1f4e6bd3bf44108b096c6fc0974523",
-      // personalizations: [personalization]
-    }
+    };
     // const newAppointment = appointment;
     console.log("see body here", appointment);
-    await sgMail
-            .send(appointment)
-            .then(() => {
-                  console.log('Email sent')
-                  return res.status(200).json('Email sent');
-            })
+    await sgMail.send(appointment).then(() => {
+      console.log("Email sent");
+      return res.status(200).json("Email sent");
+    });
   } catch (err) {
-    console.log("sendMail Error")
+    console.log("sendMail Error");
     res.status(404).json(err);
   }
 };

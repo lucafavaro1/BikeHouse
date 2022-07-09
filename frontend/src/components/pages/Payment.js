@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 
 function Payment() {
-  const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [another, setAnother] = useState(0);
 
   const Message = ({ message }) => (
     <section>
       <p>{message}</p>
     </section>
   );
-
-  const handleSubmit = async () => {
-    await Axios.post("http://localhost:3001/create-checkout-session")
-    // navigate(resp.url)
-  }
 
   const ProductDisplay = () => (
     <section>
@@ -30,14 +23,14 @@ function Payment() {
         </div>
       </div>
 
-      {/* <button onClick={handleSubmit}> SUBMIT </button> */}
-
-      <form action="http://localhost:3001/create-checkout-session" method="POST">
-        <button type="submit">
+      <form
+        action="http://localhost:3001/create-checkout-session"
+        method="POST"
+      >
+        <button type="submit" onClick={setAnother(1)}>
           Checkout
         </button>
       </form>
-
     </section>
   );
 
@@ -46,6 +39,7 @@ function Payment() {
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
+      console.log("Another is: " + another);
       setMessage("Order placed! You will receive an email confirmation.");
     }
 

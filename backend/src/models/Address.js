@@ -4,24 +4,25 @@ const mongoose = require("mongoose");
 const AddressSchema = new mongoose.Schema({
   streetName: {
     type: String,
-    required: true
+    required: true,
   },
   houseNumber: {
     type: String,
-    required: true
+    required: true,
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   country: {
     type: String,
-    required: true
+    required: true,
+    default: "Germany",
   },
   zip: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 // name of collection + schema that represents that model

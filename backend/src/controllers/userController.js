@@ -3,6 +3,7 @@ const RefreshTokenModel = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const AccessTokenModel = require("../models/AccessToken");
+const AddressModel = require("../models/Address");
 
 // @desc Get user by email and password
 // @route POST /users/login
@@ -44,6 +45,9 @@ const loginUser = async (req, res) => {
         await newRefreshTokenModel.save();
         console.log("newrefresh token saved to db");
 
+        let billingAddress = user.billingAddress.toString();
+        const address = await AddressModel.findById(billingAddress);
+
         const responseToSend = {
           id: user._id,
           firstName: user.firstName,
@@ -53,6 +57,13 @@ const loginUser = async (req, res) => {
           verificationPictures: user.verificationPictures,
           averageRating: user.averageRating,
           email: user.email,
+          billingAddress: {
+            streetName: address.streetName,
+            houseNumber: address.houseNumber,
+            city: address.city,
+            zip: address.zip,
+            addressID: address._id,
+          },
           accessToken: accessToken,
           refreshToken: refreshToken,
         };
@@ -76,10 +87,24 @@ const loginUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  let user = req.body;
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    user = { ...user, password: hashedPassword };
+    let address = {
+      streetName: req.body.street,
+      houseNumber: req.body.number,
+      city: req.body.city,
+      zip: req.body.zip,
+    };
+    const newAddress = new AddressModel(address);
+    await newAddress.save(); // async request to crease a new user
+    let user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      birthDate: req.body.birthDate,
+      email: req.body.email,
+      password: hashedPassword,
+      billingAddress: newAddress,
+    };
     const newUser = new UserModel(user);
     await newUser.save(); // async request to crease a new user
     res.json(newUser);

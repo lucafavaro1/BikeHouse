@@ -256,6 +256,7 @@ function Dashboard() {
         userId: response.data.id,
         isVerified: response.data.isVerified,
         averageRating: response.data.averageRating,
+        billingAddress: response.data.billingAddress,
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
       })
@@ -373,11 +374,19 @@ function Dashboard() {
                         {" "}
                         <img src={userIcon} />
                       </Col>
-                      <Col md={6} className="info">
+                      <Col md={7} className="info mr-0 pr-0">
                         {" "}
+                        {console.log(user)}
                         <p>{user.name + " " + user.surname}</p>
                         <p>{moment(user.birthdate).format("DD/MM/YYYY")}</p>
                         <p>{user.email}</p>
+                        <p>
+                          {user.billingAddress.streetName +
+                            " " +
+                            user.billingAddress.houseNumber +
+                            " , " +
+                            user.billingAddress.city}
+                        </p>
                         <Button
                           variant="outlined"
                           onClick={() => {
@@ -397,7 +406,7 @@ function Dashboard() {
                           Change Password
                         </Button>
                       </Col>
-                      <Col md={2}></Col>
+                      <Col md={1}></Col>
                     </div>
                   </Col>
                   <Col>

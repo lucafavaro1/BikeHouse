@@ -36,10 +36,27 @@ const steps = [
       We will take care of the meeting arrangements! `,
   },
   {
-    label: `Payment`,
+    label: `Payment - 20€ flat fee for 30 minutes`,
     description: `Complete the payment process below`,
   },
 ];
+
+const paySpecialist = async () => {
+  await Axios.post("http://localhost:3001/create-checkout-session/", {
+    name: "Specialist appointment ⏰",
+    price: 20,
+    successLink: "dashboard",
+    // image:
+    //   "https://www.clipartmax.com/png/small/204-2041203_rocket-cartoon-animation-spacecraft-vector-of-rocket.png",
+  })
+    .then((response) => {
+      window.location = response.data.url;
+      //navigate(-1);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 function Specialist() {
   // require('dotenv').config();
@@ -85,6 +102,7 @@ function Specialist() {
     // console.log(typeof cal)
     sendEmail(user, cal);
     handleNext();
+    paySpecialist();
   };
 
   const themeCalendar = {
@@ -113,24 +131,13 @@ function Specialist() {
       user,
       subject,
       cal,
-    }).then((response) => {
-      console.log(response.data.message);
-
-      const sendEmail = (user, cal) => {
-        Axios.post("http://localhost:3001/createAppointment", {
-          sender,
-          user,
-          subject,
-          cal,
-        })
-          .then((response) => {
-            console.log(response.data.message);
-          })
-          .catch((error) => {
-            console.log("Error", error);
-          });
-      };
-    });
+    })
+      .then((response) => {
+        console.log(response.data.message);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
   };
 
   if (!user) {

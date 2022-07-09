@@ -72,7 +72,7 @@ function Listings() {
       } catch (error) {
         console.log(error);
       }
-      setIsLoading("false");
+      setIsLoading(false);
     }
 
     if (shouldPreFetchNextPage) {
