@@ -33,14 +33,20 @@ const createAppointment = async (req, res) => {
 
     const appointment = {
       from: req.body.sender,
-      to: {
-        email: req.body.user.email,
-        name: req.body.user.name,
-      },
+      to: req.body.user.email,
       subject: req.body.subject,
-      text: "Hello {req.body.user.name}",
+      text:
+        "Thank you for your Booking!" +
+        "\n\n" +
+        "Dear " +
+        req.body.user.name +
+        ",\n" +
+        "Your appointment with a BikeHouse specialist has been successfully booked. We look forward to talking with you!" +
+        "\n\n" +
+        "Best regards," +
+        "\n" +
+        "Your BikeHouse Team",
       attachments: [attachment],
-      template_id: "d-6c1f4e6bd3bf44108b096c6fc0974523",
     };
     // const newAppointment = appointment;
     console.log("see body here", appointment);

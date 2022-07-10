@@ -59,8 +59,15 @@ function SellBike() {
       .post("http://localhost:3001/create-checkout-session/", {
         name: "Boosting for Ad 🚀",
         price: 5,
-        listingId: listingId,
-        bikeId: bikeId,
+        successLink: "/listings/" + listingId,
+        cancelLink:
+          "/checkout/?canceled=true" +
+          "&" +
+          "bikeId=" +
+          bikeId +
+          "&" +
+          "listingId=" +
+          listingId,
         // image:
         //   "https://www.clipartmax.com/png/small/204-2041203_rocket-cartoon-animation-spacecraft-vector-of-rocket.png",
       })

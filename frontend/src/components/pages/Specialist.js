@@ -26,7 +26,7 @@ import { Navigate } from "react-router-dom";
 
 const steps = [
   {
-    label: `Describe your Issue`,
+    label: `Describe your request`,
     description: `What consultation can we help you with? 
         Describe in a few lines`,
   },
@@ -45,7 +45,8 @@ const paySpecialist = async () => {
   await Axios.post("http://localhost:3001/create-checkout-session/", {
     name: "Specialist appointment ⏰",
     price: 20,
-    successLink: "dashboard",
+    successLink: "/dashboard",
+    cancelLink: "/",
     // image:
     //   "https://www.clipartmax.com/png/small/204-2041203_rocket-cartoon-animation-spacecraft-vector-of-rocket.png",
   })
@@ -65,8 +66,8 @@ function Specialist() {
     email: "bikehouse.feedback@gmail.com",
     name: "BikeHouse Specialist",
   };
-  const subject = "BikeHouse Invitation";
-  const [issue, setIssue] = useState("");
+  const subject = "BikeHouse Specialist Appointment";
+  const [request, setRequest] = useState("");
 
   const [cal, setCal] = useState("");
 
@@ -78,7 +79,7 @@ function Specialist() {
   const [isDisabled, setDisabled] = useState(true);
 
   const handleChange = (event) => {
-    setIssue(event.target.value);
+    setRequest(event.target.value);
     setDisabled(false);
   };
 
@@ -181,7 +182,7 @@ function Specialist() {
                         // sx={{mt: 2}}
                         id="filled-basic"
                         label="Additional Comments"
-                        value={issue}
+                        value={request}
                         variant="outlined"
                         onChange={handleChange}
                       />
@@ -256,15 +257,8 @@ function Specialist() {
                 <Typography sx={{ ml: 4 }}>
                   Your appointment has been successfully scheduled. <br />
                   Check your email for a confirmation message and a calendar
-                  invite.
+                  invite. Wait until you get redirected to the payment page.
                 </Typography>
-                <Button
-                  variant="outlined"
-                  onClick={handleReset}
-                  sx={{ mt: 1, ml: 4 }}
-                >
-                  Book another appointment
-                </Button>
               </>
             )}
           </Container>

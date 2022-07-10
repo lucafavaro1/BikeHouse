@@ -25,15 +25,8 @@ const checkout = async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: `${YOUR_DOMAIN}/listings/` + parameters.listingId,
-    cancel_url:
-      `${YOUR_DOMAIN}/checkout/?canceled=true` +
-      "&" +
-      "bikeId=" +
-      parameters.bikeId +
-      "&" +
-      "listingId=" +
-      parameters.listingId,
+    success_url: `${YOUR_DOMAIN}` + parameters.successLink,
+    cancel_url: `${YOUR_DOMAIN}` + parameters.cancelLink,
   });
   res.json({ url: session.url });
 };
