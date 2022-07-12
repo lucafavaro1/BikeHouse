@@ -47,12 +47,15 @@ function sortListings(listings, criterion) {
       if (criterion == "default") {
         if (listing1.bike.condition > listing2.bike.condition) return -1;
         else if (listing1.bike.condition < listing2.bike.condition) return 1;
-        else {
-          // both boosted + same condition
-          if (new Date(listing1.createdAt) > new Date(listing2.createdAt))
-            return -1;
-          else if (new Date(listing1.createdAt) < new Date(listing2.createdAt))
-            return 1;
+        else { // both boosted + same condition
+          if (listing1.bike.frameVerified && !listing2.bike.frameVerified) return -1;
+          else if (!listing1.bike.frameVerified && listing2.bike.frameVerified) return 1;
+          else { // both boosted + same condition + both passed frame verification
+            if (new Date(listing1.createdAt) > new Date(listing2.createdAt))
+              return -1;
+            else if (new Date(listing1.createdAt) < new Date(listing2.createdAt))
+              return 1;
+          }
         }
       } else if (criterion == "priceLH") {
         if (listing1.finalPrice > listing2.finalPrice) return 1;
