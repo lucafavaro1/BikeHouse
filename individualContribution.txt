@@ -11,6 +11,11 @@ Payment with Stripe 1h
 Sell a bike, pictures uploaded to hosting service 1.5h
 Design of Dashboard + verification of profile + change password feature 7h
 Loading page + 404 page 1h
+Login after registration, validate city names, add address to registration and dashboard 2h 
+Sell a bike, photo fix and specialist template reworked 1h
+Stripe payment for boosting Ad and specialist consultation 2h
+Boost/delete your listing after the creation 2h
+
 
 # Tarlan
 FIX: Footer is overlapping the page content 1h
@@ -37,4 +42,4 @@ Book and appointment / specialist 5h
 Fix footer, create scroll to top arrow, fix navbar (sticky + design with login / register button) 3h
 Fix problems with JWT and login, fix encode/decode uploaded images 3h
 Payment with Stripe 2h
-Fix minor bugs, add minor features
+Fix minor bugs, add minor features 2h

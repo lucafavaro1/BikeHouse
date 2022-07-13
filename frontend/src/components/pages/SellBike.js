@@ -59,7 +59,7 @@ function SellBike() {
       .post("http://localhost:3001/create-checkout-session/", {
         name: "Boosting for Ad 🚀",
         price: 5,
-        successLink: "/listings/" + listingId,
+        successLink: "/listing/" + listingId,
         cancelLink:
           "/checkout/?canceled=true" +
           "&" +
@@ -68,8 +68,6 @@ function SellBike() {
           "&" +
           "listingId=" +
           listingId,
-        // image:
-        //   "https://www.clipartmax.com/png/small/204-2041203_rocket-cartoon-animation-spacecraft-vector-of-rocket.png",
       })
       .then((response) => {
         setIsLoading(false);
@@ -163,8 +161,8 @@ function SellBike() {
     })
       .then((response) => {
         console.log(`Listing successfully added`);
-        payBoost(response.data._id, itemId);
-        //navigate("/listing/" + response.data._id);
+        if (isBoosted) payBoost(response.data._id, itemId);
+        else navigate("/listing/" + response.data._id);
       })
       .catch((error) => {
         console.log(error);

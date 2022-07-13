@@ -36,14 +36,31 @@ function Payment() {
 
   const deleteItemsDB = async (bikeId, listingId) => {
     await axios
-      .post("http://localhost:3001/deleteItemsDB/", {
-        bikeId: bikeId,
+      .delete("http://localhost:3001/deleteListing/" + listingId)
+      .catch((error) => {
+        console.log(error);
+      });
+
+    await axios
+      .delete("http://localhost:3001/deleteBike/" + bikeId)
+      .then((response) => {
+        navigate("/dashboard/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const modifyListing = async (listingId) => {
+    await axios
+      .post("http://localhost:3001/modifyListing/", {
         listingId: listingId,
+        isBoosted: true,
       })
       .then((response) => {
         //setIsLoading(false);
         console.log(response);
-        navigate("/");
+        navigate("/dashboard/");
       })
       .catch((error) => {
         console.log(error);
@@ -56,16 +73,17 @@ function Payment() {
 
     if (query.get("success")) {
       setMessage("Order placed! You will receive an email confirmation.");
+      if (query.get("listingId") != "") modifyListing(query.get("listingId"));
     }
 
     // if the payment was interrupted then delete the item + listing
     if (query.get("canceled")) {
-      setMessage(
-        "Order canceled -- The corresponding listing and item are removed."
-      );
-      if (query.get("bikeId") != "" && query.get("listingId") != "")
+      if (query.get("bikeId") != null && query.get("listingId") != null)
         deleteItemsDB(query.get("bikeId"), query.get("listingId"));
-    }
+
+      if (query.get("listingId") != "")
+        navigate("/listing/" + query.get("listingId"));
+    } else navigate("/");
   }, []);
 
   return message ? <Message message={message} /> : <ProductDisplay />;

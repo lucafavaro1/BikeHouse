@@ -8,8 +8,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import "../css/Dashboard.css";
 import { Button, Divider, Toolbar } from "@mui/material";
-import { faRocket } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import rocketIcon from "../pictures/rocket.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import GppMaybeIcon from "@mui/icons-material/GppMaybe";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -159,9 +158,10 @@ function Dashboard() {
     return (
       <Card key={index} onClick={() => navigate("/listing/" + listing._id)}>
         <Card.Img variant="top" src={listing.bike.photos[0].url} />
+
         {listing.isBoosted ? (
-          <div className="boostIcon">
-            <FontAwesomeIcon icon={faRocket} size="2x" />
+          <div>
+            <img src={rocketIcon} className="boostIcon" />
           </div>
         ) : (
           <span></span>
