@@ -10,7 +10,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Button } from "react-bootstrap";
-import { NavBtn, NavBtnLink } from "./NavbarElements";
 import AxiosJWT from "../utils/AxiosJWT";
 
 const Logout = () => {

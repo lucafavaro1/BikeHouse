@@ -41,14 +41,14 @@ const Navbar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
+  
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
+  
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -151,18 +151,45 @@ const Navbar = () => {
             ))}
           </Box>
           
-          
+          {/* <Tooltip title="Open settings">
+          </Tooltip> */}
+          <Button
+            variant='outlined'
+            href='/cart'
+            sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}
+            >
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <ShoppingCartIcon sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}/>
+              </IconButton>
+          </Button>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem key='Profile' onClick={handleProfile} >
+              <Typography textAlign="center">My Dashboard</Typography>
+            </MenuItem>
+            <MenuItem key='Sign Out' onClick={handleLogout}>
+              <Typography textAlign="center">Sign Out</Typography>
+            </MenuItem>
+
+          </Menu >
           {user ? (
           <Logout />
           ) : (
             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-              <Button
-                variant='outlined'
-                href='/cart'
-                sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}
-                >
-                   <ShoppingCartIcon sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}/>
-              </Button>
               
               <Button
                 variant='outlined'

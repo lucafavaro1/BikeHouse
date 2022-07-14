@@ -47,7 +47,7 @@ function InfoPage({
         color={"primary"}
         style={{ marginTop: "auto" }}
       >
-        Purchase
+        Add to Cart
       </Button>
     </Grid>
   );

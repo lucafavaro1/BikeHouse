@@ -115,23 +115,12 @@ function Specialist() {
       cal,
     }).then((response) => {
       console.log(response.data.message);
-
-      const sendEmail = (user, cal) => {
-        Axios.post("http://localhost:3001/createAppointment", {
-          sender,
-          user,
-          subject,
-          cal,
-        })
-          .then((response) => {
-            console.log(response.data.message);
-          })
-          .catch((error) => {
-            console.log("Error", error);
-          });
-      };
+    })
+    .catch((error) => {
+      console.log("Error", error);
     });
   };
+
 
   if (!user) {
     return <Navigate to="/login" replace />;

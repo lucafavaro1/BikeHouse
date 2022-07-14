@@ -1,0 +1,13 @@
+.cart {
+  margin: 40px;
+  padding: 20px;
+}
+
+.cart .stepper-outer {
+  margin: 20px 10px;
+  padding: 5px;
+}
+
+.cart .stepper-inner {
+  font-size: large;
+}

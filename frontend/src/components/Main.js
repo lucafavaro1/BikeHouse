@@ -10,6 +10,7 @@ import SellBike from "./pages/SellBike";
 import PhotoGuide from "./pages/PhotoGuide";
 import Listings from "./pages/Listings";
 import Dashboard from "./pages/Dashboard";
+import Cart from "./pages/Cart"
 import ListingPage from "./pages/ListingPage";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -75,6 +76,7 @@ function Main() {
         {" "}
       </Route>
       <Route exact path="/checkout" element={<Payment />}></Route>
+      <Route exact path="/cart" element={<Cart />}></Route>
     </Routes>
   );
 }
