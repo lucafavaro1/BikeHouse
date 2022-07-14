@@ -83,6 +83,14 @@ function getPriceSortingObject(criterion) {
 function generateBikeFilters(rawQuery) {
   var filter = {};
 
+  if (rawQuery.searchKeyword) {
+    filter.$or = filter.$or || [];
+    filter.$or = [
+      { model: { $regex: rawQuery.searchKeyword, $options: 'i' } },
+      { brand: { $regex: rawQuery.searchKeyword, $options: 'i' } }
+    ]
+  }
+
   if (rawQuery.verifiedOnly) {
     filter.frameToBeVerified = filter.frameToBeVerified || {};
     filter.conditionToBeVerified = filter.frameToBeVerified || {};
