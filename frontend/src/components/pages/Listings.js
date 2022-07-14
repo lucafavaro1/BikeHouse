@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 import ListingDescription from "./ListingDescription";
 import Axios from "axios";
 import "../css/Listings.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import rocketIcon from "../pictures/rocket.png";
 import questionMarkIcon from "../pictures/questionMarkIcon.png";
 
@@ -21,6 +21,7 @@ function Listings() {
   const [isLoading, setIsLoading] = useState(true);
   const selectedCategoryColor = "gainsboro";
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const colors = [
     "White",
@@ -60,6 +61,10 @@ function Listings() {
     parameters.current.verifiedOnly = true
     parameters.current.page = page;
     parameters.current.sortingCriterion = activeSortingCriterion.current;
+
+    if (state && state.searchString) { // if there's a navigation state passed form another page
+      parameters.current.searchKeyword = state.searchString
+    }
 
     if (nextListings.length != 0 && shouldUsePreFetchedNextPage) {
       // if there are already pre-fetched listings
@@ -133,6 +138,13 @@ function Listings() {
   const needHelpClicked = async (event) => {
     navigate("/specialist");
   };
+
+  const clearSearch = (event) => {
+    state.searchString = ''
+    parameters.current.searchKeyword = ''
+    navigate('.', { replace: true })
+    getListings()
+  }
 
   /** Called when any of the accordion items is changed*/
   function handleFilterChange(eventObject) {
@@ -599,6 +611,19 @@ function Listings() {
                   </div>
                 </Row>
 
+                {(state && state.searchString) ?
+                  < Row >
+                    <div className="col searchInfo">
+                      <span className="align-middle">Showing results for <strong>"{state.searchString}" </strong></span>
+                      <button
+                        type="button"
+                        class="btn btn-danger searchCancelBtn"
+                        onClick={clearSearch}
+                      >	&#10005; &#x2715;</button>
+                    </div>
+                  </Row>
+                  : <span></span>}
+
                 <Row xs={3} md={4}>
                   {listings.map(renderCard)}
                 </Row>
@@ -635,7 +660,8 @@ function Listings() {
             </div>
           </div>
         </>
-      )}
+      )
+      }
     </>
   );
 }
