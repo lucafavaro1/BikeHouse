@@ -11,6 +11,7 @@ import PhotoGuide from "./pages/PhotoGuide";
 import Listings from "./pages/Listings";
 import Dashboard from "./pages/Dashboard";
 import ListingPage from "./pages/ListingPage";
+import Cart from "./pages/Cart"
 import NotFoundPage from "./pages/NotFoundPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -77,6 +78,7 @@ function Main() {
         {" "}
       </Route>
       <Route exact path="/checkout" element={<Payment />}></Route>
+      <Route exact path="/cart" element={<Cart />}></Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

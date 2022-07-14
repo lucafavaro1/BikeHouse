@@ -1,0 +1,62 @@
+.heading{
+  margin-top: 20px;
+}
+
+.amount {
+  margin-top: 20px;
+}
+
+.cart {
+  margin-left: 250px;
+  margin-right: 250px;
+}
+
+.cart .navbar_state {
+  margin-top: 30px;
+}
+
+.cart .navbar_state a.nav-link {
+  color: var(--bikehouse-blue);
+  border-color: var(--bikehouse-blue);
+}
+
+.cart .navbar_state .nav-item {
+  margin-right: 50px;
+}
+
+.cart .navbar_state a.nav-link.active {
+  color: #ffffff;
+  background-color: var(--bikehouse-blue);
+}
+
+.cart .next {
+  width: 20vw;
+  letter-spacing: 2px;
+  font-size: 20px;
+  padding: auto;
+  margin: auto;
+  background-color: var(--bikehouse-blue);
+  opacity: 0.8;
+  border-color: var(--bikehouse-blue);
+}
+
+.cart .next:hover {
+  opacity: 1;
+}
+
+.cart .continue {
+  width: 20vw;
+  letter-spacing: 2px;
+  font-size: 20px;
+  padding: auto;
+  margin: auto;
+  border-color: var(--bikehouse-blue);
+  background-color: #ffffff;
+  color: var(--bikehouse-blue);
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.cart .continue:hover {
+  opacity: 1;
+}
