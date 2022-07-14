@@ -11,6 +11,7 @@ import ConditionIndicator from "../pages/ConditionIndicator";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
+import { Modal } from "react-bootstrap";
 
 function InfoPage({
   sellerId,
@@ -24,6 +25,7 @@ function InfoPage({
   price,
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
 
@@ -137,17 +139,57 @@ function InfoPage({
           )}
 
           {sellerId == user.userId ? (
-            <Button
-              variant={"contained"}
-              color={"error"}
-              style={{ marginTop: "auto" }}
-              onClick={() => {
-                deleteListing(listingId);
-                deleteBike(bikeId);
-              }}
-            >
-              Delete listing
-            </Button>
+            <>
+              <Button
+                variant={"contained"}
+                color={"error"}
+                style={{ marginTop: "auto" }}
+                onClick={() => {
+                  setModalShow(true);
+                }}
+              >
+                Delete listing
+              </Button>
+
+              <Modal
+                size="md"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={modalShow}
+              >
+                <Modal.Header>
+                  <Modal.Title id="contained-modal-title-vcenter">
+                    Are you sure you want to delete this listing?
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <p>
+                    The listing will be deleted immediately. You can't undo this
+                    action.
+                  </p>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    variant={"outlined"}
+                    color={"primary"}
+                    style={{ marginRight: "auto" }}
+                    onClick={() => setModalShow(false)}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    variant={"contained"}
+                    color={"error"}
+                    onClick={() => {
+                      deleteListing(listingId);
+                      deleteBike(bikeId);
+                    }}
+                  >
+                    Yes, delete it
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+            </>
           ) : (
             <Button
               variant={"contained"}
