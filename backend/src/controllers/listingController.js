@@ -22,8 +22,6 @@ const getListings = async (req, res) => {
   console.log(bikeFilters);
 
   let listings = await ListingModel.find(listingFilters) // fetch listings
-    .limit(perPage)
-    .skip(perPage * page)
     .sort(
       Object.assign({ isBoosted: -1 }, getPriceSortingObject(sortingCriterion))
     )
@@ -33,10 +31,20 @@ const getListings = async (req, res) => {
 
   listings = await fetchBikesForListings(listings, bikeFilters);
 
+  listings = applyPagination(listings, page, perPage)
+
   listings = sortListings(listings, sortingCriterion);
 
   return res.status(200).json(listings);
 };
+
+function applyPagination(listings, page, perPage) {
+  let startIndex = page * perPage
+  let endIndex = page * perPage + perPage
+
+  listings = listings.slice(startIndex, endIndex)
+  return listings
+}
 
 function sortListings(listings, criterion) {
   listings.sort(function (listing1, listing2) {
