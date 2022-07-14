@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "./Logout";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { IconButton } from "@mui/material";
 
 const pages = {
   buy: "Buy a Bike",
@@ -155,7 +157,15 @@ const Navbar = () => {
               </Link>
             ))}
           </Box>
-
+          <Button
+            variant='outlined'
+            href='/cart'
+            sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}
+            >
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <ShoppingCartIcon sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}/>
+              </IconButton>
+          </Button>
           {user ? (
             <Logout />
           ) : (
