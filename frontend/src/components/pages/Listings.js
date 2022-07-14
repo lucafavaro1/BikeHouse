@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { CircularProgress } from "@material-ui/core";
 import ListingDescription from "./ListingDescription";
+import VerificationLegend from "./VerificationLegend";
 import Axios from "axios";
 import "../css/Listings.css";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -582,6 +581,9 @@ function Listings() {
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
+                <div>
+                  <VerificationLegend></VerificationLegend>
+                </div>
               </div>
 
               <div className="col listingsPanel">

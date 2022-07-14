@@ -22,7 +22,6 @@
 }
 
 .listings .filtersPanel {
-  background-color: rgb(229, 229, 229);
   margin-left: 3rem;
   margin-top: 3.2rem;
   margin-bottom: 3rem;
@@ -32,6 +31,7 @@
 }
 
 .listings .filtersTitle {
+  background-color: rgb(229, 229, 229);
   padding: 5% 0 5% 0;
   text-align: center;
   margin: 0;
@@ -43,6 +43,11 @@
 
 .listings .textField {
   max-width: 100%;
+}
+
+.listings .accordion {
+  background-color: rgb(229, 229, 229);
+  padding-bottom: 0.2rem;
 }
 
 .listings .accordion-body {
