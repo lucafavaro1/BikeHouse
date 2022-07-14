@@ -345,7 +345,7 @@ function Dashboard() {
                     ":hover": { color: "#2e6076" },
                   }}
                 >
-                  Log Out
+                  Sign Out
                 </Button>
               </Stack>
             </Col>
@@ -501,7 +501,7 @@ function Dashboard() {
                     )}
                   </Col>
                 </Row>
-                <Row className="secondRow">
+                <Row>
                   <Col>
                     <Typography
                       variant="h6"

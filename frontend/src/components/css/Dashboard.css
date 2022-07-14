@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+.dashboard .box {
+  margin-top: 10px;
+}
+
 .dashboard .MuiButtonBase-root.MuiTab-root:hover {
   color: var(--bikehouse-blue);
 }
@@ -46,10 +50,6 @@
 .dashboard .profile img {
   max-width: 100px;
   max-height: 100px;
-}
-
-.dashboard .secondRow {
-  margin-top: 15px;
 }
 
 .dashboard ul {
@@ -145,15 +145,16 @@
 }
 
 .dashboard .carousel.slide {
-  height: 200px;
-  width: 250px;
+  height: 250px;
+  width: 300px;
 }
 
 .dashboard .carousel-inner {
   align-content: center !important;
-  height: 200px;
+  height: 250px;
   width: 100%;
-  padding: 10%;
+  padding-right: 10%;
+  padding-left: 10%;
 }
 
 .dashboard .carousel-control-prev-icon {
