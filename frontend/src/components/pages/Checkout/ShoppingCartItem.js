@@ -4,7 +4,6 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { Autocomplete, FormControlLabel, IconButton, TextField } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,8 +14,10 @@ import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
 import {removeFromCart} from "../../../features/cartSlice";
 import FormControl from '@mui/material/FormControl';
-import { Box } from "@mui/system";
 import { Row } from "react-bootstrap";
+import Switch from '@mui/material/Switch';
+import { Box, Divider, Radio, RadioGroup, Typography } from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,43 +39,51 @@ const useStyles = makeStyles((theme) => ({
 
 const options = [
   {
-    label: 'No Insurance Selected',
+    label: 'No Insurance',
     value: 0
   },
   {
     label: 'GetSafe - €40/year ',
-    value: 40
+    value: 1
   },
   {
     label: 'Feather - €30/year',
-    value: 30
+    value: 2
   },
   {
     label: 'Qover - €25/year',
-    value: 25
+    value: 3
   },
 ]
 
-function ShoppingCartItem({ key, productKey, product, handleInsurance }) {
+function ShoppingCartItem({ key, productKey, product, handleInsurance, setShippingRate }) {
   const classes = useStyles();
   const category = 'Bike'
-  const [insurance,setInsurance] =  useState(10)
+  const [insurance,setInsurance] =  useState(0);
   const dispatch = useDispatch();
   const id = product.listingId;
+
+  // const [checked, setChecked] = useState(false);
+  // const handleChange = (event) => {
+  //   event.preventDefault()
+  //   setChecked(event.target.checked);
+  // };
+  
   const handleRemove = (e) => {
     e.preventDefault();
     console.log("id in handle", id)
     dispatch(removeFromCart(id))
   } 
+  
   const handleSelect = (e) => {
-    // e.preventDefault()
-    handleInsurance(productKey,e.target.value); 
+    e.preventDefault()
     setInsurance(e.target.value)
+    console.log(e.target.value)
+    handleInsurance(productKey,e.target.value); 
   }
   
-  // useEffect(()=> {
-  //   setInsurance(insurance)
-  // }, [handleSelect]);
+  // useEffect(() => {
+  //   }, [insurance]);
 
   return (
     <Card className={classes.root}>
@@ -148,28 +157,56 @@ function ShoppingCartItem({ key, productKey, product, handleInsurance }) {
           )}
           {category == "Bike" && (
             <Grid item xs={12} sm={12} md={12} lg={12}>
-              <Autocomplete
-                options={options}
-                autoHighlight
-                getOptionLabel={(option) => option.label}
-                renderOption={(props, option) => (
-                  <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                    {option.label}
-                  </Box>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Choose an insurance"
-                  />
-                  )}
-                onChange={(event, value) => {
-                  setInsurance(value.label)
-                }}
-              />
+              {/* <Switch
+                checked={checked}
+                onChange={handleChange}
+                inputProps={{ 'aria-label': 'controlled' }}
+              /> */}
+              <Select
+                  value={insurance}
+                  // disabled={!checked}
+                  defaultValue={3}
+                  label="Insurance"
+                  variant="outlined"
+                  onChange={handleSelect}
+                  // onClose
+                  // onClick
+                  // onSelect
+                  // autoFocus = {false}
+                  // onFocus
+                >
+                {options.map((option) => (
+                  <MenuItem value={option.value}>{option.label}</MenuItem>
+                ))}
+               </Select> 
             </Grid>
           )}
-
+        </Grid>
+        <Grid container>
+        <RadioGroup defaultValue={"freeDelivery"}>
+          <div class="row  mt-3 mb-3 ml-2 mr-2">
+            <div class="col border border-dark">
+              <Radio
+                label="Free Delivery"
+                value="freeDelivery"
+                onClick={() => setShippingRate(0)}
+              />
+              <span>Free Delivery</span>
+              <Typography variant="body2">Standard delivery</Typography>
+            </div>
+            <div class="col  border border-dark ml-3">
+              <Radio
+                label="Fast Delivery"
+                value="paidDelivery"
+                onChange={() => setShippingRate(20)}
+              />
+              <span>Fast Delivery - </span>
+              <Typography variant="body2">
+                Delivery within 2 working days
+              </Typography>
+            </div>
+          </div>
+        </RadioGroup>
         </Grid>
       </CardContent>
     </Card>

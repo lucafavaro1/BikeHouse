@@ -102,10 +102,10 @@ function ShoppingCart() {
               <Tab label="Payment" />
             </Tabs>
             <TabPanel value={value} index={0}>
-              {<ShoppingCartTab products={products} setProducts={setProducts} />}
+              {<ShoppingCartTab products={products} setProducts={setProducts} setShippingRate={setShippingRate}/>}
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <ShippingAddressPage setShippingRate={setShippingRate} />
+              <ShippingAddressPage  />
             </TabPanel>
             <TabPanel value={value} index={2}>
               <PaymentOptionsPage />

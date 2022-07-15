@@ -4,6 +4,19 @@
   border: 1px solid var(--secondary-color);
   border-radius: 50%;
   cursor: pointer;
-  transition: all ease-in-out 0.7s;
+  transition: all ease-in-out 0.4s;
   outline: none;
+}
+
+.actions__deleteItemBtn:hover {
+  transform: scale(1) rotate(360deg);
+  background-color: rgb(209, 15, 15);
+}
+
+.cartItem__actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.6rem;
 }
