@@ -25,7 +25,7 @@ const Cart = () => {
   console.log(user)
   const cart = useSelector(selectCart);
   console.log("item in cart", cart)
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   
   const [firstName, setFirstName] = useState(""); 
   const [lastName, setLastName] = useState(""); 
@@ -39,21 +39,24 @@ const Cart = () => {
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
+  const [totalIns, setTotalIns] = useState(0);
+  
+  useEffect(() => {
+    let items = 0;
+    let price = 0;
+    let insCost = 0;
+    // cart.forEach((item) => {
+    //   items += item.qty;
+    //   price += item.qty * item.price;
+    // });
+
+    setTotalItems(items);
+    setTotalPrice(price);
+  }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
 
   console.log("item in cart", cart)
 
-  // useEffect(() => {
-  //   let items = 0;
-  //   let price = 0;
-  //   cart.forEach((item) => {
-  //     items += item.qty;
-  //     price += item.qty * item.price;
-  //   });
-
-  //   setTotalItems(items);
-  //   setTotalPrice(price);
-  // }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
-
+  
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -61,7 +64,22 @@ const Cart = () => {
   // const cartOptions = Object.keys(cart).map(key => 
   //   <option key={key} value={key}>{tifs[key]}</option>
   // )
+
+  const insProviders= {
+    "Insurance 1": 20,
+    "Insurance 2": 30,
+    "Insurance 3": 15
+  }
+
   const [insurance, setInsurance] = useState("");
+  const [insCost, setInsCost] = useState(0);
+  const [isInsurance, enableInsurance] = useState(true);
+  const handleInsurance = (e) =>  {
+      setInsurance(e.target.value)
+      setInsCost(insProviders[e.target.value])
+      // setInsCost()
+  }
+  
   const handleSubmit = () => {
     const shipping = [
       firstName,
@@ -164,26 +182,25 @@ const Cart = () => {
                             <h5>{cart.location}</h5>  
                       </Col>
                       <Col>
-                          <FormControlLabel control={<Checkbox defaultChecked />} label="Get Insurance" />
+                        <FormControlLabel control={<Checkbox defaultChecked onChange={(e)=>{enableInsurance(e.target.checked)}}/>} label="Get Insurance" />
                       </Col>
                       <Col xs={4}>
                         <FormControl fullWidth>
                           {/* <InputLabel>Insurance</InputLabel> */}
                           <Select
                             id="demo-simple-select-helper"
+                            disabled={!isInsurance}
                             value={insurance}
                             label="Insurance"
                             variant="outlined"
-                            onChange={(e) => {
-                              setInsurance(e.target.value)
-                            }}
+                            onChange={handleInsurance}
                           >
-                            <MenuItem value="">
+                            {/* <MenuItem value="">
                               <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            </MenuItem> */}
+                            <MenuItem value={'Insurance 1'}>Insurance 1</MenuItem>
+                            <MenuItem value={'Insurance 2'}>Insurance 2</MenuItem>
+                            <MenuItem value={'Insurance 3'}>Insurance 3</MenuItem>
                           </Select>
                           {/* <FormHelperText>With label + helper text</FormHelperText> */}
                         </FormControl>
@@ -206,6 +223,10 @@ const Cart = () => {
                 <h5 className="col-6" style={{'text-align':'right'}}>$ {Math.round(cart.price*100)/100}</h5>
               </Row>
               <Row style={{'padding-right':'10px'}}>
+                <h5 className="col-6">INSURANCE</h5>
+                <h5 className="col-6" style={{'text-align':'right'}}>$ {Math.round(insCost*100)/100}</h5>
+              </Row>
+              <Row style={{'padding-right':'10px'}}>
                 <h5 className="col-6">SHIPPING</h5>
                 <h5 className="col-6" style={{'text-align':'right'}}>$$$</h5>
               </Row>
@@ -222,7 +243,7 @@ const Cart = () => {
             </Row>
 
           <Row>
-            <Col>
+            <Col xs={3}>
               <Button
                 className="mt-3 mb-3 continue"
                 onClick={() => {
@@ -232,8 +253,8 @@ const Cart = () => {
                 Continue Shopping
               </Button>
             </Col>
-            <Col />
-            <Col>
+            <Col xs={5}/>
+            <Col xs={3}>
               <Button
                 className="mt-3 mb-3 next"
                 onClick={() => {

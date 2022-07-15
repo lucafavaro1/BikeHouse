@@ -16,7 +16,7 @@ const getCartStatus = () => {
 
 export const cartSlice = createSlice({
   name: "cart",
-  initialState: getCartStatus(),
+  initialState: {cart: []},
   reducers: {
     addToCart: (state, action) => {
       localStorage.setItem(
@@ -25,7 +25,9 @@ export const cartSlice = createSlice({
       );
       console.log("payload", action.payload )
       console.log("cart state", state.cart)
-      state.cart = (action.payload);
+      state.cart= [...state.cart, action.payload]
+      console.log("after cart state", state.cart)
+
     },
     removeFromCart: (state,action) => {
       // state.loggedIn = false;

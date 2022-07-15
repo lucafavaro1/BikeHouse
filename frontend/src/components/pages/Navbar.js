@@ -157,6 +157,7 @@ const Navbar = () => {
               </Link>
             ))}
           </Box>
+          <Link to={"/cart"} style={{ textDecoration: "none" }}>
           <Button
             variant='outlined'
             href='/cart'
@@ -166,6 +167,7 @@ const Navbar = () => {
                 <ShoppingCartIcon sx={{ my: 2, mx:1,  color: 'white', display: 'block', fontSize: 'medium', ':hover': {color: 'gold'}  }}/>
               </IconButton>
           </Button>
+          </Link>
           {user ? (
             <Logout />
           ) : (

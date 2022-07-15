@@ -30,7 +30,7 @@
 }
 
 .cart .next {
-  width: 20vw;
+  min-width: 20vw;
   letter-spacing: 2px;
   font-size: 20px;
   padding: auto;
@@ -45,7 +45,7 @@
 }
 
 .cart .continue {
-  width: 20vw;
+  min-width: 20vw;
   letter-spacing: 2px;
   font-size: 20px;
   padding: auto;
