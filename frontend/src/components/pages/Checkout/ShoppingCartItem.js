@@ -7,7 +7,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { IconButton } from "@mui/material";
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -95,6 +95,15 @@ function ShoppingCartItem({ key, product }) {
             <Typography variant="h6" component="div" color="secondary">
               €{product.price}
             </Typography>
+          </Grid>
+          <Grid item xs={10}/>
+          <Grid item xs={2} className='cartItem__actions'>
+            <button
+              onClick={() => dispatch(removeFromCart(cart.id))}
+              className='actions__deleteItemBtn'
+            >
+              <DeleteIcon/>
+            </button>
           </Grid>
         </Grid>
       </CardContent>
