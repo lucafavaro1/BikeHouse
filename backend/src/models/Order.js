@@ -10,8 +10,24 @@ const OrderSchema = new mongoose.Schema(
       required: true,
     },
     listings: {
-      type: [Schema.Types.ObjectId],
-      ref: "listing",
+      type: [
+        {
+          id: {
+            type: Schema.Types.ObjectId,
+            ref: "listing",
+          },
+          insurance: {
+            type: String,
+            required: true,
+            default: "none",
+          },
+          // standard or fast
+          deliveryType: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
       required: true,
       default: [],
     },
@@ -28,9 +44,6 @@ const OrderSchema = new mongoose.Schema(
       required: true,
       default: [],
     },
-    insurance: {
-      type: String,
-    },
     totalAmount: {
       type: Number,
       required: true,
@@ -39,11 +52,6 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       required: true,
       default: "card",
-    },
-    // standard or fast
-    deliveryType: {
-      type: String,
-      required: true,
     },
     deliveryAddress: {
       type: Schema.Types.ObjectId,
