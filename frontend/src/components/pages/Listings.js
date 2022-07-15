@@ -57,12 +57,13 @@ function Listings() {
     shouldUsePreFetchedNextPage = true,
     loadingAnimation = true
   ) {
-    parameters.current.verifiedOnly = true
+    parameters.current.verifiedOnly = true;
     parameters.current.page = page;
     parameters.current.sortingCriterion = activeSortingCriterion.current;
 
-    if (state && state.searchString) { // if there's a navigation state passed form another page
-      parameters.current.searchKeyword = state.searchString
+    if (state && state.searchString) {
+      // if there's a navigation state passed form another page
+      parameters.current.searchKeyword = state.searchString;
     }
 
     if (nextListings.length != 0 && shouldUsePreFetchedNextPage) {
@@ -139,11 +140,11 @@ function Listings() {
   };
 
   const clearSearch = (event) => {
-    state.searchString = ''
-    parameters.current.searchKeyword = ''
-    navigate('.', { replace: true })
-    getListings()
-  }
+    state.searchString = "";
+    parameters.current.searchKeyword = "";
+    navigate(".", { replace: true });
+    getListings();
+  };
 
   /** Called when any of the accordion items is changed*/
   function handleFilterChange(eventObject) {
@@ -358,19 +359,19 @@ function Listings() {
                 <p>Categories:</p>
               </div>
 
-              <div className="col categoriesCol categoriesFirstCol">
+              <div className="col-2 categoriesCol categoriesFirstCol">
                 {categories.slice(0, 3).map(renderCategoryButton)}
               </div>
 
-              <div className="col categoriesCol">
+              <div className="col-2 categoriesCol">
                 {categories.slice(3, 6).map(renderCategoryButton)}
               </div>
 
-              <div className="col categoriesCol border-right">
+              <div className="col-2 categoriesCol border-right">
                 {categories.slice(6, 9).map(renderCategoryButton)}
               </div>
 
-              <div className="col accessoriesCol align-self-center">
+              <div className="col-2 accessoriesCol align-self-center">
                 <button
                   type="button"
                   className="btn btn-block btn-light border"
@@ -380,7 +381,7 @@ function Listings() {
                 </button>
               </div>
             </div>
-            <div className="row">
+            <div className="row mt-3">
               <div className="col-sm-2 filtersPanel">
                 <p className="filtersTitle">Filters</p>
                 <div className="applyBtnCol">
@@ -613,18 +614,26 @@ function Listings() {
                   </div>
                 </Row>
 
-                {(state && state.searchString) ?
-                  < Row >
+                {state && state.searchString ? (
+                  <Row>
                     <div className="col searchInfo">
-                      <span className="align-middle">Showing results for <strong>"{state.searchString}" </strong></span>
+                      <span className="align-middle">
+                        Showing results for{" "}
+                        <strong>"{state.searchString}" </strong>
+                      </span>
                       <button
                         type="button"
                         class="btn btn-danger searchCancelBtn"
                         onClick={clearSearch}
-                      >	&#10005; &#x2715;</button>
+                      >
+                        {" "}
+                        &#10005; &#x2715;
+                      </button>
                     </div>
                   </Row>
-                  : <span></span>}
+                ) : (
+                  <span></span>
+                )}
 
                 <Row xs={3} md={4}>
                   {listings.map(renderCard)}
@@ -662,8 +671,7 @@ function Listings() {
             </div>
           </div>
         </>
-      )
-      }
+      )}
     </>
   );
 }

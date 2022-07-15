@@ -41,11 +41,13 @@ const Logout = () => {
       <Typography
         variant="h6"
         sx={{
-          mr: 1,
+          mr: 2,
           my: 2,
           display: { xs: "none", md: "inline" },
-          fontFamily: "monospace",
-          fontWeight: 700,
+          fontFamily: "Roboto",
+          lineHeight: 1.75,
+          verticalAlign: "middle",
+          fontWeight: 500,
           color: "inherit",
           textDecoration: "none",
         }}
