@@ -51,6 +51,23 @@ function Payment() {
       });
   };
 
+  // DELETE ORDER
+  const deleteOrder = async (orderId) => {
+    // await axios
+    //   .delete("http://localhost:3001/deleteListing/")
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // await axios
+    //   .delete("http://localhost:3001/deleteBike/")
+    //   .then((response) => {
+    //     navigate("/dashboard/");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
+
   const modifyListing = async (listingId) => {
     await axios
       .post("http://localhost:3001/modifyListing/", {
@@ -74,6 +91,9 @@ function Payment() {
     if (query.get("success")) {
       setMessage("Order placed! You will receive an email confirmation.");
       if (query.get("listingId") != "") modifyListing(query.get("listingId"));
+
+      if (query.get("listingId") != "")
+        navigate("/listing/" + query.get("listingId"));
     }
 
     // if the payment was interrupted then delete the item + listing
@@ -83,6 +103,8 @@ function Payment() {
 
       if (query.get("listingId") != "")
         navigate("/listing/" + query.get("listingId"));
+
+      if (query.get("orderId") != "") deleteOrder(query.get("orderId"));
     } else navigate("/");
   }, []);
 
