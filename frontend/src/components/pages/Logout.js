@@ -84,16 +84,14 @@ const Logout = () => {
           onClick={handleProfile}
           sx={{ mr: "10px", ml: "10px" }}
         >
-          <ListItemText style={{ textAlign: "center" }}>
-            My Dashboard
-          </ListItemText>
+          <ListItemText>My Dashboard</ListItemText>
         </MenuItem>
         <MenuItem
           key="Sign Out"
           onClick={handleLogout}
           sx={{ mr: "10px", ml: "10px" }}
         >
-          <ListItemText style={{ textAlign: "center" }}>Sign Out</ListItemText>
+          <ListItemText>Sign Out</ListItemText>
         </MenuItem>
       </Menu>
     </Box>
