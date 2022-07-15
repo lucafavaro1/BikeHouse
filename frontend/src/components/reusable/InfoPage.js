@@ -98,10 +98,12 @@ function InfoPage({
           direction={"column"}
           style={{ height: "100%", marginLeft: 1 }}
         >
-          <Typography variant="subtitle1">
-            {" "}
-            <LocationOnIcon></LocationOnIcon> {location}
-          </Typography>
+          <div className="mb-2">
+            <Typography variant="subtitle1">
+              {" "}
+              <LocationOnIcon></LocationOnIcon> {"   " + location}
+            </Typography>
+          </div>
 
           <Box
             mt={"2"}
@@ -109,20 +111,29 @@ function InfoPage({
             alignItems="center"
             justifyContent="center"
           >
-            <Typography variant="subtitle1">
-              <SellIcon></SellIcon>
-              {sellerName}
-            </Typography>
-            <Typography variant="subtitle1">
-              {frameVerified ? <DoneIcon /> : <DoNotDisturbAltIcon />} Frame
-              Verified
-            </Typography>
-            <Box component="span" sx={{}}>
-              {<ConditionIndicator numOfStars={bikeCondition} size={1} />}{" "}
-              <span> Bike condition</span>
-            </Box>
-
-            <Typography variant="subtitle1">
+            <div className="mb-2">
+              <Typography variant="subtitle1">
+                {sellerVerified ? (
+                  <CheckCircleIcon sx={{ display: "inline-block" }} />
+                ) : (
+                  <GppBadIcon sx={{ display: "inline-block" }} />
+                )}
+                {"   " + sellerName}
+              </Typography>
+            </div>
+            <div className="mb-2">
+              <Typography variant="subtitle1">
+                {frameVerified ? <DoneIcon /> : <DoNotDisturbAltIcon />} Frame
+                Verified
+              </Typography>
+            </div>
+            <div className="mb-2">
+              <Box component="span" sx={{}}>
+                {<ConditionIndicator numOfStars={bikeCondition} size={1} />}{" "}
+                <span> Bike condition</span>
+              </Box>
+            </div>
+            <Typography variant="h6">
               <EuroIcon /> {price}
             </Typography>
           </Box>
@@ -132,7 +143,7 @@ function InfoPage({
             <Button
               variant={"contained"}
               color={"warning"}
-              style={{ marginTop: "auto" }}
+              style={{ maxWidth: "200px", marginTop: "auto" }}
               onClick={() => payBoost(listingId)}
             >
               Boost it now
@@ -146,7 +157,7 @@ function InfoPage({
               <Button
                 variant={"contained"}
                 color={"error"}
-                style={{ marginTop: "auto" }}
+                style={{ maxWidth: "200px", marginTop: "auto" }}
                 onClick={() => {
                   setModalShow(true);
                 }}
@@ -175,7 +186,7 @@ function InfoPage({
                   <Button
                     variant={"outlined"}
                     color={"primary"}
-                    style={{ marginRight: "auto" }}
+                    style={{ maxWidth: "200px", marginRight: "auto" }}
                     onClick={() => setModalShow(false)}
                   >
                     Back
@@ -197,9 +208,13 @@ function InfoPage({
             <Button
               variant={"contained"}
               color={"primary"}
-              style={{ marginTop: "auto" }}
+              style={{
+                maxWidth: "200px",
+                marginTop: "30px",
+                backgroundColor: "#2e6076",
+              }}
             >
-              Purchase
+              Add to basket
             </Button>
           )}
         </Grid>
