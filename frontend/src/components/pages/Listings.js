@@ -34,7 +34,7 @@ function Listings() {
     "Red",
     "Orange",
   ];
-  const conditions = ["Brand New", "Good", "Used", "Poor", "Spare Parts"];
+  const conditions = ["Brand New", "Good", "Decent", "Bad", "Spare Parts"];
   const categories = [
     "City",
     "Road",
