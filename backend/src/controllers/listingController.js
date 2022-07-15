@@ -2,6 +2,21 @@ const ListingModel = require("../models/Listing");
 const { BikeModel } = require("../models/Item");
 const UserModel = require("../models/Users");
 
+const createListing = async (req, res) => {
+  console.log("create listing called");
+  const listing = req.body;
+  const newListing = new ListingModel(listing);
+  await newListing.save(); // async request to crease a new user
+  res.json(newListing);
+};
+
+const deleteListing = async (req, res) => {
+  console.log("delete listing called");
+  const listingId = req.params.id;
+  await ListingModel.findByIdAndDelete(listingId);
+  res.json("ok");
+};
+
 // @desc Get listings
 // @route GET /listing
 const getListings = async (req, res) => {
@@ -31,7 +46,7 @@ const getListings = async (req, res) => {
 
   listings = await fetchBikesForListings(listings, bikeFilters);
 
-  listings = applyPagination(listings, page, perPage)
+  listings = applyPagination(listings, page, perPage);
 
   listings = sortListings(listings, sortingCriterion);
 
@@ -39,11 +54,11 @@ const getListings = async (req, res) => {
 };
 
 function applyPagination(listings, page, perPage) {
-  let startIndex = page * perPage
-  let endIndex = page * perPage + perPage
+  let startIndex = page * perPage;
+  let endIndex = page * perPage + perPage;
 
-  listings = listings.slice(startIndex, endIndex)
-  return listings
+  listings = listings.slice(startIndex, endIndex);
+  return listings;
 }
 
 function sortListings(listings, criterion) {
@@ -55,13 +70,19 @@ function sortListings(listings, criterion) {
       if (criterion == "default") {
         if (listing1.bike.condition > listing2.bike.condition) return -1;
         else if (listing1.bike.condition < listing2.bike.condition) return 1;
-        else { // both boosted + same condition
-          if (listing1.bike.frameVerified && !listing2.bike.frameVerified) return -1;
-          else if (!listing1.bike.frameVerified && listing2.bike.frameVerified) return 1;
-          else { // both boosted + same condition + both passed frame verification
+        else {
+          // both boosted + same condition
+          if (listing1.bike.frameVerified && !listing2.bike.frameVerified)
+            return -1;
+          else if (!listing1.bike.frameVerified && listing2.bike.frameVerified)
+            return 1;
+          else {
+            // both boosted + same condition + both passed frame verification
             if (new Date(listing1.createdAt) > new Date(listing2.createdAt))
               return -1;
-            else if (new Date(listing1.createdAt) < new Date(listing2.createdAt))
+            else if (
+              new Date(listing1.createdAt) < new Date(listing2.createdAt)
+            )
               return 1;
           }
         }
@@ -94,9 +115,9 @@ function generateBikeFilters(rawQuery) {
   if (rawQuery.searchKeyword) {
     filter.$or = filter.$or || [];
     filter.$or = [
-      { model: { $regex: rawQuery.searchKeyword, $options: 'i' } },
-      { brand: { $regex: rawQuery.searchKeyword, $options: 'i' } }
-    ]
+      { model: { $regex: rawQuery.searchKeyword, $options: "i" } },
+      { brand: { $regex: rawQuery.searchKeyword, $options: "i" } },
+    ];
   }
 
   if (rawQuery.verifiedOnly) {
@@ -237,6 +258,10 @@ const getListingById = async (req, res) => {
     bikeDeets = await BikeModel.findById(listing.bikeId).exec();
     sellerDeets = await UserModel.findById(listing.sellerId).exec();
     let listingToSend = {};
+    listingToSend["isBoosted"] = listing.isBoosted;
+    listingToSend["sellerId"] = sellerDeets._id;
+    listingToSend["bikeId"] = bikeDeets._id;
+    listingToSend["listingId"] = listing._id;
     listingToSend["location"] = bikeDeets.location;
     listingToSend["sellerName"] =
       sellerDeets.firstName + " " + sellerDeets.lastName;
@@ -310,8 +335,30 @@ async function fetchBikesForListingsV1(listings) {
   return listings;
 }
 
+const modifyListing = async (req, res) => {
+  console.log("modifyListing called");
+
+  let isBoosted = req.body.isBoosted;
+  if (isBoosted != undefined) {
+    try {
+      let updatedListing = await ListingModel.findByIdAndUpdate(
+        req.body.listingId,
+        {
+          isBoosted: isBoosted,
+        }
+      ).exec();
+      res.status(200).json(updatedListing);
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  }
+};
+
 module.exports = {
+  createListing,
+  deleteListing,
   getListings,
   getListingById,
   getListingsBySeller,
+  modifyListing,
 };

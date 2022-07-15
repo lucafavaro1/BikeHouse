@@ -26,7 +26,7 @@ import { Navigate } from "react-router-dom";
 
 const steps = [
   {
-    label: `Describe your Issue`,
+    label: `Describe your request`,
     description: `What consultation can we help you with? 
         Describe in a few lines`,
   },
@@ -36,10 +36,28 @@ const steps = [
       We will take care of the meeting arrangements! `,
   },
   {
-    label: `Payment`,
+    label: `Payment - 20€ flat fee for 30 minutes`,
     description: `Complete the payment process below`,
   },
 ];
+
+const paySpecialist = async () => {
+  await Axios.post("http://localhost:3001/create-checkout-session/", {
+    name: "Specialist appointment ⏰",
+    price: 20,
+    successLink: "/dashboard",
+    cancelLink: "/",
+    // image:
+    //   "https://www.clipartmax.com/png/small/204-2041203_rocket-cartoon-animation-spacecraft-vector-of-rocket.png",
+  })
+    .then((response) => {
+      window.location = response.data.url;
+      //navigate(-1);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 function Specialist() {
   // require('dotenv').config();
@@ -48,8 +66,8 @@ function Specialist() {
     email: "bikehouse.feedback@gmail.com",
     name: "BikeHouse Specialist",
   };
-  const subject = "BikeHouse Invitation";
-  const [issue, setIssue] = useState("");
+  const subject = "BikeHouse Specialist Appointment";
+  const [request, setRequest] = useState("");
 
   const [cal, setCal] = useState("");
 
@@ -61,7 +79,7 @@ function Specialist() {
   const [isDisabled, setDisabled] = useState(true);
 
   const handleChange = (event) => {
-    setIssue(event.target.value);
+    setRequest(event.target.value);
     setDisabled(false);
   };
 
@@ -85,6 +103,7 @@ function Specialist() {
     // console.log(typeof cal)
     sendEmail(user, cal);
     handleNext();
+    paySpecialist();
   };
 
   const themeCalendar = {
@@ -113,24 +132,13 @@ function Specialist() {
       user,
       subject,
       cal,
-    }).then((response) => {
-      console.log(response.data.message);
-
-      const sendEmail = (user, cal) => {
-        Axios.post("http://localhost:3001/createAppointment", {
-          sender,
-          user,
-          subject,
-          cal,
-        })
-          .then((response) => {
-            console.log(response.data.message);
-          })
-          .catch((error) => {
-            console.log("Error", error);
-          });
-      };
-    });
+    })
+      .then((response) => {
+        console.log(response.data.message);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
   };
 
   if (!user) {
@@ -174,7 +182,7 @@ function Specialist() {
                         // sx={{mt: 2}}
                         id="filled-basic"
                         label="Additional Comments"
-                        value={issue}
+                        value={request}
                         variant="outlined"
                         onChange={handleChange}
                       />
@@ -249,15 +257,8 @@ function Specialist() {
                 <Typography sx={{ ml: 4 }}>
                   Your appointment has been successfully scheduled. <br />
                   Check your email for a confirmation message and a calendar
-                  invite.
+                  invite. Wait until you get redirected to the payment page.
                 </Typography>
-                <Button
-                  variant="outlined"
-                  onClick={handleReset}
-                  sx={{ mt: 1, ml: 4 }}
-                >
-                  Book another appointment
-                </Button>
               </>
             )}
           </Container>

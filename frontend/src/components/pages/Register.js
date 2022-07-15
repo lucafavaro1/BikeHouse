@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Axios from "axios";
+import { login } from "../../features/userSlice";
+import { listCities } from "cclist";
 import { CircularProgress } from "@material-ui/core";
 import "../css/LoginRegister.css";
 
@@ -8,21 +11,29 @@ function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthDate, setBirthdate] = useState("");
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState(0);
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const [user, setUser] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const performRegistration = (event) => {
+  const performRegistration = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    Axios.post("http://localhost:3001/createUser", {
+    await Axios.post("http://localhost:3001/createUser", {
       firstName,
       lastName,
       birthDate,
+      street,
+      number,
+      city,
+      zip,
       email,
       password,
     })
@@ -32,13 +43,43 @@ function Register() {
         setUser(response.data.firstName);
         console.log(`Register in user: ${user}`);
         setIsLoading(false);
-
-        navigate("/");
-        alert("You successfully registered! Please log in to see your profile");
+        performLogin();
       })
       .catch((error) => {
         console.log(error);
       });
+    setIsLoading(false);
+  };
+
+  const performLogin = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await Axios.post("http://localhost:3001/loginUser/", {
+        email,
+        password,
+      });
+      dispatch(
+        login({
+          name: response.data.firstName,
+          surname: response.data.lastName,
+          birthdate: response.data.birthdate,
+          verificationPictures: response.data.verificationPictures,
+          email: email,
+          loggedIn: true,
+          userId: response.data.id,
+          isVerified: response.data.isVerified,
+          averageRating: response.data.averageRating,
+          billingAddress: response.data.billingAddress,
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+        })
+      );
+      setIsLoading(false);
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
     setIsLoading(false);
   };
 
@@ -57,12 +98,15 @@ function Register() {
         </div>
       ) : (
         <div className="loginRegister content" id="login">
-          <div className="row justify-content-center">
+          <div className="row justify-content-center ml-0 mr-0">
             <div className="col-lg-8">
-              <div className="login">
+              <div className="register">
                 <h1>Welcome to BikeHouse!</h1>
-                <h2>Register</h2>
-
+                <h5>
+                  Please fill in the form below to register on our website
+                </h5>
+                <hr></hr>
+                Personal information
                 <form onSubmit={performRegistration}>
                   <div className="form-group">
                     <input
@@ -74,7 +118,6 @@ function Register() {
                       }}
                     />
                   </div>
-
                   <div className="form-group">
                     <input
                       required
@@ -91,12 +134,73 @@ function Register() {
                       required
                       type="date"
                       className="form-control"
-                      placeholder="Date of Birth"
+                      placeholder="Birth Date"
                       onChange={(e) => {
                         setBirthdate(e.target.value);
                       }}
                     />
                   </div>
+
+                  <hr className="lines"></hr>
+                  <div className="mb-3"> Billing Address</div>
+
+                  <div className="row">
+                    {" "}
+                    <div className="form-group col-8">
+                      <input
+                        required
+                        className="form-control"
+                        placeholder="Street name"
+                        onChange={(e) => {
+                          setStreet(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="form-group col-4 pl-0">
+                      <input
+                        required
+                        type="number"
+                        className="form-control"
+                        placeholder="Number"
+                        onChange={(e) => {
+                          setNumber(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <select
+                      required
+                      className="form-control"
+                      onChange={(e) => {
+                        setCity(e.target.value);
+                      }}
+                    >
+                      <option value="">Select City</option>
+                      {/* since they are 780 cities and are ordered by population, I keep the first 200 that have > 50k inhabitants */}
+                      {listCities("DE", { limit: 200 })
+                        .sort()
+                        .map((city) => {
+                          return <option value={city}>{city}</option>;
+                        })}
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      required
+                      type="number"
+                      className="form-control"
+                      placeholder="ZIP code"
+                      onChange={(e) => {
+                        setZip(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <hr className="lines"></hr>
+                  <div className="mb-3">Login credentials</div>
 
                   <div className="form-group">
                     <input
@@ -109,7 +213,6 @@ function Register() {
                       }}
                     />
                   </div>
-
                   <div className="form-group">
                     <input
                       required
@@ -121,7 +224,6 @@ function Register() {
                       }}
                     />
                   </div>
-
                   <button
                     className="btn btn-lg btn-block btn-success"
                     type="submit"
@@ -129,7 +231,6 @@ function Register() {
                     Register
                   </button>
                 </form>
-
                 <div className="row justify-content-center">
                   <p className="link">
                     {" "}

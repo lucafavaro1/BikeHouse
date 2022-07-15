@@ -17,8 +17,6 @@ function Contact() {
     setConfirmedSent(false);
   };
 
-  const handleShow = () => setShow(true);
-
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
