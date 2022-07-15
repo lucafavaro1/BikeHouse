@@ -71,7 +71,7 @@ function Payment() {
       if (query.get("listingId") != "")
         navigate("/listing/" + query.get("listingId"));
 
-      if (query.get("orderId") != "") deleteOrder(query.get("orderId"));
+      if (query.get("orderId") != null) deleteOrder(query.get("orderId"));
     } else navigate("/");
   }, []);
 }

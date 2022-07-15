@@ -129,8 +129,11 @@ function ListingPage(props) {
                 id="detailedDesc"
                 className="d-flex m-5 d-flex justify-content-center"
               >
-                <Box component="span" sx={{ p: 2, border: 1, width: "75%" }}>
-                  <Typography variant="h6">Product Description</Typography>
+                <Box component="span" sx={{ p: 2, border: 1, width: "60%" }}>
+                  <Typography variant="h6" sx={{ mb: 10 + "px" }}>
+                    Product Description
+                  </Typography>
+                  <hr></hr>
                   <Typography variant="headline1">
                     {product.description}
                   </Typography>

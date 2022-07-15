@@ -15,6 +15,7 @@ Login after registration, validate city names, add address to registration and d
 Sell a bike, photo fix and specialist template reworked 1h
 Stripe payment for boosting Ad and specialist consultation 2h
 Boost/delete your listing after the creation 2h
+Stripe payment from orders 1h
 
 
 # Tarlan
