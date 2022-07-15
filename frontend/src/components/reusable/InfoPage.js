@@ -30,6 +30,7 @@ function InfoPage({
   brand,
   model,
   sellerVerified,
+  images
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -52,6 +53,7 @@ function InfoPage({
       brand,
       model,
       sellerVerified,
+      images
     }
     dispatch(addToCart(data))
   };

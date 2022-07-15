@@ -10,28 +10,37 @@ const getCartStatus = () => {
     storedData !== undefined &&
     storedData !== "undefined"
       ? JSON.parse(storedData)
-      : undefined;
+      : [];
   return { cart: cart };
 };
 
 export const cartSlice = createSlice({
   name: "cart",
-  initialState: {cart: []},
+  initialState: getCartStatus(localStorage.getItem(LOCAL_STORAGE_CART_DATA_KEY)),
   reducers: {
     addToCart: (state, action) => {
-      localStorage.setItem(
-        LOCAL_STORAGE_CART_DATA_KEY,
-        JSON.stringify(action.payload)
-      );
-      console.log("payload", action.payload )
-      console.log("cart state", state.cart)
       state.cart= [...state.cart, action.payload]
       console.log("after cart state", state.cart)
+      localStorage.setItem(
+        LOCAL_STORAGE_CART_DATA_KEY,
+        JSON.stringify(state.cart)
+        );
+      // state.cart.map((item, index) => {
+      //     console.log(index, item)
+      //   });
     },
-    removeFromCart: (state,action) => {
+    removeFromCart: (state, action) => {
       // state.loggedIn = false;
-      state.cart = state.cart.filter((item) => item.id !== action.payload.id);
-    },
+      console.log("id in slice", action.payload)
+      state.cart = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_CART_DATA_KEY))
+      console.log("remove cart print", state.cart)
+      state.cart = state.cart.filter((item) => item.listingId !== action.payload)
+      console.log("filter", state.cart)
+      localStorage.setItem(
+        LOCAL_STORAGE_CART_DATA_KEY,
+        JSON.stringify(state.cart)
+        );
+    }
   },
 });
 

@@ -3,8 +3,26 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import ShoppingCartItem from "./ShoppingCartItem";
+import { selectCart } from "../../../features/cartSlice";
+import {removeFromCart} from "../../../features/cartSlice";
+import { useSelector } from "react-redux";
 
-export default function ShoppingCartTab({ products }) {
+export default function ShoppingCartTab({ products, setProducts }) {
+  const insProviders= {
+    10: 0,
+    20: 40,
+    30: 30,
+    40: 25
+  }
+  const handleInsurance = (productKey, insuranceKey) =>{
+    // console.log('test', productKey,insuranceKey)
+    const newState = [...products]
+    let newValue = products[productKey]
+    newValue.insurance = insProviders[insuranceKey]
+    newState[productKey] = newValue
+    setProducts(newState)
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -14,7 +32,9 @@ export default function ShoppingCartTab({ products }) {
             <Grid container>
               <Grid item xs>
                 {products.map((product, index) => (
-                  <ShoppingCartItem key={index} product={product} />
+                  <>
+                  <ShoppingCartItem key={index} productKey={index} product={product} handleInsurance={handleInsurance} />
+                  </>
                 ))}
               </Grid>
             </Grid>

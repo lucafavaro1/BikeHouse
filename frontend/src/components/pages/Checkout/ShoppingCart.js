@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
 import { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
@@ -19,11 +19,10 @@ import Select from "@mui/material/Select";
 import { selectCart } from "../../../features/cartSlice";
 import {removeFromCart} from "../../../features/cartSlice";
 import { useSelector } from "react-redux";
+import { useSelect } from "@mui/base";
 
 function ShoppingCart() {
-  const [value, setValue] = React.useState(2);
-  const cart = useSelector(selectCart);
-  console.log("item in cart", cart)
+  const [value, setValue] = React.useState(0);
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -63,40 +62,33 @@ function ShoppingCart() {
       setValue(value + index);
     }
   };
+
   const [shippingRate, setShippingRate] = useState(0);
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      category: "Bike",
-      name: "BestBikeEver",
-      price: 200,
-      quantity: 1,
-      image:
-        "https://static.spektrum.de/fm/912/f2000x857/STScI-01G79R4PQEKTHV094X9767ASV8.jpg",
-    },
-    {
-      id: 2,
-      category: "Bike",
-      name: "BestBikeEver",
-      price: 200,
-      quantity: 2,
-      image:
-        "https://static.spektrum.de/fm/912/f2000x857/STScI-01G79R4PQEKTHV094X9767ASV8.jpg",
-    },
-    {
-      id: 3,
-      category: "Accessory",
-      name: "BEST ACCESSORY EVER",
-      price: 200,
-      quantity: 2,
-      image:
-        "https://static.spektrum.de/fm/912/f2000x857/STScI-01G79R4PQEKTHV094X9767ASV8.jpg",
-    },
-  ]);
+
+  const cart = useSelector(selectCart);
+  let productArray = []
+  cart.forEach((item) => {
+      productArray.push({...item,insurance:0})
+    });
+  const [products, setProducts] = useState(productArray);
+
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+  
+
+  useEffect(() => {
+
+    let productArray = []
+    cart.forEach((item) => {
+        productArray.push({...item,insurance:0})
+      });
+      setProducts(productArray)
+
+  }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
 
   return (
     <>
-      <div className="container bg-light ">
+      <div className="container bg-light content">
         <div className="row">
           <div className="col-md-8">
             <Tabs
@@ -110,7 +102,7 @@ function ShoppingCart() {
               <Tab label="Payment" />
             </Tabs>
             <TabPanel value={value} index={0}>
-              {<ShoppingCartTab products={products} />}
+              {<ShoppingCartTab products={products} setProducts={setProducts} />}
             </TabPanel>
             <TabPanel value={value} index={1}>
               <ShippingAddressPage setShippingRate={setShippingRate} />

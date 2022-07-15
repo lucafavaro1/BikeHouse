@@ -32,6 +32,7 @@ function ListingPage(props) {
           brand: listing.data.brand,
           model: listing.data.model,
           sellerVerified: listing.data.sellerVerified,
+          images: listing.data.images
         });
         const photosFromResponse = listing.data.images;
         console.log(photosFromResponse.length);
