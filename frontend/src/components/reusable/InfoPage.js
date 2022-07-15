@@ -139,7 +139,7 @@ function InfoPage({
           </Box>
 
           {/* if user is logged and id owner corresponds to user than check if id is boosted, if not display the boost it now */}
-          {sellerId == user.userId && !isBoosted ? (
+          {user != undefined && sellerId == user.userId && !isBoosted ? (
             <Button
               variant={"contained"}
               color={"warning"}
@@ -152,7 +152,7 @@ function InfoPage({
             <p></p>
           )}
 
-          {sellerId == user.userId ? (
+          {user != undefined && sellerId == user.userId ? (
             <>
               <Button
                 variant={"contained"}
