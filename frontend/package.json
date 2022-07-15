@@ -13,6 +13,7 @@
     "@material-ui/core": "^4.12.4",
     "@mooncake-dev/react-day-time-picker": "^1.0.5",
     "@mui/icons-material": "^5.8.4",
+    "@mui/joy": "^5.0.0-alpha.36",
     "@mui/material": "^5.8.4",
     "@reduxjs/toolkit": "^1.8.2",
     "@sendgrid/mail": "^7.7.0",
