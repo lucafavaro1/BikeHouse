@@ -37,8 +37,6 @@ const getListings = async (req, res) => {
   console.log(bikeFilters);
 
   let listings = await ListingModel.find(listingFilters) // fetch listings
-    .limit(perPage)
-    .skip(perPage * page)
     .sort(
       Object.assign({ isBoosted: -1 }, getPriceSortingObject(sortingCriterion))
     )
@@ -48,10 +46,20 @@ const getListings = async (req, res) => {
 
   listings = await fetchBikesForListings(listings, bikeFilters);
 
+  listings = applyPagination(listings, page, perPage);
+
   listings = sortListings(listings, sortingCriterion);
 
   return res.status(200).json(listings);
 };
+
+function applyPagination(listings, page, perPage) {
+  let startIndex = page * perPage;
+  let endIndex = page * perPage + perPage;
+
+  listings = listings.slice(startIndex, endIndex);
+  return listings;
+}
 
 function sortListings(listings, criterion) {
   listings.sort(function (listing1, listing2) {
@@ -64,10 +72,19 @@ function sortListings(listings, criterion) {
         else if (listing1.bike.condition < listing2.bike.condition) return 1;
         else {
           // both boosted + same condition
-          if (new Date(listing1.createdAt) > new Date(listing2.createdAt))
+          if (listing1.bike.frameVerified && !listing2.bike.frameVerified)
             return -1;
-          else if (new Date(listing1.createdAt) < new Date(listing2.createdAt))
+          else if (!listing1.bike.frameVerified && listing2.bike.frameVerified)
             return 1;
+          else {
+            // both boosted + same condition + both passed frame verification
+            if (new Date(listing1.createdAt) > new Date(listing2.createdAt))
+              return -1;
+            else if (
+              new Date(listing1.createdAt) < new Date(listing2.createdAt)
+            )
+              return 1;
+          }
         }
       } else if (criterion == "priceLH") {
         if (listing1.finalPrice > listing2.finalPrice) return 1;
@@ -94,6 +111,21 @@ function getPriceSortingObject(criterion) {
 
 function generateBikeFilters(rawQuery) {
   var filter = {};
+
+  if (rawQuery.searchKeyword) {
+    filter.$or = filter.$or || [];
+    filter.$or = [
+      { model: { $regex: rawQuery.searchKeyword, $options: "i" } },
+      { brand: { $regex: rawQuery.searchKeyword, $options: "i" } },
+    ];
+  }
+
+  if (rawQuery.verifiedOnly) {
+    filter.frameToBeVerified = filter.frameToBeVerified || {};
+    filter.conditionToBeVerified = filter.frameToBeVerified || {};
+    filter.frameToBeVerified = false;
+    filter.conditionToBeVerified = false;
+  }
 
   if (rawQuery.minFrameSize) {
     filter.frameSize = filter.frameSize || {};
@@ -147,25 +179,25 @@ function generateBikeFilters(rawQuery) {
 
   if (rawQuery.verification) {
     if (rawQuery.verification == "conditionAndFrame") {
-      filter.conditionToBeVerified = filter.conditionToBeVerified || {};
-      filter.frameToBeVerified = filter.frameToBeVerified || {};
+      filter.condition = filter.condition || {};
+      filter.frameVerified = filter.frameVerified || {};
 
-      filter.conditionToBeVerified = true;
-      filter.frameToBeVerified = true;
+      filter.condition.$gt = 0;
+      filter.frameVerified = true;
     } else if (rawQuery.verification == "condition") {
-      filter.conditionToBeVerified = filter.conditionToBeVerified || {};
+      filter.condition = filter.condition || {};
 
-      filter.conditionToBeVerified = true;
+      filter.condition.$gt = 0;
     } else if (rawQuery.verification == "frame") {
-      filter.frameToBeVerified = filter.frameToBeVerified || {};
+      filter.frameVerified = filter.frameVerified || {};
 
-      filter.frameToBeVerified = true;
+      filter.frameVerified = true;
     } else if (rawQuery.verification == "none") {
-      filter.conditionToBeVerified = filter.conditionToBeVerified || {};
-      filter.frameToBeVerified = filter.frameToBeVerified || {};
+      filter.condition = filter.condition || {};
+      filter.frameVerified = filter.frameVerified || {};
 
-      filter.conditionToBeVerified = false;
-      filter.frameToBeVerified = false;
+      filter.condition = 0;
+      filter.frameVerified = false;
     } else {
       delete filter.condition; // faulty parameter; no need to apply any filter
     }
@@ -240,6 +272,7 @@ const getListingById = async (req, res) => {
     listingToSend["description"] = bikeDeets.description;
     listingToSend["brand"] = bikeDeets.brand;
     listingToSend["model"] = bikeDeets.model;
+    listingToSend["sellerVerified"] = sellerDeets.isVerified;
     return res.status(200).json(listingToSend);
   } catch (error) {
     console.log(error);

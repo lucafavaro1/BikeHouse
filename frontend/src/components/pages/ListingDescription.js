@@ -3,7 +3,7 @@ import "../css/ListingDescription.css";
 import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ConditionIndicator from "./ConditionIndicator";
+import ConditionIndicator from "../reusable/ConditionIndicator.js";
 
 function ListingDescription(props) {
   return (

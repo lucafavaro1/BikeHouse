@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { CircularProgress } from "@material-ui/core";
 import ListingDescription from "./ListingDescription";
+import VerificationLegend from "./VerificationLegend";
 import Axios from "axios";
 import "../css/Listings.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import rocketIcon from "../pictures/rocket.png";
 import questionMarkIcon from "../pictures/questionMarkIcon.png";
 
@@ -21,6 +20,7 @@ function Listings() {
   const [isLoading, setIsLoading] = useState(true);
   const selectedCategoryColor = "gainsboro";
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const colors = [
     "White",
@@ -34,7 +34,7 @@ function Listings() {
     "Red",
     "Orange",
   ];
-  const conditions = ["Brand New", "Good", "Used", "Poor", "Spare Parts"];
+  const conditions = ["Brand New", "Good", "Decent", "Bad", "Spare Parts"];
   const categories = [
     "City",
     "Road",
@@ -54,10 +54,16 @@ function Listings() {
   async function getListings(
     page = 0,
     shouldPreFetchNextPage = true,
-    shouldUsePreFetchedNextPage = true
+    shouldUsePreFetchedNextPage = true,
+    loadingAnimation = true
   ) {
+    parameters.current.verifiedOnly = true
     parameters.current.page = page;
     parameters.current.sortingCriterion = activeSortingCriterion.current;
+
+    if (state && state.searchString) { // if there's a navigation state passed form another page
+      parameters.current.searchKeyword = state.searchString
+    }
 
     if (nextListings.length != 0 && shouldUsePreFetchedNextPage) {
       // if there are already pre-fetched listings
@@ -79,7 +85,7 @@ function Listings() {
       parameters.current.page = page + 1; // increment page number to pre-fetch the next page
 
       try {
-        setIsLoading(true);
+        setIsLoading(loadingAnimation);
         const response = await Axios.get("http://localhost:3001/listing", {
           params: parameters.current,
         });
@@ -107,7 +113,7 @@ function Listings() {
   const applyFilterClicked = async (event) => {
     setCurrentPageNum(0);
     lastPageNum.current = Infinity;
-    getListings(0, true, false);
+    getListings(0, true, false, false);
   };
 
   const nextPageClicked = async (event) => {
@@ -115,7 +121,7 @@ function Listings() {
       return;
     }
 
-    getListings(currentPageNum + 1);
+    getListings(currentPageNum + 1, true, true, false);
     setCurrentPageNum(currentPageNum + 1);
   };
 
@@ -124,13 +130,20 @@ function Listings() {
       return;
     }
 
-    getListings(currentPageNum - 1, false);
+    getListings(currentPageNum - 1, false, true, false);
     setCurrentPageNum(currentPageNum - 1);
   };
 
   const needHelpClicked = async (event) => {
     navigate("/specialist");
   };
+
+  const clearSearch = (event) => {
+    state.searchString = ''
+    parameters.current.searchKeyword = ''
+    navigate('.', { replace: true })
+    getListings()
+  }
 
   /** Called when any of the accordion items is changed*/
   function handleFilterChange(eventObject) {
@@ -568,6 +581,9 @@ function Listings() {
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
+                <div>
+                  <VerificationLegend></VerificationLegend>
+                </div>
               </div>
 
               <div className="col listingsPanel">
@@ -596,6 +612,19 @@ function Listings() {
                     </button>
                   </div>
                 </Row>
+
+                {(state && state.searchString) ?
+                  < Row >
+                    <div className="col searchInfo">
+                      <span className="align-middle">Showing results for <strong>"{state.searchString}" </strong></span>
+                      <button
+                        type="button"
+                        class="btn btn-danger searchCancelBtn"
+                        onClick={clearSearch}
+                      >	&#10005; &#x2715;</button>
+                    </div>
+                  </Row>
+                  : <span></span>}
 
                 <Row xs={3} md={4}>
                   {listings.map(renderCard)}
@@ -633,7 +662,8 @@ function Listings() {
             </div>
           </div>
         </>
-      )}
+      )
+      }
     </>
   );
 }

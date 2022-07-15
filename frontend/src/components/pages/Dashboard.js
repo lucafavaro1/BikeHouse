@@ -76,7 +76,7 @@ function Dashboard() {
 
   useEffect(() => {
     getListings();
-    if (user.verificationPictures.length != 0) {
+    if (user.verificationPictures.length !== 0) {
       setTitleVerify("Documents uploaded");
       setTextVerify(
         "Thanks for submitting your documents, our team will verify your profile shortly. This procedure can take up to a couple of working days."
@@ -94,7 +94,7 @@ function Dashboard() {
       const response = await Axios.get(
         "http://localhost:3001/listingsBySeller/" + user.userId
       );
-      if (response.data != "You have no listings") setListings(response.data);
+      if (response.data !== "You have no listings") setListings(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -121,7 +121,7 @@ function Dashboard() {
   }
 
   function retrieveListing() {
-    return listings.length == 0 ? (
+    return listings.length === 0 ? (
       <div>
         <p></p>
         <p>
@@ -143,6 +143,7 @@ function Dashboard() {
           {listings.map((listing) => (
             <Carousel.Item>
               <img
+                alt="bike pic"
                 className="d-block w-100"
                 src={listing.bike.photos[0].url}
                 onClick={() => navigate("/listing/" + listing._id)}
@@ -372,7 +373,7 @@ function Dashboard() {
                     <div className="row profile">
                       <Col md={4}>
                         {" "}
-                        <img src={userIcon} />
+                        <img alt="user icon" src={userIcon} />
                       </Col>
                       <Col md={7} className="info mr-0 pr-0">
                         {" "}
@@ -410,7 +411,7 @@ function Dashboard() {
                     </div>
                   </Col>
                   <Col>
-                    {user.averageRating.$numberDecimal == 0 ? (
+                    {user.averageRating.$numberDecimal === 0 ? (
                       <p>
                         <u>
                           You dont have any review, start selling/buying now
@@ -451,7 +452,7 @@ function Dashboard() {
                       <div className="row">
                         <p></p>
                         <Col md={10} className="verify">
-                          {user.verificationPictures.length != 0 ? (
+                          {user.verificationPictures.length !== 0 ? (
                             <Button
                               variant="outlined"
                               endIcon={
@@ -514,6 +515,7 @@ function Dashboard() {
                         fontSize: 20,
                         borderBottom: 3,
                         borderColor: "divider",
+                        cursor: "pointer",
                       }}
                     >
                       <a onClick={() => setValue(1)}>My Listings</a>
@@ -532,6 +534,7 @@ function Dashboard() {
                         fontSize: 20,
                         borderBottom: 3,
                         borderColor: "divider",
+                        cursor: "pointer",
                       }}
                     >
                       <a onClick={() => setValue(2)}>Purchase History</a>
@@ -565,8 +568,8 @@ function Dashboard() {
                     <a
                       href="" // just to make it blue
                       onClick={() =>
-                        (window.location =
-                          "mailto:bikehouse.feedback@gmail.com")
+                      (window.location =
+                        "mailto:bikehouse.feedback@gmail.com")
                       }
                     >
                       bikehouse.feedback@gmail.com

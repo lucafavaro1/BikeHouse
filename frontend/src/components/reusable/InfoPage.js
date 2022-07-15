@@ -7,11 +7,13 @@ import SellIcon from "@mui/icons-material/Sell";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
-import ConditionIndicator from "../pages/ConditionIndicator";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import { Modal } from "react-bootstrap";
+import ConditionIndicator from "./ConditionIndicator";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import GppBadIcon from "@mui/icons-material/GppBad";
 
 function InfoPage({
   sellerId,
@@ -23,6 +25,7 @@ function InfoPage({
   frameVerified,
   bikeCondition,
   price,
+  sellerVerified,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
