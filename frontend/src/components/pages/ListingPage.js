@@ -20,6 +20,8 @@ function ListingPage(props) {
         );
         setListing(listing.data);
         setProduct({
+          id: id,
+          images: listing.data.images,
           location: listing.data.location,
           sellerName: listing.data.sellerName,
           frameVerified: listing.data.frameVerified,
@@ -30,6 +32,7 @@ function ListingPage(props) {
           model: listing.data.model,
           sellerVerified: listing.data.sellerVerified,
         });
+        console.log(product)
         const photosFromResponse = listing.data.images;
         console.log(photosFromResponse.length);
         if (listing && photosFromResponse) {
@@ -38,7 +41,7 @@ function ListingPage(props) {
           for (let i = 0; i < photosFromResponse.length; i++) {
             photos.push(photosFromResponse[i].url);
           }
-          console.log("photos are" + photos);
+          console.log("photos are " + photos);
           setImages(photos);
         }
       } catch (error) {
@@ -60,6 +63,8 @@ function ListingPage(props) {
     "https://www1.wdr.de/radio/wdr4/veranstaltungen/vorschau/rolling-stones-gelsenkirchen-104~_v-HintergrundL.jpg",
   ];
   const productTemp = {
+    id: "6abcde",
+    images: ["6abcde"],
     location: "Liverpool",
     sellerName: "Rolling stones",
     frameVerified: true,

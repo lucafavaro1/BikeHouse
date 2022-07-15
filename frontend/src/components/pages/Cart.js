@@ -1,24 +1,30 @@
-import { Button, Row, Col, Nav, Card, Modal, Container } from "react-bootstrap";
+import { Button, Row, Col, Nav, Card, Modal, Container, Image } from "react-bootstrap";
 import axios from "axios";
 import AxiosJWT from "../utils/AxiosJWT";
-import React, { useState, useCallback } from "react";
-import Form from "react-bootstrap/Form";
-// import "../css/SellBike.css";
-import DropBox from "../../features/Dropbox";
-import ShowImage from "../../features/ShowImage";
+import React, { useState, useEffect } from "react";
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress, Input } from "@material-ui/core";
+import { CircularProgress, ImageList, Input, MenuItem, Select } from "@material-ui/core";
 import { selectUser, AUTH_TOKENS, logout } from "../../features/userSlice";
-import rocketImg from "../pictures/rocket.png";
 import { Navigate } from "react-router-dom";
-import { Autocomplete, Chip, Divider, FormControl, FormHelperText, InputLabel, TextField, Typography } from "@mui/material";
+import { Autocomplete, Checkbox, Chip, Divider, FormControl, FormControlLabel, FormHelperText, InputLabel, TextField, Typography } from "@mui/material";
 import '../css/Cart.css'
+import "../css/cartItem.css";
 import { Box, fontSize } from "@mui/system";
 import countries from "../constants/countries";
+import { connect } from "react-redux";
+import CartItem from "../reusable/cartItem";
+import { selectCart } from "../../features/cartSlice";
+import {removeFromCart} from "../../features/cartSlice";
 
-function Cart() {
+
+const Cart = () => {
   const user = useSelector(selectUser);
+  console.log(user)
+  const cart = useSelector(selectCart);
+  console.log("item in cart", cart)
   const [step, setStep] = useState(2);
   
   const [firstName, setFirstName] = useState(""); 
@@ -31,12 +37,31 @@ function Cart() {
   const [code, setCode] = useState("");  
   const [phone, setPhone] = useState("");
 
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+
+  console.log("item in cart", cart)
+
+  // useEffect(() => {
+  //   let items = 0;
+  //   let price = 0;
+  //   cart.forEach((item) => {
+  //     items += item.qty;
+  //     price += item.qty * item.price;
+  //   });
+
+  //   setTotalItems(items);
+  //   setTotalPrice(price);
+  // }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  // const cartOptions = Object.keys(cart).map(key => 
+  //   <option key={key} value={key}>{tifs[key]}</option>
+  // )
+  const [insurance, setInsurance] = useState("");
   const handleSubmit = () => {
     const shipping = [
       firstName,
@@ -63,7 +88,7 @@ function Cart() {
         return (
           <Container >
             <Row className="heading">
-              <Col xs={8}>
+              <Col xs={7}>
                 <Typography
                   variant="h6"
                   sx={{
@@ -79,7 +104,8 @@ function Cart() {
                 </Typography>
                 <Divider/>
               </Col>
-              <Col>
+              <Col />
+              <Col xs={4}>
                 <Typography
                   variant="h6"
                   sx={{
@@ -98,27 +124,100 @@ function Cart() {
             </Row>
 
             <Row>
-              <Col xs={8}>                
-                  <Row>
-                    item 1
-                  </Row>
-                  <Row>
-                    item 2
-                  </Row>
-                  <Row>
-                    item 3
-                  </Row>
+              <Col xs={7}>   
+                  <Card xs={12} style={{'margin-top':'3vh', 'padding':'2vh'}}>
+                    <Row>
+                      <Col xs={3} style={{'margin':'0, 0,0 ,0','padding':'0', 'padding-left':'10px'}}>
+                        <img src={cart.images[0].url} style={{'width': '80%' }}></img>
+                      </Col>
+                      {/* <Col /> */}
+                      <Col xs={3}>
+                        <h5>Brand</h5>
+                        <h5>Model</h5>
+                        <h5>Price</h5>
+                      </Col>
+                      <Col xs={1}>
+                        <h5>:</h5>
+                        <h5>:</h5>
+                        <h5>:</h5>
+                      </Col>
+                      <Col xs={3}>
+                        <h5>{cart.brand}</h5>
+                        <h5 >{cart.model}</h5>
+                        <h5 >$ {Math.round(cart.price*100)/100}</h5>
+                      </Col>
+                      <Col xs={2} className='cartItem__actions'>
+                      <button
+                        onClick={() => dispatch(removeFromCart(cart.id))}
+                        className='actions__deleteItemBtn'
+                      >
+                        <DeleteIcon/>
+                      </button>
+                      </Col>
+
+                    </Row>
+                    <Row style={{'margin-top':'4vh'}}>
+                      <Col xs={1}>
+                            <LocationCityIcon sx={{  color: 'grey', display: 'block', fontSize: 'xlarge'}}/>
+                      </Col>
+                      <Col xs={3} style={{'text-align':'left'}}>
+                            <h5>{cart.location}</h5>  
+                      </Col>
+                      <Col>
+                          <FormControlLabel control={<Checkbox defaultChecked />} label="Get Insurance" />
+                      </Col>
+                      <Col xs={4}>
+                        <FormControl fullWidth>
+                          {/* <InputLabel>Insurance</InputLabel> */}
+                          <Select
+                            id="demo-simple-select-helper"
+                            value={insurance}
+                            label="Insurance"
+                            variant="outlined"
+                            onChange={(e) => {
+                              setInsurance(e.target.value)
+                            }}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                          </Select>
+                          {/* <FormHelperText>With label + helper text</FormHelperText> */}
+                        </FormControl>
+                      </Col>
+                    </Row>
+                  </Card>
+                    {/* <CartItem key={cart.id} item={cart}></CartItem> */}
+                    {/* {Object.entries(cart).map(([key, value]) => (
+                      <div>
+                      <p>{key}</p>
+                      <p>{value}</p>
+                      </div>
+                    ))}      */}
+                    {/* <p>{cart.images}</p> */}
               </Col>
-              <Col xs={4} className="row amount">
-                  <h5 className="col-8">SUBTOTAL</h5>
-                  <h5 className="col-4">$$$</h5>
-                  <h5 className="col-8">SHIPPING</h5>
-                  <h5 className="col-4">$$$</h5>
-                  <h5 className="col-8">TAXES</h5>
-                  <h5 className="col-4">$$$</h5>
-                  <hr className="col-12"/>
-                  <h4 className="col-8">TOTAL</h4>
-                  <h4 className="col-4">$$$</h4>
+              <Col xs={1}/>
+              <Col xs={4} className="amount">
+              <Row style={{'padding-right':'10px'}}>
+                <h5 className="col-6">SUBTOTAL</h5>
+                <h5 className="col-6" style={{'text-align':'right'}}>$ {Math.round(cart.price*100)/100}</h5>
+              </Row>
+              <Row style={{'padding-right':'10px'}}>
+                <h5 className="col-6">SHIPPING</h5>
+                <h5 className="col-6" style={{'text-align':'right'}}>$$$</h5>
+              </Row>
+              <Row style={{'padding-right':'10px'}}>
+                <h5 className="col-6">TAXES</h5>
+                <h5 className="col-6" style={{'text-align':'right'}}>$ {Math.round(cart.price*0.05*100)/100}</h5>
+              </Row >
+              <hr className="col-12"/>
+              <Row style={{'padding-right':'10px'}}>
+                <h4 className="col-6">TOTAL</h4>
+                <h4 className="col-6" style={{'text-align':'right'}}>$ {Math.round(cart.price*1.05*100)/100}</h4>
+              </Row>
               </Col>
             </Row>
 
@@ -151,7 +250,7 @@ function Cart() {
         return (
           <Container>
             <Row className="heading">
-              <Col xs={8}>
+              <Col xs={7}>
                 <Typography
                   variant="h6"
                   sx={{
@@ -167,7 +266,8 @@ function Cart() {
                 </Typography>
                 <Divider/>
               </Col>
-              <Col>
+              <Col />
+              <Col xs={4}>
                 <Typography
                   variant="h6"
                   sx={{
@@ -185,14 +285,14 @@ function Cart() {
               </Col>
             </Row>
             <Row>
-              <Col xs={8}>
+              <Col xs={7}>
               <FormControl required className="address">  
                 <Row>
-                  <Col>
+                  <Col xs={6}>
                     <TextField
                       sx={{
                         mt: '4vh',
-                        width: '20vw'
+                        // width: '15vw'
                       }}
                       className="form-control"
                       label="First Name"
@@ -203,11 +303,11 @@ function Cart() {
                       }}
                     />
                   </Col>
-                  <Col>
+                  <Col xs={6}>
                     <TextField
                         sx={{
                           mt: '4vh',
-                          width: '20vw'
+                          // width: '15vw'
                         }}
                         className="form-control"
                         label="Last Name"
@@ -253,12 +353,12 @@ function Cart() {
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
+                  <Col xs={6}>
                     <Autocomplete
                       id="country-select"
                       sx={{
                         mt: '4vh',
-                        width: '20vw'
+                        // width: '15vw'
                       }}
                       options={countries}
                       autoHighlight
@@ -288,12 +388,12 @@ function Cart() {
                       }}
                     />
                   </Col>
-                  <Col>
+                  <Col xs={6}>
                     <TextField
                       className="form-control"
                       sx={{
                         mt: '4vh',
-                        width: '20vw'
+                        // width: '15vw'
                       }}
                       id="filled-basic"
                       label="City"
@@ -306,12 +406,12 @@ function Cart() {
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
+                  <Col xs={4}>
                     <TextField
                     className="form-control"
                       sx={{
                         mt: '4vh',
-                        width: '20vw'
+                        // width: '15vw'
                       }}
                       id="filled-basic"
                       label="Zip/Postal Code"
@@ -323,12 +423,12 @@ function Cart() {
                       }}
                       />
                   </Col>
-                  <Col>
+                  <Col xs={3} style={{'margin-right':'0', 'padding-right':'0'}}>
                     <TextField
                       className="form-control"
                       sx={{
                         mt: '4vh',
-                        width: '5vw'
+                        // width: '5vw'
                       }}
                       id="filled-basic"
                       label="Code"
@@ -340,11 +440,11 @@ function Cart() {
                       InputProps ={{readOnly: true}}
                     />
                   </Col>
-                  <Col>
+                  <Col xs={5}>
                     <TextField
                       sx={{
                         mt: '4vh',
-                        width: '13vw'
+                        // width: '11vw'
                       }}
                       type='tel'
                       label="Phone Number"
@@ -359,36 +459,42 @@ function Cart() {
                 {/* <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText> */}
             </FormControl>
             </Col>
+            <Col xs={1}/>
             <Col xs={4} className="amount">                
-              <Row>
-                item 1
-              </Row>
-              <Row>
-                item 2
-              </Row>
-              <Row>
-                item 3
-              </Row>
+              <Card >
+                <Row>
+                <Col style={{'margin-left':'10px', 'padding':'10px'}}>
+                  {/* <Col style={{'padding-left':'30px'}}> */}
+                    <img src={cart.images[0].url} style={{'width': '80%' }}></img>
+                  </Col>
+                  <Col style={{'padding-top':'20px'}}>
+                    <h5>{cart.brand}</h5>
+                    <h5 >{cart.model}</h5>
+                    <h5 >$ {cart.price}</h5>
+                  </Col>
+                </Row>
+              </Card>
+
               <br/>
               <br/>
               <br/>
-              <Row>
-                <h5 className="col-8">SUBTOTAL</h5>
-                <h5 className="col-4">$$$</h5>
-              
+
+              <Row style={{'padding-right':'10px'}}>
+                <h5 className="col-6">SUBTOTAL</h5>
+                <h5 className="col-6" style={{'text-align':'right'}}>$ {Math.round(cart.price*100)/100}</h5>
               </Row>
-              <Row>
-                <h5 className="col-8">SHIPPING</h5>
-                <h5 className="col-4">$$$</h5>
+              <Row style={{'padding-right':'10px'}}>
+                <h5 className="col-6">SHIPPING</h5>
+                <h5 className="col-6" style={{'text-align':'right'}}>$$$</h5>
               </Row>
-              <Row>
-                <h5 className="col-8">TAXES</h5>
-                <h5 className="col-4">$$$</h5>
-              </Row>
+              <Row style={{'padding-right':'10px'}}>
+                <h5 className="col-6">TAXES</h5>
+                <h5 className="col-6" style={{'text-align':'right'}}>$ {Math.round(cart.price*0.05*100)/100}</h5>
+              </Row >
               <hr className="col-12"/>
-              <Row>
-                <h4 className="col-8">TOTAL</h4>
-                <h4 className="col-4">$$$</h4>
+              <Row style={{'padding-right':'10px'}}>
+                <h4 className="col-6">TOTAL</h4>
+                <h4 className="col-6" style={{'text-align':'right'}}>$ {Math.round(cart.price*1.05*100)/100}</h4>
               </Row>
               
             </Col>
@@ -487,5 +593,11 @@ function Cart() {
     </>
   );
 }
+
+// const mapStateToProps = (state) => {
+//   return {
+//     cart: state.shop.cart,
+//   };
+// };
 
 export default Cart;

@@ -60,3 +60,7 @@
 .cart .continue:hover {
   opacity: 1;
 }
+
+.cart .icon_image {
+  width: 50%;
+}

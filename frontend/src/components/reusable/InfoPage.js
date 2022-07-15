@@ -8,15 +8,40 @@ import EuroIcon from "@mui/icons-material/Euro";
 import ConditionIndicator from "../pages/ConditionIndicator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import GppBadIcon from "@mui/icons-material/GppBad";
+// Redux
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import {addToCart} from "../../features/cartSlice";
 
 function InfoPage({
+  id,
+  images,
   location,
   sellerName,
   frameVerified,
   bikeCondition,
   price,
+  description,
+  brand,
+  model,
   sellerVerified,
+  // addToCart
 }) {
+  const dispatch = useDispatch();
+  const handleCart = (e) => {
+    e.preventDefault();
+    // console.log(data)
+    dispatch(addToCart(data))
+  };
+  const data = {
+    id,
+    images,
+    location,
+    sellerName,
+    price,
+    brand,
+    model
+  }
   return (
     <Grid
       container
@@ -59,11 +84,18 @@ function InfoPage({
         variant={"contained"}
         color={"primary"}
         style={{ marginTop: "auto" }}
+        onClick={handleCart}
       >
-        Purchase
+        Add to Cart
       </Button>
     </Grid>
   );
 }
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     addToCart: (data) => dispatch(addToCart(data)),
+//   };
+// };
 
 export default InfoPage;
