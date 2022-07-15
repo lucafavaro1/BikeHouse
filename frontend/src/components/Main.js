@@ -23,6 +23,7 @@ import Payment from "./pages/Payment";
 import ForgotPassword from "./pages/ForgotPassword";
 import jwtDecode from "jwt-decode";
 import Accessories from "./pages/Accessories";
+import ShoppingCart from "./pages/Checkout/ShoppingCart";
 
 function Main() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function Main() {
       <Route exact path="/guide" element={<Guide />}></Route>
       <Route exact path="/photo_guide" element={<PhotoGuide />}></Route>
       <Route exact path="/contact" element={<Contact />}></Route>
+      <Route exact path="/cart" element={<ShoppingCart />}></Route>
       <Route exact path="/dashboard" element={<Dashboard />}></Route>
       <Route
         exact

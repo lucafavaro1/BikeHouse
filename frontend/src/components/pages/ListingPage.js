@@ -1,9 +1,7 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { Media } from "reactstrap";
 import { CircularProgress } from "@material-ui/core";
 import ImageGrid from "../reusable/ImageGrid";
 import InfoPage from "../reusable/InfoPage";
@@ -19,7 +17,12 @@ function ListingPage(props) {
           "http://localhost:3001/listing/" + listingId
         );
         setListing(listing.data);
+        console.log(listing.data);
         setProduct({
+          bikeId: listing.data.bikeId,
+          isBoosted: listing.data.isBoosted,
+          sellerId: listing.data.sellerId,
+          listingId: listing.data.listingId,
           location: listing.data.location,
           sellerName: listing.data.sellerName,
           frameVerified: listing.data.frameVerified,
@@ -49,8 +52,6 @@ function ListingPage(props) {
     console.log(props);
     console.log("LISTING ID:" + id);
     getListing(id);
-    console.log(listing);
-
     // console.log(listing);
   }, []);
 
@@ -107,7 +108,7 @@ function ListingPage(props) {
               </div>
               <div
                 id="ListingPage"
-                className="row justify-content-center mt-5 mb-5"
+                className="row justify-content-center mt-5 mb-5 ml-0 mr-0"
               >
                 <div className="d-none d-md-block col-md-1 p-0">
                   <ImageGrid
@@ -128,8 +129,11 @@ function ListingPage(props) {
                 id="detailedDesc"
                 className="d-flex m-5 d-flex justify-content-center"
               >
-                <Box component="span" sx={{ p: 2, border: 1 }}>
-                  <p>{product.description} </p>
+                <Box component="span" sx={{ p: 2, border: 1, width: "75%" }}>
+                  <Typography variant="h6">Product Description</Typography>
+                  <Typography variant="headline1">
+                    {product.description}
+                  </Typography>
                 </Box>
               </div>
             </>
