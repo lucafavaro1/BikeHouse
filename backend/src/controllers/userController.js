@@ -107,7 +107,7 @@ const createUser = async (req, res) => {
     };
     const newUser = new UserModel(user);
     await newUser.save(); // async request to crease a new user
-    res.json(newUser);
+    res.status(200).json(newUser);
   } catch (error) {
     res.status(400).json({
       error: "Error in saving the user",
@@ -120,7 +120,7 @@ const forgotPassword = async (req, res) => {
   const email = req.body;
   const user = await UserModel.findOne(email);
   // get back to frontend that the user was found
-  res.json(data);
+  //res.json(data);
 };
 
 const refreshTokenGen = async (req, res) => {

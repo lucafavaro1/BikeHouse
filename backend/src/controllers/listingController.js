@@ -7,14 +7,19 @@ const createListing = async (req, res) => {
   const listing = req.body;
   const newListing = new ListingModel(listing);
   await newListing.save(); // async request to crease a new user
-  res.json(newListing);
+  res.status(200).json(newListing);
 };
 
 const deleteListing = async (req, res) => {
   console.log("delete listing called");
   const listingId = req.params.id;
-  await ListingModel.findByIdAndDelete(listingId);
-  res.json("ok");
+  try {
+    await ListingModel.findByIdAndDelete(listingId);
+    res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    res.status(404).json("Listing not found, could not be deleted");
+  }
 };
 
 // @desc Get listings

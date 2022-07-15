@@ -6,34 +6,6 @@ function Payment() {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
 
-  const Message = ({ message }) => (
-    <section>
-      <p>{message}</p>
-    </section>
-  );
-
-  const ProductDisplay = () => (
-    <section>
-      <div className="product">
-        <img
-          src="https://i.imgur.com/EHyR2nP.png"
-          alt="The cover of Stubborn Attachments"
-        />
-        <div className="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
-        </div>
-      </div>
-
-      <form
-        action="http://localhost:3001/create-checkout-session"
-        method="POST"
-      >
-        <button type="submit">Checkout</button>
-      </form>
-    </section>
-  );
-
   const deleteItemsDB = async (bikeId, listingId) => {
     await axios
       .delete("http://localhost:3001/deleteListing/" + listingId)
@@ -51,21 +23,16 @@ function Payment() {
       });
   };
 
-  // DELETE ORDER
   const deleteOrder = async (orderId) => {
-    // await axios
-    //   .delete("http://localhost:3001/deleteListing/")
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // await axios
-    //   .delete("http://localhost:3001/deleteBike/")
-    //   .then((response) => {
-    //     navigate("/dashboard/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    await axios
+      .delete("http://localhost:3001/deleteOrder/" + orderId)
+      .then((response) => {
+        alert("Order cancelled! The payment was not successful");
+        navigate("/dashboard/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const modifyListing = async (listingId) => {
@@ -107,8 +74,6 @@ function Payment() {
       if (query.get("orderId") != "") deleteOrder(query.get("orderId"));
     } else navigate("/");
   }, []);
-
-  return message ? <Message message={message} /> : <ProductDisplay />;
 }
 
 export default Payment;

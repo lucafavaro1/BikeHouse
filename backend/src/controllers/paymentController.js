@@ -7,8 +7,8 @@ const stripe = require("stripe")(
 
 const YOUR_DOMAIN = "http://localhost:3000";
 
-const checkout = async (req, res) => {
-  console.log("CHECKOUT REACHED");
+const checkout_boost = async (req, res) => {
+  console.log("CHECKOUT BOOST/SPECIALIST REACHED");
   const parameters = req.body;
   const session = await stripe.checkout.sessions.create({
     line_items: [
@@ -17,7 +17,6 @@ const checkout = async (req, res) => {
           currency: "eur",
           product_data: {
             name: parameters.name,
-            // images: [parameters.image],
           },
           unit_amount: parameters.price * 100,
         },
@@ -28,9 +27,39 @@ const checkout = async (req, res) => {
     success_url: `${YOUR_DOMAIN}` + parameters.successLink,
     cancel_url: `${YOUR_DOMAIN}` + parameters.cancelLink,
   });
-  res.json({ url: session.url });
+  res.status(200).json({ url: session.url });
+};
+
+const checkout_basket = async (req, res) => {
+  console.log("CHECKOUT BASKET REACHED");
+  const orderId = req.body;
+
+  // now retrieve everything needed from the orderId
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        // map the elements of the order to the line_items
+        //
+        // price_data: {
+        //   currency: "eur",
+        //   product_data: {
+        //     name: parameters.name,
+        //     // images: [parameters.image],
+        //   },
+        //   unit_amount: parameters.price * 100,
+        // },
+        // quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: `${YOUR_DOMAIN}` + parameters.successLink,
+    cancel_url: `${YOUR_DOMAIN}` + parameters.cancelLink,
+  });
+  res.status(200).json({ url: session.url });
 };
 
 module.exports = {
-  checkout,
+  checkout_boost,
+  checkout_basket,
 };

@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { checkout } = require("../controllers/paymentController.js");
+const {
+  checkout_boost,
+  checkout_basket,
+} = require("../controllers/paymentController.js");
 
-router.post("/create-checkout-session", checkout);
+router.post("/checkout-boost-specialist", checkout_boost);
+router.post("/checkout-basket", checkout_basket);
 
 module.exports = router;

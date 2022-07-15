@@ -1,5 +1,4 @@
 const ItemModel = require("../models/Item");
-const ListingModel = require("../models/Listing");
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
@@ -14,7 +13,7 @@ const imageUpload = async (req, res) => {
     cloudinary.uploader.upload(image.src, function (error, result) {})
   );
 
-  Promise.all(promises).then((results) => res.json(results));
+  Promise.all(promises).then((results) => res.status(200).json(results));
 };
 
 const createItem = async (req, res) => {
@@ -22,14 +21,19 @@ const createItem = async (req, res) => {
   const item = req.body;
   const newItem = new ItemModel.BikeModel(item);
   await newItem.save(); // async request to crease a new user
-  res.json(newItem);
+  res.status(200).json(newItem);
 };
 
 const deleteBike = async (req, res) => {
   console.log("delete bike called");
   const bikeId = req.params.id;
-  await ItemModel.BikeModel.findByIdAndDelete(bikeId);
-  res.json("ok");
+  try {
+    await ItemModel.BikeModel.findByIdAndDelete(bikeId);
+    res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    res.status(404).json("Bike not found, could not be deleted");
+  }
 };
 
 module.exports = {
