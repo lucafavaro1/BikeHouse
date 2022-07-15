@@ -11,6 +11,9 @@ function AccessoryDescription(props) {
 			<Row >
 				<span className="accName">{props.accessory.name}</span>
 			</Row>
+			<Row >
+				<span className="accPrice">&euro; {props.accessory.price}</span>
+			</Row>
 		</div>
 	);
 }

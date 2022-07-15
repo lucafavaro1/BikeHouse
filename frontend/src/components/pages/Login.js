@@ -41,6 +41,7 @@ function Login() {
           userId: response.data.id,
           isVerified: response.data.isVerified,
           averageRating: response.data.averageRating,
+          billingAddress: response.data.billingAddress,
           accessToken: response.data.accessToken,
           refreshToken: response.data.refreshToken,
         })
@@ -48,8 +49,7 @@ function Login() {
       setIsLoading(false);
       navigate(-1);
     } catch (error) {
-      emailRef.current.value = "";
-      passwordRef.current.value = "";
+      setIsLoading(false);
       setErrorMessage("Please make sure your email and password are correct");
       console.log(error);
     }
@@ -84,7 +84,6 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="email"
-                    ref={emailRef}
                     className="form-control"
                     placeholder="Email"
                     onChange={(e) => {
@@ -96,7 +95,6 @@ function Login() {
                 <div className="form-group">
                   <input
                     type="password"
-                    ref={passwordRef}
                     className="form-control"
                     placeholder="Password"
                     onChange={(e) => {

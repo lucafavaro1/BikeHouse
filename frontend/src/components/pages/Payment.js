@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 
 function Payment() {
   const navigate = useNavigate();
@@ -11,11 +11,6 @@ function Payment() {
       <p>{message}</p>
     </section>
   );
-
-  const handleSubmit = async () => {
-    await Axios.post("http://localhost:3001/create-checkout-session")
-    // navigate(resp.url)
-  }
 
   const ProductDisplay = () => (
     <section>
@@ -30,16 +25,47 @@ function Payment() {
         </div>
       </div>
 
-      {/* <button onClick={handleSubmit}> SUBMIT </button> */}
-
-      <form action="http://localhost:3001/create-checkout-session" method="POST">
-        <button type="submit">
-          Checkout
-        </button>
+      <form
+        action="http://localhost:3001/create-checkout-session"
+        method="POST"
+      >
+        <button type="submit">Checkout</button>
       </form>
-
     </section>
   );
+
+  const deleteItemsDB = async (bikeId, listingId) => {
+    await axios
+      .delete("http://localhost:3001/deleteListing/" + listingId)
+      .catch((error) => {
+        console.log(error);
+      });
+
+    await axios
+      .delete("http://localhost:3001/deleteBike/" + bikeId)
+      .then((response) => {
+        navigate("/dashboard/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const modifyListing = async (listingId) => {
+    await axios
+      .post("http://localhost:3001/modifyListing/", {
+        listingId: listingId,
+        isBoosted: true,
+      })
+      .then((response) => {
+        //setIsLoading(false);
+        console.log(response);
+        navigate("/dashboard/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -47,13 +73,17 @@ function Payment() {
 
     if (query.get("success")) {
       setMessage("Order placed! You will receive an email confirmation.");
+      if (query.get("listingId") != "") modifyListing(query.get("listingId"));
     }
 
+    // if the payment was interrupted then delete the item + listing
     if (query.get("canceled")) {
-      setMessage(
-        "Order canceled -- continue to shop around and checkout when you're ready."
-      );
-    }
+      if (query.get("bikeId") != null && query.get("listingId") != null)
+        deleteItemsDB(query.get("bikeId"), query.get("listingId"));
+
+      if (query.get("listingId") != "")
+        navigate("/listing/" + query.get("listingId"));
+    } else navigate("/");
   }, []);
 
   return message ? <Message message={message} /> : <ProductDisplay />;

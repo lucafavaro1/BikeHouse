@@ -9,6 +9,7 @@ import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import { ListItemText } from "@mui/material";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const Logout = () => {
         </IconButton>
       </Tooltip>
       <Menu
-        sx={{ mt: "45px" }}
+        sx={{ mt: "45px", pr: "10px" }}
         id="menu-appbar"
         anchorEl={anchorElUser}
         anchorOrigin={{
@@ -78,11 +79,19 @@ const Logout = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem key="Profile" onClick={handleProfile}>
-          <Typography textAlign="center">My Dashboard</Typography>
+        <MenuItem
+          key="Profile"
+          onClick={handleProfile}
+          sx={{ mr: "10px", ml: "10px" }}
+        >
+          <ListItemText>My Dashboard</ListItemText>
         </MenuItem>
-        <MenuItem key="Sign Out" onClick={handleLogout}>
-          <Typography textAlign="center">Sign Out</Typography>
+        <MenuItem
+          key="Sign Out"
+          onClick={handleLogout}
+          sx={{ mr: "10px", ml: "10px" }}
+        >
+          <ListItemText>Sign Out</ListItemText>
         </MenuItem>
       </Menu>
     </Box>

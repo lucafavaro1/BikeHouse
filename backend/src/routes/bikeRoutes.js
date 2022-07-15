@@ -5,12 +5,12 @@ const router = express.Router();
 
 const {
   createItem,
-  createListing,
+  deleteBike,
   imageUpload,
 } = require("../controllers/bikeControllers");
 
 router.post("/createItem", verify, createItem);
-router.post("/createListing", verify, createListing);
+router.delete("/deleteBike/:id", deleteBike);
 router.post("/image-upload", imageUpload);
 
 module.exports = router;

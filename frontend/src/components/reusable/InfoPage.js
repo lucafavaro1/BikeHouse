@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import { Modal } from "react-bootstrap";
-import ConditionIndicator from "../pages/ConditionIndicator";
+import ConditionIndicator from "./ConditionIndicator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import GppBadIcon from "@mui/icons-material/GppBad";
 

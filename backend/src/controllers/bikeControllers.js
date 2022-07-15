@@ -18,23 +18,22 @@ const imageUpload = async (req, res) => {
 };
 
 const createItem = async (req, res) => {
-  console.log("create item claled");
+  console.log("create bike called");
   const item = req.body;
   const newItem = new ItemModel.BikeModel(item);
   await newItem.save(); // async request to crease a new user
   res.json(newItem);
 };
 
-const createListing = async (req, res) => {
-  console.log("create lisint claled");
-  const listing = req.body;
-  const newListing = new ListingModel(listing);
-  await newListing.save(); // async request to crease a new user
-  res.json(newListing);
+const deleteBike = async (req, res) => {
+  console.log("delete bike called");
+  const bikeId = req.params.id;
+  await ItemModel.BikeModel.findByIdAndDelete(bikeId);
+  res.json("ok");
 };
 
 module.exports = {
   createItem,
-  createListing,
+  deleteBike,
   imageUpload,
 };

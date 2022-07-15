@@ -8,8 +8,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import "../css/Dashboard.css";
 import { Button, Divider, Toolbar } from "@mui/material";
-import { faRocket } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import rocketIcon from "../pictures/rocket.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import GppMaybeIcon from "@mui/icons-material/GppMaybe";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -160,9 +159,10 @@ function Dashboard() {
     return (
       <Card key={index} onClick={() => navigate("/listing/" + listing._id)}>
         <Card.Img variant="top" src={listing.bike.photos[0].url} />
+
         {listing.isBoosted ? (
-          <div className="boostIcon">
-            <FontAwesomeIcon icon={faRocket} size="2x" />
+          <div>
+            <img src={rocketIcon} className="boostIcon" />
           </div>
         ) : (
           <span></span>
@@ -257,6 +257,7 @@ function Dashboard() {
         userId: response.data.id,
         isVerified: response.data.isVerified,
         averageRating: response.data.averageRating,
+        billingAddress: response.data.billingAddress,
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
       })
@@ -345,7 +346,7 @@ function Dashboard() {
                     ":hover": { color: "#2e6076" },
                   }}
                 >
-                  Log Out
+                  Sign Out
                 </Button>
               </Stack>
             </Col>
@@ -374,11 +375,19 @@ function Dashboard() {
                         {" "}
                         <img alt="user icon" src={userIcon} />
                       </Col>
-                      <Col md={6} className="info">
+                      <Col md={7} className="info mr-0 pr-0">
                         {" "}
+                        {console.log(user)}
                         <p>{user.name + " " + user.surname}</p>
                         <p>{moment(user.birthdate).format("DD/MM/YYYY")}</p>
                         <p>{user.email}</p>
+                        <p>
+                          {user.billingAddress.streetName +
+                            " " +
+                            user.billingAddress.houseNumber +
+                            " , " +
+                            user.billingAddress.city}
+                        </p>
                         <Button
                           variant="outlined"
                           onClick={() => {
@@ -398,11 +407,11 @@ function Dashboard() {
                           Change Password
                         </Button>
                       </Col>
-                      <Col md={2}></Col>
+                      <Col md={1}></Col>
                     </div>
                   </Col>
                   <Col>
-                    {user.averageRating.$numberDecimal === 0 ? (
+                    {user.averageRating.$numberDecimal == 0 ? (
                       <p>
                         <u>
                           You dont have any review, start selling/buying now
@@ -493,7 +502,7 @@ function Dashboard() {
                     )}
                   </Col>
                 </Row>
-                <Row className="secondRow">
+                <Row>
                   <Col>
                     <Typography
                       variant="h6"
@@ -559,8 +568,8 @@ function Dashboard() {
                     <a
                       href="" // just to make it blue
                       onClick={() =>
-                      (window.location =
-                        "mailto:bikehouse.feedback@gmail.com")
+                        (window.location =
+                          "mailto:bikehouse.feedback@gmail.com")
                       }
                     >
                       bikehouse.feedback@gmail.com

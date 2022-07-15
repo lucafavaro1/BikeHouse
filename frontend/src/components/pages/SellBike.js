@@ -1,17 +1,18 @@
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
 import axios from "axios";
 import AxiosJWT from "../utils/AxiosJWT";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import "../css/SellBike.css";
 import DropBox from "../../features/Dropbox";
 import ShowImage from "../../features/ShowImage";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@material-ui/core";
-import { selectUser, AUTH_TOKENS, logout } from "../../features/userSlice";
+import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import rocketImg from "../pictures/rocket.png";
 import { Navigate } from "react-router-dom";
+import { listCities } from "cclist";
 
 function SellBike() {
   const user = useSelector(selectUser);
@@ -35,7 +36,6 @@ function SellBike() {
   const [isBoosted, setIsBoosted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [validated, setValidated] = useState(false);
@@ -49,6 +49,33 @@ function SellBike() {
       setStep(2);
     }
     setValidated(true);
+  };
+
+  const payBoost = async (listingId, bikeId) => {
+    console.log(listingId);
+    console.log(bikeId);
+    setIsLoading(true);
+    await axios
+      .post("http://localhost:3001/create-checkout-session/", {
+        name: "Boosting for Ad 🚀",
+        price: 5,
+        successLink: "/listing/" + listingId,
+        cancelLink:
+          "/checkout/?canceled=true" +
+          "&" +
+          "bikeId=" +
+          bikeId +
+          "&" +
+          "listingId=" +
+          listingId,
+      })
+      .then((response) => {
+        setIsLoading(false);
+        window.location = response.data.url;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const uploadImages = () => {
@@ -102,6 +129,7 @@ function SellBike() {
       photos,
       frameVerified: false,
       condition: 0,
+      isBoosted,
     })
       .then((response) => {
         console.log(`Item successfully added`);
@@ -133,7 +161,8 @@ function SellBike() {
     })
       .then((response) => {
         console.log(`Listing successfully added`);
-        navigate("/listing/" + response.data._id);
+        if (isBoosted) payBoost(response.data._id, itemId);
+        else navigate("/listing/" + response.data._id);
       })
       .catch((error) => {
         console.log(error);
@@ -146,6 +175,14 @@ function SellBike() {
     if (conditionVerification) finalPrice = finalPrice + 0.03 * price; // decide how much to get as fee
     if (frameVerification) finalPrice = finalPrice + 0.03 * price; // decide how much to get as fee
     return finalPrice;
+  }
+
+  function checkShown() {
+    let check = false;
+    photos.forEach((photo) => {
+      check = photo.toShow || check;
+    });
+    return check;
   }
 
   function ErrorMessage({ message }) {
@@ -255,12 +292,21 @@ function SellBike() {
                   <Form.Label>Location</Form.Label>
                   <Form.Control
                     required
-                    type="text"
-                    placeholder="Enter Location"
+                    as="select"
+                    className="col"
+                    style={{ height: 38 + "px" }}
                     onChange={(e) => {
                       setLocation(e.target.value);
                     }}
-                  />
+                  >
+                    <option value="">Select City</option>
+                    {/* since they are 780 cities and are ordered by population, I keep the first 200 that have > 50k inhabitants */}
+                    {listCities("DE", { limit: 200 })
+                      .sort()
+                      .map((city) => {
+                        return <option value={city}>{city}</option>;
+                      })}
+                  </Form.Control>
                 </Form.Group>
               </Row>
 
@@ -584,6 +630,10 @@ function SellBike() {
                     setErrorMessage(
                       "Please upload pictures of your bike before moving to the next step"
                     );
+                  else if (!checkShown())
+                    setErrorMessage(
+                      "Please select at least one picture to be shown before moving to the next step"
+                    );
                   else setStep(3);
                 }}
               >
@@ -617,7 +667,6 @@ function SellBike() {
                   variant="primary"
                   className="boost_now"
                   onClick={() => {
-                    alert("Implement payment");
                     setIsBoosted(true);
                   }}
                 >
