@@ -16,9 +16,14 @@ import Summary from "../../reusable/Summary";
 
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { selectCart } from "../../../features/cartSlice";
+import {removeFromCart} from "../../../features/cartSlice";
+import { useSelector } from "react-redux";
 
 function ShoppingCart() {
   const [value, setValue] = React.useState(2);
+  const cart = useSelector(selectCart);
+  console.log("item in cart", cart)
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;

@@ -7,13 +7,14 @@ import SellIcon from "@mui/icons-material/Sell";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import { Modal } from "react-bootstrap";
 import ConditionIndicator from "./ConditionIndicator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import GppBadIcon from "@mui/icons-material/GppBad";
+import { addToCart } from "../../features/cartSlice";
 
 function InfoPage({
   bikeId,
@@ -34,22 +35,26 @@ function InfoPage({
   const [modalShow, setModalShow] = useState(false);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
-  const data = {
-    bikeId,
-    isBoosted,
-    sellerId,
-    listingId,
-    location,
-    sellerName,
-    frameVerified,
-    bikeCondition,
-    price,
-    description,
-    brand,
-    model,
-    sellerVerified,
-  }
-  const handleBasket = (data) => {}
+  const dispatch = useDispatch();
+  const handleBasket = (e) => {
+    e.preventDefault();
+    const data = {
+      bikeId,
+      isBoosted,
+      sellerId,
+      listingId,
+      location,
+      sellerName,
+      frameVerified,
+      bikeCondition,
+      price,
+      description,
+      brand,
+      model,
+      sellerVerified,
+    }
+    dispatch(addToCart(data))
+  };
   const payBoost = async (listingId) => {
     console.log(listingId);
     setIsLoading(true);
@@ -231,7 +236,7 @@ function InfoPage({
                 marginTop: "30px",
                 backgroundColor: "#2e6076",
               }}
-              onClick= {handleBasket(data)}
+              onClick= {handleBasket}
             >
               Add to basket
             </Button>

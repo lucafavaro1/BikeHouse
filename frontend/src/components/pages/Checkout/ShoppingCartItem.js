@@ -87,8 +87,8 @@ function ShoppingCartItem({ key, product }) {
           )}
           {product.category == "Bike" && (
             <Grid item xs={12} sm={12} md={12} lg={12}>
-              <Select defaultValue={10} label="Select Your Insurance Type">
-                <MenuItem value={10}>No Insurance Selected</MenuItem>
+              <Select onChange={handleInsurance} defaultValue={0} label="Select Your Insurance Type">
+                <MenuItem value={0}>No Insurance Selected</MenuItem>
                 <MenuItem value={20}>Generic Company Insurance 1</MenuItem>
                 <MenuItem value={30}>Generic Company Insurance 2</MenuItem>
               </Select>

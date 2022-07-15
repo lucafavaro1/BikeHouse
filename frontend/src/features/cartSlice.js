@@ -27,7 +27,6 @@ export const cartSlice = createSlice({
       console.log("cart state", state.cart)
       state.cart= [...state.cart, action.payload]
       console.log("after cart state", state.cart)
-
     },
     removeFromCart: (state,action) => {
       // state.loggedIn = false;
