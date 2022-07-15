@@ -1,0 +1,9 @@
+.actions__deleteItemBtn {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all ease-in-out 0.7s;
+  outline: none;
+}

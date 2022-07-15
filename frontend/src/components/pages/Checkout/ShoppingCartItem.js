@@ -10,7 +10,7 @@ import { IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-
+import '../../css/CartItem.css'
 import Select from "@mui/material/Select";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   cover: {
     width: 151,
   },
+  
 }));
 
 function ShoppingCartItem({ key, product }) {
@@ -53,9 +54,21 @@ function ShoppingCartItem({ key, product }) {
         >
           {product.category}
         </Typography>
-        <Typography variant="div" component="h2">
-          {product.name}
-        </Typography>
+        <Grid container>
+          <Grid item xs={11}>
+            <Typography variant="div" component="h2">
+              {product.name}
+            </Typography>
+          </Grid>
+          <Grid item xs={1} className='cartItem__actions'>
+            <button
+              // onClick={() => dispatch(removeFromCart(cart.id))}
+              className='actions__deleteItemBtn'
+            >
+              <DeleteIcon/>
+            </button>
+          </Grid>
+        </Grid>
         <Typography variant="subtitle2">
           <hr />
         </Typography>
@@ -95,15 +108,6 @@ function ShoppingCartItem({ key, product }) {
             <Typography variant="h6" component="div" color="secondary">
               €{product.price}
             </Typography>
-          </Grid>
-          <Grid item xs={10}/>
-          <Grid item xs={2} className='cartItem__actions'>
-            <button
-              onClick={() => dispatch(removeFromCart(cart.id))}
-              className='actions__deleteItemBtn'
-            >
-              <DeleteIcon/>
-            </button>
           </Grid>
         </Grid>
       </CardContent>
