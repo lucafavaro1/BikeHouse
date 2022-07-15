@@ -13,12 +13,11 @@
 .accessories .card {
   margin: 1.5%;
   min-width: 22%;
-  max-height: 100%;
   cursor: pointer;
 }
 
 .accessories .card-img-top {
-  max-height: 18rem;
+  height: 17rem;
 }
 
 .accessories .pageBtn {

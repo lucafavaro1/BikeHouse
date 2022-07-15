@@ -22,8 +22,6 @@ const getListings = async (req, res) => {
   console.log(bikeFilters);
 
   let listings = await ListingModel.find(listingFilters) // fetch listings
-    .limit(perPage)
-    .skip(perPage * page)
     .sort(
       Object.assign({ isBoosted: -1 }, getPriceSortingObject(sortingCriterion))
     )
@@ -33,10 +31,20 @@ const getListings = async (req, res) => {
 
   listings = await fetchBikesForListings(listings, bikeFilters);
 
+  listings = applyPagination(listings, page, perPage)
+
   listings = sortListings(listings, sortingCriterion);
 
   return res.status(200).json(listings);
 };
+
+function applyPagination(listings, page, perPage) {
+  let startIndex = page * perPage
+  let endIndex = page * perPage + perPage
+
+  listings = listings.slice(startIndex, endIndex)
+  return listings
+}
 
 function sortListings(listings, criterion) {
   listings.sort(function (listing1, listing2) {
@@ -47,12 +55,15 @@ function sortListings(listings, criterion) {
       if (criterion == "default") {
         if (listing1.bike.condition > listing2.bike.condition) return -1;
         else if (listing1.bike.condition < listing2.bike.condition) return 1;
-        else {
-          // both boosted + same condition
-          if (new Date(listing1.createdAt) > new Date(listing2.createdAt))
-            return -1;
-          else if (new Date(listing1.createdAt) < new Date(listing2.createdAt))
-            return 1;
+        else { // both boosted + same condition
+          if (listing1.bike.frameVerified && !listing2.bike.frameVerified) return -1;
+          else if (!listing1.bike.frameVerified && listing2.bike.frameVerified) return 1;
+          else { // both boosted + same condition + both passed frame verification
+            if (new Date(listing1.createdAt) > new Date(listing2.createdAt))
+              return -1;
+            else if (new Date(listing1.createdAt) < new Date(listing2.createdAt))
+              return 1;
+          }
         }
       } else if (criterion == "priceLH") {
         if (listing1.finalPrice > listing2.finalPrice) return 1;
@@ -79,6 +90,14 @@ function getPriceSortingObject(criterion) {
 
 function generateBikeFilters(rawQuery) {
   var filter = {};
+
+  if (rawQuery.searchKeyword) {
+    filter.$or = filter.$or || [];
+    filter.$or = [
+      { model: { $regex: rawQuery.searchKeyword, $options: 'i' } },
+      { brand: { $regex: rawQuery.searchKeyword, $options: 'i' } }
+    ]
+  }
 
   if (rawQuery.verifiedOnly) {
     filter.frameToBeVerified = filter.frameToBeVerified || {};

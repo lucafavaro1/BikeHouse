@@ -22,7 +22,6 @@
 }
 
 .listings .filtersPanel {
-  background-color: rgb(229, 229, 229);
   margin-left: 3rem;
   margin-top: 3.2rem;
   margin-bottom: 3rem;
@@ -32,6 +31,7 @@
 }
 
 .listings .filtersTitle {
+  background-color: rgb(229, 229, 229);
   padding: 5% 0 5% 0;
   text-align: center;
   margin: 0;
@@ -43,6 +43,11 @@
 
 .listings .textField {
   max-width: 100%;
+}
+
+.listings .accordion {
+  background-color: rgb(229, 229, 229);
+  padding-bottom: 0.2rem;
 }
 
 .listings .accordion-body {
@@ -136,17 +141,16 @@
 .listings .needHelpContainer {
   z-index: 999;
   position: fixed;
-  width: 8rem;
+  width: 6rem;
   right: 7%;
   bottom: 2%;
   cursor: pointer;
-
 }
 
 .listings .needHelp {
   background-color: rgba(249, 249, 249, 0.623);
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1rem;
   padding: 7%;
   border-radius: 5%;
 }
@@ -158,6 +162,18 @@
 .listings .needHelp img {
   padding: 0;
   margin: 0;
-  width: 90%;
-  height: 100%;
+  width: 80%;
+  height: 90%;
+}
+
+.listings .searchInfo {
+  padding-top: 1%
+}
+
+.listings .searchInfo button{
+  height: 1.25rem;
+  width: 1.25rem;
+  line-height: 0;
+  padding: 0;
+  margin: 0;
 }
