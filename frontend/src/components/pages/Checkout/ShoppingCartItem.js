@@ -65,11 +65,13 @@ function ShoppingCartItem({ key, product }) {
               Quantity
             </Typography>
           </Grid>
+          {product.category =="Accessory" && (
           <Grid item xs={1} sm={1} md={1} lg={1}>
             <Typography variant="h6" component="div">
               {product.quantity}
             </Typography>
           </Grid>
+          )}
           {product.category == "Bike" && (
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Select defaultValue={10} label="Select Your Insurance Type">
