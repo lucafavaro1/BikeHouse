@@ -16,22 +16,40 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import GppBadIcon from "@mui/icons-material/GppBad";
 
 function InfoPage({
-  sellerId,
   bikeId,
   isBoosted,
+  sellerId,
   listingId,
   location,
   sellerName,
   frameVerified,
   bikeCondition,
   price,
+  description,
+  brand,
+  model,
   sellerVerified,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
-
+  const data = {
+    bikeId,
+    isBoosted,
+    sellerId,
+    listingId,
+    location,
+    sellerName,
+    frameVerified,
+    bikeCondition,
+    price,
+    description,
+    brand,
+    model,
+    sellerVerified,
+  }
+  const handleBasket = (data) => {}
   const payBoost = async (listingId) => {
     console.log(listingId);
     setIsLoading(true);
@@ -213,6 +231,7 @@ function InfoPage({
                 marginTop: "30px",
                 backgroundColor: "#2e6076",
               }}
+              onClick= {handleBasket(data)}
             >
               Add to basket
             </Button>

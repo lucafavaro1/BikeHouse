@@ -11,7 +11,7 @@ function ShippingAddressPage({ setShippingRate }) {
     addressLine2: "",
 
     city: "",
-    state: "",
+    phone: "",
     zip: "",
     country: "",
   });
@@ -84,8 +84,8 @@ function ShippingAddressPage({ setShippingRate }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              name="state"
-              label="Province/State"
+              name="phone"
+              label="Phone"
               variant="outlined"
               onChange={handleChange}
               fullWidth
