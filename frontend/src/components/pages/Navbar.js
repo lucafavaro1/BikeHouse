@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "./Logout";
+import "../css/Navbar.css";
+
 
 const pages = {
   buy: "Buy a Bike",
@@ -22,6 +24,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [searchString, setSearchString] = useState("");
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -37,6 +40,12 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const submitSearch = (e) => {
+    e.preventDefault()
+    navigate('/buy', { state: { searchString } });
+    window.location.reload(false);
+  }
 
   return (
     <AppBar className="appbar" position="sticky" sx={{ bgcolor: "#3d3d3d" }}>
@@ -71,7 +80,7 @@ const Navbar = () => {
                   key={label}
                   sx={{
                     my: 2,
-                    mx: 5,
+                    mx: 2,
                     color: "white",
                     display: "block",
                     fontSize: "medium",
@@ -83,6 +92,19 @@ const Navbar = () => {
               </Link>
             ))}
           </Box>
+
+          <div className="navbar">
+            <div className="navbar searchBar">
+              <form className="form-inline" onSubmit={submitSearch}>
+                <input className="form-control"
+                  type="search"
+                  placeholder="Search for a bike"
+                  onChange={(e) => {
+                    setSearchString(e.target.value);
+                  }} />
+              </form>
+            </div>
+          </div>
 
           {user ? (
             <Logout />
