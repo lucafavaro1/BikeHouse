@@ -411,7 +411,7 @@ function Dashboard() {
                     </div>
                   </Col>
                   <Col>
-                    {user.averageRating.$numberDecimal === 0 ? (
+                    {user.averageRating.$numberDecimal == 0 ? (
                       <p>
                         <u>
                           You dont have any review, start selling/buying now
@@ -568,8 +568,8 @@ function Dashboard() {
                     <a
                       href="" // just to make it blue
                       onClick={() =>
-                      (window.location =
-                        "mailto:bikehouse.feedback@gmail.com")
+                        (window.location =
+                          "mailto:bikehouse.feedback@gmail.com")
                       }
                     >
                       bikehouse.feedback@gmail.com
