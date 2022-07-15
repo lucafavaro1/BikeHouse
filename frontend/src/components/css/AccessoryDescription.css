@@ -14,3 +14,15 @@
 .accessoryDesc .accPrice {
 	font-size: 1.25rem;
 }
+
+.accessoryDesc .addToCartBtn {
+	background-color: var(--bikehouse-blue);
+	color: white;
+	line-height: 0;
+	padding: 5%;
+}
+  
+.accessoryDesc .addToCartBtn:hover {
+	background-color: gold;
+	color: black;
+}
