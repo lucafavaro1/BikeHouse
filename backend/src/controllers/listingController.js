@@ -7,14 +7,30 @@ const createListing = async (req, res) => {
   const listing = req.body;
   const newListing = new ListingModel(listing);
   await newListing.save(); // async request to crease a new user
-  res.json(newListing);
+  res.status(200).json(newListing);
 };
 
 const deleteListing = async (req, res) => {
   console.log("delete listing called");
   const listingId = req.params.id;
-  await ListingModel.findByIdAndDelete(listingId);
-  res.json("ok");
+  try {
+    await ListingModel.findByIdAndDelete(listingId);
+    res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    res.status(404).json("Listing not found, could not be deleted");
+  }
+};
+
+const getListing = async (req) => {
+  console.log("get listing (one) called");
+  const listingId = req;
+  try {
+    const listing = await ListingModel.findById(listingId).exec();
+    return listing;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // @desc Get listings
@@ -358,6 +374,7 @@ module.exports = {
   createListing,
   deleteListing,
   getListings,
+  getListing,
   getListingById,
   getListingsBySeller,
   modifyListing,

@@ -1,0 +1,29 @@
+const OrderModel = require("../models/Order");
+
+const deleteOrder = async (req, res) => {
+  console.log("delete order called");
+  const orderId = req.params.id;
+  try {
+    await OrderModel.findByIdAndDelete(orderId).exec();
+    res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    res.status(404).json("Order not found, could not be deleted");
+  }
+};
+
+const getOrder = async (req) => {
+  console.log("get order called");
+  const orderId = req;
+  try {
+    const order = await OrderModel.findById(orderId).exec();
+    return order;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  getOrder,
+  deleteOrder,
+};

@@ -500,6 +500,9 @@ function Dashboard() {
                         <Col md={2}></Col>
                       </div>
                     )}
+                    <div className="balance">
+                      <p>Balance: TO IMPLEMENT </p>
+                    </div>
                   </Col>
                 </Row>
                 <Row>

@@ -3,7 +3,6 @@ const http = require("http");
 const mongoose = require("mongoose");
 const cors = require("cors"); // connect API to frontend
 const config = require("./src/config");
-// const middlewares = require('./middlewares')
 
 const api = express();
 
@@ -27,6 +26,7 @@ api.use("/", require("./src/routes/bikeRoutes"));
 api.use("/", require("./src/routes/listingRoutes"));
 api.use("/", require("./src/routes/paymentRoutes"));
 api.use("/", require("./src/routes/accessoryRoutes"));
+api.use("/", require("./src/routes/orderRoutes"));
 
 server.on("listening", () => {
   console.log(`Server running port ${config.port}`);

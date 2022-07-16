@@ -7,7 +7,7 @@ const {
   createItem,
   deleteBike,
   imageUpload,
-} = require("../controllers/bikeControllers");
+} = require("../controllers/bikeController");
 
 router.post("/createItem", verify, createItem);
 router.delete("/deleteBike/:id", deleteBike);

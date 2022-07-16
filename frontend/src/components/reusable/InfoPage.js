@@ -61,7 +61,7 @@ function InfoPage({
     console.log(listingId);
     setIsLoading(true);
     await axios
-      .post("http://localhost:3001/create-checkout-session/", {
+      .post("http://localhost:3001/checkout-boost-specialist/", {
         name: "Boosting for Ad 🚀",
         price: 5,
         successLink: "/checkout/?success=true&listingId=" + listingId,

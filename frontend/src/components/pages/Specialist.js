@@ -42,7 +42,7 @@ const steps = [
 ];
 
 const paySpecialist = async () => {
-  await Axios.post("http://localhost:3001/create-checkout-session/", {
+  await Axios.post("http://localhost:3001/checkout-boost-specialist/", {
     name: "Specialist appointment ⏰",
     price: 20,
     successLink: "/dashboard",
