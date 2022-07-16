@@ -5,19 +5,23 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-import { Autocomplete, FormControlLabel, IconButton, TextField } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import {
+  Autocomplete,
+  FormControlLabel,
+  IconButton,
+  TextField,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import '../../css/CartItem.css'
+import "../../css/CartItem.css";
 import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
-import {removeFromCart} from "../../../features/cartSlice";
-import FormControl from '@mui/material/FormControl';
+import { removeFromCart } from "../../../features/cartSlice";
+import FormControl from "@mui/material/FormControl";
 import { Row } from "react-bootstrap";
-import Switch from '@mui/material/Switch';
+import Switch from "@mui/material/Switch";
 import { Box, Divider, Radio, RadioGroup, Typography } from "@material-ui/core";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,54 +38,60 @@ const useStyles = makeStyles((theme) => ({
   cover: {
     width: 151,
   },
-  
 }));
 
 const options = [
   {
-    label: 'No Insurance',
-    value: 0
+    label: "No Insurance",
+    value: 0,
   },
   {
-    label: 'GetSafe - €40/year ',
-    value: 1
+    label: "GetSafe - €40/year ",
+    value: 1,
   },
   {
-    label: 'Feather - €30/year',
-    value: 2
+    label: "Feather - €30/year",
+    value: 2,
   },
   {
-    label: 'Qover - €25/year',
-    value: 3
+    label: "Qover - €25/year",
+    value: 3,
   },
-]
+];
 
-function ShoppingCartItem({ key, productKey, product, handleInsurance, handleShipping }) {
+function ShoppingCartItem({
+  key,
+  productKey,
+  product,
+  handleInsurance,
+  handleShipping,
+}) {
   const classes = useStyles();
-  const category = 'Bike'
-  const [insurance,setInsurance] =  useState(0);
+  const category = "Bike";
+  const [insurance, setInsurance] = useState(0);
   const dispatch = useDispatch();
   const id = product.listingId;
+  const [shipping, setShipping] = useState("paidDelivery");
 
   // const [checked, setChecked] = useState(false);
   // const handleChange = (event) => {
   //   event.preventDefault()
   //   setChecked(event.target.checked);
   // };
-  
+
   const handleRemove = (e) => {
     e.preventDefault();
-    console.log("id in handle", id)
-    dispatch(removeFromCart(id))
-  } 
-  
+    console.log("id in handle", id);
+    dispatch(removeFromCart(id));
+  };
+
   const handleSelect = (e) => {
-    e.preventDefault()
-    setInsurance(e.target.value)
-    console.log(e.target.value)
-    handleInsurance(productKey,e.target.value); 
-  }
-  
+    e.preventDefault();
+    setInsurance(e.target.value);
+    console.log(e.target.value);
+    handleInsurance(productKey, e.target.value);
+  };
+
   // useEffect(() => {
   //   }, [insurance]);
 
@@ -106,17 +116,14 @@ function ShoppingCartItem({ key, productKey, product, handleInsurance, handleShi
           {category}
         </Typography>
         <Grid container>
-          <Grid item xs={10 }>
+          <Grid item xs={10}>
             <Typography variant="div" component="h2">
-              {product.brand + ' ' + product.model}
+              {product.brand + " " + product.model}
             </Typography>
           </Grid>
-          <Grid item xs={2} className='cartItem__actions'>
-            <button
-              onClick={handleRemove}
-              className='actions__deleteItemBtn'
-            >
-              <DeleteIcon/>
+          <Grid item xs={2} className="cartItem__actions">
+            <button onClick={handleRemove} className="actions__deleteItemBtn">
+              <DeleteIcon />
             </button>
           </Grid>
         </Grid>
@@ -129,7 +136,7 @@ function ShoppingCartItem({ key, productKey, product, handleInsurance, handleShi
               variant="body1"
               component="div"
               style={{ fontWeight: "bold" }}
-              >
+            >
               Price Per Item
             </Typography>
           </Grid>
@@ -141,18 +148,18 @@ function ShoppingCartItem({ key, productKey, product, handleInsurance, handleShi
         </Grid>
         <br />
         <Grid container>
-          {category =="Accessory" && (
+          {category == "Accessory" && (
             <>
-            <Grid item xs={11} sm={11} md={11} lg={11}>
-              <Typography variant="body1" component="div">
-                Quantity
-              </Typography>
-            </Grid>
-            <Grid item xs={1} sm={1} md={1} lg={1}>
-              <Typography variant="h6" component="div">
-                {product.quantity}
-              </Typography>
-            </Grid>
+              <Grid item xs={11} sm={11} md={11} lg={11}>
+                <Typography variant="body1" component="div">
+                  Quantity
+                </Typography>
+              </Grid>
+              <Grid item xs={1} sm={1} md={1} lg={1}>
+                <Typography variant="h6" component="div">
+                  {product.quantity}
+                </Typography>
+              </Grid>
             </>
           )}
           {category == "Bike" && (
@@ -162,10 +169,10 @@ function ShoppingCartItem({ key, productKey, product, handleInsurance, handleShi
                 onChange={handleChange}
                 inputProps={{ 'aria-label': 'controlled' }}
               /> */}
-              <Select
+              <FormControl>
+                <Select
                   value={insurance}
                   // disabled={!checked}
-                  defaultValue={3}
                   label="Insurance"
                   variant="outlined"
                   onChange={handleSelect}
@@ -175,38 +182,47 @@ function ShoppingCartItem({ key, productKey, product, handleInsurance, handleShi
                   // autoFocus = {false}
                   // onFocus
                 >
-                {options.map((option) => (
-                  <MenuItem value={option.value}>{option.label}</MenuItem>
-                ))}
-               </Select> 
+                  {options.map((option, index) => (
+                    <MenuItem key={index} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Grid>
           )}
         </Grid>
         <Grid container>
-        <RadioGroup defaultValue={"freeDelivery"}>
-          <div class="row  mt-3 mb-3 ml-2 mr-2">
-            <div class="col border border-dark">
-              <Radio
-                label="Free Delivery"
-                value="freeDelivery"
-                onClick={() => handleShipping(productKey,0)}
-              />
-              <span>Free Delivery</span>
-              <Typography variant="body2">Standard delivery</Typography>
+          <RadioGroup value={shipping}>
+            <div class="row  mt-3 mb-3 ml-2 mr-2">
+              <div class="col border border-dark">
+                <Radio
+                  label="Free Delivery"
+                  value="freeDelivery"
+                  onClick={() => {
+                    setShipping("freeDelivery");
+                    handleShipping(productKey, 0);
+                  }}
+                />
+                <span>Free Delivery</span>
+                <Typography variant="body2">Standard delivery</Typography>
+              </div>
+              <div class="col  border border-dark ml-3">
+                <Radio
+                  label="Fast Delivery"
+                  value="paidDelivery"
+                  onClick={() => {
+                    setShipping("paidDelivery");
+                    handleShipping(productKey, 20);
+                  }}
+                />
+                <span>Fast Delivery - </span>
+                <Typography variant="body2">
+                  Delivery within 2 working days
+                </Typography>
+              </div>
             </div>
-            <div class="col  border border-dark ml-3">
-              <Radio
-                label="Fast Delivery"
-                value="paidDelivery"
-                onChange={() => handleShipping(productKey,20)}
-              />
-              <span>Fast Delivery - </span>
-              <Typography variant="body2">
-                Delivery within 2 working days
-              </Typography>
-            </div>
-          </div>
-        </RadioGroup>
+          </RadioGroup>
         </Grid>
       </CardContent>
     </Card>
