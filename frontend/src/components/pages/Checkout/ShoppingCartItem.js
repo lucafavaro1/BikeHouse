@@ -68,10 +68,8 @@ function ShoppingCartItem({
 }) {
   const classes = useStyles();
   const category = "Bike";
-  const [insurance, setInsurance] = useState(0);
   const dispatch = useDispatch();
   const id = product.listingId;
-  const [shipping, setShipping] = useState("freeDelivery");
 
   // const [checked, setChecked] = useState(false);
   // const handleChange = (event) => {
@@ -87,8 +85,7 @@ function ShoppingCartItem({
 
   const handleSelect = (e) => {
     e.preventDefault();
-    setInsurance(e.target.value);
-    console.log(e.target.value);
+    console.log("handleSelect", e.target.value);
     handleInsurance(productKey, e.target.value);
   };
 
@@ -171,7 +168,7 @@ function ShoppingCartItem({
               /> */}
               <FormControl>
                 <Select
-                  value={insurance}
+                  value={product.insuranceKey}
                   // disabled={!checked}
                   label="Insurance"
                   variant="outlined"
@@ -193,14 +190,13 @@ function ShoppingCartItem({
           )}
         </Grid>
         <Grid container>
-          <RadioGroup value={shipping}>
+          <RadioGroup value={product.shipping}>
             <div class="row  mt-3 mb-3 ml-2 mr-2">
               <div class="col border border-dark">
                 <Radio
                   label="Free Delivery"
-                  value="freeDelivery"
+                  value={0}
                   onClick={() => {
-                    setShipping("freeDelivery");
                     handleShipping(productKey, 0);
                   }}
                 />
@@ -210,9 +206,8 @@ function ShoppingCartItem({
               <div class="col  border border-dark ml-3">
                 <Radio
                   label="Fast Delivery"
-                  value="paidDelivery"
+                  value={20}
                   onClick={() => {
-                    setShipping("paidDelivery");
                     handleShipping(productKey, 20);
                   }}
                 />

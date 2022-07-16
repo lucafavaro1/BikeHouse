@@ -17,7 +17,7 @@ import Summary from "../../reusable/Summary";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { selectCart } from "../../../features/cartSlice";
-import {removeFromCart} from "../../../features/cartSlice";
+import { removeFromCart } from "../../../features/cartSlice";
 import { useSelector } from "react-redux";
 import { useSelect } from "@mui/base";
 
@@ -63,28 +63,28 @@ function ShoppingCart() {
     }
   };
 
-  const [shippingRate, setShippingRate] = useState(0);
-
   const cart = useSelector(selectCart);
-  let productArray = []
+  let productArray = [];
   cart.forEach((item) => {
-      productArray.push({...item,insurance:0})
-    });
+    productArray.push({ ...item, insurance: 0, shippingPrice: 0 });
+  });
   const [products, setProducts] = useState(productArray);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
-  
 
   useEffect(() => {
-
-    let productArray = []
+    let productArray = [];
     cart.forEach((item) => {
-        productArray.push({...item,insurance:0, shipping:0})
+      productArray.push({
+        ...item,
+        insurance: 0,
+        insuranceKey: 0,
+        shipping: 0,
       });
-      setProducts(productArray)
-
-  }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
+    });
+    setProducts(productArray);
+  }, [cart]);
 
   return (
     <>
@@ -102,10 +102,15 @@ function ShoppingCart() {
               <Tab label="Payment" />
             </Tabs>
             <TabPanel value={value} index={0}>
-              {<ShoppingCartTab products={products} setProducts={setProducts}/>}
+              {
+                <ShoppingCartTab
+                  products={products}
+                  setProducts={setProducts}
+                />
+              }
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <ShippingAddressPage  />
+              <ShippingAddressPage />
             </TabPanel>
             <TabPanel value={value} index={2}>
               <PaymentOptionsPage />

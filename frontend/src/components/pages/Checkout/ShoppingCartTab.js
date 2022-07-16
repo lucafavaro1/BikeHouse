@@ -19,6 +19,7 @@ export default function ShoppingCartTab({ products, setProducts }) {
     const newState = [...products];
     let newValue = products[productKey];
     newValue.insurance = insProviders[insuranceKey];
+    newValue.insuranceKey = insuranceKey;
     newState[productKey] = newValue;
     setProducts(newState);
     console.log(products);
