@@ -3,8 +3,12 @@ const { verify } = require("../controllers/userController");
 
 const router = express.Router();
 
-const { deleteOrder } = require("../controllers/orderController");
+const {
+  deleteOrder,
+  getOrdersByBuyer,
+} = require("../controllers/orderController");
 
 router.delete("/deleteOrder/:id", deleteOrder);
+router.get("/getOrdersByBuyer/:id", getOrdersByBuyer);
 
 module.exports = router;

@@ -12,6 +12,23 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const getOrdersByBuyer = async (req, res) => {
+  console.log("get order by buyer called");
+  const buyerId = req.params.id;
+  try {
+    const orders = await OrderModel.find({ buyer: buyerId });
+    if (orders.length == 0) {
+      return res.status(200).json("You have no orders");
+    }
+    let newOrders = [...orders];
+    newOrders.reverse();
+    res.status(200).json(newOrders);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json("Buyer or orders not found");
+  }
+};
+
 const getOrder = async (req) => {
   console.log("get order called");
   const orderId = req;
@@ -25,5 +42,6 @@ const getOrder = async (req) => {
 
 module.exports = {
   getOrder,
+  getOrdersByBuyer,
   deleteOrder,
 };
