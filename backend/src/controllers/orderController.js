@@ -12,15 +12,14 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-const getOrder = async (req, res) => {
+const getOrder = async (req) => {
   console.log("get order called");
-  const orderId = req.params.id;
+  const orderId = req;
   try {
     const order = await OrderModel.findById(orderId).exec();
-    res.status(200).json(order);
+    return order;
   } catch (error) {
     console.log(error);
-    res.status(404).json("Order not found");
   }
 };
 

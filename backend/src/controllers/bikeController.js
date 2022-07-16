@@ -36,7 +36,33 @@ const deleteBike = async (req, res) => {
   }
 };
 
+const getBike = async (req) => {
+  console.log("get bike (one) called");
+  const bikeId = req;
+  try {
+    const bike = await ItemModel.BikeModel.findById(bikeId).exec();
+    return bike;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getAccessory = async (req) => {
+  console.log("get bike (one) called");
+  const accessoryId = req;
+  try {
+    const accessory = await ItemModel.AccessoryModel.findById(
+      accessoryId
+    ).exec();
+    return accessory;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
+  getBike,
+  getAccessory,
   createItem,
   deleteBike,
   imageUpload,

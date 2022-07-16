@@ -22,6 +22,17 @@ const deleteListing = async (req, res) => {
   }
 };
 
+const getListing = async (req) => {
+  console.log("get listing (one) called");
+  const listingId = req;
+  try {
+    const listing = await ListingModel.findById(listingId).exec();
+    return listing;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // @desc Get listings
 // @route GET /listing
 const getListings = async (req, res) => {
@@ -363,6 +374,7 @@ module.exports = {
   createListing,
   deleteListing,
   getListings,
+  getListing,
   getListingById,
   getListingsBySeller,
   modifyListing,
