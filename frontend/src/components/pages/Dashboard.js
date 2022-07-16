@@ -9,6 +9,7 @@ import Stack from "@mui/material/Stack";
 import "../css/Dashboard.css";
 import { Button, Divider, Toolbar } from "@mui/material";
 import rocketIcon from "../pictures/rocket.png";
+import underVerificationIcon from "../pictures/under_verification.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import GppMaybeIcon from "@mui/icons-material/GppMaybe";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -227,6 +228,15 @@ function Dashboard() {
           <span></span>
         )}
 
+        {listing.bike.conditionToBeVerified ||
+        listing.bike.frameToBeVerified ? (
+          <div>
+            <img src={underVerificationIcon} className="boostIcon" />
+          </div>
+        ) : (
+          <span></span>
+        )}
+
         <Card.Body>
           <Card.Text>
             <ListingDescription listing={listing}></ListingDescription>
@@ -314,6 +324,7 @@ function Dashboard() {
         email: email,
         loggedIn: true,
         userId: response.data.id,
+        balance: response.data.balance,
         isVerified: response.data.isVerified,
         averageRating: response.data.averageRating,
         billingAddress: response.data.billingAddress,
@@ -561,8 +572,27 @@ function Dashboard() {
                         <Col md={2}></Col>
                       </div>
                     )}
-                    <div className="balance">
-                      <p>Balance: TO IMPLEMENT </p>
+                    <p></p>
+                    <div className="row balance mt-4">
+                      <div className="col-5 p-0">
+                        <p style={{ alignContent: "center", margin: 0 }}>
+                          Balance: {user.balance} €{" "}
+                        </p>
+                      </div>
+                      {user.balance != 0 ? (
+                        <Button
+                          variant="contained"
+                          style={{
+                            marginTop: -5 + "px",
+                            backgroundColor: "#2e6076",
+                          }}
+                        >
+                          {" "}
+                          Redeem
+                        </Button>
+                      ) : (
+                        <p></p>
+                      )}
                     </div>
                   </Col>
                 </Row>
@@ -623,7 +653,7 @@ function Dashboard() {
               <TabPanel value={value} index={2}>
                 {orders.length == 0 ? (
                   <div>
-                    <h3>Your Orders History is empty! </h3>
+                    <h3>Your orders history is empty! </h3>
                     <p> After placing the first order you will find it here.</p>
                   </div>
                 ) : (
