@@ -3,7 +3,7 @@ import React from "react";
 import { TextField, Grid } from "@mui/material";
 import { useState } from "react";
 
-function ShippingAddressPage({ setShippingRate }) {
+function ShippingAddressPage() {
   const [address, setAddress] = useState({
     firstName: "",
     lastName: "",
@@ -101,7 +101,7 @@ function ShippingAddressPage({ setShippingRate }) {
             />
           </Grid>
         </Grid>
-        <RadioGroup defaultValue={"freeDelivery"}>
+        {/* <RadioGroup defaultValue={"freeDelivery"}>
           <div class="row  mt-3 mb-3 ml-2 mr-2">
             <div class="col border border-dark">
               <Radio
@@ -124,7 +124,7 @@ function ShippingAddressPage({ setShippingRate }) {
               </Typography>
             </div>
           </div>
-        </RadioGroup>
+        </RadioGroup> */}
       </form>
     </>
   );

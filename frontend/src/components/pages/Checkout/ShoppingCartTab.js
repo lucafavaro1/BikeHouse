@@ -7,7 +7,7 @@ import { selectCart } from "../../../features/cartSlice";
 import {removeFromCart} from "../../../features/cartSlice";
 import { useSelector } from "react-redux";
 
-export default function ShoppingCartTab({ products, setProducts, setShippingRate }) {
+export default function ShoppingCartTab({ products, setProducts }) {
   const insProviders= {
     1: 40,
     2: 30,
@@ -15,12 +15,23 @@ export default function ShoppingCartTab({ products, setProducts, setShippingRate
     0: 0
   }
   const handleInsurance = (productKey, insuranceKey) =>{
-    console.log('test', productKey,insuranceKey)
+    console.log('insurance', productKey,insuranceKey)
     const newState = [...products]
     let newValue = products[productKey]
     newValue.insurance = insProviders[insuranceKey]
     newState[productKey] = newValue
     setProducts(newState)
+    console.log(products)
+  }
+
+  const handleShipping = (productKey, shippingrate) =>{
+    console.log('ship', productKey,shippingrate)
+    const newState = [...products]
+    let newValue = products[productKey]
+    newValue.shipping = shippingrate
+    newState[productKey] = newValue
+    setProducts(newState)
+    console.log(products)
   }
 
   return (
@@ -33,7 +44,7 @@ export default function ShoppingCartTab({ products, setProducts, setShippingRate
               <Grid item xs>
                 {products.map((product, index) => (
                   <>
-                  <ShoppingCartItem key={index} productKey={index} product={product} handleInsurance={handleInsurance} setShippingRate={setShippingRate}/>
+                  <ShoppingCartItem key={index} productKey={index} product={product} handleInsurance={handleInsurance} handleShipping={handleShipping}/>
                   </>
                 ))}
               </Grid>

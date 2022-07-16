@@ -6,6 +6,8 @@
   cursor: pointer;
   transition: all ease-in-out 0.4s;
   outline: none;
+  margin: 0px;
+  padding: 0px;
 }
 
 .actions__deleteItemBtn:hover {
@@ -13,10 +15,10 @@
   background-color: rgb(209, 15, 15);
 }
 
-.cartItem__actions {
+/* .cartItem__actions {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   padding: 0.6rem;
-}
+} */

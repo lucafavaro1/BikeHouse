@@ -80,7 +80,7 @@ function ShoppingCart() {
 
     let productArray = []
     cart.forEach((item) => {
-        productArray.push({...item,insurance:0})
+        productArray.push({...item,insurance:0, shipping:0})
       });
       setProducts(productArray)
 
@@ -102,7 +102,7 @@ function ShoppingCart() {
               <Tab label="Payment" />
             </Tabs>
             <TabPanel value={value} index={0}>
-              {<ShoppingCartTab products={products} setProducts={setProducts} setShippingRate={setShippingRate}/>}
+              {<ShoppingCartTab products={products} setProducts={setProducts}/>}
             </TabPanel>
             <TabPanel value={value} index={1}>
               <ShippingAddressPage  />
@@ -114,7 +114,7 @@ function ShoppingCart() {
           </div>
 
           <div className="col-md-4 mt-5 mb-5">
-            <Summary products={products} shippingRate={shippingRate} />
+            <Summary products={products} />
           </div>
         </div>
 

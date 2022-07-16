@@ -22,16 +22,21 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Summary({ products, shippingRate }) {
+export default function Summary({products}) {
   const classes = useStyles();
   const subTotal = products.reduce(
-    (acc, product) => acc + product.price * product.quantity,
+    (acc, product) => acc + product.price,
     0
   );
-  const totalPrice = products.reduce(
-    (acc, product) => acc + product.price * product.quantity,
-    shippingRate
+  const insuranceTotal = products.reduce(
+    (acc, product) => acc + product.insurance,
+    0
   );
+  const shippingTotal = products.reduce(
+    (acc, product) => acc + product.shipping,
+    0
+  );
+  const totalPrice = subTotal + insuranceTotal + shippingTotal
 
   return (
     <Card className={classes.root} elevation={15}>
@@ -51,34 +56,45 @@ export default function Summary({ products, shippingRate }) {
           <hr />
         </Typography>
         <Grid container>
-          <Grid item xs={10} sm={10} md={11} lg={10}>
+          <Grid item xs={9} sm={9} md={9} lg={9}>
             <Typography variant="body1" component="div">
               Sub total
             </Typography>
           </Grid>
-          <Grid item xs={2} sm={2} md={2} lg={2}>
+          <Grid item xs={3} sm={3} md={3} lg={3}  style={{'text-align':'right'}}>
             <Typography variant="h6" component="div">
-              €{subTotal}
+              € {subTotal}
             </Typography>
           </Grid>
-          <Grid item xs={10} sm={10} md={10} lg={10}>
+          <Grid item xs={9} sm={9} md={9} lg={9}>
+            <Typography variant="body1" component="div">
+              Insurance
+            </Typography>
+          </Grid>
+          <Grid item xs={3} sm={3} md={3} lg={3}  style={{'text-align':'right'}}> 
+            <Typography variant="h6" component="div">
+              € {insuranceTotal}
+            </Typography>
+          </Grid>
+          <Grid item xs={9} sm={9} md={9} lg={9}>
             <Typography variant="body1" component="div">
               Shipping
             </Typography>
           </Grid>
-          <Grid item xs={2} sm={2} md={2} lg={2}>
+          <Grid item xs={3} sm={3} md={3} lg={3}  style={{'text-align':'right'}}>
             <Typography variant="h6" component="div">
-              {shippingRate}
+              € {shippingTotal}
             </Typography>
           </Grid>
-          <Grid item xs={10} sm={10} md={11} lg={10}>
-            <Typography variant="body1" component="div">
+          <Grid item xs={8} sm={8} md={8} lg={8}>
+            <Typography variant="h5" component="div">
               Total
             </Typography>
           </Grid>
-          <Grid item xs={2} sm={2} md={2} lg={2}>
-            <Typography variant="h6" component="div">
-              €{totalPrice}
+          <hr />
+          <Grid item xs={4} sm={4} md={4} lg={4}  style={{'text-align':'right'}}>
+            <Typography variant="h5" component="div">
+              € {totalPrice}
             </Typography>
           </Grid>
         </Grid>

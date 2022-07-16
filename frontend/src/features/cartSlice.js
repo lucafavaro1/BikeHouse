@@ -19,15 +19,28 @@ export const cartSlice = createSlice({
   initialState: getCartStatus(localStorage.getItem(LOCAL_STORAGE_CART_DATA_KEY)),
   reducers: {
     addToCart: (state, action) => {
-      state.cart= [...state.cart, action.payload]
-      console.log("after cart state", state.cart)
-      localStorage.setItem(
-        LOCAL_STORAGE_CART_DATA_KEY,
-        JSON.stringify(state.cart)
-        );
-      // state.cart.map((item, index) => {
-      //     console.log(index, item)
-      //   });
+      const inCart = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_CART_DATA_KEY))
+      console.log("incart", inCart)
+      console.log("payload", action.payload.listingId)
+      let count = 0
+      inCart.map((item) => {
+        // console.log(item.listingId )
+        if(item.listingId === action.payload.listingId) {
+          count = count + 1
+        console.log("old")
+        }
+      })
+      if(count === 0){
+        state.cart= [...state.cart, action.payload]
+        console.log("after cart state", state.cart)
+        localStorage.setItem(
+          LOCAL_STORAGE_CART_DATA_KEY,
+          JSON.stringify(state.cart)
+          );
+          // state.cart.map((item, index) => {
+            //     console.log(index, item)
+            //   });
+      }
     },
     removeFromCart: (state, action) => {
       // state.loggedIn = false;

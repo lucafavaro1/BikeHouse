@@ -56,7 +56,7 @@ const options = [
   },
 ]
 
-function ShoppingCartItem({ key, productKey, product, handleInsurance, setShippingRate }) {
+function ShoppingCartItem({ key, productKey, product, handleInsurance, handleShipping }) {
   const classes = useStyles();
   const category = 'Bike'
   const [insurance,setInsurance] =  useState(0);
@@ -189,7 +189,7 @@ function ShoppingCartItem({ key, productKey, product, handleInsurance, setShippi
               <Radio
                 label="Free Delivery"
                 value="freeDelivery"
-                onClick={() => setShippingRate(0)}
+                onClick={() => handleShipping(productKey,0)}
               />
               <span>Free Delivery</span>
               <Typography variant="body2">Standard delivery</Typography>
@@ -198,7 +198,7 @@ function ShoppingCartItem({ key, productKey, product, handleInsurance, setShippi
               <Radio
                 label="Fast Delivery"
                 value="paidDelivery"
-                onChange={() => setShippingRate(20)}
+                onChange={() => handleShipping(productKey,20)}
               />
               <span>Fast Delivery - </span>
               <Typography variant="body2">
