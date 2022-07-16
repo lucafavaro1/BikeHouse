@@ -4,35 +4,35 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import ShoppingCartItem from "./ShoppingCartItem";
 import { selectCart } from "../../../features/cartSlice";
-import {removeFromCart} from "../../../features/cartSlice";
+import { removeFromCart } from "../../../features/cartSlice";
 import { useSelector } from "react-redux";
 
 export default function ShoppingCartTab({ products, setProducts }) {
-  const insProviders= {
+  const insProviders = {
     1: 40,
     2: 30,
     3: 25,
-    0: 0
-  }
-  const handleInsurance = (productKey, insuranceKey) =>{
-    console.log('insurance', productKey,insuranceKey)
-    const newState = [...products]
-    let newValue = products[productKey]
-    newValue.insurance = insProviders[insuranceKey]
-    newState[productKey] = newValue
-    setProducts(newState)
-    console.log(products)
-  }
+    0: 0,
+  };
+  const handleInsurance = (productKey, insuranceKey) => {
+    console.log("insurance", productKey, insuranceKey);
+    const newState = [...products];
+    let newValue = products[productKey];
+    newValue.insurance = insProviders[insuranceKey];
+    newState[productKey] = newValue;
+    setProducts(newState);
+    console.log(products);
+  };
 
-  const handleShipping = (productKey, shippingrate) =>{
-    console.log('ship', productKey,shippingrate)
-    const newState = [...products]
-    let newValue = products[productKey]
-    newValue.shipping = shippingrate
-    newState[productKey] = newValue
-    setProducts(newState)
-    console.log(products)
-  }
+  const handleShipping = (productKey, shippingrate) => {
+    console.log("ship", productKey, shippingrate);
+    const newState = [...products];
+    let newValue = products[productKey];
+    newValue.shipping = shippingrate;
+    newState[productKey] = newValue;
+    setProducts(newState);
+    console.log(products);
+  };
 
   return (
     <React.Fragment>
@@ -43,9 +43,13 @@ export default function ShoppingCartTab({ products, setProducts }) {
             <Grid container>
               <Grid item xs>
                 {products.map((product, index) => (
-                  <>
-                  <ShoppingCartItem key={index} productKey={index} product={product} handleInsurance={handleInsurance} handleShipping={handleShipping}/>
-                  </>
+                  <ShoppingCartItem
+                    key={index}
+                    productKey={index}
+                    product={product}
+                    handleInsurance={handleInsurance}
+                    handleShipping={handleShipping}
+                  />
                 ))}
               </Grid>
             </Grid>

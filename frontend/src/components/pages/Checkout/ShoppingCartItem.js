@@ -71,7 +71,7 @@ function ShoppingCartItem({
   const [insurance, setInsurance] = useState(0);
   const dispatch = useDispatch();
   const id = product.listingId;
-  const [shipping, setShipping] = useState("paidDelivery");
+  const [shipping, setShipping] = useState("freeDelivery");
 
   // const [checked, setChecked] = useState(false);
   // const handleChange = (event) => {
