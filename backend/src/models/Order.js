@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 const OrderSchema = new mongoose.Schema(
   {
     buyer: {
-      type: [Schema.Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "user",
       required: true,
     },
@@ -16,15 +16,25 @@ const OrderSchema = new mongoose.Schema(
             type: Schema.Types.ObjectId,
             ref: "listing",
           },
-          insurance: {
+          insuranceName: {
             type: String,
             required: true,
             default: "none",
+          },
+          insurancePrice: {
+            type: Number,
+            required: true,
+            default: 0,
           },
           // standard or fast
           deliveryType: {
             type: String,
             required: true,
+          },
+          deliveryPrice: {
+            type: Number,
+            required: true,
+            default: 0,
           },
         },
       ],

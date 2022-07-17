@@ -1,3 +1,4 @@
+const AddressModel = require("../models/Address");
 const OrderModel = require("../models/Order");
 
 const deleteOrder = async (req, res) => {
@@ -23,7 +24,38 @@ const getOrder = async (req) => {
   }
 };
 
+const createOrder = async (req, res) => {
+  console.log("create order called");
+  const order = req.body;
+  try {
+    let address = {
+      streetName: order.deliveryAddress.streetName,
+      houseNumber: order.deliveryAddress.houseNumber,
+      city: order.deliveryAddress.city,
+      zip: order.deliveryAddress.zip,
+      country: order.deliveryAddress.country,
+      firstName: order.deliveryAddress.firstName,
+      lastName: order.deliveryAddress.lastName,
+      phoneNumber: order.deliveryAddress.phoneNumber,
+      addressLine2: order.deliveryAddress.addressLine2,
+    };
+    console.log(address);
+    const newAddress = new AddressModel(address);
+    await newAddress.save();
+    let newOrderFromRequest = {
+      ...order,
+      deliveryAddress: newAddress._id,
+    };
+    const newOrder = await OrderModel.create(newOrderFromRequest);
+    res.status(200).json(newOrder);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json("Order not created");
+  }
+};
+
 module.exports = {
   getOrder,
   deleteOrder,
+  createOrder,
 };

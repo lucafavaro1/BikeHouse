@@ -22,12 +22,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Summary({products}) {
+export default function Summary({ products, setTotalPrice }) {
   const classes = useStyles();
-  const subTotal = products.reduce(
-    (acc, product) => acc + product.price,
-    0
-  );
+  const subTotal = products.reduce((acc, product) => acc + product.price, 0);
   const insuranceTotal = products.reduce(
     (acc, product) => acc + product.insurance,
     0
@@ -36,7 +33,8 @@ export default function Summary({products}) {
     (acc, product) => acc + product.shipping,
     0
   );
-  const totalPrice = subTotal + insuranceTotal + shippingTotal
+  const totalPrice = subTotal + insuranceTotal + shippingTotal;
+  setTotalPrice(totalPrice);
 
   return (
     <Card className={classes.root} elevation={15}>
@@ -61,7 +59,14 @@ export default function Summary({products}) {
               Sub total
             </Typography>
           </Grid>
-          <Grid item xs={3} sm={3} md={3} lg={3}  style={{'text-align':'right'}}>
+          <Grid
+            item
+            xs={3}
+            sm={3}
+            md={3}
+            lg={3}
+            style={{ "text-align": "right" }}
+          >
             <Typography variant="h6" component="div">
               € {subTotal}
             </Typography>
@@ -71,7 +76,14 @@ export default function Summary({products}) {
               Insurance
             </Typography>
           </Grid>
-          <Grid item xs={3} sm={3} md={3} lg={3}  style={{'text-align':'right'}}> 
+          <Grid
+            item
+            xs={3}
+            sm={3}
+            md={3}
+            lg={3}
+            style={{ "text-align": "right" }}
+          >
             <Typography variant="h6" component="div">
               € {insuranceTotal}
             </Typography>
@@ -81,7 +93,14 @@ export default function Summary({products}) {
               Shipping
             </Typography>
           </Grid>
-          <Grid item xs={3} sm={3} md={3} lg={3}  style={{'text-align':'right'}}>
+          <Grid
+            item
+            xs={3}
+            sm={3}
+            md={3}
+            lg={3}
+            style={{ "text-align": "right" }}
+          >
             <Typography variant="h6" component="div">
               € {shippingTotal}
             </Typography>
@@ -92,7 +111,14 @@ export default function Summary({products}) {
             </Typography>
           </Grid>
           <hr />
-          <Grid item xs={4} sm={4} md={4} lg={4}  style={{'text-align':'right'}}>
+          <Grid
+            item
+            xs={4}
+            sm={4}
+            md={4}
+            lg={4}
+            style={{ "text-align": "right" }}
+          >
             <Typography variant="h5" component="div">
               € {totalPrice}
             </Typography>

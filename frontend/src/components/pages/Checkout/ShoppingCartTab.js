@@ -6,30 +6,35 @@ import ShoppingCartItem from "./ShoppingCartItem";
 import { selectCart } from "../../../features/cartSlice";
 import { removeFromCart } from "../../../features/cartSlice";
 import { useSelector } from "react-redux";
+import {
+  getInsuranceNameFromValue,
+  insProviders,
+} from "../globals/GlobalObjects";
+import { Button } from "@material-ui/core";
 
-export default function ShoppingCartTab({ products, setProducts }) {
-  const insProviders = {
-    1: 40,
-    2: 30,
-    3: 25,
-    0: 0,
-  };
+export default function ShoppingCartTab({
+  products,
+  setProducts,
+  handleNavigate,
+}) {
   const handleInsurance = (productKey, insuranceKey) => {
     console.log("insurance", productKey, insuranceKey);
     const newState = [...products];
     let newValue = products[productKey];
     newValue.insurance = insProviders[insuranceKey];
     newValue.insuranceKey = insuranceKey;
+    newValue.insuranceName = getInsuranceNameFromValue(insuranceKey);
     newState[productKey] = newValue;
     setProducts(newState);
     console.log(products);
   };
 
-  const handleShipping = (productKey, shippingrate) => {
+  const handleShipping = (productKey, shippingrate, shippingType) => {
     console.log("ship", productKey, shippingrate);
     const newState = [...products];
     let newValue = products[productKey];
     newValue.shipping = shippingrate;
+    newValue.deliveryType = shippingType;
     newState[productKey] = newValue;
     setProducts(newState);
     console.log(products);
@@ -60,6 +65,15 @@ export default function ShoppingCartTab({ products, setProducts }) {
           </Grid> */}
         </Grid>
       </Container>
+      <div className="align-self-end m-4">
+        <Button
+          style={{ backgroundColor: "#2e6076", color: "white" }}
+          type="button"
+          onClick={() => handleNavigate(1)}
+        >
+          Next
+        </Button>
+      </div>
     </React.Fragment>
   );
 }

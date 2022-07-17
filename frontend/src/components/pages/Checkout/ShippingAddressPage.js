@@ -1,30 +1,35 @@
-import { Box, Divider, Radio, RadioGroup, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Divider,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { TextField, Grid } from "@mui/material";
 import { useState } from "react";
 
-function ShippingAddressPage() {
-  const [address, setAddress] = useState({
-    firstName: "",
-    lastName: "",
-    addressLine1: "",
-    addressLine2: "",
-
-    city: "",
-    phone: "",
-    zip: "",
-    country: "",
-  });
-
+function ShippingAddressPage({ address, setAddress, handleNavigate }) {
+  const [localAddress, setLocalAddress] = useState(address);
   const handleChange = (event) => {
-    console.log("event target is " + event.target);
+    event.preventDefault();
     const { name, value } = event.target;
     // console.log(name, value);
-    setAddress({ ...address, [name]: value });
+    setLocalAddress({ ...localAddress, [name]: value });
+    // setAddress(localAddress);
   };
+
   return (
     <>
-      <form noValidate autoComplete="off">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setAddress(localAddress);
+          handleNavigate(1);
+        }}
+        autoComplete="off"
+      >
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -33,6 +38,7 @@ function ShippingAddressPage() {
               onChange={handleChange}
               label="First Name"
               variant="outlined"
+              value={localAddress.firstName}
               fullWidth
             />
           </Grid>
@@ -43,15 +49,28 @@ function ShippingAddressPage() {
               label="Last Name"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.lastName}
               fullWidth
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <TextField
-              name="addressLine1"
-              label="Address line 1"
+              name="streetName"
+              label="Street Name"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.streetName}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              name="houseNumber"
+              label="House Number"
+              variant="outlined"
+              type={"number"}
+              onChange={handleChange}
+              value={localAddress.houseNumber}
               fullWidth
             />
           </Grid>
@@ -61,6 +80,7 @@ function ShippingAddressPage() {
               label="Address line 2"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.addressLine2}
               fullWidth
             />
           </Grid>
@@ -70,6 +90,7 @@ function ShippingAddressPage() {
               label="Postal/Zip Code"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.zip}
               fullWidth
             />
           </Grid>
@@ -79,15 +100,17 @@ function ShippingAddressPage() {
               label="City"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.city}
               fullWidth
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              name="phone"
+              name="phoneNumber"
               label="Phone"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.phoneNumber}
               fullWidth
             />
           </Grid>
@@ -97,6 +120,7 @@ function ShippingAddressPage() {
               label="Country"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.country}
               fullWidth
             />
           </Grid>
@@ -125,6 +149,23 @@ function ShippingAddressPage() {
             </div>
           </div>
         </RadioGroup> */}
+        <div className="m-3">
+          <Button
+            className="m-3"
+            style={{ backgroundColor: "#2e6076", color: "white" }}
+            type="submit"
+          >
+            Next
+          </Button>
+          <Button
+            onClick={() => handleNavigate(-1)}
+            className="m-3"
+            style={{ backgroundColor: "#2e6076", color: "white" }}
+            type="button"
+          >
+            Back
+          </Button>
+        </div>
       </form>
     </>
   );

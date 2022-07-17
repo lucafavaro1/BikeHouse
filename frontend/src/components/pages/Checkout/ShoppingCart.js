@@ -20,6 +20,9 @@ import { selectCart } from "../../../features/cartSlice";
 import { removeFromCart } from "../../../features/cartSlice";
 import { useSelector } from "react-redux";
 import { useSelect } from "@mui/base";
+import axios from "axios";
+import { selectUser } from "../../../features/userSlice";
+import { Navigate } from "react-router-dom";
 
 function ShoppingCart() {
   const [value, setValue] = React.useState(0);
@@ -66,25 +69,52 @@ function ShoppingCart() {
   const cart = useSelector(selectCart);
   let productArray = [];
   cart.forEach((item) => {
-    productArray.push({ ...item, insurance: 0, shippingPrice: 0 });
+    productArray.push({
+      ...item,
+      insurance: 0, // insurance price is defined here
+      insuranceName: "No Insurance",
+      deliveryType: "Free",
+      insuranceKey: 0,
+      shipping: 0,
+    });
   });
   const [products, setProducts] = useState(productArray);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
 
+  const [address, setAddress] = useState({
+    firstName: "",
+    lastName: "",
+    streetName: "",
+    houseNumber: 0,
+    city: "",
+    phoneNumber: "",
+    zip: "",
+    country: "",
+    addressLine2: "",
+  });
+
   useEffect(() => {
     let productArray = [];
     cart.forEach((item) => {
       productArray.push({
         ...item,
-        insurance: 0,
+        insurance: 0, // insurance price is defined here
+        insuranceName: "No Insurance",
+        deliveryType: "Free",
         insuranceKey: 0,
-        shipping: 0,
+        shipping: 0, // insurance price is defined here
       });
     });
+    console.log("Product array is ", productArray);
     setProducts(productArray);
   }, [cart]);
+
+  const user = useSelector(selectUser);
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <>
@@ -99,56 +129,38 @@ function ShoppingCart() {
             >
               <Tab label="Shopping Cart" />
               <Tab label="Address" />
-              <Tab label="Payment" />
+              <Tab label="Payment" disabled={true} />
             </Tabs>
             <TabPanel value={value} index={0}>
               {
                 <ShoppingCartTab
                   products={products}
                   setProducts={setProducts}
+                  handleNavigate={handleNavigate}
                 />
               }
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <ShippingAddressPage />
+              <ShippingAddressPage
+                address={address}
+                setAddress={setAddress}
+                handleNavigate={handleNavigate}
+              />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <PaymentOptionsPage />
+              <PaymentOptionsPage
+                handleNavigate={handleNavigate}
+                products={products}
+                address={address}
+                user={user}
+                totalPrice={totalPrice}
+              />
             </TabPanel>
-            <Divider />
           </div>
 
           <div className="col-md-4 mt-5 mb-5">
-            <Summary products={products} />
+            <Summary products={products} setTotalPrice={setTotalPrice} />
           </div>
-        </div>
-
-        <div className="m-4">
-          {value != 2 && (
-            <Button
-              style={{ backgroundColor: "#2e6076" }}
-              type="button"
-              onClick={() => handleNavigate(1)}
-            >
-              Next
-            </Button>
-          )}
-          {value === 2 && (
-            <Button style={{ backgroundColor: "#2e6076" }} type="button">
-              Complete Payment
-            </Button>
-          )}
-
-          {value != 0 && (
-            <Button
-              onClick={() => handleNavigate(-1)}
-              className="ml-3"
-              style={{ backgroundColor: "#2e6076" }}
-              type="button"
-            >
-              Back
-            </Button>
-          )}
         </div>
       </div>
     </>

@@ -22,6 +22,7 @@ import FormControl from "@mui/material/FormControl";
 import { Row } from "react-bootstrap";
 import Switch from "@mui/material/Switch";
 import { Box, Divider, Radio, RadioGroup, Typography } from "@material-ui/core";
+import { insuranceOptions } from "../globals/GlobalObjects";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,25 +40,6 @@ const useStyles = makeStyles((theme) => ({
     width: 151,
   },
 }));
-
-const options = [
-  {
-    label: "No Insurance",
-    value: 0,
-  },
-  {
-    label: "GetSafe - €40/year ",
-    value: 1,
-  },
-  {
-    label: "Feather - €30/year",
-    value: 2,
-  },
-  {
-    label: "Qover - €25/year",
-    value: 3,
-  },
-];
 
 function ShoppingCartItem({
   key,
@@ -79,13 +61,11 @@ function ShoppingCartItem({
 
   const handleRemove = (e) => {
     e.preventDefault();
-    console.log("id in handle", id);
     dispatch(removeFromCart(id));
   };
 
   const handleSelect = (e) => {
     e.preventDefault();
-    console.log("handleSelect", e.target.value);
     handleInsurance(productKey, e.target.value);
   };
 
@@ -179,7 +159,7 @@ function ShoppingCartItem({
                   // autoFocus = {false}
                   // onFocus
                 >
-                  {options.map((option, index) => (
+                  {insuranceOptions.map((option, index) => (
                     <MenuItem key={index} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -197,7 +177,7 @@ function ShoppingCartItem({
                   label="Free Delivery"
                   value={0}
                   onClick={() => {
-                    handleShipping(productKey, 0);
+                    handleShipping(productKey, 0, "Free Delivery");
                   }}
                 />
                 <span>Free Delivery</span>
@@ -208,7 +188,7 @@ function ShoppingCartItem({
                   label="Fast Delivery"
                   value={20}
                   onClick={() => {
-                    handleShipping(productKey, 20);
+                    handleShipping(productKey, 20, "Fast Delivery");
                   }}
                 />
                 <span>Fast Delivery - </span>
