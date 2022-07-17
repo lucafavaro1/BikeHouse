@@ -1,30 +1,9 @@
 const OrderModel = require("../models/Order");
 const ListingModel = require("../models/Listing");
 const { AccessoryModel } = require("../models/Item");
+const AddressModel = require("../models/Address");
 const { getBike, getAccessory } = require("./bikeController");
 const { getListing, fetchBikesForListings } = require("./listingController");
-
-
-// TODO: DELETE THIS
-// const mongoose = require("mongoose");
-// let order = {
-//   buyer: mongoose.Types.ObjectId('62b5ac9935256aacccc7cb27'),
-//   listings: [{
-//     id: mongoose.Types.ObjectId('62c05aa58522e9bc4c3cfdde'),
-//     insurance: "Qover",
-//     deliveryType: "standard"
-//   }],
-//   accessories: [{
-//     id: mongoose.Types.ObjectId('62c6b25ae1ffcffba53478a0'),
-//     quantity: 2,
-//     }],
-//   totalAmount: 135,
-//   deliveryAddress: mongoose.Types.ObjectId('62c895ae0c76f6f6bdd28ce6')
-// };
-// const newOrder = new OrderModel(order);
-// console.log(newOrder)
-//  newOrder.save(); // async request to crease a new user
-
 
 const deleteOrder = async (req, res) => {
   console.log("delete order called");
@@ -82,7 +61,7 @@ const getPopulatedOrder = async (req, res) => {
     order = JSON.parse(JSON.stringify(order)); // convert to JSON to support adding a new field
 
     var order = await fetchFieldsForOrder(order)
-    
+
     res.status(200).json(order);
   } catch (error) {
     res.status(500).json(error)
@@ -97,7 +76,14 @@ async function fetchFieldsForOrder(order) {
 
   await Promise.all(
     order.listings.map(async (rawListing) => {
-      let listing = await ListingModel.findById(rawListing.id).exec();
+      var listing = await ListingModel.findById(rawListing.id).exec();
+      listing = JSON.parse(JSON.stringify(listing));
+
+      listing.insuranceName = rawListing.insuranceName
+      listing.insurancePrice = rawListing.insurancePrice
+      listing.deliveryType = rawListing.deliveryType
+      listing.deliveryPrice = rawListing.deliveryPrice
+
       listingObjects.push(listing)
     })
   );
@@ -112,13 +98,22 @@ async function fetchFieldsForOrder(order) {
   await Promise.all(
     order.accessories.map(async (rawAccessory) => {
       let accessory = await AccessoryModel.findById(rawAccessory.id).exec();
+      accessory = JSON.parse(JSON.stringify(accessory));
+
+      accessory.quantity = rawAccessory.quantity
+
       accessoryObjects.push(accessory)
     })
   );
-  
+
+  // Fetching address
+  var addressObject = {}
+  addressObject = await AddressModel.findById(order.deliveryAddress)
+
   // Adding fetched objects and returning
   order.listingObjects = listingObjects
   order.accessoryObjects = accessoryObjects
+  order.addressObject = addressObject
   return order;
 }
 

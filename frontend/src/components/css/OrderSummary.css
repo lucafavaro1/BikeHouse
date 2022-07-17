@@ -1,4 +1,4 @@
-.orderSummary .row {
+.orderSummary .thankYou .row {
 	margin: 0rem 7rem;
 }
 
@@ -18,3 +18,30 @@
 	font-family: Helvetica, Arial;
 }
 
+.orderSummary .itemImage {
+	object-fit: contain;
+	height: 8rem;
+	width: 10rem;
+}
+
+.orderSummary .listingListItem {
+	font-size: 1rem;
+	padding: 1.5rem;
+	max-width: 100%;
+}
+
+.orderSummary .listingsGroup {
+	margin: 2rem 4rem;
+	margin-bottom: 4rem;
+	padding: 2rem;
+    border: 2px solid rgba(0,0,0,.125);
+	border-radius: 6px;
+}
+
+.orderSummary .orderInfoText {
+	text-transform: uppercase;
+}
+
+.orderSummary .orderInfoTextSmall {
+	font-size: 0.85rem;
+}
