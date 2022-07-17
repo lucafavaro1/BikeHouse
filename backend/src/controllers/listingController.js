@@ -378,4 +378,5 @@ module.exports = {
   getListingById,
   getListingsBySeller,
   modifyListing,
+  fetchBikesForListings
 };
