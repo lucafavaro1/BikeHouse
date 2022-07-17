@@ -25,6 +25,7 @@ import jwtDecode from "jwt-decode";
 import Accessories from "./pages/Accessories";
 import ShoppingCart from "./pages/Checkout/ShoppingCart";
 import Temporary from "./pages/Temporary";
+import OrderSummary from "./pages/OrderSummary";
 
 function Main() {
   const dispatch = useDispatch();
@@ -81,6 +82,11 @@ function Main() {
       </Route>
       <Route exact path="/checkout" element={<Payment />}></Route>
       <Route exact path="/temporary" element={<Temporary />}></Route>
+      <Route
+        exact
+        path="/order/:id"
+        element={<OrderSummary></OrderSummary>}
+      ></Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

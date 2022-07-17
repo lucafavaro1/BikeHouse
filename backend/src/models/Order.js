@@ -16,15 +16,25 @@ const OrderSchema = new mongoose.Schema(
             type: Schema.Types.ObjectId,
             ref: "listing",
           },
-          insurance: {
+          insuranceName: {
             type: String,
             required: true,
             default: "none",
+          },
+          insurancePrice: {
+            type: Number,
+            required: true,
+            default: 0,
           },
           // standard or fast
           deliveryType: {
             type: String,
             required: true,
+          },
+          deliveryPrice: {
+            type: Number,
+            required: true,
+            default: 0,
           },
         },
       ],
