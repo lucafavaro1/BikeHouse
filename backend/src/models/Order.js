@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 const OrderSchema = new mongoose.Schema(
   {
     buyer: {
-      type: [Schema.Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "user",
       required: true,
     },
