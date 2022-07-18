@@ -48,6 +48,7 @@ const loginUser = async (req, res) => {
         let billingAddress = user.billingAddress.toString();
         const address = await AddressModel.findById(billingAddress);
 
+        console.log(user);
         const responseToSend = {
           id: user._id,
           firstName: user.firstName,

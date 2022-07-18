@@ -337,6 +337,14 @@ function Dashboard() {
     window.location.reload(false);
   };
 
+  function totalNumberOfItems(order) {
+    let numItems = order.listings.length;
+    order.accessories.map(
+      (oneAccessory) => (numItems = numItems + oneAccessory.quantity)
+    );
+    return numItems;
+  }
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -683,9 +691,7 @@ function Dashboard() {
                                 </p>
                                 <p>
                                   {" "}
-                                  Number of items:{" "}
-                                  {order.listings.length +
-                                    order.accessories.length}
+                                  Number of items: {totalNumberOfItems(order)}
                                 </p>
                                 <p>Payment method: {order.paymentMethod}</p>
                                 <p></p>
