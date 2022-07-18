@@ -26,27 +26,62 @@ export const cartSlice = createSlice({
       );
       console.log("incart", inCart);
       console.log("payload", action.payload.listingId);
-      let count = 0;
-      if (inCart != null) {
-        inCart.map((item) => {
-          // console.log(item.listingId )
-          if (item.listingId === action.payload.listingId) {
-            count = count + 1;
-            console.log("old");
-          }
-        });
-      }
+      // if it is a bike avoid duplicates
+      // if its an accessory add to quantity. also check if the quantity exceeds 4
+      if (action.payload.category === "bike") {
+        let count = 0;
+        if (inCart != null) {
+          inCart.map((item) => {
+            // console.log(item.listingId )
+            if (item.listingId === action.payload.listingId) {
+              count = count + 1;
+              console.log("old");
+            }
+          });
+        }
 
-      if (count === 0) {
-        state.cart = [...state.cart, action.payload];
-        console.log("after cart state", state.cart);
-        localStorage.setItem(
-          LOCAL_STORAGE_CART_DATA_KEY,
-          JSON.stringify(state.cart)
-        );
-        // state.cart.map((item, index) => {
-        //     console.log(index, item)
-        //   });
+        if (count === 0) {
+          state.cart = [...state.cart, action.payload];
+          console.log("after cart state", state.cart);
+          localStorage.setItem(
+            LOCAL_STORAGE_CART_DATA_KEY,
+            JSON.stringify(state.cart)
+          );
+          // state.cart.map((item, index) => {
+          //     console.log(index, item)
+          //   });
+        }
+      } else {
+        if (state.cart != null) {
+          let sameElementFound = false;
+          state.cart.forEach((element, index) => {
+            if (element.listingId === action.payload.listingId) {
+              let sameElement = { ...state.cart[index] };
+              console.log("Same element", sameElement);
+              if (sameElement.quantity < 4) {
+                sameElement.quantity += 1;
+                console.log("Quantity added");
+              }
+              state.cart[index] = sameElement;
+              sameElementFound = true;
+            }
+          });
+          if (sameElementFound) {
+            console.log("same element found");
+            localStorage.setItem(
+              LOCAL_STORAGE_CART_DATA_KEY,
+              JSON.stringify(state.cart)
+            );
+          } else {
+            console.log("same element not  found");
+            state.cart = [...state.cart, action.payload];
+            console.log("after cart state", state.cart);
+            localStorage.setItem(
+              LOCAL_STORAGE_CART_DATA_KEY,
+              JSON.stringify(state.cart)
+            );
+          }
+        }
       }
     },
     removeFromCart: (state, action) => {
@@ -65,10 +100,26 @@ export const cartSlice = createSlice({
         JSON.stringify(state.cart)
       );
     },
+    updateCart: (state, action) => {
+      if (state.cart != null) {
+        state.cart.forEach((element, index) => {
+          if (element.listingId === action.payload.listingId) {
+            let sameElement = { ...state.cart[index] };
+            sameElement.quantity = action.payload.quantity;
+            state.cart[index] = sameElement;
+            localStorage.setItem(
+              LOCAL_STORAGE_CART_DATA_KEY,
+              JSON.stringify(state.cart)
+            );
+            return;
+          }
+        });
+      }
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateCart } = cartSlice.actions;
 
 export const selectCart = (state) => state.cart.cart;
 

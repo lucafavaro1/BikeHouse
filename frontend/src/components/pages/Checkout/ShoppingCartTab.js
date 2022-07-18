@@ -3,9 +3,9 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import ShoppingCartItem from "./ShoppingCartItem";
-import { selectCart } from "../../../features/cartSlice";
+import { addToCart, selectCart, updateCart } from "../../../features/cartSlice";
 import { removeFromCart } from "../../../features/cartSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getInsuranceNameFromValue,
   insProviders,
@@ -17,6 +17,8 @@ export default function ShoppingCartTab({
   setProducts,
   handleNavigate,
 }) {
+  const dispatch = useDispatch();
+
   const handleInsurance = (productKey, insuranceKey) => {
     console.log("insurance", productKey, insuranceKey);
     const newState = [...products];
@@ -40,6 +42,15 @@ export default function ShoppingCartTab({
     console.log(products);
   };
 
+  const handleSetQuantity = (productKey, quantity) => {
+    const newState = [...products];
+    let newValue = products[productKey];
+    newValue.quantity = quantity;
+    newState[productKey] = newValue;
+    setProducts(newState);
+    dispatch(updateCart(newValue));
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -55,6 +66,7 @@ export default function ShoppingCartTab({
                     product={product}
                     handleInsurance={handleInsurance}
                     handleShipping={handleShipping}
+                    handleSetQuantity={handleSetQuantity}
                   />
                 ))}
               </Grid>

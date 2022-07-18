@@ -24,15 +24,27 @@ const useStyles = makeStyles({
 
 export default function Summary({ products, setTotalPrice }) {
   const classes = useStyles();
-  const subTotal = products.reduce((acc, product) => acc + product.price, 0);
+  let subTotal;
+
+  subTotal = products.reduce((acc, product) => {
+    if (product.quantity) {
+      return acc + product.quantity * product.price;
+    } else {
+      return acc + product.price;
+    }
+  }, 0);
+
   const insuranceTotal = products.reduce(
     (acc, product) => acc + product.insurance,
     0
   );
-  const shippingTotal = products.reduce(
-    (acc, product) => acc + product.shipping,
-    0
-  );
+  const shippingTotal = products.reduce((acc, product) => {
+    if (product.quantity) {
+      return acc + product.quantity * product.shipping;
+    } else {
+      return acc + product.shipping;
+    }
+  }, 0);
   const totalPrice = subTotal + insuranceTotal + shippingTotal;
   setTotalPrice(totalPrice);
 

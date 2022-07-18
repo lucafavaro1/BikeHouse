@@ -30,7 +30,8 @@ function InfoPage({
   brand,
   model,
   sellerVerified,
-  images
+  images,
+  category,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -53,9 +54,10 @@ function InfoPage({
       brand,
       model,
       sellerVerified,
-      images
-    }
-    dispatch(addToCart(data))
+      images,
+      category,
+    };
+    dispatch(addToCart(data));
   };
   const payBoost = async (listingId) => {
     console.log(listingId);
@@ -238,7 +240,7 @@ function InfoPage({
                 marginTop: "30px",
                 backgroundColor: "#2e6076",
               }}
-              onClick= {handleBasket}
+              onClick={handleBasket}
             >
               Add to basket
             </Button>

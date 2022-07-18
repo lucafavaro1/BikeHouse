@@ -56,6 +56,8 @@ const listAllAccessories = async (accessories) => {
     accessories.map(async (oneAccessory) => {
       // retrieve the accessory from the db
       const accessory = await getAccessory(oneAccessory.id);
+      let totalPrice = accessory.price;
+      totalPrice += oneAccessory.deliveryPrice;
 
       array_accessories.push({
         price_data: {
@@ -63,7 +65,7 @@ const listAllAccessories = async (accessories) => {
           product_data: {
             name: accessory.name,
           },
-          unit_amount: accessory.price * 100,
+          unit_amount: totalPrice * 100,
         },
         quantity: oneAccessory.quantity,
       });

@@ -41,11 +41,13 @@ function PaymentOptionsPage({
       const prod = products[i];
 
       //TODO get the category from prod
-      if (prod.category === "Accessory") {
+      if (prod.category === "accessory") {
         console.log("Prod category is Accessory");
         const accessoryForOrder = {
           id: prod.listingId,
           quantity: prod.quantity,
+          deliveryType: prod.deliveryType,
+          deliveryPrice: prod.shipping,
         };
         accessoriesFromTheCarts.push(accessoryForOrder);
       } else {
@@ -67,7 +69,7 @@ function PaymentOptionsPage({
       deliveryAddress: address,
       totalAmount: totalPrice,
     };
-
+    console.log("orderObjectToSend is ", orderObjectToSend);
     try {
       const orderObject = await axios.post(
         "http://localhost:3001/api/createOrder",

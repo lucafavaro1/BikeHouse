@@ -30,6 +30,7 @@ const OrderSchema = new mongoose.Schema(
           deliveryType: {
             type: String,
             required: true,
+            default: "standard",
           },
           deliveryPrice: {
             type: Number,
@@ -49,6 +50,14 @@ const OrderSchema = new mongoose.Schema(
             ref: "accessory",
           },
           quantity: Number,
+          deliveryType: {
+            type: String,
+            default: "standard",
+          },
+          deliveryPrice: {
+            type: Number,
+            default: 0,
+          },
         },
       ],
       required: true,

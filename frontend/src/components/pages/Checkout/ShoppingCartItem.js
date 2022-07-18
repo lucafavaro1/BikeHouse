@@ -47,10 +47,11 @@ function ShoppingCartItem({
   product,
   handleInsurance,
   handleShipping,
+  handleSetQuantity,
 }) {
   const classes = useStyles();
-  const category = "Bike";
   const dispatch = useDispatch();
+  const category = product.category;
   const id = product.listingId;
 
   // const [checked, setChecked] = useState(false);
@@ -77,7 +78,7 @@ function ShoppingCartItem({
       <CardMedia
         className={classes.cover}
         image={product.images[0].url}
-        title="Live from space album cover"
+        title={product.brand + " " + product.model}
       />
       <CardContent className={classes.content}>
         {/* <CardMedia
@@ -125,7 +126,7 @@ function ShoppingCartItem({
         </Grid>
         <br />
         <Grid container>
-          {category == "Accessory" && (
+          {category == "accessory" && (
             <>
               <Grid item xs={11} sm={11} md={11} lg={11}>
                 <Typography variant="body1" component="div">
@@ -133,13 +134,23 @@ function ShoppingCartItem({
                 </Typography>
               </Grid>
               <Grid item xs={1} sm={1} md={1} lg={1}>
-                <Typography variant="h6" component="div">
-                  {product.quantity}
-                </Typography>
+                <Select
+                  labelId="demo-simple-select-filled-label"
+                  id="demo-simple-select-filled"
+                  value={product.quantity}
+                  onChange={(e) => {
+                    handleSetQuantity(productKey, e.target.value);
+                  }}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                </Select>
               </Grid>
             </>
           )}
-          {category == "Bike" && (
+          {category == "bike" && (
             <Grid item xs={12} sm={12} md={12} lg={12}>
               {/* <Switch
                 checked={checked}
