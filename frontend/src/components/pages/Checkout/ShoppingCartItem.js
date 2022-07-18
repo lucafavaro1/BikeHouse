@@ -70,8 +70,9 @@ function ShoppingCartItem({
     handleInsurance(productKey, e.target.value);
   };
 
-  // useEffect(() => {
-  //   }, [insurance]);
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
     <Card className={classes.root}>
@@ -91,7 +92,7 @@ function ShoppingCartItem({
           color="textSecondary"
           gutterBottom
         >
-          {category}
+          {capitalizeFirstLetter(category)}
         </Typography>
         <Grid container>
           <Grid item xs={10}>
@@ -128,7 +129,7 @@ function ShoppingCartItem({
         <Grid container>
           {category == "accessory" && (
             <>
-              <Grid item xs={11} sm={11} md={11} lg={11}>
+              <Grid item xs={10} sm={10} md={10} lg={10}>
                 <Typography variant="body1" component="div">
                   Quantity
                 </Typography>
@@ -164,6 +165,8 @@ function ShoppingCartItem({
                   label="Insurance"
                   variant="outlined"
                   onChange={handleSelect}
+                  style={{ marginLeft: 8 + "px" }}
+
                   // onClose
                   // onClick
                   // onSelect
@@ -202,8 +205,8 @@ function ShoppingCartItem({
                     handleShipping(productKey, 20, "Fast Delivery");
                   }}
                 />
-                <span>Fast Delivery - </span>
-                <Typography variant="body2">
+                <span>Fast Delivery </span>
+                <Typography variant="body2" className="mb-2">
                   Delivery within 2 working days
                 </Typography>
               </div>

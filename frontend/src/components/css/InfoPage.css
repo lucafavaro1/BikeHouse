@@ -1,0 +1,12 @@
+.infoPage .addBasket .MuiButton-root {
+  max-width: 200px;
+  margin-top: 30px;
+  background-color: #2e6076;
+}
+
+.infoPage .addBasket .MuiButton-root:hover {
+  max-width: 200px;
+  margin-top: 30px;
+  color: black;
+  background-color: gold;
+}

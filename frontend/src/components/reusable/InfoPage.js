@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { CircularProgress } from "@material-ui/core";
+import "../css/InfoPage.css";
 import SellIcon from "@mui/icons-material/Sell";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
@@ -107,7 +108,7 @@ function InfoPage({
   };
 
   return (
-    <>
+    <div className="infoPage">
       {isLoading ? (
         <div
           style={{
@@ -170,7 +171,7 @@ function InfoPage({
             <Button
               variant={"contained"}
               color={"warning"}
-              style={{ maxWidth: "200px", marginTop: "auto" }}
+              style={{ maxWidth: "200px", marginTop: "50px" }}
               onClick={() => payBoost(listingId)}
             >
               Boost it now
@@ -184,7 +185,7 @@ function InfoPage({
               <Button
                 variant={"contained"}
                 color={"error"}
-                style={{ maxWidth: "200px", marginTop: "auto" }}
+                style={{ maxWidth: "200px", marginTop: "50px" }}
                 onClick={() => {
                   setModalShow(true);
                 }}
@@ -233,13 +234,9 @@ function InfoPage({
             </>
           ) : (
             <Button
+              className="addBasket"
               variant={"contained"}
               color={"primary"}
-              style={{
-                maxWidth: "200px",
-                marginTop: "30px",
-                backgroundColor: "#2e6076",
-              }}
               onClick={handleBasket}
             >
               Add to basket
@@ -247,7 +244,7 @@ function InfoPage({
           )}
         </Grid>
       )}
-    </>
+    </div>
   );
 }
 

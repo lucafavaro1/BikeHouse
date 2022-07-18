@@ -5,6 +5,7 @@ const router = express.Router();
 
 const {
   deleteOrder,
+  createOrder,
   getOrdersByBuyer,
   getPopulatedOrder,
 } = require("../controllers/orderController");
@@ -12,5 +13,6 @@ const {
 router.delete("/deleteOrder/:id", deleteOrder);
 router.get("/getOrdersByBuyer/:id", getOrdersByBuyer);
 router.get("/order/:id", getPopulatedOrder);
+router.post("/api/createOrder", createOrder);
 
 module.exports = router;

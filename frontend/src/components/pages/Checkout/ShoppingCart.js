@@ -53,10 +53,6 @@ function ShoppingCart() {
     value: PropTypes.number.isRequired,
   };
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const handleNavigate = (index) => {
     console.log(value - index);
     if (value + index === -1 || value + index === 3) {
@@ -81,7 +77,6 @@ function ShoppingCart() {
   const [products, setProducts] = useState(productArray);
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
 
   const [address, setAddress] = useState({
     firstName: "",
@@ -122,14 +117,15 @@ function ShoppingCart() {
         <div className="row">
           <div className="col-md-8">
             <Tabs
+              className="mt-2"
               value={value}
               variant="fullWidth"
-              onChange={handleChange}
               aria-label="disabled tabs example"
+              TabIndicatorProps={{ style: { backgroundColor: "#2e6076" } }}
             >
-              <Tab label="Shopping Cart" />
-              <Tab label="Address" />
-              <Tab label="Payment" disabled={true} />
+              <Tab label="Shopping Cart" style={{ color: "#2e6076" }} />
+              <Tab label="Address" style={{ color: "#2e6076" }} />
+              <Tab label="Payment" style={{ color: "#2e6076" }} />
             </Tabs>
             <TabPanel value={value} index={0}>
               {
