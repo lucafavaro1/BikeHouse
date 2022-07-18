@@ -87,6 +87,11 @@ function Main() {
         path="/order/:id"
         element={<OrderSummary></OrderSummary>}
       ></Route>
+      <Route
+        exact
+        path="/orderSuccess/:id"
+        element={<OrderSummary showThankYou="true"></OrderSummary>}
+      ></Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

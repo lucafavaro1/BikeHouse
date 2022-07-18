@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 
-function OrderSummary() {
+function OrderSummary(props) {
 	const { id } = useParams();
 	const [order, setOrder] = useState({});
 	const [listings, setListings] = useState([]);
@@ -107,7 +107,7 @@ function OrderSummary() {
 			) : (
 				<>
 					<div className="orderSummary content">
-						<div className="thankYou">
+						{props.showThankYou ? <div className="thankYou">
 							<div className="row justify-content-center">
 								<FontAwesomeIcon icon={faCircleCheck} color="#4dbd60" />
 							</div>
@@ -118,7 +118,8 @@ function OrderSummary() {
 								<span>Your order has been placed. You can see the details below...</span>
 							</div>
 							<hr></hr>
-						</div>
+						</div> : <span></span>
+						}
 
 						<div>
 							<div className="row justify-content-center">

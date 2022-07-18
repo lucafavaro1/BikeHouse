@@ -46,8 +46,6 @@ const getOrder = async (req) => {
 };
 
 const getPopulatedOrder = async (req, res) => {
-  console.log("get populated order called");
-
   if (!req.params.id) {
     res.status(400).json()
   }
