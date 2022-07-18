@@ -356,7 +356,10 @@ const modifyListing = async (req, res) => {
   console.log("modifyListing called");
 
   let isBoosted = req.body.isBoosted;
+  let isActive = req.body.isActive;
+
   if (isBoosted != undefined) {
+    console.log("modify isBoosted");
     try {
       let updatedListing = await ListingModel.findByIdAndUpdate(
         req.body.listingId,
@@ -369,6 +372,24 @@ const modifyListing = async (req, res) => {
       res.status(404).json(err);
     }
   }
+
+  if (isActive != undefined) {
+    console.log("modify isActive");
+
+    try {
+      let updatedListing = await ListingModel.findByIdAndUpdate(
+        req.body.listingId,
+        {
+          isActive: false,
+        }
+      ).exec();
+      res.status(200).json(updatedListing);
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  }
+
+  console.log("end reached");
 };
 
 module.exports = {
@@ -379,5 +400,5 @@ module.exports = {
   getListingById,
   getListingsBySeller,
   modifyListing,
-  fetchBikesForListings
+  fetchBikesForListings,
 };

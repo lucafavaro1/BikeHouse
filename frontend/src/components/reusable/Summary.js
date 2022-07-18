@@ -117,7 +117,10 @@ export default function Summary({ products, setTotalPrice }) {
               € {shippingTotal}
             </Typography>
           </Grid>
+
           <Grid item xs={8} sm={8} md={8} lg={8}>
+            <hr></hr>
+
             <Typography variant="h5" component="div">
               Total
             </Typography>
@@ -131,6 +134,8 @@ export default function Summary({ products, setTotalPrice }) {
             lg={4}
             style={{ "text-align": "right" }}
           >
+            <hr></hr>
+
             <Typography variant="h5" component="div">
               € {totalPrice}
             </Typography>

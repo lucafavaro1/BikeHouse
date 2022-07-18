@@ -481,7 +481,8 @@ function Dashboard() {
                             backgroundColor: "#2e6076",
                             borderColor: "#2e6076",
                             ":hover": {
-                              backgroundColor: "gray",
+                              backgroundColor: "gold",
+                              color: "black",
                             },
                           }}
                         >
@@ -545,11 +546,11 @@ function Dashboard() {
                                 mb: "20px",
                                 mt: "20px",
                                 color: "black",
-                                backgroundColor: "yellow",
+                                backgroundColor: "gold",
                                 borderColor: "#2e6076",
                                 ":hover": {
                                   color: "black",
-                                  backgroundColor: "yellow",
+                                  backgroundColor: "gold",
                                 },
                               }}
                             >
@@ -702,7 +703,15 @@ function Dashboard() {
                               <div className="col-3">
                                 <Button
                                   variant="contained"
-                                  style={{ backgroundColor: "#2e6076" }}
+                                  sx={{
+                                    color: "white",
+                                    backgroundColor: "#2e6076",
+                                    borderColor: "#2e6076",
+                                    ":hover": {
+                                      backgroundColor: "gold",
+                                      color: "black",
+                                    },
+                                  }}
                                   onClick={() =>
                                     navigate("/order/" + order._id)
                                   }
