@@ -1,7 +1,7 @@
+const AddressModel = require("../models/Address");
 const OrderModel = require("../models/Order");
 const ListingModel = require("../models/Listing");
 const { AccessoryModel } = require("../models/Item");
-const AddressModel = require("../models/Address");
 const { getBike, getAccessory } = require("./bikeController");
 const { getListing, fetchBikesForListings } = require("./listingController");
 
@@ -47,77 +47,107 @@ const getOrder = async (req) => {
 
 const getPopulatedOrder = async (req, res) => {
   if (!req.params.id) {
-    res.status(400).json()
+    res.status(400).json();
   }
 
   const orderId = req.params.id;
 
   try {
     var order = await OrderModel.findById(orderId).exec();
-    var rawListings = order.listings
+    var rawListings = order.listings;
 
     order = JSON.parse(JSON.stringify(order)); // convert to JSON to support adding a new field
 
-    var order = await fetchFieldsForOrder(order)
+    var order = await fetchFieldsForOrder(order);
 
     res.status(200).json(order);
   } catch (error) {
-    res.status(500).json(error)
+    res.status(500).json(error);
     console.log(error);
   }
-}
+};
 
 /** Fetches the listings, bikes, and accessories included in an order */
 async function fetchFieldsForOrder(order) {
   // Fetching listings + bikes
-  var listingObjects = []
+  var listingObjects = [];
 
   await Promise.all(
     order.listings.map(async (rawListing) => {
       var listing = await ListingModel.findById(rawListing.id).exec();
       listing = JSON.parse(JSON.stringify(listing));
 
-      listing.insuranceName = rawListing.insuranceName
-      listing.insurancePrice = rawListing.insurancePrice
-      listing.deliveryType = rawListing.deliveryType
-      listing.deliveryPrice = rawListing.deliveryPrice
+      listing.insuranceName = rawListing.insuranceName;
+      listing.insurancePrice = rawListing.insurancePrice;
+      listing.deliveryType = rawListing.deliveryType;
+      listing.deliveryPrice = rawListing.deliveryPrice;
 
-      listingObjects.push(listing)
+      listingObjects.push(listing);
     })
   );
 
   listingObjects = JSON.parse(JSON.stringify(listingObjects)); // convert to JSON to support adding a new field
 
-  listingObjects = await fetchBikesForListings(listingObjects, {})
+  listingObjects = await fetchBikesForListings(listingObjects, {});
 
   // Fetching accessories
-  var accessoryObjects = []
+  var accessoryObjects = [];
 
   await Promise.all(
     order.accessories.map(async (rawAccessory) => {
       let accessory = await AccessoryModel.findById(rawAccessory.id).exec();
       accessory = JSON.parse(JSON.stringify(accessory));
 
-      accessory.quantity = rawAccessory.quantity
+      accessory.quantity = rawAccessory.quantity;
 
-      accessoryObjects.push(accessory)
+      accessoryObjects.push(accessory);
     })
   );
 
   // Fetching address
-  var addressObject = {}
-  addressObject = await AddressModel.findById(order.deliveryAddress)
+  var addressObject = {};
+  addressObject = await AddressModel.findById(order.deliveryAddress);
 
   // Adding fetched objects and returning
-  order.listingObjects = listingObjects
-  order.accessoryObjects = accessoryObjects
-  order.addressObject = addressObject
+  order.listingObjects = listingObjects;
+  order.accessoryObjects = accessoryObjects;
+  order.addressObject = addressObject;
   return order;
 }
+const createOrder = async (req, res) => {
+  console.log("create order called");
+  const order = req.body;
+  try {
+    let address = {
+      streetName: order.deliveryAddress.streetName,
+      houseNumber: order.deliveryAddress.houseNumber,
+      city: order.deliveryAddress.city,
+      zip: order.deliveryAddress.zip,
+      country: order.deliveryAddress.country,
+      firstName: order.deliveryAddress.firstName,
+      lastName: order.deliveryAddress.lastName,
+      phoneNumber: order.deliveryAddress.phoneNumber,
+      addressLine2: order.deliveryAddress.addressLine2,
+    };
+    console.log(address);
+    const newAddress = new AddressModel(address);
+    await newAddress.save();
+    let newOrderFromRequest = {
+      ...order,
+      deliveryAddress: newAddress._id,
+    };
+    const newOrder = await OrderModel.create(newOrderFromRequest);
+    res.status(200).json(newOrder);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json("Order not created");
+  }
+};
 
 module.exports = {
   getOrder,
   getOrdersByBuyer,
   deleteOrder,
   getPopulatedOrder,
+  createOrder,
 };

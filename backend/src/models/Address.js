@@ -23,6 +23,18 @@ const AddressSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  phoneNumber: {
+    type: String,
+  },
+  addressLine2: {
+    type: String,
+  },
 });
 
 // name of collection + schema that represents that model

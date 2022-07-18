@@ -3,35 +3,63 @@ import React, { useState } from "react";
 import axios from "axios";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { CircularProgress } from "@material-ui/core";
+import "../css/InfoPage.css";
 import SellIcon from "@mui/icons-material/Sell";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import { Modal } from "react-bootstrap";
 import ConditionIndicator from "./ConditionIndicator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import GppBadIcon from "@mui/icons-material/GppBad";
+import { addToCart } from "../../features/cartSlice";
 
 function InfoPage({
-  sellerId,
   bikeId,
   isBoosted,
+  sellerId,
   listingId,
   location,
   sellerName,
   frameVerified,
   bikeCondition,
   price,
+  description,
+  brand,
+  model,
   sellerVerified,
+  images,
+  category,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const handleBasket = (e) => {
+    e.preventDefault();
+    const data = {
+      bikeId,
+      isBoosted,
+      sellerId,
+      listingId,
+      location,
+      sellerName,
+      frameVerified,
+      bikeCondition,
+      price,
+      description,
+      brand,
+      model,
+      sellerVerified,
+      images,
+      category,
+    };
+    dispatch(addToCart(data));
+  };
   const payBoost = async (listingId) => {
     console.log(listingId);
     setIsLoading(true);
@@ -80,7 +108,7 @@ function InfoPage({
   };
 
   return (
-    <>
+    <div className="infoPage">
       {isLoading ? (
         <div
           style={{
@@ -143,7 +171,7 @@ function InfoPage({
             <Button
               variant={"contained"}
               color={"warning"}
-              style={{ maxWidth: "200px", marginTop: "auto" }}
+              style={{ maxWidth: "200px", marginTop: "50px" }}
               onClick={() => payBoost(listingId)}
             >
               Boost it now
@@ -157,7 +185,7 @@ function InfoPage({
               <Button
                 variant={"contained"}
                 color={"error"}
-                style={{ maxWidth: "200px", marginTop: "auto" }}
+                style={{ maxWidth: "200px", marginTop: "50px" }}
                 onClick={() => {
                   setModalShow(true);
                 }}
@@ -206,20 +234,17 @@ function InfoPage({
             </>
           ) : (
             <Button
+              className="addBasket"
               variant={"contained"}
               color={"primary"}
-              style={{
-                maxWidth: "200px",
-                marginTop: "30px",
-                backgroundColor: "#2e6076",
-              }}
+              onClick={handleBasket}
             >
               Add to basket
             </Button>
           )}
         </Grid>
       )}
-    </>
+    </div>
   );
 }
 

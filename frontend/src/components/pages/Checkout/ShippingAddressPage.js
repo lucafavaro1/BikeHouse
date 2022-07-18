@@ -1,31 +1,37 @@
-import { Box, Divider, Radio, RadioGroup, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Divider,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { TextField, Grid } from "@mui/material";
+import "../../css/Checkout.css";
 import { useState } from "react";
 
-function ShippingAddressPage({ setShippingRate }) {
-  const [address, setAddress] = useState({
-    firstName: "",
-    lastName: "",
-    addressLine1: "",
-    addressLine2: "",
-
-    city: "",
-    state: "",
-    zip: "",
-    country: "",
-  });
-
+function ShippingAddressPage({ address, setAddress, handleNavigate }) {
+  const [localAddress, setLocalAddress] = useState(address);
   const handleChange = (event) => {
-    console.log("event target is " + event.target);
+    event.preventDefault();
     const { name, value } = event.target;
     // console.log(name, value);
-    setAddress({ ...address, [name]: value });
+    setLocalAddress({ ...localAddress, [name]: value });
+    // setAddress(localAddress);
   };
+
   return (
-    <>
-      <form noValidate autoComplete="off">
-        <Grid container spacing={2}>
+    <div className="checkout">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setAddress(localAddress);
+          handleNavigate(1);
+        }}
+        autoComplete="off"
+      >
+        <Grid container spacing={2} className="mt-2">
           <Grid item xs={12} sm={6}>
             <TextField
               required
@@ -33,6 +39,7 @@ function ShippingAddressPage({ setShippingRate }) {
               onChange={handleChange}
               label="First Name"
               variant="outlined"
+              value={localAddress.firstName}
               fullWidth
             />
           </Grid>
@@ -43,15 +50,31 @@ function ShippingAddressPage({ setShippingRate }) {
               label="Last Name"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.lastName}
               fullWidth
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <TextField
-              name="addressLine1"
-              label="Address line 1"
+              required
+              name="streetName"
+              label="Street Name"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.streetName}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              required
+              name="houseNumber"
+              label="House Number"
+              variant="outlined"
+              type={"number"}
+              InputProps={{ inputProps: { min: 1 } }}
+              onChange={handleChange}
+              value={localAddress.houseNumber}
               fullWidth
             />
           </Grid>
@@ -61,47 +84,56 @@ function ShippingAddressPage({ setShippingRate }) {
               label="Address line 2"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.addressLine2}
               fullWidth
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               name="zip"
               label="Postal/Zip Code"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.zip}
               fullWidth
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               name="city"
               label="City"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.city}
               fullWidth
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              name="state"
-              label="Province/State"
+              required
+              name="phoneNumber"
+              label="Phone"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.phoneNumber}
               fullWidth
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               name="country"
               label="Country"
               variant="outlined"
               onChange={handleChange}
+              value={localAddress.country}
               fullWidth
             />
           </Grid>
         </Grid>
-        <RadioGroup defaultValue={"freeDelivery"}>
+        {/* <RadioGroup defaultValue={"freeDelivery"}>
           <div class="row  mt-3 mb-3 ml-2 mr-2">
             <div class="col border border-dark">
               <Radio
@@ -124,9 +156,21 @@ function ShippingAddressPage({ setShippingRate }) {
               </Typography>
             </div>
           </div>
-        </RadioGroup>
+        </RadioGroup> */}
+        <div className="mt-3 mb-3 mr-3 ml-0">
+          <Button
+            onClick={() => handleNavigate(-1)}
+            className="mt-3 mb-3 mr-3 ml-0"
+            type="button"
+          >
+            Back
+          </Button>
+          <Button className="m-3" type="submit">
+            Next
+          </Button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 
