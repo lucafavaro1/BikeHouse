@@ -6,7 +6,7 @@ const router = express.Router();
 const {
   deleteOrder,
   getOrdersByBuyer,
-  getPopulatedOrder
+  getPopulatedOrder,
 } = require("../controllers/orderController");
 
 router.delete("/deleteOrder/:id", deleteOrder);

@@ -9,8 +9,9 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "./Logout";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { IconButton } from "@mui/material";
 import "../css/Navbar.css";
-
 
 const pages = {
   buy: "Buy a Bike",
@@ -42,10 +43,10 @@ const Navbar = () => {
   };
 
   const submitSearch = (e) => {
-    e.preventDefault()
-    navigate('/buy', { state: { searchString } });
+    e.preventDefault();
+    navigate("/buy", { state: { searchString } });
     window.location.reload(false);
-  }
+  };
 
   return (
     <AppBar className="appbar" position="sticky" sx={{ bgcolor: "#3d3d3d" }}>
@@ -93,15 +94,45 @@ const Navbar = () => {
             ))}
           </Box>
 
+          <Link to={"/cart"} style={{ textDecoration: "none" }}>
+            <Button
+              variant="outlined"
+              href="/cart"
+              sx={{
+                my: 2,
+                mx: 1,
+                color: "white",
+                display: "block",
+                fontSize: "medium",
+                borderColor: "#2e6076",
+                ":hover": { color: "gold" },
+              }}
+            >
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <ShoppingCartIcon
+                  sx={{
+                    my: 1,
+                    mx: 0.5,
+                    color: "white",
+                    display: "block",
+                    fontSize: "big",
+                    ":hover": { color: "gold" },
+                  }}
+                />
+              </IconButton>
+            </Button>
+          </Link>
           <div className="navbar">
             <div className="navbar searchBar">
               <form className="form-inline" onSubmit={submitSearch}>
-                <input className="form-control"
+                <input
+                  className="form-control"
                   type="search"
                   placeholder="Search for a bike"
                   onChange={(e) => {
                     setSearchString(e.target.value);
-                  }} />
+                  }}
+                />
               </form>
             </div>
           </div>

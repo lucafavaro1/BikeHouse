@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
 import { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
@@ -16,9 +16,16 @@ import Summary from "../../reusable/Summary";
 
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { selectCart } from "../../../features/cartSlice";
+import { removeFromCart } from "../../../features/cartSlice";
+import { useSelector } from "react-redux";
+import { useSelect } from "@mui/base";
+import axios from "axios";
+import { selectUser } from "../../../features/userSlice";
+import { Navigate } from "react-router-dom";
 
 function ShoppingCart() {
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -58,40 +65,60 @@ function ShoppingCart() {
       setValue(value + index);
     }
   };
-  const [shippingRate, setShippingRate] = useState(0);
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      category: "Bike",
-      name: "BestBikeEver",
-      price: 200,
-      quantity: 1,
-      image:
-        "https://static.spektrum.de/fm/912/f2000x857/STScI-01G79R4PQEKTHV094X9767ASV8.jpg",
-    },
-    {
-      id: 2,
-      category: "Bike",
-      name: "BestBikeEver",
-      price: 200,
-      quantity: 2,
-      image:
-        "https://static.spektrum.de/fm/912/f2000x857/STScI-01G79R4PQEKTHV094X9767ASV8.jpg",
-    },
-    {
-      id: 3,
-      category: "Accessory",
-      name: "BEST ACCESSORY EVER",
-      price: 200,
-      quantity: 2,
-      image:
-        "https://static.spektrum.de/fm/912/f2000x857/STScI-01G79R4PQEKTHV094X9767ASV8.jpg",
-    },
-  ]);
+
+  const cart = useSelector(selectCart);
+  let productArray = [];
+  cart.forEach((item) => {
+    productArray.push({
+      ...item,
+      insurance: 0, // insurance price is defined here
+      insuranceName: "No Insurance",
+      deliveryType: "Free",
+      insuranceKey: 0,
+      shipping: 0,
+    });
+  });
+  const [products, setProducts] = useState(productArray);
+
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+
+  const [address, setAddress] = useState({
+    firstName: "",
+    lastName: "",
+    streetName: "",
+    houseNumber: 0,
+    city: "",
+    phoneNumber: "",
+    zip: "",
+    country: "",
+    addressLine2: "",
+  });
+
+  useEffect(() => {
+    let productArray = [];
+    cart.forEach((item) => {
+      productArray.push({
+        ...item,
+        insurance: 0, // insurance price is defined here
+        insuranceName: "No Insurance",
+        deliveryType: "Free",
+        insuranceKey: 0,
+        shipping: 0, // insurance price is defined here
+      });
+    });
+    console.log("Product array is ", productArray);
+    setProducts(productArray);
+  }, [cart]);
+
+  const user = useSelector(selectUser);
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <>
-      <div className="container bg-light ">
+      <div className="container bg-light content">
         <div className="row">
           <div className="col-md-8">
             <Tabs
@@ -102,51 +129,38 @@ function ShoppingCart() {
             >
               <Tab label="Shopping Cart" />
               <Tab label="Address" />
-              <Tab label="Payment" />
+              <Tab label="Payment" disabled={true} />
             </Tabs>
             <TabPanel value={value} index={0}>
-              {<ShoppingCartTab products={products} />}
+              {
+                <ShoppingCartTab
+                  products={products}
+                  setProducts={setProducts}
+                  handleNavigate={handleNavigate}
+                />
+              }
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <ShippingAddressPage setShippingRate={setShippingRate} />
+              <ShippingAddressPage
+                address={address}
+                setAddress={setAddress}
+                handleNavigate={handleNavigate}
+              />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <PaymentOptionsPage />
+              <PaymentOptionsPage
+                handleNavigate={handleNavigate}
+                products={products}
+                address={address}
+                user={user}
+                totalPrice={totalPrice}
+              />
             </TabPanel>
-            <Divider />
           </div>
 
           <div className="col-md-4 mt-5 mb-5">
-            <Summary products={products} shippingRate={shippingRate} />
+            <Summary products={products} setTotalPrice={setTotalPrice} />
           </div>
-        </div>
-
-        <div className="m-4">
-          {value != 2 && (
-            <Button
-              style={{ backgroundColor: "#2e6076" }}
-              type="button"
-              onClick={() => handleNavigate(1)}
-            >
-              Next
-            </Button>
-          )}
-          {value === 2 && (
-            <Button style={{ backgroundColor: "#2e6076" }} type="button">
-              Complete Payment
-            </Button>
-          )}
-
-          {value != 0 && (
-            <Button
-              onClick={() => handleNavigate(-1)}
-              className="ml-3"
-              style={{ backgroundColor: "#2e6076" }}
-              type="button"
-            >
-              Back
-            </Button>
-          )}
         </div>
       </div>
     </>

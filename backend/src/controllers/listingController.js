@@ -23,7 +23,7 @@ const deleteListing = async (req, res) => {
 };
 
 const getListing = async (req) => {
-  console.log("get listing (one) called");
+  console.log("get listing (one) called with id", req);
   const listingId = req;
   try {
     const listing = await ListingModel.findById(listingId).exec();
@@ -289,6 +289,7 @@ const getListingById = async (req, res) => {
     listingToSend["brand"] = bikeDeets.brand;
     listingToSend["model"] = bikeDeets.model;
     listingToSend["sellerVerified"] = sellerDeets.isVerified;
+    listingToSend["category"] = bikeDeets.kind;
     return res.status(200).json(listingToSend);
   } catch (error) {
     console.log(error);

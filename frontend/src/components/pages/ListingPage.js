@@ -32,6 +32,8 @@ function ListingPage(props) {
           brand: listing.data.brand,
           model: listing.data.model,
           sellerVerified: listing.data.sellerVerified,
+          images: listing.data.images,
+          category: listing.data.category,
         });
         const photosFromResponse = listing.data.images;
         console.log(photosFromResponse.length);
@@ -70,6 +72,7 @@ function ListingPage(props) {
     brand: "brand of the bike",
     model: "model of the bike",
     sellerVerified: true,
+    category: "bike",
   };
 
   const [selectedImage, setSelectedImage] = useState(0);
