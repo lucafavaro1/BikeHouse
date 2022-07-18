@@ -67,16 +67,22 @@
 .dashboard .orders {
   margin-top: 20px;
   font-size: 16px;
-  max-height: 200px;
-  max-width: 350px;
   font-family: "Roboto";
 }
 
 .dashboard .ordersPanel {
+  overflow-y: scroll;
   margin-top: 20px;
   font-size: 16px;
   max-width: 700px;
+  max-height: 510px;
   font-family: "Roboto";
+}
+
+.dashboard .scollOrdersDashboard {
+  overflow-y: scroll;
+  max-height: 210px;
+  max-width: 350px;
 }
 
 .dashboard .elements p {
@@ -165,7 +171,7 @@
 }
 
 .dashboard .carousel.slide {
-  height: 250px;
+  height: 200px;
   width: 300px;
 }
 

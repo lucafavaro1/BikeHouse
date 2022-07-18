@@ -195,22 +195,24 @@ function Dashboard() {
         <p>
           You have <b>{orders.length} completed orders. </b>
         </p>
-        <ListGroup as="ol">
-          {orders.map((order) => (
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start py-2 mb-0"
-              onClick={() => navigate("/order/" + order._id)}
-            >
-              <div style={{ fontSize: 16 + "px" }} className="ms-2 me-auto">
-                {moment(order.createdAt).format("DD/MM/YYYY")}
-              </div>
-              <Badge bg="warning" pill>
-                {order.totalAmount} €
-              </Badge>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
+        <div className="scollOrdersDashboard">
+          <ListGroup as="ol">
+            {orders.map((order) => (
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start py-2 mb-0"
+                onClick={() => navigate("/order/" + order._id)}
+              >
+                <div style={{ fontSize: 16 + "px" }} className="ms-2 me-auto">
+                  {moment(order.createdAt).format("DD/MM/YYYY")}
+                </div>
+                <Badge bg="warning" pill>
+                  {order.totalAmount} €
+                </Badge>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </div>
       </div>
     );
   }
@@ -657,53 +659,57 @@ function Dashboard() {
                     <p> After placing the first order you will find it here.</p>
                   </div>
                 ) : (
-                  <div className="ordersPanel">
+                  <>
                     <p>
                       You have <b>{orders.length} completed orders. </b>
                     </p>
-                    <ListGroup as="ol" numbered>
-                      {orders.map((order) => (
-                        <ListGroup.Item
-                          as="li"
-                          className="d-flex justify-content-between align-items-start py-2 mb-0"
-                          onClick={() => navigate("/order/" + order._id)}
-                        >
-                          <div
-                            style={{ fontSize: 16 + "px" }}
-                            className="row ms-2 me-auto"
+                    <div className="ordersPanel">
+                      <ListGroup as="ol" numbered>
+                        {orders.map((order) => (
+                          <ListGroup.Item
+                            as="li"
+                            className="d-flex justify-content-between align-items-start py-2 mb-0"
+                            onClick={() => navigate("/order/" + order._id)}
                           >
-                            <div className="col-9 elements">
-                              <b>OrderID: {order._id} </b>
-                              <p>
-                                Date :{" "}
-                                {moment(order.createdAt).format("DD/MM/YYYY")}{" "}
-                              </p>
-                              <p>
-                                {" "}
-                                Number of items:{" "}
-                                {order.listings.length +
-                                  order.accessories.length}
-                              </p>
-                              <p>Payment method: {order.paymentMethod}</p>
-                              <p></p>
-                              <p style={{ marginTop: 15 + "px" }}>
-                                Total Amount: {order.totalAmount} €{" "}
-                              </p>
+                            <div
+                              style={{ fontSize: 16 + "px" }}
+                              className="row ms-2 me-auto"
+                            >
+                              <div className="col-9 elements">
+                                <b>OrderID: {order._id} </b>
+                                <p>
+                                  Date :{" "}
+                                  {moment(order.createdAt).format("DD/MM/YYYY")}{" "}
+                                </p>
+                                <p>
+                                  {" "}
+                                  Number of items:{" "}
+                                  {order.listings.length +
+                                    order.accessories.length}
+                                </p>
+                                <p>Payment method: {order.paymentMethod}</p>
+                                <p></p>
+                                <p style={{ marginTop: 15 + "px" }}>
+                                  Total Amount: {order.totalAmount} €{" "}
+                                </p>
+                              </div>
+                              <div className="col-3">
+                                <Button
+                                  variant="contained"
+                                  style={{ backgroundColor: "#2e6076" }}
+                                  onClick={() =>
+                                    navigate("/order/" + order._id)
+                                  }
+                                >
+                                  More details
+                                </Button>
+                              </div>
                             </div>
-                            <div className="col-3">
-                              <Button
-                                variant="contained"
-                                style={{ backgroundColor: "#2e6076" }}
-                                onClick={() => navigate("/order/" + order._id)}
-                              >
-                                More details
-                              </Button>
-                            </div>
-                          </div>
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                  </div>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    </div>
+                  </>
                 )}
               </TabPanel>
               <TabPanel value={value} index={3}>
