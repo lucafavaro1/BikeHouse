@@ -11,7 +11,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Logout from "./Logout";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { IconButton } from "@mui/material";
-import "../css/Navbar.css";
 
 const pages = {
   buy: "Buy a Bike",
@@ -101,6 +100,12 @@ const Navbar = () => {
                   className="form-control"
                   type="search"
                   placeholder="Search for a bike"
+                  style={{
+                    height: 2 + "rem",
+                    border: "none",
+                    backgroundColor: "#f0f0f0",
+                    borderRadius: 6 + "px",
+                  }}
                   onChange={(e) => {
                     setSearchString(e.target.value);
                   }}
@@ -112,7 +117,6 @@ const Navbar = () => {
           <Link to={"/cart"} style={{ textDecoration: "none" }}>
             <Button
               variant="outlined"
-              href="/cart"
               sx={{
                 my: 2,
                 mx: 1,

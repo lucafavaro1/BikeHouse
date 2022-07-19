@@ -1,29 +1,19 @@
-import React, { useEffect } from "react";
-import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
-import { useState, useCallback } from "react";
-import Form from "react-bootstrap/Form";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import PropTypes from "prop-types";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 
-import ShoppingCartTab from "./ShoppingCartTab";
-import ShippingAddressPage from "./ShippingAddressPage";
-import { Divider } from "@material-ui/core";
-import PaymentOptionsPage from "./PaymentOptionsPage";
 import Summary from "../../reusable/Summary";
-import { useNavigate } from "react-router-dom";
+import PaymentOptionsPage from "./PaymentOptionsPage";
+import ShippingAddressPage from "./ShippingAddressPage";
+import ShoppingCartTab from "./ShoppingCartTab";
 
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import { selectCart } from "../../../features/cartSlice";
-import { removeFromCart } from "../../../features/cartSlice";
 import { useSelector } from "react-redux";
-import { useSelect } from "@mui/base";
-import axios from "axios";
-import { selectUser } from "../../../features/userSlice";
 import { Navigate } from "react-router-dom";
+import { selectCart } from "../../../features/cartSlice";
+import { selectUser } from "../../../features/userSlice";
 
 function ShoppingCart() {
   const [value, setValue] = React.useState(0);
@@ -65,12 +55,7 @@ function ShoppingCart() {
 
   const cart = useSelector(selectCart);
 
-  let productArray = [];
-  cart.forEach((item) => {
-    console.log("item is ", item);
-    productArray.push({ ...item });
-  });
-  const [products, setProducts] = useState(productArray);
+  const [products, setProducts] = useState([]);
 
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -89,7 +74,6 @@ function ShoppingCart() {
   useEffect(() => {
     let productArray = [];
     cart.forEach((item) => {
-      console.log("item is ", item);
       productArray.push({ ...item });
     });
     console.log("Product array is ", productArray);

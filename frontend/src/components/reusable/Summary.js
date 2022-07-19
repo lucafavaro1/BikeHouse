@@ -7,22 +7,21 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
-const useStyles = makeStyles({
-  root: {
-    position: "sticky",
-    top: "1rem",
-    minWidth: "275",
-  },
-
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
-
 export default function Summary({ products, setTotalPrice }) {
+  const useStyles = makeStyles({
+    root: {
+      position: "sticky",
+      top: "1rem",
+      minWidth: "275",
+    },
+    title: {
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  });
+
   const classes = useStyles();
   let subTotal;
 
@@ -58,7 +57,7 @@ export default function Summary({ products, setTotalPrice }) {
         >
           Shopping Cart
         </Typography>
-        <Typography variant="div" component="h4">
+        <Typography variant="h5" component="div">
           {" "}
           Order Summary
         </Typography>

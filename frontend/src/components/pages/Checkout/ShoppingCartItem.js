@@ -95,7 +95,7 @@ function ShoppingCartItem({
         </Typography>
         <Grid container>
           <Grid item xs={10}>
-            <Typography variant="div" component="h2">
+            <Typography variant="h4" component="div">
               {product.brand + " " + product.model}
             </Typography>
           </Grid>
@@ -185,8 +185,8 @@ function ShoppingCartItem({
         </Grid>
         <Grid container>
           <RadioGroup value={product.shipping}>
-            <div class="row  mt-3 mb-3 ml-2 mr-2">
-              <div class="col border border-dark">
+            <div className="row  mt-3 mb-3 ml-2 mr-2">
+              <div className="col border border-dark">
                 <Radio
                   label="Free Delivery"
                   value={0}
@@ -197,7 +197,7 @@ function ShoppingCartItem({
                 <span>Free Delivery</span>
                 <Typography variant="body2">Standard delivery</Typography>
               </div>
-              <div class="col  border border-dark ml-3">
+              <div className="col border border-dark ml-3">
                 <Radio
                   label="Fast Delivery"
                   value={20}

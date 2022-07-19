@@ -171,7 +171,7 @@ function OrderSummary(props) {
 
             <div>
               <div className="row p-0 m-0 justify-content-center">
-                <div class="col-7 listingsGroup">
+                <div classNames="col-7 listingsGroup">
                   <p className="orderInfoText">
                     <strong>Order date: </strong>
                     <span className="orderInfoTextSmall">
