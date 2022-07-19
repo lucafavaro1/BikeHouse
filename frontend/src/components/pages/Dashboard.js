@@ -9,6 +9,7 @@ import Stack from "@mui/material/Stack";
 import "../css/Dashboard.css";
 import { Button, Divider, Toolbar } from "@mui/material";
 import rocketIcon from "../pictures/rocket.png";
+import underVerificationIcon from "../pictures/under_verification.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import GppMaybeIcon from "@mui/icons-material/GppMaybe";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -17,7 +18,15 @@ import { login, logout } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectUser } from "../../features/userSlice";
-import { Row, Col, Card, Form, Carousel } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Card,
+  Form,
+  Carousel,
+  ListGroup,
+  Badge,
+} from "react-bootstrap";
 import { CircularProgress } from "@material-ui/core";
 import DropBox from "../../features/Dropbox";
 import ShowImage from "../../features/ShowImage";
@@ -59,6 +68,7 @@ function Dashboard() {
   const user = useSelector(selectUser);
   const [value, setValue] = useState(0);
   const [listings, setListings] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -77,6 +87,8 @@ function Dashboard() {
 
   useEffect(() => {
     getListings();
+    getOrdersByBuyer();
+
     if (user.verificationPictures.length !== 0) {
       setTitleVerify("Documents uploaded");
       setTextVerify(
@@ -96,6 +108,21 @@ function Dashboard() {
         "http://localhost:3001/listingsBySeller/" + user.userId
       );
       if (response.data !== "You have no listings") setListings(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  }
+
+  async function getOrdersByBuyer() {
+    setIsLoading(true);
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/getOrdersByBuyer/" + user.userId
+      );
+      if (response.data !== "You have no orders") {
+        setOrders(response.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -156,6 +183,41 @@ function Dashboard() {
     );
   }
 
+  function displayOrders() {
+    return orders.length === 0 ? (
+      <div>
+        <p></p>
+        <p>
+          You have <b>{orders.length} completed orders. </b>
+        </p>
+      </div>
+    ) : (
+      <div className="orders">
+        <p>
+          You have <b>{orders.length} completed orders. </b>
+        </p>
+        <div className="scollOrdersDashboard">
+          <ListGroup as="ol">
+            {orders.map((order) => (
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start py-2 mb-0"
+                onClick={() => navigate("/order/" + order._id)}
+              >
+                <div style={{ fontSize: 16 + "px" }} className="ms-2 me-auto">
+                  {moment(order.createdAt).format("DD/MM/YYYY")}
+                </div>
+                <Badge bg="warning" pill>
+                  {order.totalAmount} €
+                </Badge>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </div>
+      </div>
+    );
+  }
+
   const renderCard = (listing, index) => {
     return (
       <Card key={index} onClick={() => navigate("/listing/" + listing._id)}>
@@ -164,6 +226,15 @@ function Dashboard() {
         {listing.isBoosted ? (
           <div>
             <img src={rocketIcon} className="boostIcon" />
+          </div>
+        ) : (
+          <span></span>
+        )}
+
+        {listing.bike.conditionToBeVerified ||
+        listing.bike.frameToBeVerified ? (
+          <div>
+            <img src={underVerificationIcon} className="boostIcon" />
           </div>
         ) : (
           <span></span>
@@ -257,6 +328,7 @@ function Dashboard() {
         email: email,
         loggedIn: true,
         userId: response.data.id,
+        balance: response.data.balance,
         isVerified: response.data.isVerified,
         averageRating: response.data.averageRating,
         billingAddress: response.data.billingAddress,
@@ -321,8 +393,10 @@ function Dashboard() {
                 >
                   <Tab label="Account" />
                   <Tab label="My listings" />
-                  <Tab label="Purchase history" />
+                  <Tab label="Orders History" />
                   <Tab label="Support" />
+                  <Tab disabled label="" />
+                  <Tab disabled label="" />
                   <Tab disabled label="" />
                   <Tab disabled label="" />
                 </Tabs>
@@ -421,7 +495,7 @@ function Dashboard() {
                         </u>
                       </p>
                     ) : (
-                      <div>
+                      <div style={{ marginTop: 45 + "px" }}>
                         Your rating:
                         <Stars
                           stars={user.averageRating.$numberDecimal}
@@ -503,12 +577,31 @@ function Dashboard() {
                         <Col md={2}></Col>
                       </div>
                     )}
-                    <div className="balance">
-                      <p>Balance: TO IMPLEMENT </p>
+                    <p></p>
+                    <div className="row balance mt-4">
+                      <div className="col-5 p-0">
+                        <p style={{ alignContent: "center", margin: 0 }}>
+                          Balance: {user.balance} €{" "}
+                        </p>
+                      </div>
+                      {user.balance != 0 ? (
+                        <Button
+                          variant="contained"
+                          style={{
+                            marginTop: -5 + "px",
+                            backgroundColor: "#2e6076",
+                          }}
+                        >
+                          {" "}
+                          Redeem
+                        </Button>
+                      ) : (
+                        <p></p>
+                      )}
                     </div>
                   </Col>
                 </Row>
-                <Row>
+                <Row style={{ marginTop: 10 + "px" }}>
                   <Col>
                     <Typography
                       variant="h6"
@@ -541,10 +634,12 @@ function Dashboard() {
                         borderBottom: 3,
                         borderColor: "divider",
                         cursor: "pointer",
+                        maxHeight: 100 + "px",
                       }}
                     >
-                      <a onClick={() => setValue(2)}>Purchase History</a>
+                      <a onClick={() => setValue(2)}>Orders History</a>
                     </Typography>
+                    {displayOrders()}
                   </Col>
                 </Row>
               </TabPanel>
@@ -561,8 +656,64 @@ function Dashboard() {
                 )}
               </TabPanel>
               <TabPanel value={value} index={2}>
-                <h3>Your purchase history is empty! </h3>
-                <p> After placing the first order you will find it here.</p>
+                {orders.length == 0 ? (
+                  <div>
+                    <h3>Your orders history is empty! </h3>
+                    <p> After placing the first order you will find it here.</p>
+                  </div>
+                ) : (
+                  <>
+                    <p>
+                      You have <b>{orders.length} completed orders. </b>
+                    </p>
+                    <div className="ordersPanel">
+                      <ListGroup as="ol" numbered>
+                        {orders.map((order) => (
+                          <ListGroup.Item
+                            as="li"
+                            className="d-flex justify-content-between align-items-start py-2 mb-0"
+                            onClick={() => navigate("/order/" + order._id)}
+                          >
+                            <div
+                              style={{ fontSize: 16 + "px" }}
+                              className="row ms-2 me-auto"
+                            >
+                              <div className="col-9 elements">
+                                <b>OrderID: {order._id} </b>
+                                <p>
+                                  Date :{" "}
+                                  {moment(order.createdAt).format("DD/MM/YYYY")}{" "}
+                                </p>
+                                <p>
+                                  {" "}
+                                  Number of items:{" "}
+                                  {order.listings.length +
+                                    order.accessories.length}
+                                </p>
+                                <p>Payment method: {order.paymentMethod}</p>
+                                <p></p>
+                                <p style={{ marginTop: 15 + "px" }}>
+                                  Total Amount: {order.totalAmount} €{" "}
+                                </p>
+                              </div>
+                              <div className="col-3">
+                                <Button
+                                  variant="contained"
+                                  style={{ backgroundColor: "#2e6076" }}
+                                  onClick={() =>
+                                    navigate("/order/" + order._id)
+                                  }
+                                >
+                                  More details
+                                </Button>
+                              </div>
+                            </div>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    </div>
+                  </>
+                )}
               </TabPanel>
               <TabPanel value={value} index={3}>
                 <h2>Need help ? Contact us! </h2>

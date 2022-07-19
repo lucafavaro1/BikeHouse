@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { TextField, Grid } from "@mui/material";
+import "../../css/Checkout.css";
 import { useState } from "react";
 
 function ShippingAddressPage({ address, setAddress, handleNavigate }) {
@@ -21,7 +22,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
   };
 
   return (
-    <>
+    <div className="checkout">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -30,7 +31,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
         }}
         autoComplete="off"
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className="mt-2">
           <Grid item xs={12} sm={6}>
             <TextField
               required
@@ -55,6 +56,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
           </Grid>
           <Grid item xs={8}>
             <TextField
+              required
               name="streetName"
               label="Street Name"
               variant="outlined"
@@ -65,10 +67,12 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
           </Grid>
           <Grid item xs={4}>
             <TextField
+              required
               name="houseNumber"
               label="House Number"
               variant="outlined"
               type={"number"}
+              InputProps={{ inputProps: { min: 1 } }}
               onChange={handleChange}
               value={localAddress.houseNumber}
               fullWidth
@@ -86,6 +90,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               name="zip"
               label="Postal/Zip Code"
               variant="outlined"
@@ -96,6 +101,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               name="city"
               label="City"
               variant="outlined"
@@ -106,6 +112,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               name="phoneNumber"
               label="Phone"
               variant="outlined"
@@ -116,6 +123,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               name="country"
               label="Country"
               variant="outlined"
@@ -149,25 +157,20 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
             </div>
           </div>
         </RadioGroup> */}
-        <div className="m-3">
-          <Button
-            className="m-3"
-            style={{ backgroundColor: "#2e6076", color: "white" }}
-            type="submit"
-          >
-            Next
-          </Button>
+        <div className="mt-3 mb-3 mr-3 ml-0">
           <Button
             onClick={() => handleNavigate(-1)}
-            className="m-3"
-            style={{ backgroundColor: "#2e6076", color: "white" }}
+            className="mt-3 mb-3 mr-3 ml-0"
             type="button"
           >
             Back
           </Button>
+          <Button className="m-3" type="submit">
+            Next
+          </Button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 

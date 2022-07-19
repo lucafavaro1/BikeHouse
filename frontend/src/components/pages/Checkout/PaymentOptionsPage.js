@@ -3,6 +3,7 @@ import { CheckBox } from "@mui/icons-material";
 import React from "react";
 import Radio from "@mui/joy/Radio";
 import RadioGroup from "@mui/joy/RadioGroup";
+import "../../css/Checkout.css";
 import axios from "axios";
 
 function PaymentOptionsPage({
@@ -19,9 +20,7 @@ function PaymentOptionsPage({
     await axios
       .post("http://localhost:3001/checkout-basket/", {
         orderId: orderId,
-        successLink: "/order/" + orderId,
-        cancelLink: "/",
-        // dont use the following one until everything works, it will cancel the order!!
+        successLink: "/orderSuccess/" + orderId,
         cancelLink: "/checkout/?canceled=true" + "&" + "orderId=" + orderId,
       })
       .then((response) => {
@@ -89,7 +88,7 @@ function PaymentOptionsPage({
     console.log(orderCreated);
   };
   return (
-    <>
+    <div className="checkout">
       <Typography variant="h4">Payment Methods</Typography>
       <Divider />
 
@@ -103,24 +102,23 @@ function PaymentOptionsPage({
           </div>
         </div>
       </RadioGroup>
-      <div className="align-self-end ml-3">
+      <div className="align-self-end">
         <Button
           onClick={() => handleNavigate(-1)}
           className="m-3"
-          style={{ backgroundColor: "#2e6076", color: "white" }}
           type="button"
         >
           Back
         </Button>
         <Button
-          style={{ backgroundColor: "#2e6076", color: "white" }}
           onClick={doPayment}
+          style={{ width: 200 + "px", marginLeft: 20 + "px" }}
           type="button"
         >
           Complete Payment
         </Button>
       </div>
-    </>
+    </div>
   );
 }
 

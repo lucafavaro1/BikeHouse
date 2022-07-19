@@ -53,6 +53,11 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Types.Decimal128,
     default: 0.0,
   },
+  balance: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 // name of collection + schema that represents that model

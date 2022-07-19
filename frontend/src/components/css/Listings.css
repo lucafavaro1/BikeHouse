@@ -27,7 +27,7 @@
   margin-bottom: 3rem;
   padding: 0;
   padding-bottom: 0.25%;
-  border-radius: 1.5% / 0.5%
+  border-radius: 1.5% / 0.5%;
 }
 
 .listings .filtersTitle {
@@ -91,6 +91,11 @@
   border-color: transparent;
 }
 
+.listings .applyBtn:hover {
+  background-color: gold;
+  color: black;
+}
+
 .listings .listingsPanel {
   padding: 2.5% 3% 2.5% 3%;
 }
@@ -104,7 +109,7 @@
 
 .listings .card-img-top {
   height: 18rem;
-  object-fit: contain
+  object-fit: contain;
 }
 
 .listings .card-body {
@@ -167,10 +172,10 @@
 }
 
 .listings .searchInfo {
-  padding-top: 1%
+  padding-top: 1%;
 }
 
-.listings .searchInfo button{
+.listings .searchInfo button {
   height: 1.25rem;
   width: 1.25rem;
   line-height: 0;

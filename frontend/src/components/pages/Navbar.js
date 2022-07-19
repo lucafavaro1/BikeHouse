@@ -104,17 +104,18 @@ const Navbar = () => {
                 color: "white",
                 display: "block",
                 fontSize: "medium",
+                borderColor: "#2e6076",
                 ":hover": { color: "gold" },
               }}
             >
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <ShoppingCartIcon
                   sx={{
-                    my: 2,
-                    mx: 1,
+                    my: 1,
+                    mx: 0.5,
                     color: "white",
                     display: "block",
-                    fontSize: "medium",
+                    fontSize: "big",
                     ":hover": { color: "gold" },
                   }}
                 />

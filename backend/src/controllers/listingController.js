@@ -228,7 +228,7 @@ function generateBikeFilters(rawQuery) {
 }
 
 function generateListingFilters(rawQuery) {
-  var filter = {};
+  var filter = { isActive: true };
 
   if (rawQuery.minPrice) {
     filter.finalPrice = filter.finalPrice || {};
@@ -379,4 +379,5 @@ module.exports = {
   getListingById,
   getListingsBySeller,
   modifyListing,
+  fetchBikesForListings
 };

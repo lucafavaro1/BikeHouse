@@ -6,7 +6,7 @@ const payBasket = async (orderId) => {
   await axios
     .post("http://localhost:3001/checkout-basket/", {
       orderId: orderId,
-      successLink: "/order/" + orderId,
+      successLink: "/orderSuccess/" + orderId,
       cancelLink: "/",
       // dont use the following one until everything works, it will cancel the order!!
       //   cancelLink: "/checkout/?canceled=true" + "&" + "orderId=" + orderId,
@@ -20,8 +20,10 @@ const payBasket = async (orderId) => {
 };
 
 function Temporary() {
-  const orderId = "62d280a9d15c77a410b2d964";
-  return <Button onClick={() => payBasket(orderId)}>Go to checkout</Button>;
+  const bothBikesAndAccessories = "62d280a9d15c77a410b2d964";
+  const onlyAccessories = "62d2a9cfe5c24a1cd8199df3";
+  const onlyBikes = "62d2aaa1e5c24a1cd8199df8";
+  return <Button onClick={() => payBasket(onlyBikes)}>Go to checkout</Button>;
 }
 
 export default Temporary;

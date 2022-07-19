@@ -15,7 +15,8 @@ Login after registration, validate city names, add address to registration and d
 Sell a bike, photo fix and specialist template reworked 1h
 Stripe payment for boosting Ad and specialist consultation 2h
 Boost/delete your listing after the creation 2h
-Stripe payment from orders 1h
+Stripe payment from orders 2h
+Orders in dashboard 2h
 
 
 # Tarlan
@@ -27,7 +28,9 @@ Bike categories on the listings page 1h
 Pagination for listings 3h
 Sorting listings 1.5h
 Accessories page 1.5h
-Bug fixes and minor UI changes 1h
+Bug fixes and minor UI changes 1.5h
+Search functionality 2.5h
+Order summary page 4h
 
 # Xavier
 User storage, login 3h

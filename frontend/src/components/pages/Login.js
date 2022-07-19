@@ -39,6 +39,7 @@ function Login() {
           email: email,
           loggedIn: true,
           userId: response.data.id,
+          balance: response.data.balance,
           isVerified: response.data.isVerified,
           averageRating: response.data.averageRating,
           billingAddress: response.data.billingAddress,

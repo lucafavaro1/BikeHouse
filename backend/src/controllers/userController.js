@@ -57,6 +57,7 @@ const loginUser = async (req, res) => {
           verificationPictures: user.verificationPictures,
           averageRating: user.averageRating,
           email: user.email,
+          balance: user.balance,
           billingAddress: {
             streetName: address.streetName,
             houseNumber: address.houseNumber,
