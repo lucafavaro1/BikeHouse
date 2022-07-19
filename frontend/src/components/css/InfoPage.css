@@ -1,10 +1,12 @@
-.infoPage .addBasket .MuiButton-root {
+.infoPage
+  .MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButtonBase-root.addBasket {
   max-width: 200px;
   margin-top: 30px;
   background-color: #2e6076;
 }
 
-.infoPage .addBasket .MuiButton-root:hover {
+.infoPage
+  .MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButtonBase-root.addBasket:hover {
   max-width: 200px;
   margin-top: 30px;
   color: black;

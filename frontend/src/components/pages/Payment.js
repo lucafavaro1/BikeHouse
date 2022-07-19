@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 function Payment() {
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
 
   const deleteItemsDB = async (bikeId, listingId) => {
     await axios
@@ -56,7 +55,6 @@ function Payment() {
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
-      setMessage("Order placed! You will receive an email confirmation.");
       if (query.get("listingId") != "") modifyListing(query.get("listingId"));
 
       if (query.get("listingId") != "")

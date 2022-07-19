@@ -339,6 +339,14 @@ function Dashboard() {
     window.location.reload(false);
   };
 
+  function totalNumberOfItems(order) {
+    let numItems = order.listings.length;
+    order.accessories.map(
+      (oneAccessory) => (numItems = numItems + oneAccessory.quantity)
+    );
+    return numItems;
+  }
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -476,7 +484,8 @@ function Dashboard() {
                             backgroundColor: "#2e6076",
                             borderColor: "#2e6076",
                             ":hover": {
-                              backgroundColor: "gray",
+                              backgroundColor: "gold",
+                              color: "black",
                             },
                           }}
                         >
@@ -540,11 +549,11 @@ function Dashboard() {
                                 mb: "20px",
                                 mt: "20px",
                                 color: "black",
-                                backgroundColor: "yellow",
+                                backgroundColor: "gold",
                                 borderColor: "#2e6076",
                                 ":hover": {
                                   color: "black",
-                                  backgroundColor: "yellow",
+                                  backgroundColor: "gold",
                                 },
                               }}
                             >
@@ -686,9 +695,7 @@ function Dashboard() {
                                 </p>
                                 <p>
                                   {" "}
-                                  Number of items:{" "}
-                                  {order.listings.length +
-                                    order.accessories.length}
+                                  Number of items: {totalNumberOfItems(order)}
                                 </p>
                                 <p>Payment method: {order.paymentMethod}</p>
                                 <p></p>
@@ -699,7 +706,15 @@ function Dashboard() {
                               <div className="col-3">
                                 <Button
                                   variant="contained"
-                                  style={{ backgroundColor: "#2e6076" }}
+                                  sx={{
+                                    color: "white",
+                                    backgroundColor: "#2e6076",
+                                    borderColor: "#2e6076",
+                                    ":hover": {
+                                      backgroundColor: "gold",
+                                      color: "black",
+                                    },
+                                  }}
                                   onClick={() =>
                                     navigate("/order/" + order._id)
                                   }

@@ -23,10 +23,14 @@ function OrderSummary(props) {
       setListings(response.data.listingObjects);
       setAccessories(response.data.accessoryObjects);
       setAddress(response.data.addressObject);
+      setIsLoading(false);
+      if (props.showThankYou) {
+        listingToInactive(response.data.listingObjects);
+        moveCredit();
+      }
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -80,12 +84,38 @@ function OrderSummary(props) {
               </strong>
             </div>
 
-            <div className="row">&euro; {accessory.price}</div>
+            <div className="row">
+              &euro; {accessory.price * accessory.quantity}
+            </div>
+
+            <div className="row text-capitalize mt-5">
+              <strong>Quantity:&nbsp;</strong>
+              {accessory.quantity}
+            </div>
           </div>
         </div>
       </li>
     );
   };
+
+  const listingToInactive = async (allListings) => {
+    setIsLoading(true);
+    await Promise.all(
+      allListings.map(async (listing) => {
+        try {
+          await Axios.post("http://localhost:3001/modifyListing/", {
+            listingId: listing._id,
+            isActive: false,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      })
+    );
+    setIsLoading(false);
+  };
+
+  const moveCredit = async () => {};
 
   return (
     <>
