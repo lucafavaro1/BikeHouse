@@ -25,7 +25,7 @@ function Guide() {
           data-bs-spy="scroll"
           data-bs-bs-target=".guideNavbar"
           data-offset="0"
-          tabindex="0"
+          tabIndex="0"
         >
           <h2 id="ABC" style={{ marginTop: 10 + "px" }}>
             <b>The ABC’s</b>
@@ -109,9 +109,9 @@ function Guide() {
             height="315"
             src="https://www.youtube.com/embed/qLO_HO0kEjs"
             title="How to Fix a Flat Tyre "
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
           <p style={{ marginTop: 20 + "px" }}>
             1) Take off the wheel Open and remove the quick release level or use
@@ -155,9 +155,9 @@ function Guide() {
             height="315"
             src="https://www.youtube.com/embed/5-vhIvcrVzU"
             title="YouTube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
           <p style={{ marginTop: 20 + "px" }}>
             <b>1) Seat Height</b>

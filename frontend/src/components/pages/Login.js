@@ -14,9 +14,6 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-
   const navigate = useNavigate();
 
   const loginUser = async (event) => {
@@ -47,7 +44,6 @@ function Login() {
           refreshToken: response.data.refreshToken,
         })
       );
-      setIsLoading(false);
       navigate(-1);
     } catch (error) {
       setIsLoading(false);
@@ -112,7 +108,7 @@ function Login() {
                   <label className="form-check-label">Remember me</label>
 
                   <label className="link">
-                    <a href="/forgotpassword">Forgot Password?</a>
+                    <a href="/">Forgot Password?</a>
                   </label>
                 </div>
 

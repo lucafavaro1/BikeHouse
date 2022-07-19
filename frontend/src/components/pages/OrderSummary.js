@@ -26,7 +26,7 @@ function OrderSummary(props) {
       setIsLoading(false);
       if (props.showThankYou) {
         listingToInactive(response.data.listingObjects);
-        moveCredit();
+        moveCredit(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -115,7 +115,24 @@ function OrderSummary(props) {
     setIsLoading(false);
   };
 
-  const moveCredit = async () => {};
+  const moveCredit = async (order) => {
+    const allListingObjects = order.listingObjects;
+    setIsLoading(true);
+
+    await Promise.all(
+      allListingObjects.map(async (listing) => {
+        try {
+          await Axios.post("http://localhost:3001/moveCreditToSeller/", {
+            sellerId: listing.sellerId,
+            credit: listing.bike.price,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      })
+    );
+    setIsLoading(false);
+  };
 
   return (
     <>

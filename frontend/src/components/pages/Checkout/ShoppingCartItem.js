@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ShoppingCartItem({
-  key,
   productKey,
   product,
   handleInsurance,

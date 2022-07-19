@@ -17,6 +17,7 @@ Stripe payment for boosting Ad and specialist consultation 2h
 Boost/delete your listing after the creation 2h
 Stripe payment from orders 2h
 Orders in dashboard 2h
+Balance after order, redeem balance, fix login page 2h
 
 
 # Tarlan

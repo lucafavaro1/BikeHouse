@@ -13,6 +13,7 @@ import ShippingAddressPage from "./ShippingAddressPage";
 import { Divider } from "@material-ui/core";
 import PaymentOptionsPage from "./PaymentOptionsPage";
 import Summary from "../../reusable/Summary";
+import { useNavigate } from "react-router-dom";
 
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -63,13 +64,8 @@ function ShoppingCart() {
   };
 
   const cart = useSelector(selectCart);
-  let productArray = [];
-  cart.forEach((item) => {
-    productArray.push({
-      ...item,
-    });
-  });
-  const [products, setProducts] = useState(productArray);
+
+  const [products, setProducts] = useState([]);
 
   const [totalPrice, setTotalPrice] = useState(0);
 

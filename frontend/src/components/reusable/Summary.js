@@ -71,14 +71,7 @@ export default function Summary({ products, setTotalPrice }) {
               Sub total
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={3}
-            sm={3}
-            md={3}
-            lg={3}
-            style={{ "text-align": "right" }}
-          >
+          <Grid item xs={3} sm={3} md={3} lg={3} style={{ textAlign: "right" }}>
             <Typography variant="h6" component="div">
               € {subTotal}
             </Typography>
@@ -88,14 +81,7 @@ export default function Summary({ products, setTotalPrice }) {
               Insurance
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={3}
-            sm={3}
-            md={3}
-            lg={3}
-            style={{ "text-align": "right" }}
-          >
+          <Grid item xs={3} sm={3} md={3} lg={3} style={{ textAlign: "right" }}>
             <Typography variant="h6" component="div">
               € {insuranceTotal}
             </Typography>
@@ -105,14 +91,7 @@ export default function Summary({ products, setTotalPrice }) {
               Shipping
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={3}
-            sm={3}
-            md={3}
-            lg={3}
-            style={{ "text-align": "right" }}
-          >
+          <Grid item xs={3} sm={3} md={3} lg={3} style={{ textAlign: "right" }}>
             <Typography variant="h6" component="div">
               € {shippingTotal}
             </Typography>
@@ -126,14 +105,7 @@ export default function Summary({ products, setTotalPrice }) {
             </Typography>
           </Grid>
           <hr />
-          <Grid
-            item
-            xs={4}
-            sm={4}
-            md={4}
-            lg={4}
-            style={{ "text-align": "right" }}
-          >
+          <Grid item xs={4} sm={4} md={4} lg={4} style={{ textAlign: "right" }}>
             <hr></hr>
 
             <Typography variant="h5" component="div">

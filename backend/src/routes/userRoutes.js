@@ -4,11 +4,12 @@ const router = express.Router();
 const {
   loginUser,
   createUser,
-  forgotPassword,
   refreshTokenGen,
   deleteUserTest,
   verify,
   updatePassword,
+  moveCreditToSeller,
+  zeroCredit,
   userVerification,
   logoutUser,
 } = require("../controllers/userController");
@@ -17,13 +18,15 @@ router.post("/createUser", createUser);
 
 router.post("/loginUser", loginUser);
 
-router.post("/forgotPassword", forgotPassword);
-
 router.post("/logout", verify, logoutUser);
 
 router.post("/userVerification", userVerification);
 
 router.post("/updatePassword", updatePassword);
+
+router.post("/moveCreditToSeller", moveCreditToSeller);
+
+router.post("/zeroCredit", zeroCredit);
 
 router.post("/api/refreshtoken", refreshTokenGen);
 

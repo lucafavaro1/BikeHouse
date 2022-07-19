@@ -347,6 +347,20 @@ function Dashboard() {
     return numItems;
   }
 
+  const zeroCredit = async (userId) => {
+    setIsLoading(true);
+    try {
+      await Axios.post("http://localhost:3001/zeroCredit/", {
+        userId: userId,
+      }).then(() => {
+        logoutAndLogin();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -586,28 +600,56 @@ function Dashboard() {
                         <Col md={2}></Col>
                       </div>
                     )}
-                    <p></p>
-                    <div className="row balance mt-4">
-                      <div className="col-5 p-0">
-                        <p style={{ alignContent: "center", margin: 0 }}>
-                          Balance: {user.balance} €{" "}
-                        </p>
-                      </div>
-                      {user.balance != 0 ? (
-                        <Button
-                          variant="contained"
-                          style={{
-                            marginTop: -5 + "px",
-                            backgroundColor: "#2e6076",
-                          }}
-                        >
-                          {" "}
-                          Redeem
-                        </Button>
-                      ) : (
+
+                    {user.balance != 0 ? (
+                      <>
+                        <Row>
+                          <p className="col-5 p-0 mt-2">
+                            Please enter your password, then click Redeem:{" "}
+                          </p>
+                          <input
+                            type="password"
+                            className="form-control col-3 mt-2"
+                            placeholder="Password"
+                            onChange={(e) => {
+                              setPassword(e.target.value);
+                            }}
+                          />
+                        </Row>
                         <p></p>
-                      )}
-                    </div>
+                        <div className="row balance">
+                          <div className="col-5 p-0">
+                            <p style={{ alignContent: "center", margin: 0 }}>
+                              Balance: {user.balance} €{" "}
+                            </p>
+                          </div>
+                          <Button
+                            variant="contained"
+                            style={{
+                              marginTop: -5 + "px",
+                              backgroundColor: "#2e6076",
+                            }}
+                            onClick={() => {
+                              if (password != "") {
+                                alert("You successfully redeemed your credit.");
+                                zeroCredit(user.userId);
+                              }
+                            }}
+                          >
+                            {" "}
+                            Redeem
+                          </Button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="row balance mt-4">
+                        <div className="col-5 p-0">
+                          <p style={{ alignContent: "center", margin: 0 }}>
+                            Balance: {user.balance} €{" "}
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </Col>
                 </Row>
                 <Row style={{ marginTop: 10 + "px" }}>

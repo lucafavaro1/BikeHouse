@@ -20,7 +20,6 @@ import {
   logout,
 } from "./../features/userSlice";
 import Payment from "./pages/Payment";
-import ForgotPassword from "./pages/ForgotPassword";
 import jwtDecode from "jwt-decode";
 import Accessories from "./pages/Accessories";
 import ShoppingCart from "./pages/Checkout/ShoppingCart";
@@ -67,7 +66,6 @@ function Main() {
       <Route exact path="/accessory" element={<Accessories />}></Route>
       <Route exact path="/login" element={<Login />}></Route>
       <Route exact path="/register" element={<Register />}></Route>
-      <Route exact path="/forgotpassword" element={<ForgotPassword />}></Route>
       <Route exact path="/guide" element={<Guide />}></Route>
       <Route exact path="/photo_guide" element={<PhotoGuide />}></Route>
       <Route exact path="/contact" element={<Contact />}></Route>

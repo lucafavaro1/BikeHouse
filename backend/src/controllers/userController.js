@@ -118,13 +118,6 @@ const createUser = async (req, res) => {
   }
 };
 
-const forgotPassword = async (req, res) => {
-  const email = req.body;
-  const user = await UserModel.findOne(email);
-  // get back to frontend that the user was found
-  //res.json(data);
-};
-
 const refreshTokenGen = async (req, res) => {
   //take the refresh token
   const refreshToken = req.body.token;
@@ -263,18 +256,44 @@ const updatePassword = async (req, res) => {
   } catch (err) {
     res.status(404).json(err);
   }
+};
 
-  // here hash both psw, check whether the current is correct, update with the new one, return done
+const moveCreditToSeller = async (req, res) => {
+  console.log("move credit to seller called");
+
+  try {
+    let user = await UserModel.findById(req.body.sellerId).exec();
+
+    let newUser = await UserModel.findByIdAndUpdate(req.body.sellerId, {
+      balance: user.balance + req.body.credit,
+    }).exec();
+    res.status(200).json(newUser);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+
+const zeroCredit = async (req, res) => {
+  console.log("zero credit called");
+  try {
+    let user = await UserModel.findByIdAndUpdate(req.body.userId, {
+      balance: 0,
+    }).exec();
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json(err);
+  }
 };
 
 module.exports = {
   loginUser,
   createUser,
-  forgotPassword,
   deleteUserTest,
   refreshTokenGen,
   verify,
   updatePassword,
   userVerification,
   logoutUser,
+  moveCreditToSeller,
+  zeroCredit,
 };
