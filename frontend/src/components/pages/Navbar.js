@@ -76,7 +76,6 @@ const Navbar = () => {
               <Link to={"/" + link} style={{ textDecoration: "none" }}>
                 {" "}
                 <Button
-                  className="navbarButtons"
                   key={label}
                   sx={{
                     my: 2,
@@ -114,33 +113,34 @@ const Navbar = () => {
             </div>
           </div>
 
-          <Link to={"/cart"} style={{ textDecoration: "none" }}>
-            <Button
-              variant="outlined"
-              sx={{
-                my: 2,
-                mx: 1,
-                color: "white",
-                display: "block",
-                fontSize: "medium",
-                borderColor: "#2e6076",
-                ":hover": { color: "gold" },
-              }}
-            >
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <ShoppingCartIcon
-                  sx={{
-                    my: 1,
-                    mx: 0.5,
-                    color: "white",
-                    display: "block",
-                    fontSize: "big",
-                    ":hover": { color: "gold" },
-                  }}
-                />
-              </IconButton>
-            </Button>
-          </Link>
+          {/* <Link to={"/cart"} style={{ textDecoration: "none" }}> */}
+          <Button
+            variant="outlined"
+            href="/cart"
+            sx={{
+              my: 2,
+              mx: 1,
+              color: "white",
+              display: "block",
+              fontSize: "medium",
+              borderColor: "#2e6076",
+              ":hover": { color: "gold" },
+            }}
+          >
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <ShoppingCartIcon
+                sx={{
+                  my: 1,
+                  mx: 0.5,
+                  color: "white",
+                  display: "block",
+                  fontSize: "big",
+                  ":hover": { color: "gold" },
+                }}
+              />
+            </IconButton>
+          </Button>
+          {/* </Link> */}
 
           {user ? (
             <Logout />
