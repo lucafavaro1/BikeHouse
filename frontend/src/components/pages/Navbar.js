@@ -7,10 +7,12 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
+import { selectCart } from "../../features/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "./Logout";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { IconButton } from "@mui/material";
+import { fontSize } from "@mui/system";
 
 const pages = {
   buy: "Buy a Bike",
@@ -21,6 +23,7 @@ const pages = {
 
 const Navbar = () => {
   const user = useSelector(selectUser);
+  const cart = useSelector(selectCart);
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -125,13 +128,24 @@ const Navbar = () => {
                 fontSize: "medium",
                 borderColor: "#2e6076",
                 ":hover": { color: "gold" },
+                padding: 0
               }}
             >
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <span style={{
+                  color: 'black',
+                  backgroundColor: 'gold',
+                  borderRadius: '5px',
+                  fontSize: '1rem',
+                  padding: '0.3rem',
+                  marginRight: '0.2rem',
+                  lineHeight: '60%'
+                }}>
+                  {cart.length}
+                </span>
                 <ShoppingCartIcon
                   sx={{
                     my: 1,
-                    mx: 0.5,
                     color: "white",
                     display: "block",
                     fontSize: "big",
