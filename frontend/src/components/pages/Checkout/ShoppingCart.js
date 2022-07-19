@@ -67,11 +67,6 @@ function ShoppingCart() {
   cart.forEach((item) => {
     productArray.push({
       ...item,
-      insurance: 0, // insurance price is defined here
-      insuranceName: "No Insurance",
-      deliveryType: "Free",
-      insuranceKey: 0,
-      shipping: 0,
     });
   });
   const [products, setProducts] = useState(productArray);
@@ -93,14 +88,8 @@ function ShoppingCart() {
   useEffect(() => {
     let productArray = [];
     cart.forEach((item) => {
-      productArray.push({
-        ...item,
-        insurance: 0, // insurance price is defined here
-        insuranceName: "No Insurance",
-        deliveryType: "Free",
-        insuranceKey: 0,
-        shipping: 0, // insurance price is defined here
-      });
+      console.log("item is ", item);
+      productArray.push({ ...item });
     });
     console.log("Product array is ", productArray);
     setProducts(productArray);

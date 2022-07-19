@@ -29,6 +29,7 @@ export default function ShoppingCartTab({
     newValue.insuranceName = getInsuranceNameFromValue(insuranceKey);
     newState[productKey] = newValue;
     setProducts(newState);
+    dispatch(updateCart(newValue));
     console.log(products);
   };
 
@@ -40,6 +41,7 @@ export default function ShoppingCartTab({
     newValue.deliveryType = shippingType;
     newState[productKey] = newValue;
     setProducts(newState);
+    dispatch(updateCart(newValue));
     console.log(products);
   };
 

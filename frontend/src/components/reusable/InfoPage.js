@@ -41,6 +41,10 @@ function InfoPage({
   const dispatch = useDispatch();
   const handleBasket = (e) => {
     e.preventDefault();
+    if (!user) {
+      alert("Please log in to add to cart");
+      navigate("/login");
+    }
     const data = {
       bikeId,
       isBoosted,

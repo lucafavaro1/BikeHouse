@@ -34,6 +34,7 @@ import userIcon from "../pictures/user_icon.png";
 import ListingDescription from "./ListingDescription";
 import moment from "moment";
 import Stars from "react-stars-display";
+import { removeAllElementsFromTheCart } from "../../features/cartSlice";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -311,6 +312,7 @@ function Dashboard() {
     let email = user.email;
 
     dispatch(logout());
+    dispatch(removeAllElementsFromTheCart());
 
     const response = await Axios.post("http://localhost:3001/loginUser/", {
       email,
@@ -352,6 +354,7 @@ function Dashboard() {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    dispatch(removeAllElementsFromTheCart());
     navigate("/");
   };
 

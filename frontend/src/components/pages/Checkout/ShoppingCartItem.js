@@ -140,6 +140,7 @@ function ShoppingCartItem({
                   id="demo-simple-select-filled"
                   value={product.quantity}
                   onChange={(e) => {
+                    e.preventDefault();
                     handleSetQuantity(productKey, e.target.value);
                   }}
                 >

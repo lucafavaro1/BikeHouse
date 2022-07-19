@@ -41,7 +41,15 @@ export const cartSlice = createSlice({
         }
 
         if (count === 0) {
-          state.cart = [...state.cart, action.payload];
+          const additionalParamsWithPayload = {
+            ...action.payload,
+            insurance: 0, // insurance price is defined here
+            insuranceName: "No Insurance",
+            deliveryType: "Free",
+            insuranceKey: 0,
+            shipping: 0,
+          };
+          state.cart = [...state.cart, additionalParamsWithPayload];
           console.log("after cart state", state.cart);
           localStorage.setItem(
             LOCAL_STORAGE_CART_DATA_KEY,
@@ -74,7 +82,15 @@ export const cartSlice = createSlice({
             );
           } else {
             console.log("same element not  found");
-            state.cart = [...state.cart, action.payload];
+            const additionalParamsWithPayload = {
+              ...action.payload,
+              insurance: 0, // insurance price is defined here
+              insuranceName: "No Insurance",
+              deliveryType: "Free",
+              insuranceKey: 0,
+              shipping: 0,
+            };
+            state.cart = [...state.cart, additionalParamsWithPayload];
             console.log("after cart state", state.cart);
             localStorage.setItem(
               LOCAL_STORAGE_CART_DATA_KEY,
@@ -105,7 +121,7 @@ export const cartSlice = createSlice({
         state.cart.forEach((element, index) => {
           if (element.listingId === action.payload.listingId) {
             let sameElement = { ...state.cart[index] };
-            sameElement.quantity = action.payload.quantity;
+            sameElement = action.payload;
             state.cart[index] = sameElement;
             localStorage.setItem(
               LOCAL_STORAGE_CART_DATA_KEY,
@@ -116,10 +132,19 @@ export const cartSlice = createSlice({
         });
       }
     },
+    removeAllElementsFromTheCart: (state, action) => {
+      window.localStorage.removeItem(LOCAL_STORAGE_CART_DATA_KEY);
+      state.cart = [];
+    },
   },
 });
 
-export const { addToCart, removeFromCart, updateCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  updateCart,
+  removeAllElementsFromTheCart,
+} = cartSlice.actions;
 
 export const selectCart = (state) => state.cart.cart;
 
