@@ -25,6 +25,7 @@ import jwtDecode from "jwt-decode";
 import Accessories from "./pages/Accessories";
 import ShoppingCart from "./pages/Checkout/ShoppingCart";
 import Temporary from "./pages/Temporary";
+import { removeAllElementsFromTheCart } from "../features/cartSlice";
 
 function Main() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function Main() {
         localStorage.removeItem(AUTH_TOKENS);
         localStorage.removeItem(LOCAL_STORAGE_USER_DATA_KEY);
         dispatch(logout());
+        dispatch(removeAllElementsFromTheCart());
         alert("SESSION EXPIRED ! Please login again");
       } else {
         console.log("AUTHTOKENS NOT EXPIRED");
@@ -53,6 +55,7 @@ function Main() {
       console.log("Use effect called in Main.js");
     } else {
       dispatch(logout());
+      dispatch(removeAllElementsFromTheCart());
     }
   }, []);
 

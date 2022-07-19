@@ -10,6 +10,10 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { ListItemText } from "@mui/material";
+import {
+  removeAllElementsFromTheCart,
+  updateCart,
+} from "../../features/cartSlice";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -29,6 +33,7 @@ const Logout = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    dispatch(removeAllElementsFromTheCart());
     navigate("/");
   };
 
