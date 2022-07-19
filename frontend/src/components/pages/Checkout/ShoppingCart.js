@@ -65,7 +65,12 @@ function ShoppingCart() {
 
   const cart = useSelector(selectCart);
 
-  const [products, setProducts] = useState([]);
+  let productArray = [];
+  cart.forEach((item) => {
+    console.log("item is ", item);
+    productArray.push({ ...item });
+  });
+  const [products, setProducts] = useState(productArray);
 
   const [totalPrice, setTotalPrice] = useState(0);
 
