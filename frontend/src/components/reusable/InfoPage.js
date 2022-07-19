@@ -44,6 +44,7 @@ function InfoPage({
     if (!user) {
       alert("Please log in to add to cart");
       navigate("/login");
+      return;
     }
     const data = {
       bikeId,
