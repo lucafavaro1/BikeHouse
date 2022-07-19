@@ -131,6 +131,19 @@ const Navbar = () => {
             }}
           >
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <span
+                style={{
+                  color: "black",
+                  backgroundColor: "gold",
+                  borderRadius: "5px",
+                  fontSize: "1rem",
+                  padding: "0.3rem",
+                  marginRight: "0.2rem",
+                  lineHeight: "60%",
+                }}
+              >
+                {cart.length}
+              </span>
               <ShoppingCartIcon
                 sx={{
                   my: 1,
