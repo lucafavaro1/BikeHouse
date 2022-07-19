@@ -94,6 +94,21 @@ const Navbar = () => {
             ))}
           </Box>
 
+          <div className="navbar">
+            <div className="navbar searchBar">
+              <form className="form-inline" onSubmit={submitSearch}>
+                <input
+                  className="form-control"
+                  type="search"
+                  placeholder="Search for a bike"
+                  onChange={(e) => {
+                    setSearchString(e.target.value);
+                  }}
+                />
+              </form>
+            </div>
+          </div>
+
           <Link to={"/cart"} style={{ textDecoration: "none" }}>
             <Button
               variant="outlined"
@@ -122,20 +137,6 @@ const Navbar = () => {
               </IconButton>
             </Button>
           </Link>
-          <div className="navbar">
-            <div className="navbar searchBar">
-              <form className="form-inline" onSubmit={submitSearch}>
-                <input
-                  className="form-control"
-                  type="search"
-                  placeholder="Search for a bike"
-                  onChange={(e) => {
-                    setSearchString(e.target.value);
-                  }}
-                />
-              </form>
-            </div>
-          </div>
 
           {user ? (
             <Logout />

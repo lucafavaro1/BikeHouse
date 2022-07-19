@@ -24,7 +24,10 @@ function OrderSummary(props) {
       setAccessories(response.data.accessoryObjects);
       setAddress(response.data.addressObject);
       setIsLoading(false);
-      if (props.showThankYou) listingToInactive(response.data.listingObjects);
+      if (props.showThankYou) {
+        listingToInactive(response.data.listingObjects);
+        moveCredit();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -111,6 +114,8 @@ function OrderSummary(props) {
     );
     setIsLoading(false);
   };
+
+  const moveCredit = async () => {};
 
   return (
     <>
