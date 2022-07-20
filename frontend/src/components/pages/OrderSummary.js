@@ -5,9 +5,15 @@ import { CircularProgress } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
+import emailjs from "@emailjs/browser";
+import moment from "moment";
+import emailkey from "../../features/emailKeys";
 
 function OrderSummary(props) {
   const { id } = useParams();
+  const user = useSelector(selectUser);
   const [order, setOrder] = useState({});
   const [listings, setListings] = useState([]);
   const [accessories, setAccessories] = useState([]);
@@ -27,6 +33,7 @@ function OrderSummary(props) {
       if (props.showThankYou) {
         listingToInactive(response.data.listingObjects);
         moveCredit(response.data);
+        sendEmail(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -134,6 +141,34 @@ function OrderSummary(props) {
     setIsLoading(false);
   };
 
+  function sendEmail(data) {
+    emailjs.init(emailkey.USER_ID);
+    let date = moment(data.createdAt).format("DD-MM-YYYY HH:mm");
+    emailjs
+      .send(emailkey.SERVICE_ID, emailkey.TEMPLATE_ID_ORDER, {
+        order_id: id,
+        name: user.name,
+        order_date: date,
+        email: user.email,
+        address_firstname: data.addressObject.firstName,
+        address_lastname: data.addressObject.lastName,
+        address_streetname: data.addressObject.streetName,
+        address_housenumber: data.addressObject.houseNumber,
+        address_city: data.addressObject.city,
+        address_country: data.addressObject.country,
+        address_zip: data.addressObject.zip,
+        order_totalamount: data.totalAmount,
+      })
+      .then(
+        (result) => {
+          console.log("confermation via email sent");
+        },
+        (error) => {
+          alert("An error occurred, Please try again", error.text);
+        }
+      );
+  }
+
   return (
     <>
       {isLoading ? (
@@ -171,7 +206,7 @@ function OrderSummary(props) {
 
             <div>
               <div className="row p-0 m-0 justify-content-center">
-                <div classNames="col-7 listingsGroup">
+                <div className="col-7 listingsGroup">
                   <p className="orderInfoText">
                     <strong>Order date: </strong>
                     <span className="orderInfoTextSmall">

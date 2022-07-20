@@ -114,6 +114,7 @@ async function fetchFieldsForOrder(order) {
   order.addressObject = addressObject;
   return order;
 }
+
 const createOrder = async (req, res) => {
   console.log("create order called");
   const order = req.body;

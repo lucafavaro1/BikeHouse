@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/Contact.css";
 import emailjs from "@emailjs/browser";
-import emailkey from "../../features/emailKeyContact";
+import emailkey from "../../features/emailKeys";
 import { Modal, Button } from "react-bootstrap";
 
 function Contact() {
@@ -26,14 +26,16 @@ function Contact() {
     console.log(e.target);
 
     emailjs.init(emailkey.USER_ID);
-    emailjs.sendForm(emailkey.SERVICE_ID, emailkey.TEMPLATE_ID, e.target).then(
-      (result) => {
-        setConfirmedSent(true);
-      },
-      (error) => {
-        alert("An error occurred, Please try again", error.text);
-      }
-    );
+    emailjs
+      .sendForm(emailkey.SERVICE_ID, emailkey.TEMPLATE_ID_CONTACT, e.target)
+      .then(
+        (result) => {
+          setConfirmedSent(true);
+        },
+        (error) => {
+          alert("An error occurred, Please try again", error.text);
+        }
+      );
   }
 
   return (

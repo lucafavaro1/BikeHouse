@@ -478,7 +478,7 @@ function Dashboard() {
                         {" "}
                         {console.log(user)}
                         <p>{user.name + " " + user.surname}</p>
-                        <p>{moment(user.birthdate).format("DD/MM/YYYY")}</p>
+                        <p>{moment(user.birthdate).format("DD-MM-YYYY")}</p>
                         <p>{user.email}</p>
                         <p>
                           {user.billingAddress.streetName +
