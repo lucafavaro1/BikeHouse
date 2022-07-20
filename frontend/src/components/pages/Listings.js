@@ -144,6 +144,8 @@ function Listings() {
   const clearSearch = (event) => {
     state.searchString = "";
     parameters.current.searchKeyword = "";
+    setCurrentPageNum(0);
+    lastPageNum.current = Infinity;
     navigate(".", { replace: true });
     getListings();
   };
