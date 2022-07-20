@@ -17,6 +17,7 @@ function Listings() {
   const activeSortingCriterion = useRef("default");
   const [activeCategoryBtn, setActiveCategoryBtn] = useState("");
   const [currentPageNum, setCurrentPageNum] = useState(0);
+  const [isFiltered, setIsFiltered] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const selectedCategoryColor = "gainsboro";
   const navigate = useNavigate();
@@ -112,6 +113,7 @@ function Listings() {
 
   /** Called when the apply button is clicked */
   const applyFilterClicked = async (event) => {
+    setIsFiltered(true)
     setCurrentPageNum(0);
     lastPageNum.current = Infinity;
     getListings(0, true, false, false);
@@ -144,6 +146,13 @@ function Listings() {
     parameters.current.searchKeyword = "";
     navigate(".", { replace: true });
     getListings();
+  };
+
+  const resetFiltersAndSorting = (event) => {
+    parameters.current = {}
+    activeSortingCriterion.current = 'default'
+    getListings();
+    setIsFiltered(false)
   };
 
   /** Called when any of the accordion items is changed*/
@@ -628,6 +637,22 @@ function Listings() {
                       >
                         {" "}
                         &#10005; &#x2715;
+                      </button>
+                    </div>
+                  </Row>
+                ) : (
+                  <span></span>
+                )}
+
+                {isFiltered ? (
+                  <Row>
+                    <div className="col filterResetCol">
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        onClick={resetFiltersAndSorting}
+                      >
+                        RESET FILTERS &#38; SORTING
                       </button>
                     </div>
                   </Row>
