@@ -516,18 +516,6 @@ function SellBike() {
       case 2:
         return (
           <div className="upload_pictures">
-            <Modal.Dialog className="photo_guide">
-              <Modal.Title>&#9733;</Modal.Title>
-              <Modal.Body>
-                <p>
-                  <a href="/photo_guide" target="_blank">
-                    Click here
-                  </a>{" "}
-                  to see our photo guide
-                </p>
-              </Modal.Body>
-            </Modal.Dialog>
-
             <div className="initialText">
               <h2>How does it look? </h2>
               <hr></hr>
@@ -725,20 +713,47 @@ function SellBike() {
           <CircularProgress size={100} style={{ color: "#2e6076" }} />
         </div>
       ) : (
-        <div className="sellBike">
-          <Nav justify variant="tabs" activeKey={step} className="navbar_state">
-            <Nav.Item>
-              <Nav.Link eventKey="1">1. Bike Details</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="2">2. Upload Pictures</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="3">3. Done!</Nav.Link>
-            </Nav.Item>
-          </Nav>
+        <div className="row" style={{ width: 100 + "%" }}>
+          <div className="col-2 p-0 m-0"></div>
+          <div className="col-8 p-0 m-0 sellBike">
+            <Nav
+              justify
+              variant="tabs"
+              activeKey={step}
+              className="navbar_state"
+            >
+              <Nav.Item>
+                <Nav.Link eventKey="1">1. Bike Details</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="2">2. Upload Pictures</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="3">3. Done!</Nav.Link>
+              </Nav.Item>
+            </Nav>
 
-          {renderSwitch(step)}
+            {renderSwitch(step)}
+          </div>
+          <div className="col-2 m-0 p-0">
+            {step == 2 ? (
+              <div className="photo_guide">
+                <Modal.Dialog>
+                  <Modal.Title>&#9733;</Modal.Title>
+                  <Modal.Body>
+                    <p>
+                      <a href="/photo_guide" target="_blank">
+                        Click here
+                      </a>{" "}
+                      to see our photo guide
+                    </p>
+                  </Modal.Body>
+                </Modal.Dialog>
+              </div>
+            ) : (
+              <p></p>
+            )}
+          </div>
         </div>
       )}
     </>

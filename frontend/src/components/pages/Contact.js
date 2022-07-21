@@ -55,7 +55,11 @@ function Contact() {
         </div>
 
         {confirmSent === true ? (
-          <Modal show={show} onHide={handleClose}>
+          <Modal
+            show={show}
+            onHide={handleClose}
+            style={{ marginTop: 200 + "px" }}
+          >
             <Modal.Header>
               <Modal.Title> Message Sent !</Modal.Title>
             </Modal.Header>

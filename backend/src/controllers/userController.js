@@ -285,9 +285,33 @@ const zeroCredit = async (req, res) => {
   }
 };
 
+const updateUserById = async (req, res) => {
+  console.log("update user by id called");
+  let userId = req.body.userId;
+  let stars = req.body.value;
+  try {
+    let user = await UserModel.findById(userId).exec();
+    let numberNew = user.averageRating.numberOfReviews;
+    let rating = user.averageRating.avg * numberNew + stars;
+    numberNew += 1;
+    rating = rating / numberNew;
+    let newUser = await UserModel.findByIdAndUpdate(userId, {
+      averageRating: {
+        avg: rating,
+        numberOfReviews: numberNew,
+      },
+    });
+    res.status(200).json(newUser);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json(err);
+  }
+};
+
 module.exports = {
   loginUser,
   createUser,
+  updateUserById,
   deleteUserTest,
   refreshTokenGen,
   verify,

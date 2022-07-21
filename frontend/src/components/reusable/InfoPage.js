@@ -203,6 +203,7 @@ function InfoPage({
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 show={modalShow}
+                style={{ marginTop: 200 + "px" }}
               >
                 <Modal.Header>
                   <Modal.Title id="contained-modal-title-vcenter">
