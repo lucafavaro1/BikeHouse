@@ -81,6 +81,7 @@ async function fetchFieldsForOrder(order) {
       listing.insurancePrice = rawListing.insurancePrice;
       listing.deliveryType = rawListing.deliveryType;
       listing.deliveryPrice = rawListing.deliveryPrice;
+      listing.feedback = rawListing.feedback;
 
       listingObjects.push(listing);
     })
@@ -114,6 +115,7 @@ async function fetchFieldsForOrder(order) {
   order.addressObject = addressObject;
   return order;
 }
+
 const createOrder = async (req, res) => {
   console.log("create order called");
   const order = req.body;
@@ -144,10 +146,33 @@ const createOrder = async (req, res) => {
   }
 };
 
+const updateOrder = async (req, res) => {
+  console.log("update order called");
+  const orderId = req.body.orderId;
+  const listingId = req.body.listingId;
+  const feedback = req.body.feedback;
+
+  try {
+    const order = await OrderModel.findById(orderId).exec();
+    order.listings.forEach((listing) => {
+      if (listing.id == listingId) listing.feedback = feedback;
+    });
+    const modifiedOrder = await OrderModel.findByIdAndUpdate(
+      orderId,
+      order
+    ).exec();
+    res.status(200).json(modifiedOrder);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json("Order not found / not able to modify");
+  }
+};
+
 module.exports = {
   getOrder,
   getOrdersByBuyer,
   deleteOrder,
   getPopulatedOrder,
   createOrder,
+  updateOrder,
 };

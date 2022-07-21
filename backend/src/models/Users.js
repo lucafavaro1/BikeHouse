@@ -42,16 +42,15 @@ const UserSchema = new mongoose.Schema({
       name: String,
     },
   ],
-  rating: {
-    oneStar: { type: Number, default: 0 },
-    twoStars: { type: Number, default: 0 },
-    threeStars: { type: Number, default: 0 },
-    fourStars: { type: Number, default: 0 },
-    fiveStars: { type: Number, default: 0 },
-  },
   averageRating: {
-    type: mongoose.Types.Decimal128,
-    default: 0.0,
+    avg: {
+      type: mongoose.Types.Decimal128,
+      default: 0.0,
+    },
+    numberOfReviews: {
+      type: Number,
+      default: 0,
+    },
   },
   balance: {
     type: Number,

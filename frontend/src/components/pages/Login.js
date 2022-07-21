@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { browserHistory } from "react-router";
 import axios from "axios";
 import "../css/LoginRegister.css";
 import { useDispatch } from "react-redux";
@@ -45,6 +46,7 @@ function Login() {
         })
       );
       navigate(-1);
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       setErrorMessage("Please make sure your email and password are correct");

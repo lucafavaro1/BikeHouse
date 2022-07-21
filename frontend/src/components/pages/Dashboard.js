@@ -476,9 +476,8 @@ function Dashboard() {
                       </Col>
                       <Col md={7} className="info mr-0 pr-0">
                         {" "}
-                        {console.log(user)}
                         <p>{user.name + " " + user.surname}</p>
-                        <p>{moment(user.birthdate).format("DD/MM/YYYY")}</p>
+                        <p>{moment(user.birthdate).format("DD-MM-YYYY")}</p>
                         <p>{user.email}</p>
                         <p>
                           {user.billingAddress.streetName +
@@ -511,17 +510,17 @@ function Dashboard() {
                     </div>
                   </Col>
                   <Col>
-                    {user.averageRating.$numberDecimal == 0 ? (
+                    {user.averageRating.avg.$numberDecimal == 0 ? (
                       <p>
                         <u>
                           You dont have any review, start selling/buying now
                         </u>
                       </p>
                     ) : (
-                      <div style={{ marginTop: 45 + "px" }}>
+                      <div style={{ marginBottom: 10 + "px" }}>
                         Your rating:
                         <Stars
-                          stars={user.averageRating.$numberDecimal}
+                          stars={user.averageRating.avg.$numberDecimal}
                           size={30}
                           spacing={2}
                           fill="#2e6076"

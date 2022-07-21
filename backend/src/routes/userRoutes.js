@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   loginUser,
   createUser,
+  updateUserById,
   refreshTokenGen,
   deleteUserTest,
   verify,
@@ -17,6 +18,8 @@ const {
 router.post("/createUser", createUser);
 
 router.post("/loginUser", loginUser);
+
+router.post("/updateUser", updateUserById);
 
 router.post("/logout", verify, logoutUser);
 
