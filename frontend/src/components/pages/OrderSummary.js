@@ -78,7 +78,7 @@ function OrderSummary(props) {
                   {listing.bike.brand} {listing.bike.model}
                 </strong>
               </div>
-              {/* From here starts the part that fks up the navbar ... again */}
+
               <div className="col-2">
                 {!listing.feedback ? (
                   <Button
@@ -88,9 +88,8 @@ function OrderSummary(props) {
                       handleOpen(listing);
                     }}
                   >
-                    <IconButton className="iconButton">
-                      <StarRateIcon fontSize="big" className="starIcon" />
-                    </IconButton>
+                    {/* From here starts the part that fks up the navbar ... again */}
+                    <StarRateIcon fontSize="big" className="starIcon" />
                   </Button>
                 ) : (
                   <div></div>
@@ -255,6 +254,7 @@ function OrderSummary(props) {
             <Rating
               name="simple-controlled"
               value={value}
+              sx={{ color: "#2e6076" }}
               size="large"
               onChange={(event, newValue) => {
                 setValue(newValue);
@@ -292,7 +292,7 @@ function OrderSummary(props) {
         </div>
       ) : (
         <>
-          <div className="orderSummary content">
+          <div className="orderSummary">
             {props.showThankYou ? (
               <div className="thankYou">
                 <div className="row justify-content-center">
