@@ -6,6 +6,8 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cartSlice";
 
+import toast, { Toaster } from "react-hot-toast";
+
 function AccessoryDescription(props) {
   const dispatch = useDispatch();
 
@@ -23,30 +25,35 @@ function AccessoryDescription(props) {
     };
     console.log("data from accessory is ", data);
     dispatch(addToCart(data));
+    toast.success("Accessory added to cart!");
   };
   return (
-    <div className="accessoryDesc">
-      <Row>
-        <span className="accName">{props.accessory.brand}</span>
-      </Row>
-      <Row>
-        <span className="accName">{props.accessory.name}</span>
-      </Row>
-      <Row className="mt-2">
-        <Col className="p-0">
-          <span className="accPrice">&euro; {props.accessory.price}</span>
-        </Col>
+    <>
+      <Toaster position="bottom-right" reverseOrder={false} />
 
-        <Col className="p-0">
-          <button
-            onClick={handleAccessory}
-            className="btn float-right addToCartBtn"
-          >
-            <FontAwesomeIcon icon={faCartPlus} size="xl" />
-          </button>
-        </Col>
-      </Row>
-    </div>
+      <div className="accessoryDesc">
+        <Row>
+          <span className="accName">{props.accessory.brand}</span>
+        </Row>
+        <Row>
+          <span className="accName">{props.accessory.name}</span>
+        </Row>
+        <Row className="mt-2">
+          <Col className="p-0">
+            <span className="accPrice">&euro; {props.accessory.price}</span>
+          </Col>
+
+          <Col className="p-0">
+            <button
+              onClick={handleAccessory}
+              className="btn float-right addToCartBtn"
+            >
+              <FontAwesomeIcon icon={faCartPlus} size="xl" />
+            </button>
+          </Col>
+        </Row>
+      </div>
+    </>
   );
 }
 

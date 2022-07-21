@@ -1,0 +1,10 @@
+.shopping-cart .MuiButtonBase-root.MuiButton-root.MuiButton-text {
+    background-color: #2e6076;
+    color: white;
+    width: 80px;
+  }
+  
+  .shopping-cart .MuiButtonBase-root.MuiButton-root.MuiButton-text:hover {
+    background-color: gold;
+    color: black;
+  }

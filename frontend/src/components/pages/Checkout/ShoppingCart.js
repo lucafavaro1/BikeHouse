@@ -4,6 +4,9 @@ import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { Button } from "@material-ui/core";
+
+import "../../css/ShoppingCart.css";
 
 import Summary from "../../reusable/Summary";
 import PaymentOptionsPage from "./PaymentOptionsPage";
@@ -87,7 +90,7 @@ function ShoppingCart() {
 
   return (
     <>
-      <div className="container bg-light content">
+      <div className="shopping-cart container bg-light content">
         <div className="row">
           <div className="col-md-8">
             <Tabs
@@ -130,6 +133,13 @@ function ShoppingCart() {
 
           <div className="col-md-4 mt-5 mb-5">
             <Summary products={products} setTotalPrice={setTotalPrice} />
+            <div className="align-self-end m-4">
+              {value === 0 && (
+                <Button type="button" onClick={() => handleNavigate(1)}>
+                  Next
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

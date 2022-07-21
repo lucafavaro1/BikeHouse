@@ -16,6 +16,7 @@ import ConditionIndicator from "./ConditionIndicator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import GppBadIcon from "@mui/icons-material/GppBad";
 import { addToCart } from "../../features/cartSlice";
+import toast, { Toaster } from "react-hot-toast";
 
 function InfoPage({
   bikeId,
@@ -64,6 +65,7 @@ function InfoPage({
       category,
     };
     dispatch(addToCart(data));
+    toast.success("Item added to cart!");
   };
   const payBoost = async (listingId) => {
     console.log(listingId);
@@ -131,6 +133,8 @@ function InfoPage({
           direction={"column"}
           style={{ height: "100%", marginLeft: 1 }}
         >
+          <Toaster position="bottom-right" reverseOrder={false} />
+
           <div className="mb-2">
             <Typography variant="subtitle1">
               {" "}
