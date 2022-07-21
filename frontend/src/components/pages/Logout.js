@@ -49,12 +49,12 @@ const Logout = () => {
           mr: 2,
           my: 2,
           display: { xs: "none", md: "inline" },
-          fontFamily: "Roboto",
-          lineHeight: 1.75,
+          fontSize: '1.1rem',
           verticalAlign: "middle",
-          fontWeight: 500,
+          fontWeight: 200,
           color: "inherit",
           textDecoration: "none",
+          marginLeft: '0.5rem'
         }}
       >
         Hello, {user.name}!

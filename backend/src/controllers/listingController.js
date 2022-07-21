@@ -6,7 +6,7 @@ const createListing = async (req, res) => {
   console.log("create listing called");
   const listing = req.body;
   const newListing = new ListingModel(listing);
-  await newListing.save(); // async request to crease a new user
+  await newListing.save(); // async request to crease a new listing
   res.status(200).json(newListing);
 };
 
@@ -54,21 +54,22 @@ const getListings = async (req, res) => {
 
   let listings = await ListingModel.find(listingFilters) // fetch listings
     .sort(
-      Object.assign({ isBoosted: -1 }, getPriceSortingObject(sortingCriterion))
+      getPriceSortingObject(sortingCriterion)
     )
     .exec();
 
-  listings = JSON.parse(JSON.stringify(listings)); // convert to JSON to support adding a new field (bike)
+listings = JSON.parse(JSON.stringify(listings)); // convert to JSON to support adding a new field (bike)
 
-  listings = await fetchBikesForListings(listings, bikeFilters);
+listings = await fetchBikesForListings(listings, bikeFilters);
 
-  listings = applyPagination(listings, page, perPage);
+listings = sortListings(listings, sortingCriterion);
 
-  listings = sortListings(listings, sortingCriterion);
+listings = applyPagination(listings, page, perPage);
 
-  return res.status(200).json(listings);
+return res.status(200).json(listings);
 };
 
+/** Returns a slice of the listings based on the provided pag number and perPage value */
 function applyPagination(listings, page, perPage) {
   let startIndex = page * perPage;
   let endIndex = page * perPage + perPage;
@@ -77,13 +78,15 @@ function applyPagination(listings, page, perPage) {
   return listings;
 }
 
+/** Sorts the listings based on isBoosted value, condition, frame verification, and creation date */
 function sortListings(listings, criterion) {
   listings.sort(function (listing1, listing2) {
-    if (listing1.isBoosted && !listing2.isBoosted) return -1;
-    else if (!listing1.isBoosted && listing2.isBoosted) return 1;
-    else {
-      // both boosted
-      if (criterion == "default") {
+
+    // both boosted
+    if (criterion == "default") {
+      if (listing1.isBoosted && !listing2.isBoosted) return -1;
+      else if (!listing1.isBoosted && listing2.isBoosted) return 1;
+      else { // both boosted
         if (listing1.bike.condition > listing2.bike.condition) return -1;
         else if (listing1.bike.condition < listing2.bike.condition) return 1;
         else {
@@ -102,13 +105,13 @@ function sortListings(listings, criterion) {
               return 1;
           }
         }
-      } else if (criterion == "priceLH") {
-        if (listing1.finalPrice > listing2.finalPrice) return 1;
-        else if (listing1.finalPrice < listing2.finalPrice) return -1;
-      } else if (criterion == "priceHL") {
-        if (listing1.finalPrice > listing2.finalPrice) return -1;
-        else if (listing1.finalPrice < listing2.finalPrice) return 1;
       }
+    } else if (criterion == "priceLH") {
+      if (listing1.finalPrice > listing2.finalPrice) return 1;
+      else if (listing1.finalPrice < listing2.finalPrice) return -1;
+    } else if (criterion == "priceHL") {
+      if (listing1.finalPrice > listing2.finalPrice) return -1;
+      else if (listing1.finalPrice < listing2.finalPrice) return 1;
     }
 
     return 0;
@@ -125,6 +128,7 @@ function getPriceSortingObject(criterion) {
   return {};
 }
 
+/** Generates a filter object for filtering bikes */
 function generateBikeFilters(rawQuery) {
   var filter = {};
 
@@ -227,6 +231,7 @@ function generateBikeFilters(rawQuery) {
   return filter;
 }
 
+/** Generates a filter object for filtering listings */
 function generateListingFilters(rawQuery) {
   var filter = { isActive: true };
 
@@ -243,6 +248,7 @@ function generateListingFilters(rawQuery) {
   return filter;
 }
 
+/** Fetches and assigns bikes to listings based on the bikeId of each listing */
 async function fetchBikesForListings(listings, bikeFilters) {
   await Promise.all(
     listings.map(async (listing) => {
