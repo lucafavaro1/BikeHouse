@@ -23,6 +23,7 @@ function Listings() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
+  /** Possible bike colors */
   const colors = [
     "White",
     "Black",
@@ -35,7 +36,11 @@ function Listings() {
     "Red",
     "Orange",
   ];
+  
+  /** Possible bike conditions */
   const conditions = ["Brand New", "Good", "Decent", "Bad", "Spare Parts"];
+  
+  /** Bike categories */
   const categories = [
     "City",
     "Road",
@@ -52,6 +57,7 @@ function Listings() {
     getListings();
   }, []);
 
+  /** Fetches listings from the backend */
   async function getListings(
     page = 0,
     shouldPreFetchNextPage = true,
@@ -119,6 +125,7 @@ function Listings() {
     getListings(0, true, false, false);
   };
 
+  /** Called when the next page button is clicked */
   const nextPageClicked = async (event) => {
     if (currentPageNum == lastPageNum.current) {
       return;
@@ -128,6 +135,7 @@ function Listings() {
     setCurrentPageNum(currentPageNum + 1);
   };
 
+  /** Called when the previous page button is clicked */
   const prevPageClicked = async (event) => {
     if (currentPageNum == 0) {
       return;
@@ -137,10 +145,12 @@ function Listings() {
     setCurrentPageNum(currentPageNum - 1);
   };
 
+  /** Called when the 'Need Help?' button is clicked */
   const needHelpClicked = async (event) => {
     navigate("/specialist");
   };
 
+  /** Clears the current search string and fetches the listings again */
   const clearSearch = (event) => {
     state.searchString = "";
     parameters.current.searchKeyword = "";
@@ -153,7 +163,9 @@ function Listings() {
   const resetFiltersAndSorting = (event) => {
     parameters.current = {}
     activeSortingCriterion.current = 'default'
-    getListings();
+    setCurrentPageNum(0);
+    lastPageNum.current = Infinity;
+    getListings(0, true, false, true);
     setIsFiltered(false)
   };
 
