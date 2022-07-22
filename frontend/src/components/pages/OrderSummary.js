@@ -8,15 +8,17 @@ import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Promise } from "bluebird";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import emailjs from "@emailjs/browser";
 import moment from "moment";
 import emailkey from "../../features/emailKeys";
+import { removeAllElementsFromTheCart } from "../../features/cartSlice";
 
 function OrderSummary(props) {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const user = useSelector(selectUser);
   const [value, setValue] = useState(0);
@@ -60,6 +62,7 @@ function OrderSummary(props) {
   }
 
   useEffect(() => {
+    dispatch(removeAllElementsFromTheCart());
     getOrder();
   }, []);
 
