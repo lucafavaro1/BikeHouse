@@ -18,7 +18,6 @@ const {
   createUser,
   updateUserById,
   refreshTokenGen,
-  deleteUserTest,
   verify,
   updatePassword,
   moveCreditToSeller,
@@ -44,7 +43,5 @@ router.post("/moveCreditToSeller", moveCreditToSeller);
 router.post("/zeroCredit", zeroCredit);
 
 router.post("/api/refreshtoken", refreshTokenGen);
-
-router.delete("/api/delete", verify, deleteUserTest);
 
 module.exports = router;

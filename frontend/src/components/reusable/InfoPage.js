@@ -1,22 +1,21 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
-import axios from "axios";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { CircularProgress } from "@material-ui/core";
-import "../css/InfoPage.css";
-import SellIcon from "@mui/icons-material/Sell";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
+import GppBadIcon from "@mui/icons-material/GppBad";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import axios from "axios";
+import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
+import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
-import { Modal } from "react-bootstrap";
-import ConditionIndicator from "./ConditionIndicator";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import GppBadIcon from "@mui/icons-material/GppBad";
 import { addToCart } from "../../features/cartSlice";
-import toast, { Toaster } from "react-hot-toast";
+import { selectUser } from "../../features/userSlice";
+import "../css/InfoPage.css";
+import ConditionIndicator from "./ConditionIndicator";
 
 function InfoPage({
   bikeId,
@@ -133,7 +132,17 @@ function InfoPage({
           direction={"column"}
           style={{ height: "100%", marginLeft: 1 }}
         >
-          <Toaster position="bottom-right" reverseOrder={false} />
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                color: "#2e6076",
+                border: "2px solid",
+                borderColor: "#2e6076",
+              },
+            }}
+            reverseOrder={false}
+          />
 
           <div className="mb-2">
             <Typography variant="subtitle1">

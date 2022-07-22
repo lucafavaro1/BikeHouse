@@ -228,10 +228,6 @@ const userVerification = async (req, res) => {
   }
 };
 
-const deleteUserTest = async (req, res) => {
-  res.status(200).send("REsponse done! user deleted !");
-};
-
 //function to logout user
 const logoutUser = async (req, res) => {
   console.log("logout called");
@@ -323,7 +319,6 @@ module.exports = {
   loginUser,
   createUser,
   updateUserById,
-  deleteUserTest,
   refreshTokenGen,
   verify,
   updatePassword,

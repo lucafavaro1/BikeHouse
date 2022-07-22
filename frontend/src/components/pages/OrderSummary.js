@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
-import "../css/OrderSummary.css";
-import Axios from "axios";
-import { Rating } from "@mui/material";
-import { Modal, Row } from "react-bootstrap";
-import { CircularProgress, IconButton } from "@material-ui/core";
-import { Button } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Promise } from "bluebird";
-import StarRateIcon from "@mui/icons-material/StarRate";
-import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import emailjs from "@emailjs/browser";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CircularProgress } from "@material-ui/core";
+import StarRateIcon from "@mui/icons-material/StarRate";
+import { Button, Rating } from "@mui/material";
+import Axios from "axios";
+import { Promise } from "bluebird";
 import moment from "moment";
-import emailkey from "../../features/emailKeys";
+import React, { useEffect, useState } from "react";
+import { Modal, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
+import emailkey from "../../features/emailKeys";
+import { selectUser } from "../../features/userSlice";
+import "../css/OrderSummary.css";
 
 function OrderSummary(props) {
   const dispatch = useDispatch();
@@ -76,24 +75,35 @@ function OrderSummary(props) {
           </div>
           <div className="col">
             <div className="row">
-              <div className="col-10 p-0">
+              <div className="col-9 p-0">
                 <strong className="text-uppercase">
                   {listing.bike.brand} {listing.bike.model}
                 </strong>
               </div>
 
-              <div className="col-2">
+              <div className="col-3 p-0">
                 {!listing.feedback ? (
-                  <Button
-                    className="starButton"
-                    variant="outlined"
-                    onClick={() => {
-                      handleOpen(listing);
-                    }}
-                  >
-                    {/* From here starts the part that fks up the navbar ... again */}
-                    <StarRateIcon fontSize="big" className="starIcon" />
-                  </Button>
+                  <>
+                    <Button
+                      className="starButton"
+                      variant="outlined"
+                      onClick={() => {
+                        handleOpen(listing);
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 10,
+                          color: "#2e6076",
+                          paddingLeft: 5 + "px",
+                          paddingRight: 5 + "px",
+                        }}
+                      >
+                        Submit a review
+                      </span>
+                      <StarRateIcon fontSize="big" className="starIcon" />
+                    </Button>
+                  </>
                 ) : (
                   <div></div>
                 )}
@@ -239,7 +249,7 @@ function OrderSummary(props) {
     <>
       <Modal show={show} onHide={handleClose} style={{ marginTop: 200 + "px" }}>
         <Modal.Header>
-          <Modal.Title>Drop a feedback to the seller! &#9734;</Modal.Title>
+          <Modal.Title>Drop a feedback to the seller!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Please leave a feedback to the seller of this bike. Consider in
