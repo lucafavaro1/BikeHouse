@@ -34,6 +34,11 @@ function InfoPage({
   sellerVerified,
   images,
   category,
+  frontGears,
+  rearGears,
+  brakeType,
+  frameMaterial,
+  frameSize,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -63,6 +68,11 @@ function InfoPage({
       sellerVerified,
       images,
       category,
+      frontGears,
+      rearGears,
+      brakeType,
+      frameMaterial,
+      frameSize,
     };
     dispatch(addToCart(data));
     toast.success("Item added to cart!");
