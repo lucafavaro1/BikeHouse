@@ -113,7 +113,10 @@ function ListingPage(props) {
                 id="ListingPage"
                 className="row justify-content-center mt-5 mb-5 ml-0 mr-0"
               >
-                <div className="d-none d-md-block col-md-1 p-0">
+                <div className="d-none d-md-block col-md-1 p-0" style={{
+                  overflowY:'scroll',
+                  maxHeight:'20rem'
+                }}>
                   <ImageGrid
                     images={images}
                     onSelect={(index) => setSelectedImage(index)}
