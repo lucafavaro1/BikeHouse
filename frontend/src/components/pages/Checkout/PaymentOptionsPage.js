@@ -22,7 +22,6 @@ function PaymentOptionsPage({
     } else {
       console.log("Auth Tokens is null");
     }
-    console.log("paybasket called with orderId", orderId);
     await AxiosJWT.post("http://localhost:3001/checkout-basket/", {
       headers: {
         authorization: "Bearer " + authTokens.accessToken,
@@ -47,7 +46,6 @@ function PaymentOptionsPage({
       console.log("Auth Tokens is null");
     }
 
-    console.log("create order");
     let listingsFromTheCarts = [];
     let accessoriesFromTheCarts = [];
 
@@ -56,7 +54,6 @@ function PaymentOptionsPage({
 
       //TODO get the category from prod
       if (prod.category === "accessory") {
-        console.log("Prod category is Accessory");
         const accessoryForOrder = {
           id: prod.listingId,
           quantity: prod.quantity,
@@ -83,7 +80,6 @@ function PaymentOptionsPage({
       deliveryAddress: address,
       totalAmount: totalPrice,
     };
-    console.log("orderObjectToSend is ", orderObjectToSend);
     try {
       const orderObject = await AxiosJWT.post(
         "http://localhost:3001/api/createOrder",
@@ -91,7 +87,7 @@ function PaymentOptionsPage({
           headers: {
             authorization: "Bearer " + authTokens.accessToken,
           },
-          orderObjectToSend,
+          ...orderObjectToSend,
         }
       );
       payBasket(orderObject.data._id);
@@ -104,8 +100,7 @@ function PaymentOptionsPage({
   const doPayment = async (e) => {
     e.preventDefault();
 
-    const orderCreated = await createOrder(products, address);
-    console.log(orderCreated);
+    await createOrder(products, address);
   };
   return (
     <div className="checkout">

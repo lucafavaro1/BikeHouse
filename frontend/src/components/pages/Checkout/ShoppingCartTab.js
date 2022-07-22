@@ -20,7 +20,6 @@ export default function ShoppingCartTab({
   const dispatch = useDispatch();
 
   const handleInsurance = (productKey, insuranceKey) => {
-    console.log("insurance", productKey, insuranceKey);
     const newState = [...products];
     let newValue = products[productKey];
     newValue.insurance = insProviders[insuranceKey];
@@ -29,11 +28,9 @@ export default function ShoppingCartTab({
     newState[productKey] = newValue;
     setProducts(newState);
     dispatch(updateCart(newValue));
-    console.log(products);
   };
 
   const handleShipping = (productKey, shippingrate, shippingType) => {
-    console.log("ship", productKey, shippingrate);
     const newState = [...products];
     let newValue = products[productKey];
     newValue.shipping = shippingrate;
@@ -41,7 +38,6 @@ export default function ShoppingCartTab({
     newState[productKey] = newValue;
     setProducts(newState);
     dispatch(updateCart(newValue));
-    console.log(products);
   };
 
   const handleSetQuantity = (productKey, quantity) => {

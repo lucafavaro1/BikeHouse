@@ -19,12 +19,6 @@ function ListingPage(props) {
           "http://localhost:3001/listing/" + listingId
         );
         setListing(listing.data);
-        //     console.log(listing.data);
-        //     listingToSend["frontGears"] = bikeDeets.frontGears;
-        // listingToSend["rearGears"] = bikeDeets.rearGears;
-        // listingToSend["brakeType"] = bikeDeets.breakType;
-        // listingToSend["frameMaterial"] = bikeDeets.frameMaterial;
-        // listingToSend["frameSize"] = bikeDeets.frameSize;
         setProduct({
           bikeId: listing.data.bikeId,
           isBoosted: listing.data.isBoosted,
@@ -48,10 +42,8 @@ function ListingPage(props) {
           frameSize: listing.data.frameSize,
         });
         const photosFromResponse = listing.data.images;
-        console.log(photosFromResponse.length);
         if (listing && photosFromResponse) {
           let photos = [];
-          console.log(typeof listing.data.images);
           for (let i = 0; i < photosFromResponse.length; i++) {
             if (photosFromResponse[i].toShow) {
               photos.push(photosFromResponse[i].url);
@@ -64,10 +56,7 @@ function ListingPage(props) {
       }
       setIsLoading(false);
     }
-    console.log(props);
-    console.log("LISTING ID:" + id);
     getListing(id);
-    // console.log(listing);
   }, []);
 
   const imagesTemp = [

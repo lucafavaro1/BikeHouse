@@ -106,9 +106,6 @@ function Specialist() {
   };
 
   const handleFinish = () => {
-    // console.log(user)
-    // console.log(cal.toString())
-    // console.log(typeof cal)
     sendEmail(user, cal);
     handleNext();
     paySpecialist();
@@ -141,9 +138,7 @@ function Specialist() {
       subject,
       cal,
     })
-      .then((response) => {
-        console.log(response.data.message);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.log("Error", error);
       });

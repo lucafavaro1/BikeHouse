@@ -38,10 +38,7 @@ function Register() {
       password,
     })
       .then((response) => {
-        console.log(response.data.firstName);
-
         setUser(response.data.firstName);
-        console.log(`Register in user: ${user}`);
         setIsLoading(false);
         performLogin();
       })

@@ -16,9 +16,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
   const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    // console.log(name, value);
     setLocalAddress({ ...localAddress, [name]: value });
-    // setAddress(localAddress);
   };
 
   return (

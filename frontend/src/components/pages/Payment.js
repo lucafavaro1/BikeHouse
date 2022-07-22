@@ -72,8 +72,6 @@ function Payment() {
       isBoosted: true,
     })
       .then((response) => {
-        //setIsLoading(false);
-        console.log(response);
         navigate("/dashboard/");
       })
       .catch((error) => {

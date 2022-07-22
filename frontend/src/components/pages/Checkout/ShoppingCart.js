@@ -48,7 +48,6 @@ function ShoppingCart() {
   };
 
   const handleNavigate = (index) => {
-    console.log(value - index);
     if (value + index === -1 || value + index === 3) {
       //do nothing. we are at the end of the tabs or at the beginning of the tabs
     } else {
@@ -79,7 +78,6 @@ function ShoppingCart() {
     cart.forEach((item) => {
       productArray.push({ ...item });
     });
-    console.log("Product array is ", productArray);
     setProducts(productArray);
   }, [cart]);
 
@@ -132,11 +130,13 @@ function ShoppingCart() {
           </div>
 
           <div className="col-md-4 mt-5 mb-5">
-            <Summary products={products}
+            <Summary
+              products={products}
               setTotalPrice={setTotalPrice}
               showNextButton={value === 0 && products.length !== 0}
               nextPageNavigationHandler={handleNavigate}
-              showDeleteButton={value === 0 && products.length !== 0} />
+              showDeleteButton={value === 0 && products.length !== 0}
+            />
           </div>
         </div>
       </div>

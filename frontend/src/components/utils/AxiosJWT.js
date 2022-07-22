@@ -19,7 +19,6 @@ const AxiosJWT = axios.create({
 
 const refreshToken = async (refreshToken) => {
   try {
-    console.log("REFRESH TOKEN CLALED with token" + refreshToken);
     const response = await axios.post(
       "http://localhost:3001/api/refreshtoken",
       {
@@ -46,11 +45,9 @@ AxiosJWT.interceptors.request.use(async (req) => {
     if (authToken != null) {
       req.headers.authorization = "Bearer " + authToken.accessToken;
     } else {
-      console.log("AUTH TOKENS FROM STORAGE IS NULL");
       return null;
     }
   }
-  console.log("auth token is .. " + authToken);
   req.headers["authorization"] = "Bearer " + authToken.accessToken;
   const decodedToken = jwtDecode(authToken.accessToken);
   const decodedTokenRefresh = jwtDecode(authToken.refreshToken);
@@ -58,21 +55,17 @@ AxiosJWT.interceptors.request.use(async (req) => {
     decodedToken.exp * 1000 < currentDate.getTime() &&
     decodedTokenRefresh.exp * 1000 < currentDate.getTime() // access and refresh expired
   ) {
-    console.log("REFRESH AND ACCESS EXPIRED");
     localStorage.removeItem(AUTH_TOKENS);
     localStorage.removeItem(LOCAL_STORAGE_USER_DATA_KEY);
     alert("please login again");
     return req;
   } else if (decodedToken.exp * 1000 < currentDate.getTime()) {
-    console.log("AUTH TOKEN EXPIRED");
     const response = await refreshToken(authToken.refreshToken);
-    console.log("RESPONSE FORM REFRESH TOKEN IS " + response);
     if (response != null) {
       req.headers["authorization"] = "Bearer " + response.accessToken;
       localStorage.setItem(AUTH_TOKENS, JSON.stringify(response.data));
     }
   } else {
-    console.log("no problem");
     return req;
   }
   return req;

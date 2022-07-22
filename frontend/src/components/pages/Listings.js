@@ -82,7 +82,6 @@ function Listings() {
           params: parameters.current,
         });
         setListings(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -171,9 +170,6 @@ function Listings() {
 
   /** Called when any of the accordion items is changed*/
   function handleFilterChange(eventObject) {
-    // console.log(eventObject.target)
-    // console.log(eventObject.target.value)
-
     let newValue = eventObject.target.value;
     let targetId = eventObject.target.id;
     let targetName = eventObject.target.name;
@@ -269,8 +265,6 @@ function Listings() {
         delete parameters.current.type;
       }
     }
-
-    console.log(parameters.current);
   }
 
   /** Called when a category button is clicked. Highlights the button, updates & applies the filter*/

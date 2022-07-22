@@ -84,7 +84,6 @@ function InfoPage({
     } else {
       console.log("Auth Tokens is null");
     }
-    console.log(listingId);
     setIsLoading(true);
     await AxiosJWT.post("http://localhost:3001/checkout-boost-specialist/", {
       headers: {

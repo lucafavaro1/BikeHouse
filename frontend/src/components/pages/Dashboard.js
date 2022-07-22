@@ -329,7 +329,6 @@ function Dashboard() {
       photos,
     })
       .then((res) => {
-        console.log(`Photo added for the verification`);
         logoutAndLogin();
       })
       .catch((error) => {
@@ -348,7 +347,6 @@ function Dashboard() {
       email,
       password,
     });
-    console.log(response);
     dispatch(
       login({
         name: response.data.firstName,

@@ -243,9 +243,7 @@ function OrderSummary(props) {
         order_totalamount: data.totalAmount,
       })
       .then(
-        (result) => {
-          console.log("confermation via email sent");
-        },
+        (result) => {},
         (error) => {
           alert("An error occurred, Please try again", error.text);
         }

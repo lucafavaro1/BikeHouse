@@ -56,8 +56,6 @@ function SellBike() {
     } else {
       console.log("Auth Tokens is null");
     }
-    console.log(listingId);
-    console.log(bikeId);
     setIsLoading(true);
     await AxiosJWT.post("http://localhost:3001/checkout-boost-specialist/", {
       headers: {
@@ -98,7 +96,6 @@ function SellBike() {
       photos,
     })
       .then((res) => {
-        console.log(res);
         var copyPhoto = [...photos];
         for (let i = 0; i < copyPhoto.length; i++) {
           copyPhoto[i].url = res.data[i].url;
@@ -146,7 +143,6 @@ function SellBike() {
       isBoosted,
     })
       .then((response) => {
-        console.log(`Item successfully added`);
         createListing(response.data._id);
       })
       .catch((error) => {
@@ -174,7 +170,6 @@ function SellBike() {
       shouldBeVerified: conditionVerification && frameVerification,
     })
       .then((response) => {
-        console.log(`Listing successfully added`);
         if (isBoosted) payBoost(response.data._id, itemId);
         else navigate("/listing/" + response.data._id);
       })

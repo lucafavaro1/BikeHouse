@@ -23,7 +23,6 @@ function Contact() {
 
   function sendEmail(e) {
     e.preventDefault();
-    console.log(e.target);
 
     emailjs.init(emailkey.USER_ID);
     emailjs

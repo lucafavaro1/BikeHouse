@@ -23,7 +23,6 @@ function AccessoryDescription(props) {
       price: props.accessory.price,
       quantity: 1,
     };
-    console.log("data from accessory is ", data);
     dispatch(addToCart(data));
     toast.success("Accessory added to cart!");
   };

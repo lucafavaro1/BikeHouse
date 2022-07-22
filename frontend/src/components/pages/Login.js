@@ -26,7 +26,6 @@ function Login() {
         password,
       });
       setUser(response.data.firstName);
-      console.log(response);
       dispatch(
         login({
           name: response.data.firstName,
