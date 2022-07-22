@@ -13,8 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
 import emailkey from "../../features/emailKeys";
-import { selectUser } from "../../features/userSlice";
+import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import "../css/OrderSummary.css";
+import AxiosJWT from "../utils/AxiosJWT";
 
 function OrderSummary(props) {
   const dispatch = useDispatch();
@@ -42,9 +43,19 @@ function OrderSummary(props) {
 
   /** Returns an order instance where foreign keys are replaced with actual objects */
   async function getOrder() {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     try {
       setIsLoading(true);
-      const response = await Axios.get("http://localhost:3001/order/" + id);
+      const response = await AxiosJWT.get("http://localhost:3001/order/" + id, {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
+      });
       setOrder(response.data);
       setListings(response.data.listingObjects);
       setAccessories(response.data.accessoryObjects);
@@ -157,11 +168,20 @@ function OrderSummary(props) {
   };
 
   const listingToInactive = async (allListings) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
     await Promise.all(
       allListings.map(async (listing) => {
         try {
-          await Axios.post("http://localhost:3001/modifyListing/", {
+          await AxiosJWT.post("http://localhost:3001/modifyListing/", {
+            headers: {
+              authorization: "Bearer " + authTokens.accessToken,
+            },
             listingId: listing._id,
             isActive: false,
           });
@@ -174,6 +194,12 @@ function OrderSummary(props) {
   };
 
   const moveCredit = async (order) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     const allListingObjects = order.listingObjects;
     setIsLoading(true);
     // use a special Promise map function to avoid parallelism
@@ -182,7 +208,10 @@ function OrderSummary(props) {
       allListingObjects,
       async function (listing) {
         try {
-          await Axios.post("http://localhost:3001/moveCreditToSeller/", {
+          await AxiosJWT.post("http://localhost:3001/moveCreditToSeller/", {
+            headers: {
+              authorization: "Bearer " + authTokens.accessToken,
+            },
             sellerId: listing.sellerId,
             credit: listing.bike.price,
           });
@@ -224,17 +253,33 @@ function OrderSummary(props) {
   }
 
   const submitRating = async () => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     try {
-      await Axios.post("http://localhost:3001/updateUser/", {
+      await AxiosJWT.post("http://localhost:3001/updateUser/", {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
         userId: currentSeller,
         value: value,
       });
-      await Axios.post("http://localhost:3001/updateOrder", {
+      await AxiosJWT.post("http://localhost:3001/updateOrder", {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
         orderId: id,
         listingId: currentListing,
         feedback: true,
       });
-      const response = await Axios.get("http://localhost:3001/order/" + id);
+      const response = await AxiosJWT.get("http://localhost:3001/order/" + id, {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
+      });
       setOrder(response.data);
       setListings(response.data.listingObjects);
       setAccessories(response.data.accessoryObjects);

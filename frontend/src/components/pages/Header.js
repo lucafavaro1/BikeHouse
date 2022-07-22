@@ -1,19 +1,24 @@
 import React from "react";
-import logo from "../pictures/logo.png";
-import "../css/Header.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { selectUser } from "../../features/userSlice";
-import { useNavigate } from "react-router-dom"
+import "../css/Header.css";
+import logo from "../pictures/logo.png";
 
 function Header() {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
-  
+
   return (
     <div className="header">
-
       <div className="logo">
-        <img src={logo} alt="BikeHouse logo" height={100} width={100} onClick={() => navigate("/")} />
+        <img
+          src={logo}
+          alt="BikeHouse logo"
+          height={100}
+          width={100}
+          onClick={() => navigate("/")}
+        />
       </div>
 
       <div className="text">
@@ -24,7 +29,5 @@ function Header() {
     </div>
   );
 }
-
-
 
 export default Header;

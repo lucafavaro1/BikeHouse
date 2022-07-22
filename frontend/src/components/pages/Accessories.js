@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Card, Row } from "react-bootstrap";
-import AccessoryDescription from "./AccessoryDescription";
 import Axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { Card, Row } from "react-bootstrap";
 import "../css/Accessories.css";
+import AccessoryDescription from "./AccessoryDescription";
 
 function Accessories() {
   const [accessories, setAccessories] = useState([]);

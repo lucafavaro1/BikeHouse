@@ -21,10 +21,10 @@ const {
 } = require("../controllers/listingController");
 
 router.post("/createListing", verify, createListing);
-router.delete("/deleteListing/:id", deleteListing);
+router.delete("/deleteListing/:id", verify, deleteListing);
 router.get("/listing", getListings);
 router.get("/listing/:id", getListingById);
 router.get("/listingsBySeller/:id", getListingsBySeller);
-router.post("/modifyListing", modifyListing);
+router.post("/modifyListing", verify, modifyListing);
 
 module.exports = router;

@@ -1,10 +1,10 @@
-import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
-import { CheckBox } from "@mui/icons-material";
-import React from "react";
+import { Button, Divider, Typography } from "@material-ui/core";
 import Radio from "@mui/joy/Radio";
 import RadioGroup from "@mui/joy/RadioGroup";
+import React from "react";
+import { AUTH_TOKENS } from "../../../features/userSlice";
 import "../../css/Checkout.css";
-import axios from "axios";
+import AxiosJWT from "../../utils/AxiosJWT";
 
 function PaymentOptionsPage({
   handleNavigate,
@@ -16,13 +16,21 @@ function PaymentOptionsPage({
   // create a Box for the payment options in material-ui with a radio button to select the payment method
 
   const payBasket = async (orderId) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     console.log("paybasket called with orderId", orderId);
-    await axios
-      .post("http://localhost:3001/checkout-basket/", {
-        orderId: orderId,
-        successLink: "/orderSuccess/" + orderId,
-        cancelLink: "/checkout/?canceled=true" + "&" + "orderId=" + orderId,
-      })
+    await AxiosJWT.post("http://localhost:3001/checkout-basket/", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+      orderId: orderId,
+      successLink: "/orderSuccess/" + orderId,
+      cancelLink: "/checkout/?canceled=true" + "&" + "orderId=" + orderId,
+    })
       .then((response) => {
         window.location = response.data.url;
       })
@@ -32,6 +40,13 @@ function PaymentOptionsPage({
   };
 
   const createOrder = async () => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
+
     console.log("create order");
     let listingsFromTheCarts = [];
     let accessoriesFromTheCarts = [];
@@ -70,9 +85,14 @@ function PaymentOptionsPage({
     };
     console.log("orderObjectToSend is ", orderObjectToSend);
     try {
-      const orderObject = await axios.post(
+      const orderObject = await AxiosJWT.post(
         "http://localhost:3001/api/createOrder",
-        orderObjectToSend
+        {
+          headers: {
+            authorization: "Bearer " + authTokens.accessToken,
+          },
+          orderObjectToSend,
+        }
       );
       payBasket(orderObject.data._id);
       return orderObject.data;

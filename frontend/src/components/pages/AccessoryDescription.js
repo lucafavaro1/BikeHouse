@@ -1,10 +1,10 @@
-import React from "react";
-import "../css/AccessoryDescription.css";
-import { Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cartSlice";
+import "../css/AccessoryDescription.css";
 
 import toast, { Toaster } from "react-hot-toast";
 

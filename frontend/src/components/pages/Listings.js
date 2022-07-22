@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
 import { CircularProgress } from "@material-ui/core";
+import Axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import "../css/Listings.css";
+import questionMarkIcon from "../pictures/questionMarkIcon.png";
+import rocketIcon from "../pictures/rocket.png";
 import ListingDescription from "./ListingDescription";
 import VerificationLegend from "./VerificationLegend";
-import Axios from "axios";
-import "../css/Listings.css";
-import { useNavigate, useLocation } from "react-router-dom";
-import rocketIcon from "../pictures/rocket.png";
-import questionMarkIcon from "../pictures/questionMarkIcon.png";
 
 function Listings() {
   const [listings, setListings] = useState([]);
@@ -36,10 +36,10 @@ function Listings() {
     "Red",
     "Orange",
   ];
-  
+
   /** Possible bike conditions */
   const conditions = ["Brand New", "Good", "Decent", "Bad", "Spare Parts"];
-  
+
   /** Bike categories */
   const categories = [
     "City",
@@ -119,7 +119,7 @@ function Listings() {
 
   /** Called when the apply button is clicked */
   const applyFilterClicked = async (event) => {
-    setIsFiltered(true)
+    setIsFiltered(true);
     setCurrentPageNum(0);
     lastPageNum.current = Infinity;
     getListings(0, true, false, false);
@@ -161,12 +161,12 @@ function Listings() {
   };
 
   const resetFiltersAndSorting = (event) => {
-    parameters.current = {}
-    activeSortingCriterion.current = 'default'
+    parameters.current = {};
+    activeSortingCriterion.current = "default";
     setCurrentPageNum(0);
     lastPageNum.current = Infinity;
     getListings(0, true, false, true);
-    setIsFiltered(false)
+    setIsFiltered(false);
   };
 
   /** Called when any of the accordion items is changed*/

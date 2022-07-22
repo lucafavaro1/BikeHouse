@@ -1,28 +1,26 @@
-import React, { useState } from "react";
-import Axios from "axios";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "../css/Specialist.css";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import DayTimePicker from "@mooncake-dev/react-day-time-picker";
-import { timeSlotValidator, createICS } from "../../features/slotPicker";
-import { selectUser } from "../../features/userSlice";
-import { useSelector } from "react-redux";
-import { Container } from "@mui/system";
 import { TextField } from "@mui/material";
-import Login from "./Login";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import FormControl from "@mui/material/FormControl";
+import Step from "@mui/material/Step";
+import StepContent from "@mui/material/StepContent";
+import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
+import Typography from "@mui/material/Typography";
+import { Container } from "@mui/system";
+import Axios from "axios";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.css";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { createICS, timeSlotValidator } from "../../features/slotPicker";
+import { AUTH_TOKENS, selectUser } from "../../features/userSlice";
+import "../css/Specialist.css";
+import AxiosJWT from "../utils/AxiosJWT";
+import Login from "./Login";
 
 const steps = [
   {
@@ -42,7 +40,17 @@ const steps = [
 ];
 
 const paySpecialist = async () => {
-  await Axios.post("http://localhost:3001/checkout-boost-specialist/", {
+  let authTokens = localStorage.getItem(AUTH_TOKENS);
+  if (authTokens != null) {
+    authTokens = JSON.parse(authTokens);
+  } else {
+    console.log("Auth Tokens is null");
+  }
+
+  await AxiosJWT.post("http://localhost:3001/checkout-boost-specialist/", {
+    headers: {
+      authorization: "Bearer " + authTokens.accessToken,
+    },
     name: "Specialist appointment ⏰",
     price: 20,
     successLink: "/dashboard",

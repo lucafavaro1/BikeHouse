@@ -1,8 +1,8 @@
+import { CircularProgress } from "@material-ui/core";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CircularProgress } from "@material-ui/core";
 import ImageGrid from "../reusable/ImageGrid";
 import InfoPage from "../reusable/InfoPage";
 import MainImage from "../reusable/MainImage";

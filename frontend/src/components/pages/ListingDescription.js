@@ -1,8 +1,8 @@
-import React from "react";
-import "../css/ListingDescription.css";
-import { Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { Col, Row } from "react-bootstrap";
+import "../css/ListingDescription.css";
 import ConditionIndicator from "../reusable/ConditionIndicator.js";
 
 function ListingDescription(props) {

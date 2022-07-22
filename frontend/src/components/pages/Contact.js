@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import logo from "../pictures/logo.png";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "../css/Contact.css";
 import emailjs from "@emailjs/browser";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.css";
+import React, { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import emailkey from "../../features/emailKeys";
-import { Modal, Button } from "react-bootstrap";
+import "../css/Contact.css";
+import logo from "../pictures/logo.png";
 
 function Contact() {
   const [show, setShow] = useState(true);

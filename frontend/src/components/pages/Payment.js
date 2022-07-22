@@ -1,19 +1,33 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AUTH_TOKENS } from "../../features/userSlice";
+import AxiosJWT from "../utils/AxiosJWT";
 
 function Payment() {
   const navigate = useNavigate();
 
   const deleteItemsDB = async (bikeId, listingId) => {
-    await axios
-      .delete("http://localhost:3001/deleteListing/" + listingId)
-      .catch((error) => {
-        console.log(error);
-      });
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
 
-    await axios
-      .delete("http://localhost:3001/deleteBike/" + bikeId)
+    await AxiosJWT.delete("http://localhost:3001/deleteListing/" + listingId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    await AxiosJWT.delete("http://localhost:3001/deleteBike/" + bikeId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    })
       .then((response) => {
         navigate("/dashboard/");
       })
@@ -23,8 +37,17 @@ function Payment() {
   };
 
   const deleteOrder = async (orderId) => {
-    await axios
-      .delete("http://localhost:3001/deleteOrder/" + orderId)
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
+    await AxiosJWT.delete("http://localhost:3001/deleteOrder/" + orderId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    })
       .then((response) => {
         alert("Order cancelled! The payment was not successful");
         navigate("/dashboard/");
@@ -35,11 +58,19 @@ function Payment() {
   };
 
   const modifyListing = async (listingId) => {
-    await axios
-      .post("http://localhost:3001/modifyListing/", {
-        listingId: listingId,
-        isBoosted: true,
-      })
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
+    await AxiosJWT.post("http://localhost:3001/modifyListing/", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+      listingId: listingId,
+      isBoosted: true,
+    })
       .then((response) => {
         //setIsLoading(false);
         console.log(response);

@@ -17,7 +17,7 @@ import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import { login, logout } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUser } from "../../features/userSlice";
+import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import {
   Row,
   Col,
@@ -35,6 +35,7 @@ import ListingDescription from "./ListingDescription";
 import moment from "moment";
 import Stars from "react-stars-display";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
+import AxiosJWT from "../utils/AxiosJWT";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -115,10 +116,21 @@ function Dashboard() {
   }
 
   async function getOrdersByBuyer() {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
     try {
-      const response = await Axios.get(
-        "http://localhost:3001/getOrdersByBuyer/" + user.userId
+      const response = await AxiosJWT.get(
+        "http://localhost:3001/getOrdersByBuyer/" + user.userId,
+        {
+          headers: {
+            authorization: "Bearer " + authTokens.accessToken,
+          },
+        }
       );
       if (response.data !== "You have no orders") {
         setOrders(response.data);
@@ -130,9 +142,18 @@ function Dashboard() {
   }
 
   function changePassword() {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
     // send to backend the old + password
-    Axios.post(`http://localhost:3001/updatePassword`, {
+    AxiosJWT.post(`http://localhost:3001/updatePassword`, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
       email: user.email,
       password,
       newPassword,
@@ -293,8 +314,17 @@ function Dashboard() {
   };
 
   const submitVerification = async () => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
-    await Axios.post("http://localhost:3001/userVerification", {
+    await AxiosJWT.post("http://localhost:3001/userVerification", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
       user: user.userId,
       photos,
     })
@@ -348,9 +378,18 @@ function Dashboard() {
   }
 
   const zeroCredit = async (userId) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
     try {
-      await Axios.post("http://localhost:3001/zeroCredit/", {
+      await AxiosJWT.post("http://localhost:3001/zeroCredit/", {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
         userId: userId,
       }).then(() => {
         logoutAndLogin();

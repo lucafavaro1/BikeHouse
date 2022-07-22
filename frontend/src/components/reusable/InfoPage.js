@@ -3,6 +3,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
+import AxiosJWT from "../utils/AxiosJWT";
 import GppBadIcon from "@mui/icons-material/GppBad";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Box, Button, Grid, Typography } from "@mui/material";
@@ -13,7 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../features/cartSlice";
-import { selectUser } from "../../features/userSlice";
+import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
 import "../css/InfoPage.css";
 import ConditionIndicator from "./ConditionIndicator";
 
@@ -67,15 +68,23 @@ function InfoPage({
     toast.success("Item added to cart!");
   };
   const payBoost = async (listingId) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     console.log(listingId);
     setIsLoading(true);
-    await axios
-      .post("http://localhost:3001/checkout-boost-specialist/", {
-        name: "Boosting for Ad 🚀",
-        price: 5,
-        successLink: "/checkout/?success=true&listingId=" + listingId,
-        cancelLink: "/checkout/?canceled=true&listingId=" + listingId,
-      })
+    await AxiosJWT.post("http://localhost:3001/checkout-boost-specialist/", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+      name: "Boosting for Ad 🚀",
+      price: 5,
+      successLink: "/checkout/?success=true&listingId=" + listingId,
+      cancelLink: "/checkout/?canceled=true&listingId=" + listingId,
+    })
       .then((response) => {
         setIsLoading(false);
         window.location = response.data.url;
@@ -86,9 +95,18 @@ function InfoPage({
   };
 
   const deleteListing = async (listingId) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
-    await axios
-      .delete("http://localhost:3001/deleteListing/" + listingId)
+    await AxiosJWT.delete("http://localhost:3001/deleteListing/" + listingId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    })
       .then((response) => {
         setIsLoading(false);
         navigate("/dashboard/");
@@ -100,9 +118,18 @@ function InfoPage({
   };
 
   const deleteBike = async (bikeId) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
-    await axios
-      .delete("http://localhost:3001/deleteBike/" + bikeId)
+    await AxiosJWT.delete("http://localhost:3001/deleteBike/" + bikeId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    })
       .then((response) => {
         setIsLoading(false);
         navigate("/dashboard/");

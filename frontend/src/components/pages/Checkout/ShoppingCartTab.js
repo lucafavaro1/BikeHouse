@@ -1,17 +1,16 @@
-import React from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { Button } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import ShoppingCartItem from "./ShoppingCartItem";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { updateCart } from "../../../features/cartSlice";
 import "../../css/Checkout.css";
-import { addToCart, selectCart, updateCart } from "../../../features/cartSlice";
-import { removeFromCart } from "../../../features/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
 import {
   getInsuranceNameFromValue,
   insProviders,
 } from "../globals/GlobalObjects";
-import { Button } from "@material-ui/core";
+import ShoppingCartItem from "./ShoppingCartItem";
 
 export default function ShoppingCartTab({
   products,
