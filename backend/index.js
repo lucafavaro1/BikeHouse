@@ -1,7 +1,7 @@
 const express = require("express");
 const http = require("http");
 const mongoose = require("mongoose");
-const cors = require("cors"); // connect API to frontend
+const cors = require("cors"); 
 const config = require("./src/config");
 
 const api = express();

@@ -1,3 +1,5 @@
+//controller for orders
+
 const AddressModel = require("../models/Address");
 const OrderModel = require("../models/Order");
 const ListingModel = require("../models/Listing");
@@ -5,6 +7,7 @@ const { AccessoryModel } = require("../models/Item");
 const { getBike, getAccessory } = require("./bikeController");
 const { getListing, fetchBikesForListings } = require("./listingController");
 
+//function to delete order by id
 const deleteOrder = async (req, res) => {
   console.log("delete order called");
   const orderId = req.params.id;
@@ -17,6 +20,7 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+//function to get orders by buyer id
 const getOrdersByBuyer = async (req, res) => {
   console.log("get order by buyer called");
   const buyerId = req.params.id;
@@ -34,6 +38,7 @@ const getOrdersByBuyer = async (req, res) => {
   }
 };
 
+//function to get order by id
 const getOrder = async (req) => {
   console.log("get order called");
   const orderId = req;
@@ -45,6 +50,7 @@ const getOrder = async (req) => {
   }
 };
 
+//function to get the populated order
 const getPopulatedOrder = async (req, res) => {
   if (!req.params.id) {
     res.status(400).json();
@@ -116,6 +122,7 @@ async function fetchFieldsForOrder(order) {
   return order;
 }
 
+//function to create a new order
 const createOrder = async (req, res) => {
   console.log("create order called");
   const order = req.body;
@@ -146,6 +153,8 @@ const createOrder = async (req, res) => {
   }
 };
 
+
+//function to update order by id
 const updateOrder = async (req, res) => {
   console.log("update order called");
   const orderId = req.body.orderId;

@@ -1,3 +1,5 @@
+// Controller for bike
+
 const ItemModel = require("../models/Item");
 const cloudinary = require("cloudinary");
 
@@ -7,6 +9,7 @@ cloudinary.config({
   api_secret: "du6Q0cnP3TnEQVtP85YKSpkWXqg",
 });
 
+//function to upload images
 const imageUpload = async (req, res) => {
   const values = req.body.photos;
   const promises = values.map((image) =>
@@ -16,6 +19,7 @@ const imageUpload = async (req, res) => {
   Promise.all(promises).then((results) => res.status(200).json(results));
 };
 
+//function to create a new item
 const createItem = async (req, res) => {
   console.log("create bike called");
   const item = req.body;
@@ -24,6 +28,7 @@ const createItem = async (req, res) => {
   res.status(200).json(newItem);
 };
 
+//function to detete bike my id
 const deleteBike = async (req, res) => {
   console.log("delete bike called");
   const bikeId = req.params.id;
@@ -36,6 +41,7 @@ const deleteBike = async (req, res) => {
   }
 };
 
+//function to get bike by id
 const getBike = async (req) => {
   console.log("get bike (one) called");
   const bikeId = req;
@@ -47,6 +53,7 @@ const getBike = async (req) => {
   }
 };
 
+//function to get accessory by id
 const getAccessory = async (req) => {
   console.log("get bike (one) called");
   const accessoryId = req;

@@ -1,3 +1,15 @@
+// router for user operations
+// @route /createUser
+// @route /loginUser
+// @route /updateUser
+// @route /logout
+// @route /userVerification
+// @route /updatePassword
+// @route /moveCreditToSeller
+// @route /zeroCredit
+// @route /api/refreshtoken
+// @route /api/delete
+
 const express = require("express");
 const router = express.Router();
 

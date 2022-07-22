@@ -1,3 +1,8 @@
+// route for bike operations 
+// @route /createItem 
+// @route /deleteBike/:id 
+// @route /image-upload
+
 const express = require("express");
 const { verify } = require("../controllers/userController");
 

@@ -1,6 +1,7 @@
+//schema for address model
+
 const mongoose = require("mongoose");
 
-// define fields and values that schema should contain
 const AddressSchema = new mongoose.Schema({
   streetName: {
     type: String,
@@ -37,7 +38,6 @@ const AddressSchema = new mongoose.Schema({
   },
 });
 
-// name of collection + schema that represents that model
 const AddressModel = mongoose.model("address", AddressSchema);
 
 module.exports = AddressModel;

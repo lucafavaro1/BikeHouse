@@ -1,9 +1,8 @@
-const AppointmentModel = require("../models/Appointment");
+// Controller to create an appointment and send a mail via SendGrid.
+// @route /createAppointment
+
 const sgMail = require("@sendgrid/mail");
 const config = require("../config");
-
-// @desc Post Appointment
-// @route POST /Appointment/create
 
 const createAppointment = async (req, res) => {
   console.log("request for appointment");
@@ -48,7 +47,6 @@ const createAppointment = async (req, res) => {
         "Your BikeHouse Team",
       attachments: [attachment],
     };
-    // const newAppointment = appointment;
     console.log("see body here", appointment);
     await sgMail.send(appointment).then(() => {
       console.log("Email sent");

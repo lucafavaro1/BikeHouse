@@ -1,3 +1,10 @@
+// router for order operations
+// @route /deleteOrder/:id
+// @route /getOrdersByBuyer/:id
+// @route /order/:id
+// @route /api/createOrder
+// @route /updateOrder
+
 const express = require("express");
 const { verify } = require("../controllers/userController");
 

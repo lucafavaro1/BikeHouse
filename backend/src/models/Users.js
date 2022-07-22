@@ -1,7 +1,8 @@
+// Schema for the user model
+
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-// define fields and values that schema should contain
 const UserSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -59,7 +60,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-// name of collection + schema that represents that model
 const UserModel = mongoose.model("user", UserSchema);
 
 module.exports = UserModel;

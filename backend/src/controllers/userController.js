@@ -1,3 +1,5 @@
+//controller for user
+
 const UserModel = require("../models/Users");
 const RefreshTokenModel = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");
@@ -88,6 +90,7 @@ const loginUser = async (req, res) => {
   }
 };
 
+//function to create a new user
 const createUser = async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -118,6 +121,7 @@ const createUser = async (req, res) => {
   }
 };
 
+//function for the refresh token
 const refreshTokenGen = async (req, res) => {
   //take the refresh token
   const refreshToken = req.body.token;
@@ -183,6 +187,7 @@ const refreshTokenGen = async (req, res) => {
   // if everything ok , send a new access token, refresh token
 };
 
+//function to verify authenticity of session based on access token
 const verify = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   console.log(authHeader);
@@ -211,6 +216,7 @@ const verify = async (req, res, next) => {
   }
 };
 
+//function for user to verify identity
 const userVerification = async (req, res) => {
   try {
     let user = await UserModel.findByIdAndUpdate(req.body.user, {
@@ -226,6 +232,7 @@ const deleteUserTest = async (req, res) => {
   res.status(200).send("REsponse done! user deleted !");
 };
 
+//function to logout user
 const logoutUser = async (req, res) => {
   console.log("logout called");
   const refreshToken = req.body.token;
@@ -240,6 +247,7 @@ const logoutUser = async (req, res) => {
   }
 };
 
+//function to update user password
 const updatePassword = async (req, res) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email });
@@ -258,6 +266,7 @@ const updatePassword = async (req, res) => {
   }
 };
 
+//function to move sold bike credits to seller account balance
 const moveCreditToSeller = async (req, res) => {
   console.log("move credit to seller called");
 
@@ -273,6 +282,7 @@ const moveCreditToSeller = async (req, res) => {
   }
 };
 
+//function to set user balance to zero
 const zeroCredit = async (req, res) => {
   console.log("zero credit called");
   try {
@@ -285,6 +295,7 @@ const zeroCredit = async (req, res) => {
   }
 };
 
+//function to update a user by id
 const updateUserById = async (req, res) => {
   console.log("update user by id called");
   let userId = req.body.userId;

@@ -1,7 +1,10 @@
+//controller for listings
+
 const ListingModel = require("../models/Listing");
 const { BikeModel } = require("../models/Item");
 const UserModel = require("../models/Users");
 
+//function to create a listing
 const createListing = async (req, res) => {
   console.log("create listing called");
   const listing = req.body;
@@ -10,6 +13,7 @@ const createListing = async (req, res) => {
   res.status(200).json(newListing);
 };
 
+//function to delete a listing by id
 const deleteListing = async (req, res) => {
   console.log("delete listing called");
   const listingId = req.params.id;
@@ -22,6 +26,8 @@ const deleteListing = async (req, res) => {
   }
 };
 
+
+//function to get a listing by id
 const getListing = async (req) => {
   console.log("get listing (one) called with id", req);
   const listingId = req;
@@ -318,6 +324,7 @@ const getListingById = async (req, res) => {
   //   listings = listings.sort((a, b) => Number(b.isBoosted) - Number(a.isBoosted));
 };
 
+//function to get listings by seller
 const getListingsBySeller = async (req, res) => {
   const sellerDeets = await UserModel.findById(req.params.id).exec();
 
@@ -358,6 +365,7 @@ async function fetchBikesForListingsV1(listings) {
   return listings;
 }
 
+//function to modify listing by id
 const modifyListing = async (req, res) => {
   console.log("modifyListing called");
 

@@ -1,5 +1,6 @@
+// schema for the refresh token
+
 const mongoose = require("mongoose");
-var Schema = mongoose.Schema;
 
 const RefreshTokenSchema = new mongoose.Schema({
   refreshToken: {

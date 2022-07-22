@@ -1,3 +1,11 @@
+// route for listing operations
+//@route /createListing
+//@route /deleteListing/:id
+//@route /listing
+//@route /listing/:id
+//@route /listingsBySeller/:id
+//@route /modifyListing
+
 const express = require("express");
 const { verify } = require("../controllers/userController");
 

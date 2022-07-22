@@ -1,3 +1,5 @@
+//schema for access token
+
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 

@@ -1,5 +1,8 @@
+//schema for parent item, children: bike, accessories
+
 const mongoose = require("mongoose");
 
+//options for parent class
 const parentClassOptions = {
   discriminatorKey: "kind",
 };

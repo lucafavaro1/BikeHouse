@@ -1,6 +1,7 @@
+// schema for the review model
+
 const mongoose = require("mongoose");
 
-// define fields and values that schema should contain
 const ReviewSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -16,7 +17,6 @@ const ReviewSchema = new mongoose.Schema({
   }
 });
 
-// name of collection + schema that represents that model
 const ReviewModel = mongoose.model("review", ReviewSchema);
 
 module.exports = ReviewModel;

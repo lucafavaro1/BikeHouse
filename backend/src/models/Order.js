@@ -1,7 +1,8 @@
+// schema for order model
+
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-// define fields and values that schema should contain
 const OrderSchema = new mongoose.Schema(
   {
     buyer: {
@@ -93,7 +94,6 @@ const OrderSchema = new mongoose.Schema(
   }
 );
 
-// name of collection + schema that represents that model
 const OrderModel = mongoose.model("order", OrderSchema);
 
 module.exports = OrderModel;

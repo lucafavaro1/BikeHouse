@@ -1,7 +1,8 @@
+//schema for listing model
+
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-// define fields and values that schema should contain
 const ListingSchema = new mongoose.Schema(
   {
     isBoosted: {
@@ -32,7 +33,6 @@ const ListingSchema = new mongoose.Schema(
   }
 );
 
-// name of collection + schema that represents that model
 const ListingModel = mongoose.model("listing", ListingSchema);
 
 module.exports = ListingModel;

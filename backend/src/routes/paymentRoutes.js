@@ -1,3 +1,7 @@
+// router for payment operations
+// @route /checkout-boost-specialist
+// @route /checkout-basket
+
 const express = require("express");
 const router = express.Router();
 

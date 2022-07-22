@@ -1,17 +1,16 @@
-// This is a public sample test API key.
-// Don’t submit any personally identifiable information in requests made with this key.
+//controller for payment
 
 const { getBike, getAccessory } = require("./bikeController");
 const { getListing } = require("./listingController");
 const { getOrder } = require("./orderController");
 
-// Sign in to see your own test API key embedded in code samples.
 const stripe = require("stripe")(
   "sk_test_51LGkBADlzVGR1dTFCHxnbCK4SokRlhFrfBpfi1CHA2fOmLtdV41V9xR7VcHzigGeYQgzqJQHMHpt7BtS4lDzA1tg00KN7697mY"
 );
 
 const YOUR_DOMAIN = "http://localhost:3000";
 
+// function to get all selected listings and their prices
 const listAllListings = async (listings) => {
   let array_listings = [];
   await Promise.all(
@@ -50,6 +49,7 @@ const listAllListings = async (listings) => {
   return array_listings;
 };
 
+//function to get all selected accessories and their prices
 const listAllAccessories = async (accessories) => {
   let array_accessories = [];
   await Promise.all(
@@ -74,6 +74,7 @@ const listAllAccessories = async (accessories) => {
   return array_accessories;
 };
 
+//function to pay for boosting/specialist
 const checkout_boost = async (req, res) => {
   console.log("CHECKOUT BOOST/SPECIALIST REACHED");
   const parameters = req.body;
@@ -97,6 +98,7 @@ const checkout_boost = async (req, res) => {
   res.status(200).json({ url: session.url });
 };
 
+//function to pay for checkout basket
 const checkout_basket = async (req, res) => {
   console.log("CHECKOUT BASKET REACHED");
   const parameters = req.body;

@@ -1,3 +1,6 @@
+// route to get accessories 
+// @route /accessory
+
 const express = require("express");
 const router = express.Router();
 
