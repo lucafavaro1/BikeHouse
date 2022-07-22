@@ -299,7 +299,7 @@ function Dashboard() {
       photos,
     })
       .then((res) => {
-        //console.log(res);
+        console.log(res);
         var copyPhoto = [...photos];
         for (let i = 0; i < copyPhoto.length; i++) {
           copyPhoto[i].url = res.data[i].url;

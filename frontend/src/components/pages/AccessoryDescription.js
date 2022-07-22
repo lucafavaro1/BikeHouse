@@ -29,7 +29,17 @@ function AccessoryDescription(props) {
   };
   return (
     <>
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            color: "#2e6076",
+            border: "2px solid",
+            borderColor: "#2e6076",
+          },
+        }}
+        reverseOrder={false}
+      />
 
       <div className="accessoryDesc">
         <Row>

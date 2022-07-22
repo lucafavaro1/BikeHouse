@@ -16,6 +16,6 @@ const {
 
 router.post("/createItem", verify, createItem);
 router.delete("/deleteBike/:id", verify, deleteBike);
-router.post("/image-upload", verify, imageUpload);
+router.post("/image-upload", imageUpload);
 
 module.exports = router;
