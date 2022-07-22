@@ -91,7 +91,7 @@ function PaymentOptionsPage({
           headers: {
             authorization: "Bearer " + authTokens.accessToken,
           },
-          orderObjectToSend,
+          ...orderObjectToSend,
         }
       );
       payBasket(orderObject.data._id);
