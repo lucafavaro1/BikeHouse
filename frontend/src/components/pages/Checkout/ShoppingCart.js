@@ -134,7 +134,7 @@ function ShoppingCart() {
           <div className="col-md-4 mt-5 mb-5">
             <Summary products={products} setTotalPrice={setTotalPrice} />
             <div className="align-self-end m-4">
-              {value === 0 && (
+              {value === 0 && products.length !== 0 && (
                 <Button type="button" onClick={() => handleNavigate(1)}>
                   Next
                 </Button>
