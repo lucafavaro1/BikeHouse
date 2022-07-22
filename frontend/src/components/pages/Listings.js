@@ -458,7 +458,7 @@ function Listings() {
                           <input
                             className="textField"
                             type="number"
-                            min="40"
+                            min="30"
                             max="70"
                             id="minFrameSize"
                             name="minFrameSize"
