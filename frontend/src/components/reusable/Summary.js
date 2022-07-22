@@ -3,8 +3,13 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { Button } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { removeAllElementsFromTheCart } from "../../features/cartSlice";
 
-function Summary({ products, setTotalPrice }) {
+function Summary({ products, setTotalPrice, showNextButton, nextPageNavigationHandler, showDeleteButton }) {
+  const dispatch = useDispatch();
+
   const subTotal = products.reduce((acc, product) => {
     if (product.quantity) {
       return acc + product.quantity * product.price;
@@ -27,9 +32,14 @@ function Summary({ products, setTotalPrice }) {
   const totalPrice = subTotal + insuranceTotal + shippingTotal;
   setTotalPrice(totalPrice);
 
+  const resetBasket = () => {
+    dispatch(removeAllElementsFromTheCart());
+
+  }
+
   return (
     <Card
-      style={{ position: "sticky", top: "1rem", minWidth: "275" }}
+      style={{ position: "sticky", top: "6rem", minWidth: "275" }}
       elevation={15}
     >
       <CardContent>
@@ -90,6 +100,27 @@ function Summary({ products, setTotalPrice }) {
               € {totalPrice}
             </Typography>
           </Grid>
+
+          {showDeleteButton && (
+            <Button type="button" onClick={resetBasket} style={{
+              width: '40%',
+              margin: '5% 5% 0% 0%',
+              display: 'inline-block',
+              backgroundColor: 'rgb(209, 15, 15)'
+            }}>
+              Clear All
+            </Button>
+          )}
+
+          {showNextButton && (
+            <Button type="button" onClick={() => { nextPageNavigationHandler(1) }} style={{
+              width: '55%',
+              margin: '5% 0% 0% 0%',
+              display: 'inline-block'
+            }}>
+              Next
+            </Button>
+          )}
         </Grid>
       </CardContent>
     </Card>
