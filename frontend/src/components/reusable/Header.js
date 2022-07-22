@@ -1,12 +1,9 @@
 import React from "react";
 import logo from "../pictures/logo.png";
 import "../css/Header.css";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom"
 
 function Header() {
-  const user = useSelector(selectUser);
   const navigate = useNavigate();
   
   return (

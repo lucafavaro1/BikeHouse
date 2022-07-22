@@ -1,5 +1,5 @@
 import React from "react";
-import ConditionIndicator from "../reusable/ConditionIndicator";
+import ConditionIndicator from "./ConditionIndicator";
 import "../css/VerificationLegend.css";
 
 function VerificationLegend() {

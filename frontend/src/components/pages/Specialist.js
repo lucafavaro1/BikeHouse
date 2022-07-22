@@ -11,17 +11,14 @@ import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import DayTimePicker from "@mooncake-dev/react-day-time-picker";
 import { timeSlotValidator, createICS } from "../../features/slotPicker";
 import { selectUser } from "../../features/userSlice";
 import { useSelector } from "react-redux";
 import { Container } from "@mui/system";
 import { TextField } from "@mui/material";
-import Login from "./Login";
+import Login from "../reusable/Login";
 import { Navigate } from "react-router-dom";
 
 const steps = [
@@ -91,10 +88,6 @@ function Specialist() {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   const handleFinish = () => {

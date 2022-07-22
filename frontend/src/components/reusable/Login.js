@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { browserHistory } from "react-router";
 import axios from "axios";
 import "../css/LoginRegister.css";
 import { useDispatch } from "react-redux";
@@ -10,7 +9,6 @@ import { login } from "../../features/userSlice";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -26,7 +24,6 @@ function Login() {
         email,
         password,
       });
-      setUser(response.data.firstName);
       console.log(response);
       dispatch(
         login({

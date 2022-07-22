@@ -1,30 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-import {
-  Autocomplete,
-  FormControlLabel,
-  IconButton,
-  TextField,
-} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import "../../css/CartItem.css";
 import Select from "@mui/material/Select";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../../features/cartSlice";
 import FormControl from "@mui/material/FormControl";
-import { Row } from "react-bootstrap";
-import Switch from "@mui/material/Switch";
-import { Box, Divider, Radio, RadioGroup, Typography } from "@material-ui/core";
-import { insuranceOptions } from "../globals/GlobalObjects";
+import { Radio, RadioGroup, Typography } from "@material-ui/core";
+import { insuranceOptions } from "../../globals/GlobalObjects";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     marginTop: 15,
@@ -126,7 +116,7 @@ function ShoppingCartItem({
         </Grid>
         <br />
         <Grid container>
-          {category == "accessory" && (
+          {category === "accessory" && (
             <>
               <Grid item xs={10} sm={10} md={10} lg={10}>
                 <Typography variant="body1" component="div">
@@ -151,7 +141,7 @@ function ShoppingCartItem({
               </Grid>
             </>
           )}
-          {category == "bike" && (
+          {category === "bike" && (
             <Grid item xs={12} sm={12} md={12} lg={12}>
               {/* <Switch
                 checked={checked}

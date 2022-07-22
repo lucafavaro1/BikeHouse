@@ -12,7 +12,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Logout from "./Logout";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { IconButton } from "@mui/material";
-import { fontSize } from "@mui/system";
 
 const pages = {
   buy: "Buy a Bike",
@@ -25,24 +24,7 @@ const Navbar = () => {
   const user = useSelector(selectUser);
   const cart = useSelector(selectCart);
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [searchString, setSearchString] = useState("");
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   const submitSearch = (e) => {
     e.preventDefault();
@@ -54,8 +36,6 @@ const Navbar = () => {
     <AppBar className="appbar" position="sticky" sx={{ bgcolor: "#3d3d3d" }}>
       <Container maxWidth="xxl">
         <Toolbar disableGutters>
-          {/* <img src={logo} alt="BikeHouse logo" height={25} width={25} style={{'padding':'1px'}}/> */}
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -130,7 +110,7 @@ const Navbar = () => {
               ":hover": { color: "gold" },
             }}
           >
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <IconButton sx={{ p: 0 }}>
               <span
                 style={{
                   color: "black",

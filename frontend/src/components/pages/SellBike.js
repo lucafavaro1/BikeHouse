@@ -1,10 +1,10 @@
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
 import axios from "axios";
 import AxiosJWT from "../utils/AxiosJWT";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import "../css/SellBike.css";
-import DropBox from "../../features/Dropbox";
+import DropBox from "../reusable/Dropbox";
 import ShowImage from "../../features/ShowImage";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -614,7 +614,7 @@ function SellBike() {
               <Button
                 className="col mt-3 mb-3 next"
                 onClick={() => {
-                  if (photos.length == 0)
+                  if (photos.length === 0)
                     setErrorMessage(
                       "Please upload pictures of your bike before moving to the next step"
                     );
@@ -736,7 +736,7 @@ function SellBike() {
             {renderSwitch(step)}
           </div>
           <div className="col-2 m-0 p-0">
-            {step == 2 ? (
+            {step === 2 ? (
               <div className="photo_guide">
                 <Modal.Dialog>
                   <Modal.Title>&#9733;</Modal.Title>

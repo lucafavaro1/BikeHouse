@@ -28,7 +28,7 @@ import {
   Badge,
 } from "react-bootstrap";
 import { CircularProgress } from "@material-ui/core";
-import DropBox from "../../features/Dropbox";
+import DropBox from "../reusable/Dropbox";
 import ShowImage from "../../features/ShowImage";
 import userIcon from "../pictures/user_icon.png";
 import ListingDescription from "./ListingDescription";
@@ -225,7 +225,7 @@ function Dashboard() {
 
         {listing.isBoosted ? (
           <div>
-            <img src={rocketIcon} className="boostIcon" />
+            <img src={rocketIcon} className="boostIcon" alt='boost icon'/>
           </div>
         ) : (
           <span></span>
@@ -234,7 +234,7 @@ function Dashboard() {
         {listing.bike.conditionToBeVerified ||
         listing.bike.frameToBeVerified ? (
           <div>
-            <img src={underVerificationIcon} className="boostIcon" />
+            <img src={underVerificationIcon} className="boostIcon" alt='verification icon'/>
           </div>
         ) : (
           <span></span>
@@ -510,7 +510,7 @@ function Dashboard() {
                     </div>
                   </Col>
                   <Col>
-                    {user.averageRating.avg.$numberDecimal == 0 ? (
+                    {user.averageRating.avg.$numberDecimal === 0 ? (
                       <p>
                         <u>
                           You dont have any review, start selling/buying now
@@ -600,7 +600,7 @@ function Dashboard() {
                       </div>
                     )}
 
-                    {user.balance != 0 ? (
+                    {user.balance !== 0 ? (
                       <>
                         <Row>
                           <p className="col-5 p-0 mt-2">
@@ -629,7 +629,7 @@ function Dashboard() {
                               backgroundColor: "#2e6076",
                             }}
                             onClick={() => {
-                              if (password != "") {
+                              if (password !== "") {
                                 alert("You successfully redeemed your credit.");
                                 zeroCredit(user.userId);
                               }
@@ -694,7 +694,7 @@ function Dashboard() {
                 </Row>
               </TabPanel>
               <TabPanel value={value} index={1}>
-                {listings.length == 0 ? (
+                {listings.length === 0 ? (
                   <div>
                     <h3>You have no active listings at the moment !</h3>
                     <p>After uploading a new listing you will find it here.</p>
@@ -706,7 +706,7 @@ function Dashboard() {
                 )}
               </TabPanel>
               <TabPanel value={value} index={2}>
-                {orders.length == 0 ? (
+                {orders.length === 0 ? (
                   <div>
                     <h3>Your orders history is empty! </h3>
                     <p> After placing the first order you will find it here.</p>
@@ -858,7 +858,7 @@ function Dashboard() {
                     <p className="col mt-3 mb-3"></p>
                     <Button
                       onClick={() => {
-                        if (photos.length == 0)
+                        if (photos.length === 0)
                           setErrorMessage(
                             "Please upload the ID picture and the selfie"
                           );
@@ -935,7 +935,7 @@ function Dashboard() {
                     <Button
                       onClick={() => {
                         if (
-                          document.getElementById("newPassword").value !=
+                          document.getElementById("newPassword").value !==
                           document.getElementById("repeatNewPassword").value
                         )
                           setErrorMessage("The new password does not match");

@@ -1,3 +1,5 @@
+// function to display image containers
+
 import Image from "./Image";
 
 const ShowImage = ({ images }) => {

@@ -4,13 +4,13 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import ShoppingCartItem from "./ShoppingCartItem";
 import "../../css/Checkout.css";
-import { addToCart, selectCart, updateCart } from "../../../features/cartSlice";
-import { removeFromCart } from "../../../features/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { updateCart } from "../../../features/cartSlice";
+import { useDispatch } from "react-redux";
 import {
   getInsuranceNameFromValue,
   insProviders,
-} from "../globals/GlobalObjects";
+} from "../../globals/GlobalObjects";
+
 import { Button } from "@material-ui/core";
 
 export default function ShoppingCartTab({
@@ -58,7 +58,7 @@ export default function ShoppingCartTab({
     <div className="checkout">
       <React.Fragment>
         <CssBaseline />
-        {products.length == 0 ? (
+        {products.length === 0 ? (
           <h1 className="mt-5">Your basket is empty!</h1>
         ) : (
           <>

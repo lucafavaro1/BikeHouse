@@ -1,7 +1,9 @@
+// function to define dropbox
+
 import { Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
-import "../features/Dropbox.css";
+import "../css/Dropbox.css";
 
 const getColor = (props) => {
   if (props.isDragAccept) {
@@ -38,7 +40,6 @@ function DropBox({ onDrop }) {
   const {
     getRootProps,
     getInputProps,
-    acceptedFiles,
     open,
     isDragAccept,
     isFocused,
