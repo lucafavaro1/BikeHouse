@@ -1,7 +1,5 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { useDispatch } from "react-redux";
-
 import {
   AUTH_TOKENS,
   LOCAL_STORAGE_USER_DATA_KEY,

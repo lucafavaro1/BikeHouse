@@ -1,11 +1,13 @@
-import emailjs from "@emailjs/browser";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "bootstrap/dist/css/bootstrap.css";
+// function to load the contact page
+
 import React, { useState } from "react";
+import logo from "../pictures/logo.png";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "../css/Contact.css";
+import emailjs from "@emailjs/browser";
 import { Button, Modal } from "react-bootstrap";
 import emailkey from "../../features/emailKeys";
-import "../css/Contact.css";
-import logo from "../pictures/logo.png";
 
 function Contact() {
   const [show, setShow] = useState(true);
@@ -17,10 +19,7 @@ function Contact() {
     setConfirmedSent(false);
   };
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
-
+  //function to send email on form submission with feedback
   function sendEmail(e) {
     e.preventDefault();
 

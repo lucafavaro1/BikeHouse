@@ -1,6 +1,8 @@
+// resuable component function to add descriptions to accessories 
+
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import { React } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cartSlice";
@@ -11,6 +13,7 @@ import toast, { Toaster } from "react-hot-toast";
 function AccessoryDescription(props) {
   const dispatch = useDispatch();
 
+  //function to add to cart and display toast
   const handleAccessory = (e) => {
     e.preventDefault();
 
@@ -26,6 +29,7 @@ function AccessoryDescription(props) {
     dispatch(addToCart(data));
     toast.success("Accessory added to cart!");
   };
+
   return (
     <>
       <Toaster

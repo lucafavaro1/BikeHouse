@@ -1,21 +1,22 @@
+// resuable component function to define and style an info page for each listing item 
+
 import { CircularProgress } from "@material-ui/core";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
-import AxiosJWT from "../utils/AxiosJWT";
 import GppBadIcon from "@mui/icons-material/GppBad";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import axios from "axios";
-import React, { useState } from "react";
+import { React, useState } from "react";
 import { Modal } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../features/cartSlice";
-import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
+import { AUTH_TOKENS, selectUser } from "../../features/userSlice";
 import "../css/InfoPage.css";
+import AxiosJWT from "../utils/AxiosJWT";
 import ConditionIndicator from "./ConditionIndicator";
 
 function InfoPage({
@@ -45,6 +46,8 @@ function InfoPage({
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  //function to handle add to cart
   const handleBasket = (e) => {
     e.preventDefault();
     if (!user) {
@@ -75,8 +78,10 @@ function InfoPage({
       frameSize,
     };
     dispatch(addToCart(data));
-    toast.success("Item added to cart!");
+    toast.success("Bike added to cart!");
   };
+
+  // function to boost ad listing
   const payBoost = async (listingId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -103,6 +108,7 @@ function InfoPage({
       });
   };
 
+  //function to delete listing from listing info page
   const deleteListing = async (listingId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -126,6 +132,7 @@ function InfoPage({
     setIsLoading(false);
   };
 
+  //delete bike from listing info page
   const deleteBike = async (bikeId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -221,7 +228,7 @@ function InfoPage({
           </Box>
 
           {/* if user is logged and id owner corresponds to user than check if id is boosted, if not display the boost it now */}
-          {user != undefined && sellerId == user.userId && !isBoosted ? (
+          {user !== undefined && sellerId === user.userId && !isBoosted ? (
             <Button
               variant={"contained"}
               color={"warning"}
@@ -234,7 +241,7 @@ function InfoPage({
             <p></p>
           )}
 
-          {user != undefined && sellerId == user.userId ? (
+          {user !== undefined && sellerId === user.userId ? (
             <>
               <Button
                 variant={"contained"}

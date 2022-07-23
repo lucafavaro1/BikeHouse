@@ -1,4 +1,5 @@
-import { CircularProgress } from "@material-ui/core";
+// function to load a single listing page
+
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import InfoPage from "../reusable/InfoPage";
 import MainImage from "../reusable/MainImage";
 import InfoIcon from "@mui/icons-material/Info";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { CircularProgress } from "@material-ui/core";
 
 function ListingPage(props) {
   const { id } = useParams();

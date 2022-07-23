@@ -1,10 +1,11 @@
+// function to load the order summary page
+
 import emailjs from "@emailjs/browser";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CircularProgress } from "@material-ui/core";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { Button, Rating } from "@mui/material";
-import Axios from "axios";
 import { Promise } from "bluebird";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -13,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
 import emailkey from "../../features/emailKeys";
-import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
+import { AUTH_TOKENS, selectUser } from "../../features/userSlice";
 import "../css/OrderSummary.css";
 import AxiosJWT from "../utils/AxiosJWT";
 
@@ -167,6 +168,7 @@ function OrderSummary(props) {
     );
   };
 
+  //function to set the listing to inactive after a confirmed payment
   const listingToInactive = async (allListings) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -193,6 +195,7 @@ function OrderSummary(props) {
     setIsLoading(false);
   };
 
+  //function to move credit to seller after successful purchase
   const moveCredit = async (order) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -224,6 +227,7 @@ function OrderSummary(props) {
     setIsLoading(false);
   };
 
+  // function to sent confirmation mail with order summary
   function sendEmail(data) {
     emailjs.init(emailkey.USER_ID);
     let date = moment(data.createdAt).format("DD-MM-YYYY HH:mm");
@@ -250,6 +254,7 @@ function OrderSummary(props) {
       );
   }
 
+  //function to allow buyer to submit ratings for the seller and the listing
   const submitRating = async () => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -312,7 +317,7 @@ function OrderSummary(props) {
               value={value}
               sx={{ color: "#2e6076" }}
               size="large"
-              onChange={(event, newValue) => {
+              onChange={(_event, newValue) => {
                 setValue(newValue);
               }}
             />

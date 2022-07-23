@@ -1,3 +1,5 @@
+// resuable component function to define and style Summary card from cart 
+
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";

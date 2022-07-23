@@ -19,7 +19,7 @@ import {
   LOCAL_STORAGE_USER_DATA_KEY,
   logout,
 } from "./../features/userSlice";
-import Payment from "./pages/Payment";
+import Payment from "../features/Payment";
 import jwtDecode from "jwt-decode";
 import Accessories from "./pages/Accessories";
 import ShoppingCart from "./pages/Checkout/ShoppingCart";

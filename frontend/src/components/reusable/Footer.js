@@ -1,5 +1,5 @@
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "bootstrap/dist/css/bootstrap.css";
+// resuable component function to define footer 
+
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import "../css/Contact.css";

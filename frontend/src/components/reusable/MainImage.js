@@ -1,3 +1,5 @@
+// resuable component function to define and style Image 
+
 import React from "react";
 
 function MainImage({ src }) {

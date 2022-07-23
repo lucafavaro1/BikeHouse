@@ -1,3 +1,5 @@
+// function to load the photo guide page
+
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
@@ -89,19 +91,19 @@ function PhotoGuide() {
           </h3>
           <h3 style={{ marginBottom: 15 + "px" }}>
             <img
-              alt="Frame picture 1"
+              alt="Frame 1"
               src="https://willem.com/blog/2018-06-09_removing-paint-from-a-bike-frame/images/Removing-paint-from-a-bike-frame-2x.jpg"
             ></img>
           </h3>
           <h3 style={{ marginBottom: 15 + "px" }}>
             <img
-              alt="Frame picture 2"
+              alt="Frame 2"
               src="https://willem.com/blog/2018-06-09_removing-paint-from-a-bike-frame/images/i_11_Schindelhauer-steer-mounted-on-my-aluminium-bike_500px.jpg"
             ></img>
           </h3>
           <h3 style={{ marginBottom: 15 + "px" }}>
             <img
-              alt="Frame picture 3"
+              alt="Frame 3"
               src="https://farm6.staticflickr.com/5066/5665608612_967fcafdd8_z.jpg"
             ></img>
           </h3>

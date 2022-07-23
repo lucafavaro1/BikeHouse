@@ -1,3 +1,5 @@
+// resuable component function to define and style an image grid 
+
 import { Grid } from "@mui/material";
 import React from "react";
 
@@ -15,6 +17,7 @@ function ImageGrid({ images, onSelect, selectedImage }) {
               index === selectedImage ? "solid black 1px" : "solid #eee 1px",
             cursor: "pointer",
           }}
+          alt=''
         />
       ))}
     </Grid>

@@ -1,8 +1,10 @@
-import Axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+// function to load the accessories page
+
+import React, { useState, useEffect, useRef } from "react";
 import { Card, Row } from "react-bootstrap";
+import AccessoryDescription from "../reusable/AccessoryDescription";
+import Axios from "axios";
 import "../css/Accessories.css";
-import AccessoryDescription from "./AccessoryDescription";
 
 function Accessories() {
   const [accessories, setAccessories] = useState([]);
@@ -15,6 +17,7 @@ function Accessories() {
     getAccessories();
   }, []);
 
+  //function to get accessories from DB
   async function getAccessories(
     page = 0,
     shouldPreFetchNextPage = true,

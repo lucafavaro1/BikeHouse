@@ -1,3 +1,5 @@
+//function to load the Sell your Bike page
+
 import { CircularProgress } from "@material-ui/core";
 import { listCities } from "cclist";
 import React, { useCallback, useState } from "react";
@@ -5,7 +7,7 @@ import { Button, Card, Modal, Nav, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import DropBox from "../../features/Dropbox";
+import DropBox from "../reusable/Dropbox";
 import ShowImage from "../../features/ShowImage";
 import { AUTH_TOKENS, selectUser } from "../../features/userSlice";
 import "../css/SellBike.css";
@@ -38,6 +40,7 @@ function SellBike() {
 
   const [validated, setValidated] = useState(false);
 
+  //function to handle form submit on first page
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -49,6 +52,7 @@ function SellBike() {
     setValidated(true);
   };
 
+  //function to handle payment for ad boosting
   const payBoost = async (listingId, bikeId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -82,6 +86,7 @@ function SellBike() {
       });
   };
 
+  //function to handle image uploads for new bike
   const uploadImages = () => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -109,6 +114,7 @@ function SellBike() {
       });
   };
 
+  //function to submit an item on finishing sell your bike form
   const submitItem = async () => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -151,6 +157,7 @@ function SellBike() {
     setIsLoading(false);
   };
 
+  //function to create a listing
   const createListing = async (itemId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -179,6 +186,7 @@ function SellBike() {
     setIsLoading(false);
   };
 
+  //function to calculate prices after commissions
   function calculateFinalPrice(price) {
     var finalPrice = +price;
     if (conditionVerification) finalPrice = finalPrice + 0.03 * price; // decide how much to get as fee
@@ -186,6 +194,7 @@ function SellBike() {
     return finalPrice;
   }
 
+  //function to select which photos to display
   function checkShown() {
     let check = false;
     photos.forEach((photo) => {
@@ -198,6 +207,7 @@ function SellBike() {
     return <div className="alert alert-danger">{message}</div>;
   }
 
+  //function to recieve dropped files
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.map((file, index) => {
       const reader = new FileReader();
@@ -218,6 +228,7 @@ function SellBike() {
     });
   }, []);
 
+  //function to remove uploaded photos
   const removePhoto = (item) => {
     var newPhotos = [...photos];
     var index = newPhotos.indexOf(item);
@@ -227,6 +238,7 @@ function SellBike() {
     }
   };
 
+  // function to display images
   const lists = photos.map((list) => (
     <div>
       <li key={list.id}>
@@ -259,6 +271,7 @@ function SellBike() {
     );
   });
 
+  //function to render pages
   function renderSwitch(param) {
     switch (param) {
       case 1:
@@ -623,7 +636,7 @@ function SellBike() {
               <Button
                 className="col mt-3 mb-3 next"
                 onClick={() => {
-                  if (photos.length == 0)
+                  if (photos.length === 0)
                     setErrorMessage(
                       "Please upload pictures of your bike before moving to the next step"
                     );
@@ -745,7 +758,7 @@ function SellBike() {
             {renderSwitch(step)}
           </div>
           <div className="col-2 m-0 p-0">
-            {step == 2 ? (
+            {step === 2 ? (
               <div className="photo_guide">
                 <Modal.Dialog>
                   <Modal.Title>&#9733;</Modal.Title>

@@ -1,3 +1,6 @@
+//functions for calendar functionality in specialist appointment
+
+//function to set valid time slots
 const timeSlotValidator = (slotTime) => {
   const isValid =
     slotTime.getDay() > 0 &&
@@ -7,6 +10,7 @@ const timeSlotValidator = (slotTime) => {
   return isValid;
 };
 
+//function to create ICS time from dateTime
 const setICSTime = (slotTime) => {
   return [
     slotTime.getFullYear(),
@@ -17,6 +21,7 @@ const setICSTime = (slotTime) => {
   ];
 };
 
+//function to create a new ICS file
 const createICS = (dateTime, user) => {
   const ics = require("ics");
   const { error, value } = ics.createEvent({

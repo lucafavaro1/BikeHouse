@@ -1,3 +1,5 @@
+//resuable component function for each shopping cart item
+
 import { Radio, RadioGroup, Typography } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -12,9 +14,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../../features/cartSlice";
 import "../../css/CartItem.css";
-import { insuranceOptions } from "../globals/GlobalObjects";
+import { insuranceOptions } from "../../globals/GlobalObjects";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     marginTop: 15,
@@ -43,22 +45,19 @@ function ShoppingCartItem({
   const category = product.category;
   const id = product.listingId;
 
-  // const [checked, setChecked] = useState(false);
-  // const handleChange = (event) => {
-  //   event.preventDefault()
-  //   setChecked(event.target.checked);
-  // };
-
+  //handle item delete
   const handleRemove = (e) => {
     e.preventDefault();
     dispatch(removeFromCart(id));
   };
 
+  //handle insurance selection
   const handleSelect = (e) => {
     e.preventDefault();
     handleInsurance(productKey, e.target.value);
   };
 
+  //function to display stylized category
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -71,11 +70,6 @@ function ShoppingCartItem({
         title={product.brand + " " + product.model}
       />
       <CardContent className={classes.content}>
-        {/* <CardMedia
-          className={classes.cover}
-          image="https://source.unsplash.com/random"
-          title="Live from space album cover"
-        /> */}
         <Typography
           className={classes.title}
           color="textSecondary"
@@ -116,7 +110,7 @@ function ShoppingCartItem({
         </Grid>
         <br />
         <Grid container>
-          {category == "accessory" && (
+          {category === "accessory" && (
             <>
               <Grid item xs={10} sm={10} md={10} lg={10}>
                 <Typography variant="body1" component="div">
@@ -141,27 +135,15 @@ function ShoppingCartItem({
               </Grid>
             </>
           )}
-          {category == "bike" && (
+          {category === "bike" && (
             <Grid item xs={12} sm={12} md={12} lg={12}>
-              {/* <Switch
-                checked={checked}
-                onChange={handleChange}
-                inputProps={{ 'aria-label': 'controlled' }}
-              /> */}
               <FormControl>
                 <Select
                   value={product.insuranceKey}
-                  // disabled={!checked}
                   label="Insurance"
                   variant="outlined"
                   onChange={handleSelect}
                   style={{ marginLeft: 8 + "px" }}
-
-                  // onClose
-                  // onClick
-                  // onSelect
-                  // autoFocus = {false}
-                  // onFocus
                 >
                   {insuranceOptions.map((option, index) => (
                     <MenuItem key={index} value={option.value}>

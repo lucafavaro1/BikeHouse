@@ -1,3 +1,5 @@
+// resuable component function to define and style Navbar with changes on Login 
+
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { IconButton } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
@@ -24,25 +26,9 @@ const Navbar = () => {
   const user = useSelector(selectUser);
   const cart = useSelector(selectCart);
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [searchString, setSearchString] = useState("");
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+  //function to search bikes
   const submitSearch = (e) => {
     e.preventDefault();
     navigate("/buy", { state: { searchString } });
@@ -53,8 +39,6 @@ const Navbar = () => {
     <AppBar className="appbar" position="sticky" sx={{ bgcolor: "#3d3d3d" }}>
       <Container maxWidth="xxl">
         <Toolbar disableGutters>
-          {/* <img src={logo} alt="BikeHouse logo" height={25} width={25} style={{'padding':'1px'}}/> */}
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -129,7 +113,7 @@ const Navbar = () => {
               ":hover": { color: "gold" },
             }}
           >
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <IconButton sx={{ p: 0 }}>
               <span
                 style={{
                   color: "black",

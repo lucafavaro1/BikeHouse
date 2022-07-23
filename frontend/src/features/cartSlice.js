@@ -1,8 +1,11 @@
+//functions to use redux for cart
+
 import { createSlice } from "@reduxjs/toolkit";
 
 export const LOCAL_STORAGE_CART_DATA_KEY = "BIKE_HOUSE_CART_DATA";
 export const AUTH_TOKENS = "AUTH_TOKENS";
 
+//function to store cart into local storage
 const getCartStatus = () => {
   const storedData = window.localStorage.getItem(LOCAL_STORAGE_CART_DATA_KEY);
   const cart =
@@ -14,12 +17,15 @@ const getCartStatus = () => {
   return { cart: cart };
 };
 
+//function to do cart operations
 export const cartSlice = createSlice({
   name: "cart",
   initialState: getCartStatus(
     localStorage.getItem(LOCAL_STORAGE_CART_DATA_KEY)
   ),
   reducers: {
+
+    // add to cart reducer
     addToCart: (state, action) => {
       const inCart = JSON.parse(
         window.localStorage.getItem(LOCAL_STORAGE_CART_DATA_KEY)
@@ -87,8 +93,9 @@ export const cartSlice = createSlice({
         }
       }
     },
+
+    // reducer to remove from cart
     removeFromCart: (state, action) => {
-      // state.loggedIn = false;
       state.cart = JSON.parse(
         window.localStorage.getItem(LOCAL_STORAGE_CART_DATA_KEY)
       );
@@ -100,6 +107,8 @@ export const cartSlice = createSlice({
         JSON.stringify(state.cart)
       );
     },
+
+    //reducer to update cart
     updateCart: (state, action) => {
       if (state.cart != null) {
         state.cart.forEach((element, index) => {
@@ -116,6 +125,8 @@ export const cartSlice = createSlice({
         });
       }
     },
+
+    //reducer to remove all items from cart
     removeAllElementsFromTheCart: (state, action) => {
       window.localStorage.removeItem(LOCAL_STORAGE_CART_DATA_KEY);
       state.cart = [];

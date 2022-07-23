@@ -1,3 +1,5 @@
+// function to load the payment tab within checkout
+
 import { Button, Divider, Typography } from "@material-ui/core";
 import Radio from "@mui/joy/Radio";
 import RadioGroup from "@mui/joy/RadioGroup";
@@ -15,6 +17,7 @@ function PaymentOptionsPage({
 }) {
   // create a Box for the payment options in material-ui with a radio button to select the payment method
 
+  //function to trigger payment
   const payBasket = async (orderId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -38,6 +41,7 @@ function PaymentOptionsPage({
       });
   };
 
+  //function to create an order item and call payment trigger
   const createOrder = async () => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -97,6 +101,7 @@ function PaymentOptionsPage({
     }
   };
 
+  //function to handle payment button click
   const doPayment = async (e) => {
     e.preventDefault();
 

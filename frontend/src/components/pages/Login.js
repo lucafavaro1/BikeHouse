@@ -1,3 +1,5 @@
+// function to define and stlye login page 
+
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 import React, { useState } from "react";
@@ -9,13 +11,13 @@ import "../css/LoginRegister.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
+  //post login request
   const loginUser = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -25,7 +27,7 @@ function Login() {
         email,
         password,
       });
-      setUser(response.data.firstName);
+      console.log(response);
       dispatch(
         login({
           name: response.data.firstName,
@@ -53,6 +55,7 @@ function Login() {
     setIsLoading(false);
   };
 
+  //handle error message
   function ErrorMessage({ message }) {
     return <div className="alert alert-danger">{message}</div>;
   }

@@ -1,3 +1,5 @@
+//constants for insurance providers and amounts
+
 export const insProviders = {
   1: 40,
   2: 30,

@@ -1,15 +1,14 @@
+//function to laod the shopping cart tab within the checkout page
+
 import { Button } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import React from "react";
+import { React } from "react";
 import { useDispatch } from "react-redux";
 import { updateCart } from "../../../features/cartSlice";
 import "../../css/Checkout.css";
-import {
-  getInsuranceNameFromValue,
-  insProviders,
-} from "../globals/GlobalObjects";
+import { getInsuranceNameFromValue, insProviders } from "../../globals/GlobalObjects";
 import ShoppingCartItem from "./ShoppingCartItem";
 
 export default function ShoppingCartTab({
@@ -19,6 +18,7 @@ export default function ShoppingCartTab({
 }) {
   const dispatch = useDispatch();
 
+  //function to handle insurance selection for each item
   const handleInsurance = (productKey, insuranceKey) => {
     const newState = [...products];
     let newValue = products[productKey];
@@ -30,6 +30,7 @@ export default function ShoppingCartTab({
     dispatch(updateCart(newValue));
   };
 
+  //function to handle shipping selection for each item
   const handleShipping = (productKey, shippingrate, shippingType) => {
     const newState = [...products];
     let newValue = products[productKey];
@@ -40,6 +41,7 @@ export default function ShoppingCartTab({
     dispatch(updateCart(newValue));
   };
 
+  //function to handle quantity selection for each item
   const handleSetQuantity = (productKey, quantity) => {
     const newState = [...products];
     let newValue = products[productKey];
@@ -53,7 +55,7 @@ export default function ShoppingCartTab({
     <div className="checkout">
       <React.Fragment>
         <CssBaseline />
-        {products.length == 0 ? (
+        {products.length === 0 ? (
           <h1 className="mt-5">Your basket is empty!</h1>
         ) : (
           <>

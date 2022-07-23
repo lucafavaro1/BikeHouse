@@ -1,12 +1,11 @@
+// resuable component function to define header 
+
 import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { selectUser } from "../../features/userSlice";
-import "../css/Header.css";
 import logo from "../pictures/logo.png";
+import "../css/Header.css";
+import { useNavigate } from "react-router-dom"
 
 function Header() {
-  const user = useSelector(selectUser);
   const navigate = useNavigate();
 
   return (

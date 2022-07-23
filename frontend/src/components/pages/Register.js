@@ -1,7 +1,9 @@
+//function to load the Create an Account page
+
 import { CircularProgress } from "@material-ui/core";
 import Axios from "axios";
 import { listCities } from "cclist";
-import React, { useState } from "react";
+import { React, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../features/userSlice";
@@ -18,11 +20,11 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  //post request to backend
   const performRegistration = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -37,8 +39,7 @@ function Register() {
       email,
       password,
     })
-      .then((response) => {
-        setUser(response.data.firstName);
+      .then(() => {
         setIsLoading(false);
         performLogin();
       })
@@ -48,6 +49,7 @@ function Register() {
     setIsLoading(false);
   };
 
+  //perform auto login after a new registration and redirect to dashboard 
   const performLogin = async () => {
     setIsLoading(true);
 

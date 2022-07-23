@@ -1,3 +1,5 @@
+// function to load the listings page and handle the filters
+
 import { CircularProgress } from "@material-ui/core";
 import Axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
@@ -6,8 +8,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "../css/Listings.css";
 import questionMarkIcon from "../pictures/questionMarkIcon.png";
 import rocketIcon from "../pictures/rocket.png";
-import ListingDescription from "./ListingDescription";
-import VerificationLegend from "./VerificationLegend";
+import VerificationLegend from "../reusable/VerificationLegend";
+import ListingDescription from "../reusable/ListingDescription";
 
 function Listings() {
   const [listings, setListings] = useState([]);
@@ -73,7 +75,7 @@ function Listings() {
       parameters.current.searchKeyword = state.searchString;
     }
 
-    if (nextListings.length != 0 && shouldUsePreFetchedNextPage) {
+    if (nextListings.length !== 0 && shouldUsePreFetchedNextPage) {
       // if there are already pre-fetched listings
       setListings(nextListings);
     } else {
@@ -98,7 +100,7 @@ function Listings() {
         });
         setNextListings(response.data);
 
-        if (response.data.length == 0) {
+        if (response.data.length === 0) {
           // check if last page is reached
           lastPageNum.current = page;
         }
@@ -126,7 +128,7 @@ function Listings() {
 
   /** Called when the next page button is clicked */
   const nextPageClicked = async (event) => {
-    if (currentPageNum == lastPageNum.current) {
+    if (currentPageNum === lastPageNum.current) {
       return;
     }
 
@@ -136,7 +138,7 @@ function Listings() {
 
   /** Called when the previous page button is clicked */
   const prevPageClicked = async (event) => {
-    if (currentPageNum == 0) {
+    if (currentPageNum === 0) {
       return;
     }
 
@@ -159,6 +161,7 @@ function Listings() {
     getListings();
   };
 
+  // function to reset filters
   const resetFiltersAndSorting = (event) => {
     parameters.current = {};
     activeSortingCriterion.current = "default";
@@ -174,16 +177,16 @@ function Listings() {
     let targetId = eventObject.target.id;
     let targetName = eventObject.target.name;
 
-    if (targetId == "minPrice") {
+    if (targetId === "minPrice") {
       parameters.current.minPrice = parameters.current.minPrice || {};
       parameters.current.minPrice = newValue;
-    } else if (targetId == "maxPrice") {
+    } else if (targetId === "maxPrice") {
       parameters.current.maxPrice = parameters.current.maxPrice || {};
       parameters.current.maxPrice = newValue;
-    } else if (targetId == "minFrameSize") {
+    } else if (targetId === "minFrameSize") {
       parameters.current.minFrameSize = parameters.current.minFrameSize || {};
       parameters.current.minFrameSize = newValue;
-    } else if (targetId == "maxFrameSize") {
+    } else if (targetId === "maxFrameSize") {
       parameters.current.maxFrameSize = parameters.current.maxFrameSize || {};
       parameters.current.maxFrameSize = newValue;
     } else if (targetId.includes("color")) {
@@ -198,7 +201,7 @@ function Listings() {
         // add if doesn't exist
         parameters.current.colors = [...parameters.current.colors, targetName];
       }
-    } else if (targetId == "gender") {
+    } else if (targetId === "gender") {
       parameters.current.gender = parameters.current.gender || {};
 
       if (newValue !== "") {
@@ -223,16 +226,16 @@ function Listings() {
           conditionIndex,
         ];
       }
-    } else if (targetId == "location") {
+    } else if (targetId === "location") {
       parameters.current.location = parameters.current.location || {};
       parameters.current.location = newValue;
-    } else if (targetId == "rearGears") {
+    } else if (targetId === "rearGears") {
       parameters.current.rearGears = parameters.current.rearGears || {};
       parameters.current.rearGears = newValue;
-    } else if (targetId == "frontGears") {
+    } else if (targetId === "frontGears") {
       parameters.current.frontGears = parameters.current.frontGears || {};
       parameters.current.frontGears = newValue;
-    } else if (targetId == "brakeType") {
+    } else if (targetId === "brakeType") {
       parameters.current.brakeType = parameters.current.brakeType || {};
 
       if (newValue !== "") {
@@ -240,7 +243,7 @@ function Listings() {
       } else {
         delete parameters.current.brakeType;
       }
-    } else if (targetId == "frameMaterial") {
+    } else if (targetId === "frameMaterial") {
       parameters.current.frameMaterial = parameters.current.frameMaterial || {};
 
       if (newValue !== "") {
@@ -248,7 +251,7 @@ function Listings() {
       } else {
         delete parameters.current.frameMaterial;
       }
-    } else if (targetId == "verification") {
+    } else if (targetId === "verification") {
       parameters.current.verification = parameters.current.verification || {};
 
       if (newValue !== "") {
@@ -256,10 +259,10 @@ function Listings() {
       } else {
         delete parameters.current.verification;
       }
-    } else if (targetName == "categoryBtn") {
+    } else if (targetName === "categoryBtn") {
       parameters.current.type = parameters.current.type || {};
 
-      if (activeCategoryBtn != targetId) {
+      if (activeCategoryBtn !== targetId) {
         parameters.current.type = targetId;
       } else {
         delete parameters.current.type;
@@ -269,7 +272,7 @@ function Listings() {
 
   /** Called when a category button is clicked. Highlights the button, updates & applies the filter*/
   function handleCategoryChange(eventObject) {
-    if (activeCategoryBtn != eventObject.target.id) {
+    if (activeCategoryBtn !== eventObject.target.id) {
       setActiveCategoryBtn(eventObject.target.id);
     } else {
       setActiveCategoryBtn("");
@@ -294,7 +297,7 @@ function Listings() {
 
         {listing.isBoosted ? (
           <div>
-            <img src={rocketIcon} className="boostIcon" />
+            <img src={rocketIcon} className="boostIcon" alt='boost icon'/>
           </div>
         ) : (
           <span></span>
@@ -344,7 +347,7 @@ function Listings() {
         id={category}
         name="categoryBtn"
         style={
-          activeCategoryBtn == category
+          activeCategoryBtn === category
             ? { backgroundColor: `${selectedCategoryColor}` }
             : {}
         }
@@ -677,7 +680,7 @@ function Listings() {
                     type="button"
                     class="btn pageBtn"
                     onClick={prevPageClicked}
-                    disabled={currentPageNum == 0}
+                    disabled={currentPageNum === 0}
                   >
                     &larr;
                   </button>
@@ -689,7 +692,7 @@ function Listings() {
                     type="button"
                     class="btn pageBtn nextPageBtn"
                     onClick={nextPageClicked}
-                    disabled={currentPageNum == lastPageNum.current}
+                    disabled={currentPageNum === lastPageNum.current}
                   >
                     &rarr;
                   </button>
@@ -698,7 +701,7 @@ function Listings() {
             </div>
             <div className="needHelpContainer">
               <div className="needHelp" onClick={needHelpClicked}>
-                <img src={questionMarkIcon}></img>
+                <img src={questionMarkIcon} alt=''></img>
                 <p>Need help?</p>
               </div>
             </div>

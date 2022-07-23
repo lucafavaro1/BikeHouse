@@ -1,3 +1,5 @@
+// function to load specialist appointment page
+
 import DayTimePicker from "@mooncake-dev/react-day-time-picker";
 import { TextField } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -13,7 +15,7 @@ import { Container } from "@mui/system";
 import Axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.css";
-import React, { useState } from "react";
+import { React, useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { createICS, timeSlotValidator } from "../../features/slotPicker";
@@ -39,6 +41,7 @@ const steps = [
   },
 ];
 
+//function to trigger payment
 const paySpecialist = async () => {
   let authTokens = localStorage.getItem(AUTH_TOKENS);
   if (authTokens != null) {
@@ -68,7 +71,6 @@ const paySpecialist = async () => {
 };
 
 function Specialist() {
-  // require('dotenv').config();
   const user = useSelector(selectUser);
   const sender = {
     email: "bikehouse.feedback@gmail.com",
@@ -79,6 +81,7 @@ function Specialist() {
 
   const [cal, setCal] = useState("");
 
+  //function to handle calendar schedule button
   const handleSchedule = (event) => {
     setCal(createICS(event, user));
     handleNext();
@@ -101,10 +104,7 @@ function Specialist() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
+  //handle end of appointment selection
   const handleFinish = () => {
     sendEmail(user, cal);
     handleNext();
@@ -131,6 +131,7 @@ function Specialist() {
     },
   };
 
+  //function to send email to user input details
   const sendEmail = (user, cal) => {
     Axios.post("http://localhost:3001/createAppointment", {
       sender,
@@ -180,9 +181,7 @@ function Specialist() {
                   <Typography>{steps[0].description}</Typography>
                   <Box sx={{ mt: 2, mb: 2 }}>
                     <FormControl fullWidth required>
-                      {/* <InputLabel>Additional Comments</InputLabel> */}
                       <TextField
-                        // sx={{mt: 2}}
                         id="filled-basic"
                         label="Additional Comments"
                         value={request}

@@ -1,3 +1,5 @@
+// function to load the not found page
+
 import notFound from "../pictures/404.jpg";
 import "../css/NotFoundPage.css";
 

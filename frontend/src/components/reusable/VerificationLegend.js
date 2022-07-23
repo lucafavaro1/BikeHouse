@@ -1,3 +1,5 @@
+// reusable component function to display the verification level of a bike as labels
+
 import React from "react";
 import "../css/VerificationLegend.css";
 import ConditionIndicator from "../reusable/ConditionIndicator";
