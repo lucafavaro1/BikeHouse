@@ -38,10 +38,10 @@ function Listings() {
     "Red",
     "Orange",
   ];
-  
+
   /** Possible bike conditions */
   const conditions = ["Brand New", "Good", "Decent", "Bad", "Spare Parts"];
-  
+
   /** Bike categories */
   const categories = [
     "City",
@@ -84,7 +84,6 @@ function Listings() {
           params: parameters.current,
         });
         setListings(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -121,7 +120,7 @@ function Listings() {
 
   /** Called when the apply button is clicked */
   const applyFilterClicked = async (event) => {
-    setIsFiltered(true)
+    setIsFiltered(true);
     setCurrentPageNum(0);
     lastPageNum.current = Infinity;
     getListings(0, true, false, false);
@@ -164,19 +163,16 @@ function Listings() {
 
   // function to reset filters
   const resetFiltersAndSorting = (event) => {
-    parameters.current = {}
-    activeSortingCriterion.current = 'default'
+    parameters.current = {};
+    activeSortingCriterion.current = "default";
     setCurrentPageNum(0);
     lastPageNum.current = Infinity;
     getListings(0, true, false, true);
-    setIsFiltered(false)
+    setIsFiltered(false);
   };
 
   /** Called when any of the accordion items is changed*/
   function handleFilterChange(eventObject) {
-    // console.log(eventObject.target)
-    // console.log(eventObject.target.value)
-
     let newValue = eventObject.target.value;
     let targetId = eventObject.target.id;
     let targetName = eventObject.target.name;
@@ -272,8 +268,6 @@ function Listings() {
         delete parameters.current.type;
       }
     }
-
-    console.log(parameters.current);
   }
 
   /** Called when a category button is clicked. Highlights the button, updates & applies the filter*/
@@ -461,7 +455,7 @@ function Listings() {
                           <input
                             className="textField"
                             type="number"
-                            min="40"
+                            min="30"
                             max="70"
                             id="minFrameSize"
                             name="minFrameSize"

@@ -26,7 +26,6 @@ const deleteListing = async (req, res) => {
   }
 };
 
-
 //function to get a listing by id
 const getListing = async (req) => {
   console.log("get listing (one) called with id", req);
@@ -59,20 +58,18 @@ const getListings = async (req, res) => {
   console.log(bikeFilters);
 
   let listings = await ListingModel.find(listingFilters) // fetch listings
-    .sort(
-      getPriceSortingObject(sortingCriterion)
-    )
+    .sort(getPriceSortingObject(sortingCriterion))
     .exec();
 
-listings = JSON.parse(JSON.stringify(listings)); // convert to JSON to support adding a new field (bike)
+  listings = JSON.parse(JSON.stringify(listings)); // convert to JSON to support adding a new field (bike)
 
-listings = await fetchBikesForListings(listings, bikeFilters);
+  listings = await fetchBikesForListings(listings, bikeFilters);
 
-listings = sortListings(listings, sortingCriterion);
+  listings = sortListings(listings, sortingCriterion);
 
-listings = applyPagination(listings, page, perPage);
+  listings = applyPagination(listings, page, perPage);
 
-return res.status(200).json(listings);
+  return res.status(200).json(listings);
 };
 
 /** Returns a slice of the listings based on the provided pag number and perPage value */
@@ -87,12 +84,12 @@ function applyPagination(listings, page, perPage) {
 /** Sorts the listings based on isBoosted value, condition, frame verification, and creation date */
 function sortListings(listings, criterion) {
   listings.sort(function (listing1, listing2) {
-
     // both boosted
     if (criterion == "default") {
       if (listing1.isBoosted && !listing2.isBoosted) return -1;
       else if (!listing1.isBoosted && listing2.isBoosted) return 1;
-      else { // both boosted
+      else {
+        // both boosted
         if (listing1.bike.condition > listing2.bike.condition) return -1;
         else if (listing1.bike.condition < listing2.bike.condition) return 1;
         else {
@@ -302,6 +299,11 @@ const getListingById = async (req, res) => {
     listingToSend["model"] = bikeDeets.model;
     listingToSend["sellerVerified"] = sellerDeets.isVerified;
     listingToSend["category"] = bikeDeets.kind;
+    listingToSend["frontGears"] = bikeDeets.frontGears;
+    listingToSend["rearGears"] = bikeDeets.rearGears;
+    listingToSend["brakeType"] = bikeDeets.brakeType;
+    listingToSend["frameMaterial"] = bikeDeets.frameMaterial;
+    listingToSend["frameSize"] = bikeDeets.frameSize;
     return res.status(200).json(listingToSend);
   } catch (error) {
     console.log(error);

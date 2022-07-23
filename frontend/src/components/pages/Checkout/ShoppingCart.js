@@ -6,7 +6,6 @@ import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { Button } from "@material-ui/core";
 
 import "../../css/ShoppingCart.css";
 
@@ -50,7 +49,6 @@ function ShoppingCart() {
   };
 
   const handleNavigate = (index) => {
-    console.log(value - index);
     if (value + index === -1 || value + index === 3) {
       //do nothing. we are at the end of the tabs or at the beginning of the tabs
     } else {
@@ -81,7 +79,6 @@ function ShoppingCart() {
     cart.forEach((item) => {
       productArray.push({ ...item });
     });
-    console.log("Product array is ", productArray);
     setProducts(productArray);
   }, [cart]);
 
@@ -134,14 +131,13 @@ function ShoppingCart() {
           </div>
 
           <div className="col-md-4 mt-5 mb-5">
-            <Summary products={products} setTotalPrice={setTotalPrice} />
-            <div className="align-self-end m-4">
-              {value === 0 && products.length !== 0 && (
-                <Button type="button" onClick={() => handleNavigate(1)}>
-                  Next
-                </Button>
-              )}
-            </div>
+            <Summary
+              products={products}
+              setTotalPrice={setTotalPrice}
+              showNextButton={value === 0 && products.length !== 0}
+              nextPageNavigationHandler={handleNavigate}
+              showDeleteButton={value === 0 && products.length !== 0}
+            />
           </div>
         </div>
       </div>

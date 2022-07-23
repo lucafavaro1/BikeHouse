@@ -7,12 +7,17 @@ import { useNavigate } from "react-router-dom"
 
 function Header() {
   const navigate = useNavigate();
-  
+
   return (
     <div className="header">
-
       <div className="logo">
-        <img src={logo} alt="BikeHouse logo" height={100} width={100} onClick={() => navigate("/")} />
+        <img
+          src={logo}
+          alt="BikeHouse logo"
+          height={100}
+          width={100}
+          onClick={() => navigate("/")}
+        />
       </div>
 
       <div className="text">
@@ -23,7 +28,5 @@ function Header() {
     </div>
   );
 }
-
-
 
 export default Header;

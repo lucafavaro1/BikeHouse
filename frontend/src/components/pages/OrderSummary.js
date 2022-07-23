@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CircularProgress } from "@material-ui/core";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { Button, Rating } from "@mui/material";
-import Axios from "axios";
 import { Promise } from "bluebird";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -15,8 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
 import emailkey from "../../features/emailKeys";
-import { selectUser } from "../../features/userSlice";
+import { AUTH_TOKENS, selectUser } from "../../features/userSlice";
 import "../css/OrderSummary.css";
+import AxiosJWT from "../utils/AxiosJWT";
 
 function OrderSummary(props) {
   const dispatch = useDispatch();
@@ -44,9 +44,19 @@ function OrderSummary(props) {
 
   /** Returns an order instance where foreign keys are replaced with actual objects */
   async function getOrder() {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     try {
       setIsLoading(true);
-      const response = await Axios.get("http://localhost:3001/order/" + id);
+      const response = await AxiosJWT.get("http://localhost:3001/order/" + id, {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
+      });
       setOrder(response.data);
       setListings(response.data.listingObjects);
       setAccessories(response.data.accessoryObjects);
@@ -77,24 +87,35 @@ function OrderSummary(props) {
           </div>
           <div className="col">
             <div className="row">
-              <div className="col-10 p-0">
+              <div className="col-9 p-0">
                 <strong className="text-uppercase">
                   {listing.bike.brand} {listing.bike.model}
                 </strong>
               </div>
 
-              <div className="col-2">
+              <div className="col-3 p-0">
                 {!listing.feedback ? (
-                  <Button
-                    className="starButton"
-                    variant="outlined"
-                    onClick={() => {
-                      handleOpen(listing);
-                    }}
-                  >
-                    {/* From here starts the part that fks up the navbar ... again */}
-                    <StarRateIcon fontSize="big" className="starIcon" />
-                  </Button>
+                  <>
+                    <Button
+                      className="starButton"
+                      variant="outlined"
+                      onClick={() => {
+                        handleOpen(listing);
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 10,
+                          color: "#2e6076",
+                          paddingLeft: 5 + "px",
+                          paddingRight: 5 + "px",
+                        }}
+                      >
+                        Submit a review
+                      </span>
+                      <StarRateIcon fontSize="big" className="starIcon" />
+                    </Button>
+                  </>
                 ) : (
                   <div></div>
                 )}
@@ -149,11 +170,20 @@ function OrderSummary(props) {
 
   //function to set the listing to inactive after a confirmed payment
   const listingToInactive = async (allListings) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
     await Promise.all(
       allListings.map(async (listing) => {
         try {
-          await Axios.post("http://localhost:3001/modifyListing/", {
+          await AxiosJWT.post("http://localhost:3001/modifyListing/", {
+            headers: {
+              authorization: "Bearer " + authTokens.accessToken,
+            },
             listingId: listing._id,
             isActive: false,
           });
@@ -167,6 +197,12 @@ function OrderSummary(props) {
 
   //function to move credit to seller after successful purchase
   const moveCredit = async (order) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     const allListingObjects = order.listingObjects;
     setIsLoading(true);
     // use a special Promise map function to avoid parallelism
@@ -175,7 +211,10 @@ function OrderSummary(props) {
       allListingObjects,
       async function (listing) {
         try {
-          await Axios.post("http://localhost:3001/moveCreditToSeller/", {
+          await AxiosJWT.post("http://localhost:3001/moveCreditToSeller/", {
+            headers: {
+              authorization: "Bearer " + authTokens.accessToken,
+            },
             sellerId: listing.sellerId,
             credit: listing.bike.price,
           });
@@ -208,9 +247,7 @@ function OrderSummary(props) {
         order_totalamount: data.totalAmount,
       })
       .then(
-        (_result) => {
-          console.log("confermation via email sent");
-        },
+        (result) => {},
         (error) => {
           alert("An error occurred, Please try again", error.text);
         }
@@ -219,17 +256,33 @@ function OrderSummary(props) {
 
   //function to allow buyer to submit ratings for the seller and the listing
   const submitRating = async () => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     try {
-      await Axios.post("http://localhost:3001/updateUser/", {
+      await AxiosJWT.post("http://localhost:3001/updateUser/", {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
         userId: currentSeller,
         value: value,
       });
-      await Axios.post("http://localhost:3001/updateOrder", {
+      await AxiosJWT.post("http://localhost:3001/updateOrder", {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
         orderId: id,
         listingId: currentListing,
         feedback: true,
       });
-      const response = await Axios.get("http://localhost:3001/order/" + id);
+      const response = await AxiosJWT.get("http://localhost:3001/order/" + id, {
+        headers: {
+          authorization: "Bearer " + authTokens.accessToken,
+        },
+      });
       setOrder(response.data);
       setListings(response.data.listingObjects);
       setAccessories(response.data.accessoryObjects);
@@ -244,7 +297,7 @@ function OrderSummary(props) {
     <>
       <Modal show={show} onHide={handleClose} style={{ marginTop: 200 + "px" }}>
         <Modal.Header>
-          <Modal.Title>Drop a feedback to the seller! &#9734;</Modal.Title>
+          <Modal.Title>Drop a feedback to the seller!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Please leave a feedback to the seller of this bike. Consider in

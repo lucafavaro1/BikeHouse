@@ -41,17 +41,12 @@ function Main() {
         decodedToken.exp * 1000 < currentDate.getTime() &&
         decodedTokenRefresh.exp * 1000 < currentDate.getTime() // access and refresh expired
       ) {
-        console.log("REFRESH AND ACCESS EXPIRED");
         localStorage.removeItem(AUTH_TOKENS);
         localStorage.removeItem(LOCAL_STORAGE_USER_DATA_KEY);
         dispatch(logout());
         dispatch(removeAllElementsFromTheCart());
         alert("SESSION EXPIRED ! Please login again");
-      } else {
-        console.log("AUTHTOKENS NOT EXPIRED");
       }
-
-      console.log("Use effect called in Main.js");
     } else {
       dispatch(logout());
       dispatch(removeAllElementsFromTheCart());

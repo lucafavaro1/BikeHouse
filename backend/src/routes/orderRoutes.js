@@ -18,10 +18,10 @@ const {
   updateOrder,
 } = require("../controllers/orderController");
 
-router.delete("/deleteOrder/:id", deleteOrder);
-router.get("/getOrdersByBuyer/:id", getOrdersByBuyer);
-router.get("/order/:id", getPopulatedOrder);
-router.post("/api/createOrder", createOrder);
-router.post("/updateOrder/", updateOrder);
+router.delete("/deleteOrder/:id", verify, deleteOrder);
+router.get("/getOrdersByBuyer/:id", verify, getOrdersByBuyer);
+router.get("/order/:id", verify, getPopulatedOrder);
+router.post("/api/createOrder", verify, createOrder);
+router.post("/updateOrder/", verify, updateOrder);
 
 module.exports = router;

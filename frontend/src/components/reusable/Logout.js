@@ -1,18 +1,18 @@
 // resuable component function to define logout process and changes in navbar 
 
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import { ListItemText } from "@mui/material";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout, selectUser } from "../../features/userSlice";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import { ListItemText } from "@mui/material";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
+import { logout, selectUser } from "../../features/userSlice";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -51,12 +51,12 @@ const Logout = () => {
           mr: 2,
           my: 2,
           display: { xs: "none", md: "inline" },
-          fontSize: '1.1rem',
+          fontSize: "1.1rem",
           verticalAlign: "middle",
           fontWeight: 200,
           color: "inherit",
           textDecoration: "none",
-          marginLeft: '0.5rem'
+          marginLeft: "0.5rem",
         }}
       >
         Hello, {user.name}!

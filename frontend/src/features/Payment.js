@@ -1,23 +1,36 @@
 //functions to implement payment features
 
 import { useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AUTH_TOKENS } from "./userSlice";
+import AxiosJWT from "../components/utils/AxiosJWT";
 
 function Payment() {
   const navigate = useNavigate();
 
   //function to delete item in DB if payment failed
   const deleteItemsDB = async (bikeId, listingId) => {
-    await axios
-      .delete("http://localhost:3001/deleteListing/" + listingId)
-      .catch((error) => {
-        console.log(error);
-      });
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens !== null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
 
-    await axios
-      .delete("http://localhost:3001/deleteBike/" + bikeId)
-      .then(() => {
+    await AxiosJWT.delete("http://localhost:3001/deleteListing/" + listingId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    await AxiosJWT.delete("http://localhost:3001/deleteBike/" + bikeId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    })
+      .then((response) => {
         navigate("/dashboard/");
       })
       .catch((error) => {
@@ -27,9 +40,18 @@ function Payment() {
 
   //function to delete order if payment failed
   const deleteOrder = async (orderId) => {
-    await axios
-      .delete("http://localhost:3001/deleteOrder/" + orderId)
-      .then(() => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens !== null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
+    await AxiosJWT.delete("http://localhost:3001/deleteOrder/" + orderId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    })
+      .then((response) => {
         alert("Order cancelled! The payment was not successful");
         navigate("/dashboard/");
       })
@@ -40,13 +62,20 @@ function Payment() {
 
   //function to modify listing on ad boosting payment success
   const modifyListing = async (listingId) => {
-    await axios
-      .post("http://localhost:3001/modifyListing/", {
-        listingId: listingId,
-        isBoosted: true,
-      })
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens !== null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
+    await AxiosJWT.post("http://localhost:3001/modifyListing/", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+      listingId: listingId,
+      isBoosted: true,
+    })
       .then((response) => {
-        console.log(response);
         navigate("/dashboard/");
       })
       .catch((error) => {

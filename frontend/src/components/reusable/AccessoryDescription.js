@@ -1,12 +1,12 @@
 // resuable component function to add descriptions to accessories 
 
-import React from "react";
-import "../css/AccessoryDescription.css";
-import { Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { React } from "react";
+import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cartSlice";
+import "../css/AccessoryDescription.css";
 
 import toast, { Toaster } from "react-hot-toast";
 
@@ -26,14 +26,23 @@ function AccessoryDescription(props) {
       price: props.accessory.price,
       quantity: 1,
     };
-    console.log("data from accessory is ", data);
     dispatch(addToCart(data));
     toast.success("Accessory added to cart!");
   };
 
   return (
     <>
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            color: "#2e6076",
+            border: "2px solid",
+            borderColor: "#2e6076",
+          },
+        }}
+        reverseOrder={false}
+      />
 
       <div className="accessoryDesc">
         <Row>

@@ -1,23 +1,23 @@
 // resuable component function to define and style an info page for each listing item 
 
-import { Box, Button, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
-import axios from "axios";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { CircularProgress } from "@material-ui/core";
-import "../css/InfoPage.css";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
+import GppBadIcon from "@mui/icons-material/GppBad";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { React, useState } from "react";
+import { Modal } from "react-bootstrap";
+import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUser } from "../../features/userSlice";
-import { Modal } from "react-bootstrap";
-import ConditionIndicator from "./ConditionIndicator";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import GppBadIcon from "@mui/icons-material/GppBad";
 import { addToCart } from "../../features/cartSlice";
-import toast, { Toaster } from "react-hot-toast";
+import { AUTH_TOKENS, selectUser } from "../../features/userSlice";
+import "../css/InfoPage.css";
+import AxiosJWT from "../utils/AxiosJWT";
+import ConditionIndicator from "./ConditionIndicator";
 
 function InfoPage({
   bikeId,
@@ -35,6 +35,11 @@ function InfoPage({
   sellerVerified,
   images,
   category,
+  frontGears,
+  rearGears,
+  brakeType,
+  frameMaterial,
+  frameSize,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -66,6 +71,11 @@ function InfoPage({
       sellerVerified,
       images,
       category,
+      frontGears,
+      rearGears,
+      brakeType,
+      frameMaterial,
+      frameSize,
     };
     dispatch(addToCart(data));
     toast.success("Bike added to cart!");
@@ -73,15 +83,22 @@ function InfoPage({
 
   // function to boost ad listing
   const payBoost = async (listingId) => {
-    console.log(listingId);
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
-    await axios
-      .post("http://localhost:3001/checkout-boost-specialist/", {
-        name: "Boosting for Ad 🚀",
-        price: 5,
-        successLink: "/checkout/?success=true&listingId=" + listingId,
-        cancelLink: "/checkout/?canceled=true&listingId=" + listingId,
-      })
+    await AxiosJWT.post("http://localhost:3001/checkout-boost-specialist/", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+      name: "Boosting for Ad 🚀",
+      price: 5,
+      successLink: "/checkout/?success=true&listingId=" + listingId,
+      cancelLink: "/checkout/?canceled=true&listingId=" + listingId,
+    })
       .then((response) => {
         setIsLoading(false);
         window.location = response.data.url;
@@ -93,9 +110,18 @@ function InfoPage({
 
   //function to delete listing from listing info page
   const deleteListing = async (listingId) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
-    await axios
-      .delete("http://localhost:3001/deleteListing/" + listingId)
+    await AxiosJWT.delete("http://localhost:3001/deleteListing/" + listingId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    })
       .then((response) => {
         setIsLoading(false);
         navigate("/dashboard/");
@@ -108,9 +134,18 @@ function InfoPage({
 
   //delete bike from listing info page
   const deleteBike = async (bikeId) => {
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
-    await axios
-      .delete("http://localhost:3001/deleteBike/" + bikeId)
+    await AxiosJWT.delete("http://localhost:3001/deleteBike/" + bikeId, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+    })
       .then((response) => {
         setIsLoading(false);
         navigate("/dashboard/");
@@ -140,7 +175,17 @@ function InfoPage({
           direction={"column"}
           style={{ height: "100%", marginLeft: 1 }}
         >
-          <Toaster position="bottom-right" reverseOrder={false} />
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                color: "#2e6076",
+                border: "2px solid",
+                borderColor: "#2e6076",
+              },
+            }}
+            reverseOrder={false}
+          />
 
           <div className="mb-2">
             <Typography variant="subtitle1">

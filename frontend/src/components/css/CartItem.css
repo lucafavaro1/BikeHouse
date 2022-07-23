@@ -13,6 +13,7 @@
 .actions__deleteItemBtn:hover {
   transform: scale(1) rotate(360deg);
   background-color: rgb(209, 15, 15);
+  color: white
 }
 
 /* .cartItem__actions {

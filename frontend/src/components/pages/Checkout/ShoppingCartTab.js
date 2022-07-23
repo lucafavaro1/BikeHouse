@@ -1,19 +1,15 @@
 //function to laod the shopping cart tab within the checkout page
 
-import React from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import ShoppingCartItem from "./ShoppingCartItem";
-import "../../css/Checkout.css";
-import { updateCart } from "../../../features/cartSlice";
-import { useDispatch } from "react-redux";
-import {
-  getInsuranceNameFromValue,
-  insProviders,
-} from "../../globals/GlobalObjects";
-
 import { Button } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import { React } from "react";
+import { useDispatch } from "react-redux";
+import { updateCart } from "../../../features/cartSlice";
+import "../../css/Checkout.css";
+import { getInsuranceNameFromValue, insProviders } from "../../globals/GlobalObjects";
+import ShoppingCartItem from "./ShoppingCartItem";
 
 export default function ShoppingCartTab({
   products,
@@ -24,7 +20,6 @@ export default function ShoppingCartTab({
 
   //function to handle insurance selection for each item
   const handleInsurance = (productKey, insuranceKey) => {
-    console.log("insurance", productKey, insuranceKey);
     const newState = [...products];
     let newValue = products[productKey];
     newValue.insurance = insProviders[insuranceKey];
@@ -33,12 +28,10 @@ export default function ShoppingCartTab({
     newState[productKey] = newValue;
     setProducts(newState);
     dispatch(updateCart(newValue));
-    console.log(products);
   };
 
   //function to handle shipping selection for each item
   const handleShipping = (productKey, shippingrate, shippingType) => {
-    console.log("ship", productKey, shippingrate);
     const newState = [...products];
     let newValue = products[productKey];
     newValue.shipping = shippingrate;
@@ -46,7 +39,6 @@ export default function ShoppingCartTab({
     newState[productKey] = newValue;
     setProducts(newState);
     dispatch(updateCart(newValue));
-    console.log(products);
   };
 
   //function to handle quantity selection for each item

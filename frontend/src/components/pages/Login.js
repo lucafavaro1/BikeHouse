@@ -1,12 +1,12 @@
 // function to define and stlye login page 
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "../css/LoginRegister.css";
-import { useDispatch } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../features/userSlice";
+import "../css/LoginRegister.css";
 
 function Login() {
   const [email, setEmail] = useState("");

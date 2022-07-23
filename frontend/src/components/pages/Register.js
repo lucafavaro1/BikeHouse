@@ -1,12 +1,12 @@
 //function to load the Create an Account page
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import Axios from "axios";
-import { login } from "../../features/userSlice";
-import { listCities } from "cclist";
 import { CircularProgress } from "@material-ui/core";
+import Axios from "axios";
+import { listCities } from "cclist";
+import { React, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../features/userSlice";
 import "../css/LoginRegister.css";
 
 function Register() {
@@ -20,7 +20,6 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,11 +39,7 @@ function Register() {
       email,
       password,
     })
-      .then((response) => {
-        console.log(response.data.firstName);
-
-        setUser(response.data.firstName);
-        console.log(`Register in user: ${user}`);
+      .then(() => {
         setIsLoading(false);
         performLogin();
       })

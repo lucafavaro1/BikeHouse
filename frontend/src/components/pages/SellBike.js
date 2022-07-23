@@ -1,20 +1,18 @@
 //function to load the Sell your Bike page
 
-import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
-import axios from "axios";
-import AxiosJWT from "../utils/AxiosJWT";
-import React, { useState, useCallback } from "react";
+import { CircularProgress } from "@material-ui/core";
+import { listCities } from "cclist";
+import React, { useCallback, useState } from "react";
+import { Button, Card, Modal, Nav, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import "../css/SellBike.css";
+import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 import DropBox from "../reusable/Dropbox";
 import ShowImage from "../../features/ShowImage";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { CircularProgress } from "@material-ui/core";
-import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
+import { AUTH_TOKENS, selectUser } from "../../features/userSlice";
+import "../css/SellBike.css";
 import rocketImg from "../pictures/rocket.png";
-import { Navigate } from "react-router-dom";
-import { listCities } from "cclist";
+import AxiosJWT from "../utils/AxiosJWT";
 
 function SellBike() {
   const user = useSelector(selectUser);
@@ -56,23 +54,29 @@ function SellBike() {
 
   //function to handle payment for ad boosting
   const payBoost = async (listingId, bikeId) => {
-    console.log(listingId);
-    console.log(bikeId);
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
     setIsLoading(true);
-    await axios
-      .post("http://localhost:3001/checkout-boost-specialist/", {
-        name: "Boosting for Ad 🚀",
-        price: 5,
-        successLink: "/listing/" + listingId,
-        cancelLink:
-          "/checkout/?canceled=true" +
-          "&" +
-          "bikeId=" +
-          bikeId +
-          "&" +
-          "listingId=" +
-          listingId,
-      })
+    await AxiosJWT.post("http://localhost:3001/checkout-boost-specialist/", {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+      name: "Boosting for Ad 🚀",
+      price: 5,
+      successLink: "/listing/" + listingId,
+      cancelLink:
+        "/checkout/?canceled=true" +
+        "&" +
+        "bikeId=" +
+        bikeId +
+        "&" +
+        "listingId=" +
+        listingId,
+    })
       .then((response) => {
         setIsLoading(false);
         window.location = response.data.url;
@@ -84,12 +88,19 @@ function SellBike() {
 
   //function to handle image uploads for new bike
   const uploadImages = () => {
-    axios
-      .post(`http://localhost:3001/image-upload`, {
-        photos,
-      })
+    let authTokens = localStorage.getItem(AUTH_TOKENS);
+    if (authTokens != null) {
+      authTokens = JSON.parse(authTokens);
+    } else {
+      console.log("Auth Tokens is null");
+    }
+    AxiosJWT.post(`http://localhost:3001/image-upload`, {
+      headers: {
+        authorization: "Bearer " + authTokens.accessToken,
+      },
+      photos,
+    })
       .then((res) => {
-        console.log(res);
         var copyPhoto = [...photos];
         for (let i = 0; i < copyPhoto.length; i++) {
           copyPhoto[i].url = res.data[i].url;
@@ -109,7 +120,7 @@ function SellBike() {
     if (authTokens != null) {
       authTokens = JSON.parse(authTokens);
     } else {
-      console.log("Auth TOkens is null");
+      console.log("Auth Tokens is null");
     }
     setIsLoading(true);
 
@@ -138,7 +149,6 @@ function SellBike() {
       isBoosted,
     })
       .then((response) => {
-        console.log(`Item successfully added`);
         createListing(response.data._id);
       })
       .catch((error) => {
@@ -167,7 +177,6 @@ function SellBike() {
       shouldBeVerified: conditionVerification && frameVerification,
     })
       .then((response) => {
-        console.log(`Listing successfully added`);
         if (isBoosted) payBoost(response.data._id, itemId);
         else navigate("/listing/" + response.data._id);
       })

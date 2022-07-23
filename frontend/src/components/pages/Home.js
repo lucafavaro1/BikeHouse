@@ -2,12 +2,12 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
-import { Carousel, Row, Button, Card } from "react-bootstrap";
+import { Button, Card, Carousel, Row } from "react-bootstrap";
 import "../css/Home.css";
-import tarlanImg from "../pictures/tarlan.png";
-import lucaImg from "../pictures/luca.png";
-import xavierImg from "../pictures/xavier.png";
 import kevinImg from "../pictures/kevin.png";
+import lucaImg from "../pictures/luca.png";
+import tarlanImg from "../pictures/tarlan.png";
+import xavierImg from "../pictures/xavier.png";
 
 function Home() {
   return (

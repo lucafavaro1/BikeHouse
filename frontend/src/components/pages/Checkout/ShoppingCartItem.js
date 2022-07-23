@@ -1,19 +1,19 @@
 //resuable component function for each shopping cart item
 
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { Radio, RadioGroup, Typography } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
-import "../../css/CartItem.css";
 import Select from "@mui/material/Select";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../../features/cartSlice";
-import FormControl from "@mui/material/FormControl";
-import { Radio, RadioGroup, Typography } from "@material-ui/core";
+import "../../css/CartItem.css";
 import { insuranceOptions } from "../../globals/GlobalObjects";
 
 const useStyles = makeStyles(() => ({

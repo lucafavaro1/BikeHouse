@@ -2,10 +2,8 @@
 
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
-import "../css/Footer.css";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/Contact.css";
+import "../css/Footer.css";
 
 function Footer() {
   const [index, setIndex] = useState(0);

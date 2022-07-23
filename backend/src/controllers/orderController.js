@@ -153,7 +153,6 @@ const createOrder = async (req, res) => {
   }
 };
 
-
 //function to update order by id
 const updateOrder = async (req, res) => {
   console.log("update order called");

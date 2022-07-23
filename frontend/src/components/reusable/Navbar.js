@@ -1,19 +1,19 @@
 // resuable component function to define and style Navbar with changes on Login 
 
-import React, { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
-import { selectCart } from "../../features/cartSlice";
-import { Link, useNavigate } from "react-router-dom";
-import Logout from "./Logout";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { IconButton } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { selectCart } from "../../features/cartSlice";
+import { selectUser } from "../../features/userSlice";
+import Logout from "./Logout";
 
 const pages = {
   buy: "Buy a Bike",

@@ -1,8 +1,8 @@
 // function to load the guide page
 
-import React from "react";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
 import "../css/Guide.css";
 
 function Guide() {

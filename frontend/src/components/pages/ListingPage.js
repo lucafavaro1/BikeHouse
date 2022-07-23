@@ -4,10 +4,12 @@ import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CircularProgress } from "@material-ui/core";
 import ImageGrid from "../reusable/ImageGrid";
 import InfoPage from "../reusable/InfoPage";
 import MainImage from "../reusable/MainImage";
+import InfoIcon from "@mui/icons-material/Info";
+import DescriptionIcon from "@mui/icons-material/Description";
+import { CircularProgress } from "@material-ui/core";
 
 function ListingPage(props) {
   const { id } = useParams();
@@ -19,7 +21,6 @@ function ListingPage(props) {
           "http://localhost:3001/listing/" + listingId
         );
         setListing(listing.data);
-        console.log(listing.data);
         setProduct({
           bikeId: listing.data.bikeId,
           isBoosted: listing.data.isBoosted,
@@ -36,16 +37,20 @@ function ListingPage(props) {
           sellerVerified: listing.data.sellerVerified,
           images: listing.data.images,
           category: listing.data.category,
+          frontGears: listing.data.frontGears,
+          rearGears: listing.data.rearGears,
+          brakeType: listing.data.brakeType,
+          frameMaterial: listing.data.frameMaterial,
+          frameSize: listing.data.frameSize,
         });
         const photosFromResponse = listing.data.images;
-        console.log(photosFromResponse.length);
         if (listing && photosFromResponse) {
           let photos = [];
-          console.log(typeof listing.data.images);
           for (let i = 0; i < photosFromResponse.length; i++) {
-            photos.push(photosFromResponse[i].url);
+            if (photosFromResponse[i].toShow) {
+              photos.push(photosFromResponse[i].url);
+            }
           }
-          console.log("photos are" + photos);
           setImages(photos);
         }
       } catch (error) {
@@ -53,10 +58,7 @@ function ListingPage(props) {
       }
       setIsLoading(false);
     }
-    console.log(props);
-    console.log("LISTING ID:" + id);
     getListing(id);
-    // console.log(listing);
   }, []);
 
   const imagesTemp = [
@@ -115,7 +117,13 @@ function ListingPage(props) {
                 id="ListingPage"
                 className="row justify-content-center mt-5 mb-5 ml-0 mr-0"
               >
-                <div className="d-none d-md-block col-md-1 p-0">
+                <div
+                  className="d-none d-md-block col-md-1 p-0"
+                  style={{
+                    overflowY: "scroll",
+                    maxHeight: 350,
+                  }}
+                >
                   <ImageGrid
                     images={images}
                     onSelect={(index) => setSelectedImage(index)}
@@ -136,7 +144,45 @@ function ListingPage(props) {
               >
                 <Box component="span" sx={{ p: 2, border: 1, width: "60%" }}>
                   <Typography variant="h6" sx={{ mb: 10 + "px" }}>
-                    Product Description
+                    <InfoIcon className="pb-1" /> More Info about the Bike
+                  </Typography>
+                  <hr></hr>
+                  <div>
+                    <Typography variant="headline1">
+                      Front Gears : {product.frontGears}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant="headline1">
+                      Rear Gears : {product.rearGears}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant="headline1">
+                      Brake Type : {product.brakeType}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant="headline1">
+                      Frame Material : {product.frameMaterial}
+                    </Typography>
+                  </div>
+
+                  <div>
+                    <Typography variant="headline1">
+                      Frame Size : {product.frameSize}
+                    </Typography>
+                  </div>
+                </Box>
+              </div>
+
+              <div
+                id="detailedDesc"
+                className="d-flex m-5 d-flex justify-content-center"
+              >
+                <Box component="span" sx={{ p: 2, border: 1, width: "60%" }}>
+                  <Typography variant="h6" sx={{ mb: 10 + "px" }}>
+                    <DescriptionIcon className="pb-1" /> Product Description
                   </Typography>
                   <hr></hr>
                   <Typography variant="headline1">

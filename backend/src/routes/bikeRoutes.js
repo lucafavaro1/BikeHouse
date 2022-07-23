@@ -1,6 +1,6 @@
-// route for bike operations 
-// @route /createItem 
-// @route /deleteBike/:id 
+// route for bike operations
+// @route /createItem
+// @route /deleteBike/:id
 // @route /image-upload
 
 const express = require("express");
@@ -15,7 +15,7 @@ const {
 } = require("../controllers/bikeController");
 
 router.post("/createItem", verify, createItem);
-router.delete("/deleteBike/:id", deleteBike);
+router.delete("/deleteBike/:id", verify, deleteBike);
 router.post("/image-upload", imageUpload);
 
 module.exports = router;

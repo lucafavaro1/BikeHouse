@@ -6,8 +6,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/Contact.css";
 import emailjs from "@emailjs/browser";
+import { Button, Modal } from "react-bootstrap";
 import emailkey from "../../features/emailKeys";
-import { Modal, Button } from "react-bootstrap";
 
 function Contact() {
   const [show, setShow] = useState(true);
@@ -22,7 +22,6 @@ function Contact() {
   //function to send email on form submission with feedback
   function sendEmail(e) {
     e.preventDefault();
-    console.log(e.target);
 
     emailjs.init(emailkey.USER_ID);
     emailjs
