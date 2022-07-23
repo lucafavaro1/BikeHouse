@@ -1,3 +1,5 @@
+// function to define and stlye login page 
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,6 +17,7 @@ function Login() {
 
   const navigate = useNavigate();
 
+  //post login request
   const loginUser = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -52,6 +55,7 @@ function Login() {
     setIsLoading(false);
   };
 
+  //handle error message
   function ErrorMessage({ message }) {
     return <div className="alert alert-danger">{message}</div>;
   }

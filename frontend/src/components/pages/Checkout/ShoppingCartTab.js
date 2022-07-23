@@ -1,3 +1,5 @@
+//function to laod the shopping cart tab within the checkout page
+
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
@@ -20,6 +22,7 @@ export default function ShoppingCartTab({
 }) {
   const dispatch = useDispatch();
 
+  //function to handle insurance selection for each item
   const handleInsurance = (productKey, insuranceKey) => {
     console.log("insurance", productKey, insuranceKey);
     const newState = [...products];
@@ -33,6 +36,7 @@ export default function ShoppingCartTab({
     console.log(products);
   };
 
+  //function to handle shipping selection for each item
   const handleShipping = (productKey, shippingrate, shippingType) => {
     console.log("ship", productKey, shippingrate);
     const newState = [...products];
@@ -45,6 +49,7 @@ export default function ShoppingCartTab({
     console.log(products);
   };
 
+  //function to handle quantity selection for each item
   const handleSetQuantity = (productKey, quantity) => {
     const newState = [...products];
     let newValue = products[productKey];

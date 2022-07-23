@@ -1,11 +1,6 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Radio,
-  RadioGroup,
-  Typography,
-} from "@material-ui/core";
+// function to load the shipping tab within checkout
+
+import { Box, Button, Divider, Radio, RadioGroup, Typography,} from "@material-ui/core";
 import React from "react";
 import { TextField, Grid } from "@mui/material";
 import "../../css/Checkout.css";
@@ -16,9 +11,7 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
   const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    // console.log(name, value);
     setLocalAddress({ ...localAddress, [name]: value });
-    // setAddress(localAddress);
   };
 
   return (
@@ -133,30 +126,6 @@ function ShippingAddressPage({ address, setAddress, handleNavigate }) {
             />
           </Grid>
         </Grid>
-        {/* <RadioGroup defaultValue={"freeDelivery"}>
-          <div class="row  mt-3 mb-3 ml-2 mr-2">
-            <div class="col border border-dark">
-              <Radio
-                label="Free Delivery"
-                value="freeDelivery"
-                onClick={() => setShippingRate(0)}
-              />
-              <span>Free Delivery</span>
-              <Typography variant="body2">Standard delivery</Typography>
-            </div>
-            <div class="col  border border-dark ml-3">
-              <Radio
-                label="Fast Delivery"
-                value="paidDelivery"
-                onChange={() => setShippingRate(20)}
-              />
-              <span>Fast Delivery - </span>
-              <Typography variant="body2">
-                Delivery within 2 working days
-              </Typography>
-            </div>
-          </div>
-        </RadioGroup> */}
         <div className="mt-3 mb-3 mr-3 ml-0">
           <Button
             onClick={() => handleNavigate(-1)}

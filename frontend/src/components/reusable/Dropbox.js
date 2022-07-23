@@ -1,4 +1,4 @@
-// function to define dropbox
+// resuable component function to define and style dropbox
 
 import { Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";

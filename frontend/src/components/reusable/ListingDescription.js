@@ -1,9 +1,11 @@
+//resuable functional component to load the listing descriptions for each listing card
+
 import React from "react";
 import "../css/ListingDescription.css";
 import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ConditionIndicator from "../reusable/ConditionIndicator.js";
+import ConditionIndicator from "./ConditionIndicator.js";
 
 function ListingDescription(props) {
   return (

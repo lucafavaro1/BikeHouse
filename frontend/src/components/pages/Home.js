@@ -1,3 +1,5 @@
+// function to load the home page
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { Carousel, Row, Button, Card } from "react-bootstrap";

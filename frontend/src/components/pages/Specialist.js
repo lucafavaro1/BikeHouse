@@ -1,3 +1,5 @@
+// function to load specialist appointment page
+
 import React, { useState } from "react";
 import Axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
@@ -18,7 +20,7 @@ import { selectUser } from "../../features/userSlice";
 import { useSelector } from "react-redux";
 import { Container } from "@mui/system";
 import { TextField } from "@mui/material";
-import Login from "../reusable/Login";
+import Login from "./Login";
 import { Navigate } from "react-router-dom";
 
 const steps = [
@@ -38,6 +40,7 @@ const steps = [
   },
 ];
 
+//function to trigger payment
 const paySpecialist = async () => {
   await Axios.post("http://localhost:3001/checkout-boost-specialist/", {
     name: "Specialist appointment ⏰",
@@ -57,7 +60,6 @@ const paySpecialist = async () => {
 };
 
 function Specialist() {
-  // require('dotenv').config();
   const user = useSelector(selectUser);
   const sender = {
     email: "bikehouse.feedback@gmail.com",
@@ -68,6 +70,7 @@ function Specialist() {
 
   const [cal, setCal] = useState("");
 
+  //function to handle calendar schedule button
   const handleSchedule = (event) => {
     setCal(createICS(event, user));
     handleNext();
@@ -90,10 +93,8 @@ function Specialist() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  //handle end of appointment selection
   const handleFinish = () => {
-    // console.log(user)
-    // console.log(cal.toString())
-    // console.log(typeof cal)
     sendEmail(user, cal);
     handleNext();
     paySpecialist();
@@ -119,6 +120,7 @@ function Specialist() {
     },
   };
 
+  //function to send email to user input details
   const sendEmail = (user, cal) => {
     Axios.post("http://localhost:3001/createAppointment", {
       sender,
@@ -170,9 +172,7 @@ function Specialist() {
                   <Typography>{steps[0].description}</Typography>
                   <Box sx={{ mt: 2, mb: 2 }}>
                     <FormControl fullWidth required>
-                      {/* <InputLabel>Additional Comments</InputLabel> */}
                       <TextField
-                        // sx={{mt: 2}}
                         id="filled-basic"
                         label="Additional Comments"
                         value={request}

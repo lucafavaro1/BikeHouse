@@ -1,16 +1,17 @@
+// resuable component function to define and style an info page for each listing item 
+
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import axios from "axios";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { CircularProgress } from "@material-ui/core";
 import "../css/InfoPage.css";
-import SellIcon from "@mui/icons-material/Sell";
 import DoneIcon from "@mui/icons-material/Done";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import EuroIcon from "@mui/icons-material/Euro";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
+import { selectUser } from "../../features/userSlice";
 import { Modal } from "react-bootstrap";
 import ConditionIndicator from "./ConditionIndicator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -40,6 +41,8 @@ function InfoPage({
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  //function to handle add to cart
   const handleBasket = (e) => {
     e.preventDefault();
     if (!user) {
@@ -65,8 +68,10 @@ function InfoPage({
       category,
     };
     dispatch(addToCart(data));
-    toast.success("Item added to cart!");
+    toast.success("Bike added to cart!");
   };
+
+  // function to boost ad listing
   const payBoost = async (listingId) => {
     console.log(listingId);
     setIsLoading(true);
@@ -86,6 +91,7 @@ function InfoPage({
       });
   };
 
+  //function to delete listing from listing info page
   const deleteListing = async (listingId) => {
     setIsLoading(true);
     await axios
@@ -100,6 +106,7 @@ function InfoPage({
     setIsLoading(false);
   };
 
+  //delete bike from listing info page
   const deleteBike = async (bikeId) => {
     setIsLoading(true);
     await axios
@@ -176,7 +183,7 @@ function InfoPage({
           </Box>
 
           {/* if user is logged and id owner corresponds to user than check if id is boosted, if not display the boost it now */}
-          {user != undefined && sellerId == user.userId && !isBoosted ? (
+          {user !== undefined && sellerId === user.userId && !isBoosted ? (
             <Button
               variant={"contained"}
               color={"warning"}
@@ -189,7 +196,7 @@ function InfoPage({
             <p></p>
           )}
 
-          {user != undefined && sellerId == user.userId ? (
+          {user !== undefined && sellerId === user.userId ? (
             <>
               <Button
                 variant={"contained"}

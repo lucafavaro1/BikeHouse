@@ -1,3 +1,5 @@
+// function to load the dashboard page
+
 import Axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
@@ -31,7 +33,7 @@ import { CircularProgress } from "@material-ui/core";
 import DropBox from "../reusable/Dropbox";
 import ShowImage from "../../features/ShowImage";
 import userIcon from "../pictures/user_icon.png";
-import ListingDescription from "./ListingDescription";
+import ListingDescription from "../reusable/ListingDescription";
 import moment from "moment";
 import Stars from "react-stars-display";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
@@ -97,10 +99,12 @@ function Dashboard() {
     }
   }, []);
 
+  //handle error message
   function ErrorMessage({ message }) {
     return <div className="alert alert-danger">{message}</div>;
   }
 
+  //get listings from DB for particuar seller to display in dashboard
   async function getListings() {
     setIsLoading(true);
     try {
@@ -114,6 +118,7 @@ function Dashboard() {
     setIsLoading(false);
   }
 
+  //get orders from DB for particuar buyer to display in dashboard
   async function getOrdersByBuyer() {
     setIsLoading(true);
     try {
@@ -129,6 +134,7 @@ function Dashboard() {
     setIsLoading(false);
   }
 
+  //function to change password from dashboard
   function changePassword() {
     setIsLoading(true);
     // send to backend the old + password
@@ -148,6 +154,7 @@ function Dashboard() {
     setIsLoading(false);
   }
 
+  //display all active listings in a carousel
   function retrieveListing() {
     return listings.length === 0 ? (
       <div>
@@ -183,6 +190,7 @@ function Dashboard() {
     );
   }
 
+  //display completed orders
   function displayOrders() {
     return orders.length === 0 ? (
       <div>
@@ -249,6 +257,7 @@ function Dashboard() {
     );
   };
 
+  //file drop function
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.map((file, index) => {
       const reader = new FileReader();
@@ -273,6 +282,7 @@ function Dashboard() {
     </div>
   ));
 
+  //function to enable photo uplaod
   const uploadImages = () => {
     Axios.post(`http://localhost:3001/image-upload`, {
       photos,
@@ -292,13 +302,14 @@ function Dashboard() {
       });
   };
 
+  //handle verification submit
   const submitVerification = async () => {
     setIsLoading(true);
     await Axios.post("http://localhost:3001/userVerification", {
       user: user.userId,
       photos,
     })
-      .then((res) => {
+      .then(() => {
         console.log(`Photo added for the verification`);
         logoutAndLogin();
       })
@@ -308,6 +319,7 @@ function Dashboard() {
     setIsLoading(false);
   };
 
+  //function to handle logout
   const logoutAndLogin = async () => {
     let email = user.email;
 
@@ -339,6 +351,7 @@ function Dashboard() {
     window.location.reload(false);
   };
 
+  //function to calculate total items
   function totalNumberOfItems(order) {
     let numItems = order.listings.length;
     order.accessories.map(
@@ -347,6 +360,7 @@ function Dashboard() {
     return numItems;
   }
 
+  //function to reset balance on seller account
   const zeroCredit = async (userId) => {
     setIsLoading(true);
     try {

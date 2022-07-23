@@ -1,5 +1,6 @@
-import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
-import { CheckBox } from "@mui/icons-material";
+// function to load the payment tab within checkout
+
+import { Button, Divider, Typography } from "@material-ui/core";
 import React from "react";
 import Radio from "@mui/joy/Radio";
 import RadioGroup from "@mui/joy/RadioGroup";
@@ -15,6 +16,7 @@ function PaymentOptionsPage({
 }) {
   // create a Box for the payment options in material-ui with a radio button to select the payment method
 
+  //function to trigger payment
   const payBasket = async (orderId) => {
     console.log("paybasket called with orderId", orderId);
     await axios
@@ -31,6 +33,7 @@ function PaymentOptionsPage({
       });
   };
 
+  //function to create an order item and call payment trigger
   const createOrder = async () => {
     console.log("create order");
     let listingsFromTheCarts = [];
@@ -81,6 +84,7 @@ function PaymentOptionsPage({
     }
   };
 
+  //function to handle payment button click
   const doPayment = async (e) => {
     e.preventDefault();
 

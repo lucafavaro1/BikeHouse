@@ -1,21 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
-import "../css/OrderSummary.css";
-import Axios from "axios";
-import { Rating } from "@mui/material";
-import { Modal, Row } from "react-bootstrap";
-import { CircularProgress, IconButton } from "@material-ui/core";
-import { Button } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Promise } from "bluebird";
-import StarRateIcon from "@mui/icons-material/StarRate";
-import { selectUser, AUTH_TOKENS } from "../../features/userSlice";
+// function to load the order summary page
+
 import emailjs from "@emailjs/browser";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CircularProgress } from "@material-ui/core";
+import StarRateIcon from "@mui/icons-material/StarRate";
+import { Button, Rating } from "@mui/material";
+import Axios from "axios";
+import { Promise } from "bluebird";
 import moment from "moment";
-import emailkey from "../../features/emailKeys";
+import React, { useEffect, useState } from "react";
+import { Modal, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
+import emailkey from "../../features/emailKeys";
+import { selectUser } from "../../features/userSlice";
+import "../css/OrderSummary.css";
 
 function OrderSummary(props) {
   const dispatch = useDispatch();
@@ -146,6 +147,7 @@ function OrderSummary(props) {
     );
   };
 
+  //function to set the listing to inactive after a confirmed payment
   const listingToInactive = async (allListings) => {
     setIsLoading(true);
     await Promise.all(
@@ -163,6 +165,7 @@ function OrderSummary(props) {
     setIsLoading(false);
   };
 
+  //function to move credit to seller after successful purchase
   const moveCredit = async (order) => {
     const allListingObjects = order.listingObjects;
     setIsLoading(true);
@@ -185,6 +188,7 @@ function OrderSummary(props) {
     setIsLoading(false);
   };
 
+  // function to sent confirmation mail with order summary
   function sendEmail(data) {
     emailjs.init(emailkey.USER_ID);
     let date = moment(data.createdAt).format("DD-MM-YYYY HH:mm");
@@ -204,7 +208,7 @@ function OrderSummary(props) {
         order_totalamount: data.totalAmount,
       })
       .then(
-        (result) => {
+        (_result) => {
           console.log("confermation via email sent");
         },
         (error) => {
@@ -213,6 +217,7 @@ function OrderSummary(props) {
       );
   }
 
+  //function to allow buyer to submit ratings for the seller and the listing
   const submitRating = async () => {
     try {
       await Axios.post("http://localhost:3001/updateUser/", {
@@ -259,7 +264,7 @@ function OrderSummary(props) {
               value={value}
               sx={{ color: "#2e6076" }}
               size="large"
-              onChange={(event, newValue) => {
+              onChange={(_event, newValue) => {
                 setValue(newValue);
               }}
             />

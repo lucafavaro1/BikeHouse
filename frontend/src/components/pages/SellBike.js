@@ -1,3 +1,5 @@
+//function to load the Sell your Bike page
+
 import { Button, Row, Nav, Card, Modal } from "react-bootstrap";
 import axios from "axios";
 import AxiosJWT from "../utils/AxiosJWT";
@@ -40,6 +42,7 @@ function SellBike() {
 
   const [validated, setValidated] = useState(false);
 
+  //function to handle form submit on first page
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -51,6 +54,7 @@ function SellBike() {
     setValidated(true);
   };
 
+  //function to handle payment for ad boosting
   const payBoost = async (listingId, bikeId) => {
     console.log(listingId);
     console.log(bikeId);
@@ -78,6 +82,7 @@ function SellBike() {
       });
   };
 
+  //function to handle image uploads for new bike
   const uploadImages = () => {
     axios
       .post(`http://localhost:3001/image-upload`, {
@@ -98,6 +103,7 @@ function SellBike() {
       });
   };
 
+  //function to submit an item on finishing sell your bike form
   const submitItem = async () => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -141,6 +147,7 @@ function SellBike() {
     setIsLoading(false);
   };
 
+  //function to create a listing
   const createListing = async (itemId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
     if (authTokens != null) {
@@ -170,6 +177,7 @@ function SellBike() {
     setIsLoading(false);
   };
 
+  //function to calculate prices after commissions
   function calculateFinalPrice(price) {
     var finalPrice = +price;
     if (conditionVerification) finalPrice = finalPrice + 0.03 * price; // decide how much to get as fee
@@ -177,6 +185,7 @@ function SellBike() {
     return finalPrice;
   }
 
+  //function to select which photos to display
   function checkShown() {
     let check = false;
     photos.forEach((photo) => {
@@ -189,6 +198,7 @@ function SellBike() {
     return <div className="alert alert-danger">{message}</div>;
   }
 
+  //function to recieve dropped files
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.map((file, index) => {
       const reader = new FileReader();
@@ -209,6 +219,7 @@ function SellBike() {
     });
   }, []);
 
+  //function to remove uploaded photos
   const removePhoto = (item) => {
     var newPhotos = [...photos];
     var index = newPhotos.indexOf(item);
@@ -218,6 +229,7 @@ function SellBike() {
     }
   };
 
+  // function to display images
   const lists = photos.map((list) => (
     <div>
       <li key={list.id}>
@@ -250,6 +262,7 @@ function SellBike() {
     );
   });
 
+  //function to render pages
   function renderSwitch(param) {
     switch (param) {
       case 1:

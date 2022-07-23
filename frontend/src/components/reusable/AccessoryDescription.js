@@ -1,3 +1,5 @@
+// resuable component function to add descriptions to accessories 
+
 import React from "react";
 import "../css/AccessoryDescription.css";
 import { Row, Col } from "react-bootstrap";
@@ -11,6 +13,7 @@ import toast, { Toaster } from "react-hot-toast";
 function AccessoryDescription(props) {
   const dispatch = useDispatch();
 
+  //function to add to cart and display toast
   const handleAccessory = (e) => {
     e.preventDefault();
 
@@ -27,6 +30,7 @@ function AccessoryDescription(props) {
     dispatch(addToCart(data));
     toast.success("Accessory added to cart!");
   };
+
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />

@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./reusable/Login";
+import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Guide from "./pages/Guide";
 import Contact from "./pages/Contact";
@@ -19,7 +19,7 @@ import {
   LOCAL_STORAGE_USER_DATA_KEY,
   logout,
 } from "./../features/userSlice";
-import Payment from "./pages/Payment";
+import Payment from "../features/Payment";
 import jwtDecode from "jwt-decode";
 import Accessories from "./pages/Accessories";
 import ShoppingCart from "./pages/Checkout/ShoppingCart";

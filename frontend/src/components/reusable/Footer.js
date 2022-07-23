@@ -1,3 +1,5 @@
+// resuable component function to define footer 
+
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import "../css/Footer.css";

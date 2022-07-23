@@ -1,3 +1,5 @@
+// resuable component function to define and style Navbar with changes on Login 
+
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -26,6 +28,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [searchString, setSearchString] = useState("");
 
+  //function to search bikes
   const submitSearch = (e) => {
     e.preventDefault();
     navigate("/buy", { state: { searchString } });

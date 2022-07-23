@@ -1,3 +1,5 @@
+// function to load the contact page
+
 import React, { useState } from "react";
 import logo from "../pictures/logo.png";
 import "bootstrap/dist/css/bootstrap.css";
@@ -17,10 +19,7 @@ function Contact() {
     setConfirmedSent(false);
   };
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
-
+  //function to send email on form submission with feedback
   function sendEmail(e) {
     e.preventDefault();
     console.log(e.target);

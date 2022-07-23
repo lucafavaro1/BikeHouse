@@ -1,3 +1,5 @@
+// resuable component function to define header 
+
 import React from "react";
 import logo from "../pictures/logo.png";
 import "../css/Header.css";

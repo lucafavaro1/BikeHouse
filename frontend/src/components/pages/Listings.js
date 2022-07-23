@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
+// function to load the listings page and handle the filters
+
 import { CircularProgress } from "@material-ui/core";
-import ListingDescription from "./ListingDescription";
-import VerificationLegend from "../reusable/VerificationLegend";
 import Axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { Accordion, Button, Card, Form, Row } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../css/Listings.css";
-import { useNavigate, useLocation } from "react-router-dom";
-import rocketIcon from "../pictures/rocket.png";
 import questionMarkIcon from "../pictures/questionMarkIcon.png";
+import rocketIcon from "../pictures/rocket.png";
+import VerificationLegend from "../reusable/VerificationLegend";
+import ListingDescription from "../reusable/ListingDescription";
 
 function Listings() {
   const [listings, setListings] = useState([]);
@@ -160,6 +162,7 @@ function Listings() {
     getListings();
   };
 
+  // function to reset filters
   const resetFiltersAndSorting = (event) => {
     parameters.current = {}
     activeSortingCriterion.current = 'default'

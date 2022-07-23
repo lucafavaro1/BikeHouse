@@ -1,3 +1,5 @@
+// resuable component function to define logout process and changes in navbar 
+
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +21,7 @@ const Logout = () => {
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  //open and close menu on clicking user image
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -27,6 +30,7 @@ const Logout = () => {
     setAnchorElUser(null);
   };
 
+  //handle logout duties
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
@@ -34,6 +38,7 @@ const Logout = () => {
     navigate("/");
   };
 
+  //navigate to dashboard from menu
   const handleProfile = () => {
     navigate("/dashboard");
   };

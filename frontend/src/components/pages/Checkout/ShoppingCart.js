@@ -1,3 +1,5 @@
+// function to load the checkout page with different tabs inside
+
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";

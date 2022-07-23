@@ -1,3 +1,5 @@
+//function to load the Create an Account page
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -23,6 +25,7 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  //post request to backend
   const performRegistration = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -51,6 +54,7 @@ function Register() {
     setIsLoading(false);
   };
 
+  //perform auto login after a new registration and redirect to dashboard 
   const performLogin = async () => {
     setIsLoading(true);
 
