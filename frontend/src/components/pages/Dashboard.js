@@ -254,7 +254,7 @@ function Dashboard() {
 
         {listing.isBoosted ? (
           <div>
-            <img src={rocketIcon} className="boostIcon" alt='boost icon'/>
+            <img src={rocketIcon} className="boostIcon" alt="boost icon" />
           </div>
         ) : (
           <span></span>
@@ -263,7 +263,11 @@ function Dashboard() {
         {listing.bike.conditionToBeVerified ||
         listing.bike.frameToBeVerified ? (
           <div>
-            <img src={underVerificationIcon} className="boostIcon" alt='verification icon'/>
+            <img
+              src={underVerificationIcon}
+              className="boostIcon"
+              alt="verification icon"
+            />
           </div>
         ) : (
           <span></span>
@@ -562,7 +566,8 @@ function Dashboard() {
                     </div>
                   </Col>
                   <Col>
-                    {user.averageRating.avg.$numberDecimal === 0 ? (
+                    {console.log(user)}
+                    {user.averageRating.avg.$numberDecimal == 0 ? (
                       <p>
                         <u>
                           You dont have any review, start selling/buying now
