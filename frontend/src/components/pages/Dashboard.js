@@ -31,7 +31,7 @@ import {
 } from "react-bootstrap";
 import { CircularProgress } from "@material-ui/core";
 import DropBox from "../reusable/Dropbox";
-import ShowImage from "../../features/ShowImage";
+import ShowImage from "../reusable/ShowImage";
 import userIcon from "../pictures/user_icon.png";
 import ListingDescription from "../reusable/ListingDescription";
 import moment from "moment";

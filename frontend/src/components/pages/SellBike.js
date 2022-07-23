@@ -8,7 +8,7 @@ import Form from "react-bootstrap/Form";
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import DropBox from "../reusable/Dropbox";
-import ShowImage from "../../features/ShowImage";
+import ShowImage from "../reusable/ShowImage";
 import { AUTH_TOKENS, selectUser } from "../../features/userSlice";
 import "../css/SellBike.css";
 import rocketImg from "../pictures/rocket.png";
