@@ -107,7 +107,7 @@ function Accessories() {
           <Row className="justify-content-end">
             <button
               type="button"
-              class="btn pageBtn"
+              className="btn pageBtn"
               onClick={prevPageClicked}
               disabled={currentPageNum === 0}
             >
@@ -119,7 +119,7 @@ function Accessories() {
             </p>
             <button
               type="button"
-              class="btn pageBtn nextPageBtn"
+              className="btn pageBtn nextPageBtn"
               onClick={nextPageClicked}
               disabled={currentPageNum === lastPageNum.current}
             >

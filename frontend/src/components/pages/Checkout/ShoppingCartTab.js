@@ -2,7 +2,6 @@
 
 import { Button } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { React } from "react";
 import { useDispatch } from "react-redux";
@@ -53,8 +52,6 @@ export default function ShoppingCartTab({
 
   return (
     <div className="checkout">
-      <React.Fragment>
-        <CssBaseline />
         {products.length === 0 ? (
           <h1 className="mt-5">Your basket is empty!</h1>
         ) : (
@@ -77,9 +74,6 @@ export default function ShoppingCartTab({
                     </Grid>
                   </Grid>
                 </Grid>
-                {/* <Grid item xs={12} sm={6} md={5} lg={3}>
-            <Summary />
-          </Grid> */}
               </Grid>
             </Container>
             <div className="align-self-end m-4">
@@ -89,7 +83,6 @@ export default function ShoppingCartTab({
             </div>
           </>
         )}
-      </React.Fragment>
     </div>
   );
 }

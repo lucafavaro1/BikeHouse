@@ -214,6 +214,8 @@ function Specialist() {
                       timeSlotValidator={timeSlotValidator}
                       onConfirm={handleSchedule}
                       theme={themeCalendar}
+                      // isLoading={true}
+                      // isDone={true}
                     />
                   </Card>
                   <Box sx={{ mt: 2 }}>

@@ -84,7 +84,7 @@ function InfoPage({
   // function to boost ad listing
   const payBoost = async (listingId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
+    if (authTokens !== null) {
       authTokens = JSON.parse(authTokens);
     } else {
       console.log("Auth Tokens is null");
@@ -111,7 +111,7 @@ function InfoPage({
   //function to delete listing from listing info page
   const deleteListing = async (listingId) => {
     let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
+    if (authTokens !== null) {
       authTokens = JSON.parse(authTokens);
     } else {
       console.log("Auth Tokens is null");
@@ -122,7 +122,7 @@ function InfoPage({
         authorization: "Bearer " + authTokens.accessToken,
       },
     })
-      .then((response) => {
+      .then(() => {
         setIsLoading(false);
         navigate("/dashboard/");
       })
@@ -146,7 +146,7 @@ function InfoPage({
         authorization: "Bearer " + authTokens.accessToken,
       },
     })
-      .then((response) => {
+      .then(() => {
         setIsLoading(false);
         navigate("/dashboard/");
       })
@@ -217,8 +217,8 @@ function InfoPage({
               </Typography>
             </div>
             <div className="mb-2">
-              <Box component="span" sx={{}}>
-                {<ConditionIndicator numOfStars={bikeCondition} size={1} />}{" "}
+              <Box component="span">
+                {<ConditionIndicator numOfStars={bikeCondition} size={"sm"} />}{" "}
                 <span> Bike condition</span>
               </Box>
             </div>

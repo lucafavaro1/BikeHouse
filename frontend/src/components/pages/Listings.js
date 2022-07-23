@@ -415,7 +415,7 @@ function Listings() {
                     <Accordion.Body>
                       <div className="row justify-content-center">
                         <div className="form-group col-sm-5">
-                          <label for="minPrice">Min (&euro;)</label>
+                          <label>Min (&euro;)</label>
                           <input
                             className="textField"
                             type="number"
@@ -429,7 +429,7 @@ function Listings() {
                           ></input>
                         </div>
                         <div className="form-group col-sm-5">
-                          <label for="maxPrice">Max (&euro;)</label>
+                          <label>Max (&euro;)</label>
                           <input
                             className="textField"
                             type="number"
@@ -451,7 +451,7 @@ function Listings() {
                     <Accordion.Body>
                       <div className="row justify-content-center">
                         <div className="form-group col-sm-6">
-                          <label for="minFrameSize">Min (cm)</label>
+                          <label>Min (cm)</label>
                           <input
                             className="textField"
                             type="number"
@@ -465,7 +465,7 @@ function Listings() {
                           ></input>
                         </div>
                         <div className="form-group col-sm-6">
-                          <label for="maxFrameSize">Max (cm)</label>
+                          <label>Max (cm)</label>
                           <input
                             className="textField"
                             type="number"
@@ -643,7 +643,7 @@ function Listings() {
                       </span>
                       <button
                         type="button"
-                        class="btn btn-danger searchCancelBtn"
+                        className="btn btn-danger searchCancelBtn"
                         onClick={clearSearch}
                       >
                         {" "}
@@ -660,7 +660,7 @@ function Listings() {
                     <div className="col filterResetCol">
                       <button
                         type="button"
-                        class="btn btn-danger"
+                        className="btn btn-danger"
                         onClick={resetFiltersAndSorting}
                       >
                         RESET FILTERS &#38; SORTING
@@ -678,7 +678,7 @@ function Listings() {
                 <Row className="justify-content-end">
                   <button
                     type="button"
-                    class="btn pageBtn"
+                    className="btn pageBtn"
                     onClick={prevPageClicked}
                     disabled={currentPageNum === 0}
                   >
@@ -690,7 +690,7 @@ function Listings() {
                   </p>
                   <button
                     type="button"
-                    class="btn pageBtn nextPageBtn"
+                    className="btn pageBtn nextPageBtn"
                     onClick={nextPageClicked}
                     disabled={currentPageNum === lastPageNum.current}
                   >

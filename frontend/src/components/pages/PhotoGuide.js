@@ -8,20 +8,20 @@ import "../css/PhotoGuide.css";
 function PhotoGuide() {
   return (
     <div className="photoguide">
-      <div class="guideNavbar">
-        <a class="list-group-item list-group-item-action" href="#wheels">
+      <div className="guideNavbar">
+        <a className="list-group-item list-group-item-action" href="#wheels">
           <b>Wheels pictures</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#brake">
+        <a className="list-group-item list-group-item-action" href="#brake">
           <b>Brake pads or disks picture</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#gears">
+        <a className="list-group-item list-group-item-action" href="#gears">
           <b>Front/Rear gears pictures</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#frame">
+        <a className="list-group-item list-group-item-action" href="#frame">
           <b>Frame pictures</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#frame_number">
+        <a className="list-group-item list-group-item-action" href="#frame_number">
           <b>Frame number (if needed)</b>
         </a>
       </div>

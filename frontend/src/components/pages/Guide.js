@@ -8,17 +8,17 @@ import "../css/Guide.css";
 function Guide() {
   return (
     <div className="guide content">
-      <div class="guideNavbar">
-        <a class="list-group-item list-group-item-action" href="#ABC">
+      <div className="guideNavbar">
+        <a className="list-group-item list-group-item-action" href="#ABC">
           <b>The ABC’s</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#cleaning">
+        <a className="list-group-item list-group-item-action" href="#cleaning">
           <b>Cleaning and lubricating your bike</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#flat_tire">
+        <a className="list-group-item list-group-item-action" href="#flat_tire">
           <b>Fix a flat tire</b>
         </a>
-        <a class="list-group-item list-group-item-action" href="#seat_position">
+        <a className="list-group-item list-group-item-action" href="#seat_position">
           <b>Adjust the seat height and angle</b>
         </a>
       </div>

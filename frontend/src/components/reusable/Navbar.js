@@ -59,7 +59,7 @@ const Navbar = () => {
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {Object.entries(pages).map(([link, label]) => (
-              <Link to={"/" + link} style={{ textDecoration: "none" }}>
+              <Link to={"/" + link} style={{ textDecoration: "none" }} key={label}>
                 {" "}
                 <Button
                   key={label}

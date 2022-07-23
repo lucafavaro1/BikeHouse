@@ -14,11 +14,12 @@ function ConditionIndicator(props) {
         <FontAwesomeIcon
           icon={faSolidStar}
           size={props.size ? props.size : "1x"}
+          key={i}
         />
       );
     } else {
       stars.push(
-        <FontAwesomeIcon icon={faStar} size={props.size ? props.size : "1x"} />
+        <FontAwesomeIcon icon={faStar} size={props.size ? props.size : "1x"} key={i}/>
       );
     }
   }

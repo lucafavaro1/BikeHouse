@@ -29,7 +29,7 @@ function ListingDescription(props) {
         <Col className="text-right">
           <ConditionIndicator
             numOfStars={props.listing.bike.condition}
-            size={"sm-1"}
+            size={"sm"}
           ></ConditionIndicator>
         </Col>
       </Row>
