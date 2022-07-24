@@ -85,7 +85,7 @@ function Footer() {
           </div>
 
           <div id="helpCard" className="helpCard row col-12 col-md-5">
-            <h5>How can we help you?</h5>
+            <h5 style={{'margin-left':'5vw'}}>How can we help you?</h5>
             <Carousel
               fade
               prevLabel={null}

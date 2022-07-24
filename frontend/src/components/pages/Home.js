@@ -28,7 +28,7 @@ function Home() {
               alt="First slide"
             />
             <Carousel.Caption className="firstPic">
-              <h4>Looking for a used bike, but afraid to get scammed?</h4>
+              <h4>Looking for a used bike, but afraid of getting scammed?</h4>
               <p>
                 Check out our verified bikes section, we guarantee for the
                 quality of the product.
@@ -44,7 +44,7 @@ function Home() {
             />
 
             <Carousel.Caption className="secondPic">
-              <h4>Old bikes in garage that are you don't use anymore?</h4>
+              <h4>Old bike in the garage that isn't used anymore?</h4>
               <p>Create a profile and start selling now! </p>
               <Button href="/sellbike"> Sell your bike</Button>
             </Carousel.Caption>
