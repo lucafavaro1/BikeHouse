@@ -1,4 +1,4 @@
-// function to load the guide page
+// function to render the guide page
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,7 +18,10 @@ function Guide() {
         <a className="list-group-item list-group-item-action" href="#flat_tire">
           <b>Fix a flat tire</b>
         </a>
-        <a className="list-group-item list-group-item-action" href="#seat_position">
+        <a
+          className="list-group-item list-group-item-action"
+          href="#seat_position"
+        >
           <b>Adjust the seat height and angle</b>
         </a>
       </div>

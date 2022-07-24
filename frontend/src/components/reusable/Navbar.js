@@ -1,4 +1,4 @@
-// resuable component function to define and style Navbar with changes on Login 
+// resuable component function to define and style Navbar with changes on Login
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { IconButton } from "@mui/material";
@@ -35,6 +35,15 @@ const Navbar = () => {
     window.location.reload(false);
   };
 
+  function elementsInCart() {
+    let totElements = 0;
+    cart.map((item) => {
+      if (item.category == "bike") totElements++;
+      else totElements += item.quantity;
+    });
+    return totElements;
+  }
+
   return (
     <AppBar className="appbar" position="sticky" sx={{ bgcolor: "#3d3d3d" }}>
       <Container maxWidth="xxl">
@@ -59,7 +68,11 @@ const Navbar = () => {
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {Object.entries(pages).map(([link, label]) => (
-              <Link to={"/" + link} style={{ textDecoration: "none" }} key={label}>
+              <Link
+                to={"/" + link}
+                style={{ textDecoration: "none" }}
+                key={label}
+              >
                 {" "}
                 <Button
                   key={label}
@@ -125,7 +138,7 @@ const Navbar = () => {
                   lineHeight: "60%",
                 }}
               >
-                {cart.length}
+                {elementsInCart()}
               </span>
               <ShoppingCartIcon
                 sx={{

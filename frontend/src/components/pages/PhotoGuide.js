@@ -1,4 +1,4 @@
-// function to load the photo guide page
+// function to render the photo guide page
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,7 +21,10 @@ function PhotoGuide() {
         <a className="list-group-item list-group-item-action" href="#frame">
           <b>Frame pictures</b>
         </a>
-        <a className="list-group-item list-group-item-action" href="#frame_number">
+        <a
+          className="list-group-item list-group-item-action"
+          href="#frame_number"
+        >
           <b>Frame number (if needed)</b>
         </a>
       </div>

@@ -1,4 +1,4 @@
-// function to load the contact page
+// function to render the contact page
 
 import React, { useState } from "react";
 import logo from "../pictures/logo.png";

@@ -1,4 +1,4 @@
-// function to load specialist appointment page
+// function to render specialist appointment page
 
 import DayTimePicker from "@mooncake-dev/react-day-time-picker";
 import { TextField } from "@mui/material";

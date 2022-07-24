@@ -1,4 +1,4 @@
-// function to load the payment tab within checkout
+// function to render the payment tab within checkout
 
 import { Button, Divider, Typography } from "@material-ui/core";
 import Radio from "@mui/joy/Radio";

@@ -1,4 +1,4 @@
-// function to load the listings page and handle the filters
+// function to render the listings page and handle the filters
 
 import { CircularProgress } from "@material-ui/core";
 import Axios from "axios";
@@ -297,7 +297,7 @@ function Listings() {
 
         {listing.isBoosted ? (
           <div>
-            <img src={rocketIcon} className="boostIcon" alt='boost icon'/>
+            <img src={rocketIcon} className="boostIcon" alt="boost icon" />
           </div>
         ) : (
           <span></span>
@@ -701,7 +701,7 @@ function Listings() {
             </div>
             <div className="needHelpContainer">
               <div className="needHelp" onClick={needHelpClicked}>
-                <img src={questionMarkIcon} alt=''></img>
+                <img src={questionMarkIcon} alt=""></img>
                 <p>Need help?</p>
               </div>
             </div>

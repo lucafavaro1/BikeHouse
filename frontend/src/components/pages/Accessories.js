@@ -1,4 +1,4 @@
-// function to load the accessories page
+// function to render the accessories page
 
 import React, { useState, useEffect, useRef } from "react";
 import { Card, Row } from "react-bootstrap";
