@@ -1,6 +1,6 @@
 //resuable component function for each shopping cart item
 
-import { Radio, RadioGroup, Typography } from "@material-ui/core";
+import { Button, Link, Radio, RadioGroup, Typography } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -43,6 +43,7 @@ function ShoppingCartItem({
   const classes = useStyles();
   const dispatch = useDispatch();
   const category = product.category;
+  const listing = "/listing/" + product.listingId ;
   const id = product.listingId;
 
   //handle item delete
@@ -64,11 +65,13 @@ function ShoppingCartItem({
 
   return (
     <Card className={classes.root}>
+      {/* <img src={product.images[0].url}></img> */}
       <CardMedia
         className={classes.cover}
         image={product.images[0].url}
         title={product.brand + " " + product.model}
-      />
+        // style={{height: 0, width:0, paddingTop: '56.25%'}}
+        />
       <CardContent className={classes.content}>
         <Typography
           className={classes.title}
@@ -80,7 +83,17 @@ function ShoppingCartItem({
         <Grid container>
           <Grid item xs={10}>
             <Typography variant="h4" component="div">
-              {product.brand + " " + product.model}
+              {category=="bike" && (
+                <a href={listing}>
+                  {product.brand + " " + product.model}
+                </a>
+              )}
+              {category=="accessory" && (
+                <a href="/accessory">
+                  {product.brand + " " + product.model}
+                </a>
+              )}
+
             </Typography>
           </Grid>
           <Grid item xs={2} className="cartItem__actions">

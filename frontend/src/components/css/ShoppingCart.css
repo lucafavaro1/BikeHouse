@@ -12,3 +12,8 @@
   .shopping-cart {
     margin-top: 3vh;
   }
+
+  .shopping-cart a{
+    color: var(--bikehouse-blue);
+    text-decoration: none;
+  }
