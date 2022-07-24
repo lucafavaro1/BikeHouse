@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import "../css/Dashboard.css";
-import { Button, Divider, Toolbar } from "@mui/material";
+import { Button, CardContent, CardMedia, Divider, Grid, Toolbar } from "@mui/material";
 import rocketIcon from "../pictures/rocket.png";
 import underVerificationIcon from "../pictures/under_verification.png";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -29,7 +29,7 @@ import {
   ListGroup,
   Badge,
 } from "react-bootstrap";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, makeStyles } from "@material-ui/core";
 import DropBox from "../reusable/Dropbox";
 import ShowImage from "../reusable/ShowImage";
 import userIcon from "../pictures/user_icon.png";
@@ -38,6 +38,9 @@ import moment from "moment";
 import Stars from "react-stars-display";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
 import AxiosJWT from "../utils/AxiosJWT";
+import emailImg from '../pictures/email.png';
+import phoneImg from "../pictures/phone.png";
+import formImg from  "../pictures/form.png";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,6 +68,23 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
+const useStyles = makeStyles(() => ({
+  root: {
+    display: "flex",
+    marginTop: 15,
+  },
+  details: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  content: {
+    flex: "1 0 auto",
+  },
+  cover: {
+    width: 151,
+  },
+}));
+
 function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -80,6 +100,7 @@ function Dashboard() {
   const [verifyTab, setVerifyTab] = useState(true);
   const [passTab, setPassTab] = useState(true);
 
+  const classes = useStyles();
 
   const [titleVerify, setTitleVerify] = useState("Verify Now");
   const [textVerify, setTextVerify] = useState(
@@ -828,7 +849,7 @@ function Dashboard() {
                                   onClick={() =>
                                     navigate("/order/" + order._id)
                                   }
-                                >
+                                  >
                                   More details
                                 </Button>
                               </div>
@@ -842,31 +863,80 @@ function Dashboard() {
               </TabPanel>
               <TabPanel value={value} index={3}>
                 <h2>Need help ? Contact us! </h2>
-                <p></p>
-                <ul>
-                  <li>
-                    {" "}
-                    Email:{" "}
-                    <a
-                      href="" // just to make it blue
-                      onClick={() =>
-                        (window.location =
-                          "mailto:bikehouse.feedback@gmail.com")
-                      }
-                    >
-                      bikehouse.feedback@gmail.com
-                    </a>
-                  </li>
-                  <li>
-                    {" "}
-                    Telephone:{" "}
-                    <a href="tel: +49 1234 567890">+49 1234 567890</a>
-                  </li>
-                  <li>
-                    {" "}
-                    Form <a href="/contact">here </a>
-                  </li>
-                </ul>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6} md={7} lg={12}>
+                    <Grid container>
+                      <Grid item xs={4}>
+                          <Card>
+                            <CardMedia
+                              component="img"
+                              alt="email"
+                              height="140"
+                              image={emailImg}
+                            />
+                            <CardContent>
+                              <Typography
+                                color="textSecondary"
+                                gutterBottom
+                              >
+                                Email                              
+                              </Typography>
+                              <Typography variant="h7" component="div">
+                                <a href="mailto:bikehouse.feedback@gmail.com">
+                                  bikehouse.feedback@gmail.com
+                                </a>
+                              </Typography>
+                            </CardContent>
+                          </Card>
+                        </Grid>
+                      <Grid item xs={4}>
+                        <Card>
+                          <CardMedia
+                            component="img"
+                            alt="phone"
+                            height="140"
+                            image={phoneImg}
+                          />
+                          <CardContent>
+                            <Typography
+                              color="textSecondary"
+                              gutterBottom
+                            >
+                              Telephone                         
+                            </Typography>
+                            <Typography variant="h7" component="div">
+                              <a href="tel: +49 1234 567890">+49 1234 567890</a>
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Card>
+                          <CardMedia
+                            component="img"
+                            alt="form"
+                            height="140"
+                            image={formImg}
+                          />
+                          <CardContent>
+                            <Typography
+                              color="textSecondary"
+                              gutterBottom
+                            >
+                              Form                              
+                            </Typography>
+                            <Typography variant="h7" component="div">
+                              <a href="/contact">Contact Form here </a>
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid>
+
+                  </Grid>
+                </Grid>
               </TabPanel>
               <TabPanel value={value} index={4}>
                 <div className="verification">
