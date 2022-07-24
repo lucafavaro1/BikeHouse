@@ -1,6 +1,13 @@
-// function to load the shipping tab within checkout
+// function to render the shipping tab within checkout
 
-import { Box, Button, Divider, Radio, RadioGroup, Typography,} from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Divider,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { TextField, Grid } from "@mui/material";
 import "../../css/Checkout.css";

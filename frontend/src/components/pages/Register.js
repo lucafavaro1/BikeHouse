@@ -1,4 +1,4 @@
-//function to load the Create an Account page
+//function to render the Create an Account page
 
 import { CircularProgress } from "@material-ui/core";
 import Axios from "axios";
@@ -49,7 +49,7 @@ function Register() {
     setIsLoading(false);
   };
 
-  //perform auto login after a new registration and redirect to dashboard 
+  //perform auto login after a new registration and redirect to dashboard
   const performLogin = async () => {
     setIsLoading(true);
 

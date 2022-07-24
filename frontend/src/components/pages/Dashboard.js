@@ -1,4 +1,4 @@
-// function to load the dashboard page
+// function to render the dashboard page
 
 import Axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";

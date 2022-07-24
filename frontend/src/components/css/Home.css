@@ -14,9 +14,8 @@
 }
 
 .home .carousel-inner {
-  max-width: 1600px;
+  object-fit: contain;
   max-height: 800px;
-  margin-top: -5px;
 }
 
 .home .carousel-caption {

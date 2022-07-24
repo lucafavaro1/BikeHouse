@@ -1,4 +1,4 @@
-// function to load the order summary page
+// function to render the order summary page
 
 import emailjs from "@emailjs/browser";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";

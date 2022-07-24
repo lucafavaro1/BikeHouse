@@ -1,4 +1,4 @@
-// function to load the home page
+// function to render the home page
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
@@ -19,7 +19,7 @@ function Home() {
           indicators={false}
           prevLabel={null}
           nextLabel={null}
-          interval={5000}
+          interval={4000}
         >
           <Carousel.Item>
             <img

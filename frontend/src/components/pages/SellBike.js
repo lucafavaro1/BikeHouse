@@ -1,4 +1,4 @@
-//function to load the Sell your Bike page
+//function to render the Sell your Bike page
 
 import { CircularProgress } from "@material-ui/core";
 import { listCities } from "cclist";
@@ -556,6 +556,10 @@ function SellBike() {
                   <li>Front and rear gears (separately) </li>
                   <li>Frame (at least one picture per bike side) </li>
                 </ul>
+                <p>
+                  If you wish your bike frame to be verified by us, please
+                  include a picture with it.
+                </p>
                 &#9888; The only accepted formats for images are .png and .jpeg
                 &#9888;
               </p>
