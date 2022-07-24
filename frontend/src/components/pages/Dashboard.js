@@ -77,6 +77,9 @@ function Dashboard() {
   const [newPassword, setNewPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [verifyTab, setVerifyTab] = useState(true);
+  const [passTab, setPassTab] = useState(true);
+
 
   const [titleVerify, setTitleVerify] = useState("Verify Now");
   const [textVerify, setTextVerify] = useState(
@@ -419,6 +422,8 @@ function Dashboard() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setVerifyTab(true);
+    setPassTab(true);
   };
 
   const handleLogout = (e) => {
@@ -473,10 +478,8 @@ function Dashboard() {
                   <Tab label="My listings" />
                   <Tab label="Orders History" />
                   <Tab label="Support" />
-                  <Tab disabled label="" />
-                  <Tab disabled label="" />
-                  <Tab disabled label="" />
-                  <Tab disabled label="" />
+                  <Tab hidden={verifyTab} label="Verification" />
+                  <Tab hidden={passTab} label="Change Password" />
                 </Tabs>
                 <Toolbar
                   sx={{ m: 2, p: 2, borderBottom: 3, borderColor: "divider" }}
@@ -547,6 +550,7 @@ function Dashboard() {
                           onClick={() => {
                             setValue(5);
                             setErrorMessage("");
+                            setPassTab(false)
                           }}
                           sx={{
                             color: "white",
@@ -637,6 +641,7 @@ function Dashboard() {
                               }
                               onClick={() => {
                                 setValue(4);
+                                setVerifyTab(false)
                               }}
                               sx={{
                                 mx: "auto",
@@ -767,6 +772,13 @@ function Dashboard() {
                   <div>
                     <h3>Your orders history is empty! </h3>
                     <p> After placing the first order you will find it here.</p>
+                    <Button 
+                      id='continue'
+                      type="button" 
+                      onClick={() => navigate("/buy")}
+                      >
+                        Shop Now
+                    </Button>
                   </div>
                 ) : (
                   <>

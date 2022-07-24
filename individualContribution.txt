@@ -41,8 +41,15 @@ Separate page for each listing 4h
 
 # Kevin
 Contacts Page 3h
-Backend feedback 0.5h
-Book and appointment / specialist 5h 
+Backend feedback 1h
+Book an appointment / specialist 5h
+Specialist - SendGrid setup and template 3h
+Footer fix 1h
+Dashboard Design 2h
+Navbar redesign 2h
+Cart functionality 5h
+Checkout design 4h
+Documentation, code clean up and removing warnings 3h 
 
 # All together
 Fix footer, create scroll to top arrow, fix navbar (sticky + design with login / register button) 3h

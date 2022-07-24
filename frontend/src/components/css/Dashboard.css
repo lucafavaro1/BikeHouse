@@ -196,3 +196,16 @@
 .dashboard .balance {
   margin-top: 10px;
 }
+
+
+.dashboard #continue {
+  width: auto;
+  text-align: center;
+  background-color: #2e6076;
+  color: white;
+}
+
+.dashboard #continue:hover {
+  background-color: gold;
+  color: black;
+}

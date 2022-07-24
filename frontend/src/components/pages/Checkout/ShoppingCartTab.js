@@ -1,4 +1,4 @@
-//function to laod the shopping cart tab within the checkout page
+//function to render the shopping cart tab within the checkout page
 
 import { Button } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
@@ -62,9 +62,8 @@ export default function ShoppingCartTab({
               id='continue'
               type="button" 
               onClick={() => navigate("/buy")}
-              sx = {{minWidth:300}}
               >
-                Continue Shopping
+                Shop Now
             </Button>
             </div>
           </>
