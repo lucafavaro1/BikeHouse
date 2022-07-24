@@ -5,6 +5,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { React } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { updateCart } from "../../../features/cartSlice";
 import "../../css/Checkout.css";
 import { getInsuranceNameFromValue, insProviders } from "../../globals/GlobalObjects";
@@ -16,6 +17,7 @@ export default function ShoppingCartTab({
   handleNavigate,
 }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //function to handle insurance selection for each item
   const handleInsurance = (productKey, insuranceKey) => {
@@ -53,7 +55,19 @@ export default function ShoppingCartTab({
   return (
     <div className="checkout">
         {products.length === 0 ? (
-          <h1 className="mt-5">Your basket is empty!</h1>
+          <>
+            <h1 className="mt-5">Your basket is empty!</h1>
+            <div id='continue'>
+            <Button 
+              id='continue'
+              type="button" 
+              onClick={() => navigate("/buy")}
+              sx = {{minWidth:300}}
+              >
+                Continue Shopping
+            </Button>
+            </div>
+          </>
         ) : (
           <>
             <Container fixed>

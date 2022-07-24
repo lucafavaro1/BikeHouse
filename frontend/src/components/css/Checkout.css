@@ -8,3 +8,12 @@
   background-color: gold;
   color: black;
 }
+
+.checkout h1 {
+  text-align: center;
+}
+
+#continue {
+  width: auto;
+  text-align: center;
+}
