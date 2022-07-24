@@ -37,7 +37,11 @@ Order summary page 4h
 # Xavier
 User storage, login 3h
 auth and refresh JWT token and login/register 4h
-Separate page for each listing 4h
+Navbar redesign 2h
+Listing page with pictures and description 5h
+Checkout complete with basket, address and payment page 8h
+Bug fixes and minor UI changes 3h
+toast notifications 2h
 
 # Kevin
 Contacts Page 3h
