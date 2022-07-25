@@ -197,10 +197,13 @@
   margin-top: 10px;
 }
 
-
 .dashboard #continue {
   width: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
   text-align: center;
+  align-items: center;
+  justify-content: center;
   background-color: #2e6076;
   color: white;
 }

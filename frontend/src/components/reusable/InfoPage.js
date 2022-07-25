@@ -1,4 +1,4 @@
-// resuable component function to define and style an info page for each listing item 
+// resuable component function to define and style an info page for each listing item
 
 import { CircularProgress } from "@material-ui/core";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -81,14 +81,16 @@ function InfoPage({
     toast.success("Bike added to cart!");
   };
 
+  // get auth token for the user, to be used in all secure axiosjwt requests
+  let authTokens = localStorage.getItem(AUTH_TOKENS);
+  if (authTokens !== null) {
+    authTokens = JSON.parse(authTokens);
+  } else {
+    console.log("Auth Tokens is null");
+  }
+
   // function to boost ad listing
   const payBoost = async (listingId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens !== null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
     await AxiosJWT.post("http://localhost:3001/checkout-boost-specialist/", {
       headers: {
@@ -110,12 +112,6 @@ function InfoPage({
 
   //function to delete listing from listing info page
   const deleteListing = async (listingId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens !== null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
     await AxiosJWT.delete("http://localhost:3001/deleteListing/" + listingId, {
       headers: {
@@ -134,12 +130,6 @@ function InfoPage({
 
   //delete bike from listing info page
   const deleteBike = async (bikeId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
     await AxiosJWT.delete("http://localhost:3001/deleteBike/" + bikeId, {
       headers: {

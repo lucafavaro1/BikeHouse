@@ -40,6 +40,14 @@ function SellBike() {
 
   const [validated, setValidated] = useState(false);
 
+  // get auth token for the user, to be used in all secure axiosjwt requests
+  let authTokens = localStorage.getItem(AUTH_TOKENS);
+  if (authTokens != null) {
+    authTokens = JSON.parse(authTokens);
+  } else {
+    console.log("Auth Tokens is null");
+  }
+
   //function to handle form submit on first page
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -54,13 +62,8 @@ function SellBike() {
 
   //function to handle payment for ad boosting
   const payBoost = async (listingId, bikeId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
+
     await AxiosJWT.post("http://localhost:3001/checkout-boost-specialist/", {
       headers: {
         authorization: "Bearer " + authTokens.accessToken,
@@ -88,12 +91,6 @@ function SellBike() {
 
   //function to handle image uploads for new bike
   const uploadImages = () => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     AxiosJWT.post(`http://localhost:3001/image-upload`, {
       headers: {
         authorization: "Bearer " + authTokens.accessToken,
@@ -116,12 +113,6 @@ function SellBike() {
 
   //function to submit an item on finishing sell your bike form
   const submitItem = async () => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
 
     await AxiosJWT.post("http://localhost:3001/createItem", {
@@ -159,10 +150,6 @@ function SellBike() {
 
   //function to create a listing
   const createListing = async (itemId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    }
     setIsLoading(true);
 
     AxiosJWT.post("http://localhost:3001/createListing", {

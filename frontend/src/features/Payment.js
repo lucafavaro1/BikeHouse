@@ -8,15 +8,16 @@ import AxiosJWT from "../components/utils/AxiosJWT";
 function Payment() {
   const navigate = useNavigate();
 
+  // get auth token for the user, to be used in all secure axiosjwt requests
+  let authTokens = localStorage.getItem(AUTH_TOKENS);
+  if (authTokens !== null) {
+    authTokens = JSON.parse(authTokens);
+  } else {
+    console.log("Auth Tokens is null");
+  }
+
   //function to delete item in DB if payment failed
   const deleteItemsDB = async (bikeId, listingId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens !== null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
-
     await AxiosJWT.delete("http://localhost:3001/deleteListing/" + listingId, {
       headers: {
         authorization: "Bearer " + authTokens.accessToken,
@@ -40,12 +41,6 @@ function Payment() {
 
   //function to delete order if payment failed
   const deleteOrder = async (orderId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens !== null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     await AxiosJWT.delete("http://localhost:3001/deleteOrder/" + orderId, {
       headers: {
         authorization: "Bearer " + authTokens.accessToken,
@@ -62,12 +57,6 @@ function Payment() {
 
   //function to modify listing on ad boosting payment success
   const modifyListing = async (listingId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens !== null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     await AxiosJWT.post("http://localhost:3001/modifyListing/", {
       headers: {
         authorization: "Bearer " + authTokens.accessToken,

@@ -17,14 +17,16 @@ function PaymentOptionsPage({
 }) {
   // create a Box for the payment options in material-ui with a radio button to select the payment method
 
+  // get auth token for the user, to be used in all secure axiosjwt requests
+  let authTokens = localStorage.getItem(AUTH_TOKENS);
+  if (authTokens != null) {
+    authTokens = JSON.parse(authTokens);
+  } else {
+    console.log("Auth Tokens is null");
+  }
+
   //function to trigger payment
   const payBasket = async (orderId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     await AxiosJWT.post("http://localhost:3001/checkout-basket/", {
       headers: {
         authorization: "Bearer " + authTokens.accessToken,
@@ -43,13 +45,6 @@ function PaymentOptionsPage({
 
   //function to create an order item and call payment trigger
   const createOrder = async () => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
-
     let listingsFromTheCarts = [];
     let accessoriesFromTheCarts = [];
 

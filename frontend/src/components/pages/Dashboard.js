@@ -9,7 +9,14 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import "../css/Dashboard.css";
-import { Button, CardContent, CardMedia, Divider, Grid, Toolbar } from "@mui/material";
+import {
+  Button,
+  CardContent,
+  CardMedia,
+  Divider,
+  Grid,
+  Toolbar,
+} from "@mui/material";
 import rocketIcon from "../pictures/rocket.png";
 import underVerificationIcon from "../pictures/under_verification.png";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -38,9 +45,9 @@ import moment from "moment";
 import Stars from "react-stars-display";
 import { removeAllElementsFromTheCart } from "../../features/cartSlice";
 import AxiosJWT from "../utils/AxiosJWT";
-import emailImg from '../pictures/email.png';
+import emailImg from "../pictures/email.png";
 import phoneImg from "../pictures/phone.png";
-import formImg from  "../pictures/form.png";
+import formImg from "../pictures/form.png";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -112,6 +119,14 @@ function Dashboard() {
     setIndex(selectedIndex);
   };
 
+  // get auth token for the user, to be used in all secure axiosjwt requests
+  let authTokens = localStorage.getItem(AUTH_TOKENS);
+  if (authTokens != null) {
+    authTokens = JSON.parse(authTokens);
+  } else {
+    console.log("Auth Tokens is null");
+  }
+
   useEffect(() => {
     getListings();
     getOrdersByBuyer();
@@ -145,12 +160,6 @@ function Dashboard() {
 
   //get orders from DB for particuar buyer to display in dashboard
   async function getOrdersByBuyer() {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
     try {
       const response = await AxiosJWT.get(
@@ -172,12 +181,6 @@ function Dashboard() {
 
   //function to change password from dashboard
   function changePassword() {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
     // send to backend the old + password
     AxiosJWT.post(`http://localhost:3001/updatePassword`, {
@@ -353,12 +356,6 @@ function Dashboard() {
 
   //handle verification submit
   const submitVerification = async () => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
     await AxiosJWT.post("http://localhost:3001/userVerification", {
       headers: {
@@ -419,12 +416,6 @@ function Dashboard() {
 
   //function to reset balance on seller account
   const zeroCredit = async (userId) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
     try {
       await AxiosJWT.post("http://localhost:3001/zeroCredit/", {
@@ -500,7 +491,8 @@ function Dashboard() {
                   <Tab label="Orders History" />
                   <Tab label="Support" />
                   <Tab hidden={verifyTab} label="Verification" />
-                  <Tab hidden={passTab} label="Change Password" />
+                  <Tab hidden={passTab} label="Change Password" />ù
+                  <Tab disabled></Tab>
                 </Tabs>
                 <Toolbar
                   sx={{ m: 2, p: 2, borderBottom: 3, borderColor: "divider" }}
@@ -527,6 +519,7 @@ function Dashboard() {
                 >
                   Sign Out
                 </Button>
+                <Toolbar sx={{ m: 2, p: 2 }} />
               </Stack>
             </Col>
             <Divider />
@@ -571,7 +564,7 @@ function Dashboard() {
                           onClick={() => {
                             setValue(5);
                             setErrorMessage("");
-                            setPassTab(false)
+                            setPassTab(false);
                           }}
                           sx={{
                             color: "white",
@@ -591,7 +584,6 @@ function Dashboard() {
                     </div>
                   </Col>
                   <Col>
-                    {console.log(user)}
                     {user.averageRating.avg.$numberDecimal == 0 ? (
                       <p>
                         <u>
@@ -662,7 +654,7 @@ function Dashboard() {
                               }
                               onClick={() => {
                                 setValue(4);
-                                setVerifyTab(false)
+                                setVerifyTab(false);
                               }}
                               sx={{
                                 mx: "auto",
@@ -793,12 +785,12 @@ function Dashboard() {
                   <div>
                     <h3>Your orders history is empty! </h3>
                     <p> After placing the first order you will find it here.</p>
-                    <Button 
-                      id='continue'
-                      type="button" 
+                    <Button
+                      id="continue"
+                      type="button"
                       onClick={() => navigate("/buy")}
-                      >
-                        Shop Now
+                    >
+                      Shop Now
                     </Button>
                   </div>
                 ) : (
@@ -849,7 +841,7 @@ function Dashboard() {
                                   onClick={() =>
                                     navigate("/order/" + order._id)
                                   }
-                                  >
+                                >
                                   More details
                                 </Button>
                               </div>
@@ -867,28 +859,25 @@ function Dashboard() {
                   <Grid item xs={12} sm={6} md={7} lg={12}>
                     <Grid container>
                       <Grid item xs={4}>
-                          <Card>
-                            <CardMedia
-                              component="img"
-                              alt="email"
-                              height="140"
-                              image={emailImg}
-                            />
-                            <CardContent>
-                              <Typography
-                                color="textSecondary"
-                                gutterBottom
-                              >
-                                Email                              
-                              </Typography>
-                              <Typography variant="h7" component="div">
-                                <a href="mailto:bikehouse.feedback@gmail.com">
-                                  bikehouse.feedback@gmail.com
-                                </a>
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </Grid>
+                        <Card>
+                          <CardMedia
+                            component="img"
+                            alt="email"
+                            height="140"
+                            image={emailImg}
+                          />
+                          <CardContent>
+                            <Typography color="textSecondary" gutterBottom>
+                              Email
+                            </Typography>
+                            <Typography variant="h7" component="div">
+                              <a href="mailto:bikehouse.feedback@gmail.com">
+                                bikehouse.feedback@gmail.com
+                              </a>
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
                       <Grid item xs={4}>
                         <Card>
                           <CardMedia
@@ -898,11 +887,8 @@ function Dashboard() {
                             image={phoneImg}
                           />
                           <CardContent>
-                            <Typography
-                              color="textSecondary"
-                              gutterBottom
-                            >
-                              Telephone                         
+                            <Typography color="textSecondary" gutterBottom>
+                              Telephone
                             </Typography>
                             <Typography variant="h7" component="div">
                               <a href="tel: +49 1234 567890">+49 1234 567890</a>
@@ -919,11 +905,8 @@ function Dashboard() {
                             image={formImg}
                           />
                           <CardContent>
-                            <Typography
-                              color="textSecondary"
-                              gutterBottom
-                            >
-                              Form                              
+                            <Typography color="textSecondary" gutterBottom>
+                              Form
                             </Typography>
                             <Typography variant="h7" component="div">
                               <a href="/contact">Contact Form here </a>
@@ -933,9 +916,7 @@ function Dashboard() {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid>
-
-                  </Grid>
+                  <Grid></Grid>
                 </Grid>
               </TabPanel>
               <TabPanel value={value} index={4}>

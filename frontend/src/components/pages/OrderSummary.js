@@ -32,6 +32,14 @@ function OrderSummary(props) {
   const [currentSeller, setCurrentSeller] = useState(""); // for feedbacks
   const [isLoading, setIsLoading] = useState(true);
 
+  // get auth token for the user, to be used in all secure axiosjwt requests
+  let authTokens = localStorage.getItem(AUTH_TOKENS);
+  if (authTokens != null) {
+    authTokens = JSON.parse(authTokens);
+  } else {
+    console.log("Auth Tokens is null");
+  }
+
   const handleClose = () => {
     setShow(false);
   };
@@ -44,12 +52,6 @@ function OrderSummary(props) {
 
   /** Returns an order instance where foreign keys are replaced with actual objects */
   async function getOrder() {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     try {
       setIsLoading(true);
       const response = await AxiosJWT.get("http://localhost:3001/order/" + id, {
@@ -170,12 +172,6 @@ function OrderSummary(props) {
 
   //function to set the listing to inactive after a confirmed payment
   const listingToInactive = async (allListings) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     setIsLoading(true);
     await Promise.all(
       allListings.map(async (listing) => {
@@ -197,12 +193,6 @@ function OrderSummary(props) {
 
   //function to move credit to seller after successful purchase
   const moveCredit = async (order) => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     const allListingObjects = order.listingObjects;
     setIsLoading(true);
     // use a special Promise map function to avoid parallelism
@@ -256,12 +246,6 @@ function OrderSummary(props) {
 
   //function to allow buyer to submit ratings for the seller and the listing
   const submitRating = async () => {
-    let authTokens = localStorage.getItem(AUTH_TOKENS);
-    if (authTokens != null) {
-      authTokens = JSON.parse(authTokens);
-    } else {
-      console.log("Auth Tokens is null");
-    }
     try {
       await AxiosJWT.post("http://localhost:3001/updateUser/", {
         headers: {

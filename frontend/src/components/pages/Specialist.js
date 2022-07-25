@@ -43,6 +43,7 @@ const steps = [
 
 //function to trigger payment
 const paySpecialist = async () => {
+  // get auth token for the user, to be used in all secure axiosjwt requests
   let authTokens = localStorage.getItem(AUTH_TOKENS);
   if (authTokens != null) {
     authTokens = JSON.parse(authTokens);
