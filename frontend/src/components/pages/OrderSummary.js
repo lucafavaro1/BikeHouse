@@ -237,7 +237,7 @@ function OrderSummary(props) {
         order_totalamount: data.totalAmount,
       })
       .then(
-        (result) => {},
+        (result) => { },
         (error) => {
           alert("An error occurred, Please try again", error.text);
         }
@@ -397,7 +397,9 @@ function OrderSummary(props) {
 
                   <p className="orderInfoText mt-4 mb-0 text-right">
                     <strong>Total amount: </strong>
-                    &euro; {order.totalAmount}
+                    &euro; {new Intl.NumberFormat("en-IN", {
+                      maximumFractionDigits: 2,
+                    }).format(order.totalAmount)}
                   </p>
                 </div>
                 <div className="col-1 m-0 p-0">

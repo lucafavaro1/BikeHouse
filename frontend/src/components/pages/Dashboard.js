@@ -264,7 +264,9 @@ function Dashboard() {
                   {moment(order.createdAt).format("DD/MM/YYYY")}
                 </div>
                 <Badge bg="warning" pill>
-                  {order.totalAmount} €
+                  {new Intl.NumberFormat("en-IN", {
+                    maximumFractionDigits: 2,
+                  }).format(order.totalAmount)} €
                 </Badge>
               </ListGroup.Item>
             ))}
@@ -288,7 +290,7 @@ function Dashboard() {
         )}
 
         {listing.bike.conditionToBeVerified ||
-        listing.bike.frameToBeVerified ? (
+          listing.bike.frameToBeVerified ? (
           <div>
             <img
               src={underVerificationIcon}
