@@ -50,7 +50,7 @@ function Listings() {
     "Downhill",
     "Gravel",
     "Folding",
-    "E-bike",
+    "E-Bike",
     "Classic",
     "Others",
   ];
@@ -167,6 +167,7 @@ function Listings() {
     activeSortingCriterion.current = "default";
     setCurrentPageNum(0);
     lastPageNum.current = Infinity;
+    setActiveCategoryBtn("")
     getListings(0, true, false, true);
     setIsFiltered(false);
   };
