@@ -143,7 +143,7 @@ const Navbar = () => {
               <ShoppingCartIcon
                 sx={{
                   my: 1,
-                  mx: 0.5,
+                  ml: 0.5,
                   color: "white",
                   display: "block",
                   fontSize: "big",
